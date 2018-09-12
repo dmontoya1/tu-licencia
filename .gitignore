@@ -1,0 +1,7 @@
+.vscode/settings.json
+*.sqlite3
+*.pyc
+.DS_Store
+launch.json
+media
+.vscode
