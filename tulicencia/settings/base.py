@@ -23,24 +23,20 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
-    # 'rest_framework_docs',
     # 'rest_auth',
     # 'allauth',
     # 'allauth.account',
     # 'allauth.socialaccount',
-    # 'fcm_django',
-    # 'raven.contrib.django.raven_compat',
     # 'rest_auth.registration',
-    # 'storages',
 ]
 
 PROJECT_APPS = [
     'api',
+    'companies',
     'manager',
     # 'reports',
-    # 'routes',
-    # 'schools',
     'users',
+    'vehicles'
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + PROJECT_APPS

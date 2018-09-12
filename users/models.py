@@ -42,7 +42,7 @@ class User(AbstractUser):
     )
     user_type = models.CharField(
         "Tipo Usuario",
-        max_length=2,
+        max_length=3,
         choices=USER_TYPE
     )
     document_type = models.CharField(
@@ -98,7 +98,7 @@ class User(AbstractUser):
     #     help_text="Centro de Reconocimiento de Conductores que adminsitra el usuario",
     #     verbose_name="CRC del usuario"
     # )
-    token = models.UUIDField(default=uuid.uuid4, editable=False)
+
 
     class Meta:
         verbose_name = "Usuario"

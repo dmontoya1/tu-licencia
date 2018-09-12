@@ -6,5 +6,5 @@ from django.apps import AppConfig
 
 class ManagerConfig(AppConfig):
     name = 'manager'
-    verbose_name = 'Manager'
+    verbose_name = 'Administrador'
     icon = '<i class="material-icons">build</i>'

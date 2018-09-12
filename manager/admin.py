@@ -22,10 +22,15 @@ class StateAdmin(admin.ModelAdmin):
         'name', 'code',
     )
 
-    def save_model(self, request, obj, form, change):
-        messages.set_level(request, messages.WARNING)
-        messages.warning(request, 'Departamento grabado exitosamente')
-        super(StateAdmin, self).save_model(request, obj, form, change)
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 
 @admin.register(City)
@@ -43,10 +48,15 @@ class CityAdmin(admin.ModelAdmin):
         'name', 'state', 'code'
     )
 
-    def save_model(self, request, obj, form, change):
-        messages.set_level(request, messages.WARNING)
-        messages.warning(request, 'Ciudad grabado exitosamente')
-        super(CityAdmin, self).save_model(request, obj, form, change)
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 
 @admin.register(Police)
@@ -70,8 +80,3 @@ class PoliceAdmin(admin.ModelAdmin):
             ),
         }),
     )
-
-    def save_model(self, request, obj, form, change):
-        messages.set_level(request, messages.WARNING)
-        messages.warning(request, 'Política grabada exitosamente')
-        super(PoliceAdmin, self).save_model(request, obj, form, change)
