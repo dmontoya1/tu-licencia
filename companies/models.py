@@ -4,7 +4,9 @@ from __future__ import unicode_literals
 from django.core.exceptions import ValidationError
 from django.db import models
 
+from licences.models import Licence
 from manager.models import State, City
+from vehicles.models import Vehicle
 from .utils import get_upload_to
 
 
@@ -249,4 +251,74 @@ class Schedule(models.Model):
         day_dict = dict((x, y) for x, y in self.DAY_CHOICES)
         return day_dict.get(int(day))
 
+
+class CeaLicence(models.Model):
+    """Guarda las licencias que tiene disponibles 
+    para la enseñanza cada cea
+    """
+
+    cea = models.ForeignKey(
+        Cea,
+        verbose_name="CEA",
+        on_delete=models.CASCADE,
+    )
+    licence = models.ForeignKey(
+        Licence,
+        on_delete=models.CASCADE,
+        verbose_name="Licencias",
+        help_text="Selecciona las licencias disponibles en el CEA"
+    )
+    price = models.CharField(
+        "Precio",
+        max_length=255,
+        help_text="Precio de la licencia nueva")
+    price_recat = models.CharField(
+        "Precio recategorización",
+        max_length=255,
+        help_text="Precio de la licencia para recategorización"
+    )
+
+
+    def __str__(self):
+        return "Licencia %s de %s" % (self.licence, self.cea)
+
+    
+    class Meta:
+        verbose_name = "Licencia de Cea"
+        verbose_name_plural = "Licencias de los Cea"
+
+
+class CeaVehicle(models.Model):
+    """Guarda los vehículos disponibles de cada cea
+    """
+
+    cea = models.ForeignKey(
+        Cea,
+        verbose_name="CEA",
+        on_delete=models.CASCADE,
+    )
+    vehicle = models.ForeignKey(
+        Vehicle,
+        verbose_name = "Vehículo",
+        on_delete=models.CASCADE
+    )
+    badge = models.CharField(
+        "Placa",
+        max_length=7,
+        help_text="ABC 123",
+        unique=True
+    )
+    model = models.CharField(
+        "Modelo",
+        max_length=4,
+        help_text="2008"
+    )
+
+    def __str__(self):
+        return "%s %s del cea %s" % (self.vehicle.brand, self.vehicle.line, self.cea)
+
+    
+    class Meta:
+        verbose_name = "Vehículo del CEA"
+        verbose_name = "Vehículos del CEA"
 

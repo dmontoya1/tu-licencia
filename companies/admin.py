@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
-from .models import Cea, Crc, TransitDepartment, Schedule
+from .models import Cea, Crc, TransitDepartment, Schedule, CeaLicence, CeaVehicle
 
 
 class ScheduleAdmin(admin.StackedInline):
@@ -19,6 +19,20 @@ class ScheduleAdmin(admin.StackedInline):
     )
 
 
+class CeaLicenceAdmin(admin.StackedInline):
+    """
+    """
+
+    model = CeaLicence
+    extra = 1
+
+
+class CeaVehicleAdmin(admin.StackedInline):
+    """
+    """
+    model = CeaVehicle
+    extra = 1
+
 
 @admin.register(Cea)
 class CeaAdmin(admin.ModelAdmin):
@@ -27,7 +41,7 @@ class CeaAdmin(admin.ModelAdmin):
 
     model = Cea
     list_display = ('nit', 'name', 'cellphone')
-    inlines = [ScheduleAdmin,]
+    inlines = [ScheduleAdmin, CeaLicenceAdmin, CeaVehicleAdmin]
 
 
 @admin.register(Crc)

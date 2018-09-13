@@ -33,6 +33,7 @@ THIRD_PARTY_APPS = [
 PROJECT_APPS = [
     'api',
     'companies',
+    'licences',
     'manager',
     # 'reports',
     'users',
