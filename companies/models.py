@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 
@@ -22,6 +23,13 @@ class Cea(models.Model):
         "Nit",
         max_length=15,
         help_text="El nit puede llevar el digito de verificación")
+    manager = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        verbose_name="Administrador",
+        blank=True,
+        null=True
+    )
     state = models.ForeignKey(
         State,
         verbose_name="Departamento",
@@ -36,7 +44,7 @@ class Cea(models.Model):
         blank=True,
         null=True
     )
-    address = models.TextField("Dirección")
+    address = models.CharField("Dirección", max_length=255)
     phone = models.CharField(
         "Teléfono Fijo",
         max_length=7,
@@ -75,9 +83,25 @@ class Crc(models.Model):
     nit = models.CharField(
         "Nit",
         max_length=15,
-        help_text="El nit puede llevar el digito de verificación")
-    price = models.CharField("Precio del servicio", max_length=7)
-    price_double = models.CharField("Precio del servicio doble", max_length=7)
+        help_text="El nit puede llevar el digito de verificación"
+    )
+    manager = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        verbose_name="Administrador",
+        blank=True,
+        null=True
+    )
+    price = models.CharField(
+        "Precio del servicio",
+        max_length=7,
+        help_text="Precio del servicio para una sola licencia"
+    )
+    price_double = models.CharField(
+        "Precio del servicio doble",
+        max_length=7,
+        help_text="Precio del servicio para 2 licencias"
+    )
     state = models.ForeignKey(
         State,
         verbose_name="Departamento",
@@ -92,7 +116,7 @@ class Crc(models.Model):
         blank=True,
         null=True
     )
-    address = models.TextField("Dirección")
+    address = models.CharField("Dirección", max_length=255)
     phone = models.CharField(
         "Teléfono Fijo",
         max_length=7,
@@ -146,7 +170,7 @@ class TransitDepartment(models.Model):
         blank=True,
         null=True
     )
-    address = models.TextField("Dirección")
+    address = models.CharField("Dirección", max_length=255)
     phone = models.CharField(
         "Teléfono Fijo",
         max_length=7,
@@ -174,6 +198,53 @@ class TransitDepartment(models.Model):
         verbose_name_plural = "Departamentos de Tránsito"
 
 
+class TuLicencia(models.Model):
+    """Administrador de los puntos de TuLicencia
+    """
+
+    address = models.CharField("Dirección", max_length=255)
+    phone = models.CharField(
+        "Teléfono fijo",
+        max_length=7,
+        help_text="Opcional. Sin indicativo de área",
+        blank=True,
+        null=True
+    )
+    cellphone = models.CharField(
+        "Celular",
+        max_length=10,
+    )
+    express_user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        verbose_name="Usuario Express",
+        blank=True,
+        null=True
+    )
+    state = models.ForeignKey(
+        State,
+        verbose_name="Departamento",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
+    city = models.ForeignKey(
+        City,
+        verbose_name="Ciudad",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
+
+    def __str__(self):
+        return "Punto Tu licencia en %s - %s (%s)" % (self.state, self.city, self.address)
+
+
+    class Meta:
+        verbose_name = "Punto TuLicencia"
+        verbose_name_plural = "Puntos TuLicencia"
+
+
 class Schedule(models.Model):
     """Guarda los horarios de disponibilidad de un establecimiento.
     El campo 'day' corresponde la número del día de la semana según el
@@ -181,13 +252,13 @@ class Schedule(models.Model):
     """
 
     DAY_CHOICES = (
-		(1, 'Lunes'),
-		(2, 'Martes'),
-		(3, 'Miercoles'),
-		(4, 'Jueves'),
-		(5, 'Viernes'),
-		(6, 'Sábado'),
-		(7, 'Domingo'),
+		("1", 'Lunes'),
+		("2", 'Martes'),
+		("3", 'Miercoles'),
+		("4", 'Jueves'),
+		("5", 'Viernes'),
+		("6", 'Sábado'),
+		("7", 'Domingo'),
 	)
 
     JOURNEY = (
@@ -238,7 +309,7 @@ class Schedule(models.Model):
         return "Horario de %s " %(self.transit.name)
 
     def clean(self):
-        if self.cea and self.crc and self.transit:
+        if (self.cea and self.crc ) or (self.cea and self.transit) or (self.crc and self.transit):
             raise ValidationError('El horario no puede pertenecer a varias compañías a la vez. Selecciona solamente una')
         if not self.cea and not self.crc and not self.transit:
             raise ValidationError('Selecciona una compañía para estos horarios')
@@ -277,7 +348,9 @@ class CeaLicence(models.Model):
         max_length=255,
         help_text="Precio de la licencia para recategorización"
     )
-
+    theoretical_classes = models.IntegerField("Número de clases teóricas")
+    practical_classes = models.IntegerField("Número de clases prácticas")
+    mechanical_classes = models.IntegerField("Número de clases de Taller")
 
     def __str__(self):
         return "Licencia %s de %s" % (self.licence, self.cea)

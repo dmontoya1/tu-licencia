@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.contrib import admin
 
-from .models import Cea, Crc, TransitDepartment, Schedule, CeaLicence, CeaVehicle
+from users.models import User
+from .models import Cea, Crc, TransitDepartment, Schedule, CeaLicence, CeaVehicle, TuLicencia
 
 
 class ScheduleAdmin(admin.StackedInline):
     
     model = Schedule
-    extra = 0
+    extra = 1
     fieldsets = (
         (None, {
             'fields': (
@@ -40,8 +42,33 @@ class CeaAdmin(admin.ModelAdmin):
     """
 
     model = Cea
-    list_display = ('nit', 'name', 'cellphone')
+    list_display = ('nit', 'name', 'manager', 'cellphone')
     inlines = [ScheduleAdmin, CeaLicenceAdmin, CeaVehicleAdmin]
+
+    class Media:
+        js = (
+            'js/admin/utils_admin.js',
+        )
+
+    def get_queryset(self, request):
+        """
+        Función para reemplazar el queryset por defecto de django
+        si el request.user es un usuario CEA, entonces solo muestra la
+        empresa a la que pertenece
+        """
+        query = super(CeaAdmin, self).get_queryset(request)
+        if request.user.user_type == User.MANAGER:
+            try:
+                return query.filter(manager=request.user)
+            except Exception as e:
+                print (e)
+        else:
+            return query.all()
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "manager":
+            kwargs["queryset"] = User.objects.filter(user_type='MAN', is_active=True).order_by('document_id')
+        return super(CeaAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
 @admin.register(Crc)
@@ -53,6 +80,32 @@ class CrcAdmin(admin.ModelAdmin):
     list_display = ('nit', 'name', 'cellphone')
     inlines = [ScheduleAdmin,]
 
+    class Media:
+        js = (
+            'js/admin/utils_admin.js',
+        )
+
+    
+    def get_queryset(self, request):
+        """
+        Función para reemplazar el queryset por defecto de django
+        si el request.user es un usuario CEA, entonces solo muestra la
+        empresa a la que pertenece
+        """
+        query = super(CrcAdmin, self).get_queryset(request)
+        if request.user.user_type == User.MANAGER:
+            try:
+                return query.filter(manager=request.user)
+            except Exception as e:
+                print (e)
+        else:
+            return query.all()
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "manager":
+            kwargs["queryset"] = User.objects.filter(user_type='MAN', is_active=True).order_by('document_id')
+        return super(CrcAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
 
 @admin.register(TransitDepartment)
 class TransitDepartmentAdmin(admin.ModelAdmin):
@@ -62,3 +115,42 @@ class TransitDepartmentAdmin(admin.ModelAdmin):
     model = TransitDepartment
     list_display = ('nit', 'name', 'cellphone')
     inlines = [ScheduleAdmin,]
+
+    class Media:
+        js = (
+            'js/admin/utils_admin.js',
+        )
+
+
+@admin.register(TuLicencia)
+class TuLicenciaAdmin(admin.ModelAdmin):
+    """
+    """
+
+    model = TuLicencia
+    list_display = ('address', 'city', 'state')
+
+    class Media:
+        js = (
+            'js/admin/utils_admin.js',
+        )
+
+    def get_queryset(self, request):
+        """
+        Función para reemplazar el queryset por defecto de django
+        si el request.user es un usuario CEA, entonces solo muestra la
+        empresa a la que pertenece
+        """
+        query = super(TuLicenciaAdmin, self).get_queryset(request)
+        if request.user.user_type == User.EXPRESS_USER:
+            try:
+                return query.filter(manager=request.user)
+            except Exception as e:
+                print (e)
+        else:
+            return query.all()
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == "express_user":
+            kwargs["queryset"] = User.objects.filter(user_type='EXU', is_active=True).order_by('document_id')
+        return super(TuLicenciaAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)

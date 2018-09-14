@@ -10,3 +10,11 @@ DATABASES = {
         'NAME': 'tulicencia',
     }
 }
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_DIR, "static")
+]
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = 'media'

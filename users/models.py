@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import uuid
 from django.contrib.auth.models import AbstractUser
 from django.contrib.sessions.models import Session
+from django.core.exceptions import ValidationError
 from django.db import models
 
 from manager.models import City, State
@@ -17,8 +18,7 @@ class User(AbstractUser):
     CEDULA_CIUDADANIA = 'CC'
     CEDULA_EXTRANJERA = 'CE'
     TARJETA_IDENTIDAD = 'TI'
-    CEA = 'CEA'
-    CRC = 'CRC'
+    MANAGER = 'MAN'
     CLIENTE = 'CLI'
     EXPRESS_USER = 'EXU'
     DOCUMENT_TYPE = (
@@ -27,8 +27,7 @@ class User(AbstractUser):
         (TARJETA_IDENTIDAD, 'Tarjeta de identidad'),
     )
     USER_TYPE = (
-        (CEA, 'Centro de Enseñanaza Automovilísitico'),
-        (CRC, 'Centro de Reconocimiento de Conductores'),
+        (MANAGER, 'Administrador de CEA o CRC'),
         (CLIENTE, 'Cliente'),
         (EXPRESS_USER, 'Usuario express')
     )
@@ -82,28 +81,10 @@ class User(AbstractUser):
         blank=True,
         null=True
     )
-    # cea = models.ForeignKey(
-    #     Cea,
-    #     null=True,
-    #     blank=True,
-    #     related_name="related_ceas",
-    #     help_text="Centro de Enseñanaza Automovilísitica que adminsitra el usuario",
-    #     verbose_name="CEA del usuario"
-    # )
-    # crc = models.ForeignKey(
-    #     crc,
-    #     null=True,
-    #     blank=True,
-    #     related_name="related_crcs",
-    #     help_text="Centro de Reconocimiento de Conductores que adminsitra el usuario",
-    #     verbose_name="CRC del usuario"
-    # )
-
 
     class Meta:
         verbose_name = "Usuario"
         verbose_name_plural = "Usuarios"
-        # unique_together = (("document_id", "cea", "email"), ("document_id", "crc", "email"), )
 
     def __str__(self):
         return "%s %s (%s)" % (self.first_name, self.last_name, self.document_id)

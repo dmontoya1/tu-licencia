@@ -35,11 +35,14 @@ class UserAdmin(django_user_admin):
                                                 'document_id')}),
         (_('Permisos'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                      'groups')}),
-        # (_('Información de compañía'),
-        #  {'fields': ('cea', 'crc',)})
         (_('Información Adicional'),
          {'fields': ('phone_number', 'cellphone', 'state', 'city', 'address',)})
     )
+
+    class Media:
+        js = (
+            'js/admin/utils_admin.js',
+        )
 
     def get_queryset(self, request):
         """
