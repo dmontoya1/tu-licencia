@@ -68,15 +68,15 @@ class PoliceAdmin(admin.ModelAdmin):
     model = Police
     icon = '<i class="material-icons">account_balance</i>'
     search_fields = (
-        'name', 'police_type'
+        'police_type',
     )
     list_display = (
-        'name', 'police_type'
+        'police_type',
     )
     fieldsets = (
         (None, {
             'fields': (
-                'police_type', 'name', 'text'
+                'police_type', 'text'
             ),
         }),
     )

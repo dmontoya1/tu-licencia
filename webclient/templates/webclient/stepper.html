@@ -1,0 +1,386 @@
+{% load static %}
+{% load custom_range %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Tu Licencia</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+        <!-- <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"> -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'assets/font-awesome/css/font-awesome.min.css' %}">
+		<link rel="stylesheet" href="{% static 'assets/css/form-elements.css' %}">
+        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Favicon and touch icons -->
+        <link rel="shortcut icon" href="{% static 'assets/ico/favicon.png' %}">
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+    </head>
+
+    <body>
+
+		<!-- Top menu -->
+		<nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
+			<div class="container">
+				<!-- <div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html">Tu Licencia</a>
+				</div> -->
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<!-- <div class="collapse navbar-collapse" id="top-navbar-1">
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<span class="li-text">
+								Put some text or
+							</span> 
+							<a href="#"><strong>links</strong></a> 
+							<span class="li-text">
+								here, or some icons: 
+							</span> 
+							<span class="li-social">
+								<a href="https://www.facebook.com/pages/Azmindcom/196582707093191" target="_blank"><i class="fa fa-facebook"></i></a> 
+								<a href="https://twitter.com/anli_zaimi" target="_blank"><i class="fa fa-twitter"></i></a> 
+								<a href="https://plus.google.com/+AnliZaimi_azmind" target="_blank"><i class="fa fa-google-plus"></i></a> 
+								<a href="https://github.com/AZMIND" target="_blank"><i class="fa fa-github"></i></a>
+							</span>
+						</li>
+					</ul>
+				</div> -->
+			</div>
+		</nav>
+
+        <!-- Top content -->
+        <div class="top-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 form-box">
+                    	<form role="form" action="" method="post" class="f1">
+
+                    		<h3>Register To Our App</h3>
+                    		<p>Fill in the form to get instant access</p>
+                    		<div class="f1-steps">
+                    			<div class="f1-progress">
+                    			    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="6" style="width: 16.66%;"></div>
+                    			</div>
+                    			<div class="f1-step active">
+                    				<div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                    				<p>Datos Usuario</p>
+                    			</div>
+                    			<div class="f1-step">
+                    				<div class="f1-step-icon"><i class="fa fa-key"></i></div>
+                    				<p>Tipo de trámite</p>
+                    			</div>
+                    		    <div class="f1-step">
+                    				<div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
+                    				<p>Seleccionar CRC</p>
+                                </div>
+                                <div class="f1-step">
+                    				<div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                    				<p>Seleccionar CEA</p>
+                    			</div>
+                    			<div class="f1-step">
+                    				<div class="f1-step-icon"><i class="fa fa-key"></i></div>
+                    				<p>Organismo de Transporte</p>
+                    			</div>
+                    		    <div class="f1-step">
+                    				<div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
+                    				<p>Datos finales usuario</p>
+                    			</div>
+                    		</div>
+                    		
+                    		<fieldset>
+                                <div class="form-group">
+                                    <div class="title">
+                                        <span>Selecciona tu género</span>
+                                    </div>
+                                    <ul class="gender-choice">
+                                        <li>
+                                          <label for="cb1"><img src="{% static 'images/icon-men.png' %}" /></label>
+                                        </li>
+                                        <li>
+                                          <label for="cb2"><img src="{% static 'images/icon-women.png' %}" /></label>
+                                        </li>
+                                      </ul>
+                                </div>
+                                <div class="form-group">
+                                    <div class="title">
+                                        <span>Fecha de nacimiento</span>
+                                    </div>
+                                    <ul class="select-birth">
+                                        <li>
+                                            <label for="day">DD</label>
+                                            <select class="custom-select birth-select custom-select-lg mb-3" id="day">
+                                                {% for value in 1|range:32 %}
+                                                    <option value="{{ value }}">{{ value }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </li>
+                                        <li>
+                                            <label for="month">MM</label>
+                                            <select class="custom-select birth-select custom-select-lg mb-3" id="month">
+                                                {% for value in 1|range:13 %}
+                                                    <option value="{{ value }}">{{ value }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </li>
+                                        <li>
+                                            <label for="year">AAAA</label>
+                                            <select class="custom-select birth-select custom-select-lg mb-3" id="year">
+                                                {% for value in 1905|range:2019 %}
+                                                    {% if value == 2018 %}
+                                                        <option selected value="{{value}}">{{value}}</option>
+                                                    {% else %}                                               
+                                                        <option value="{{ value }}">{{ value }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="location">
+                                        <div class="container">
+                                            <div class="row justify-content-center">
+                                                <div class="col-10">
+                                                    <div class="title">
+                                                        <span>Seleccionar ubicación</span>
+                                                    </div>
+                                                    <ul class="select-location">
+                                                        <li>
+                                                            <label for="states">Departamento</label><br>
+                                                            <select class="custom-select location-select mb-3" id="states">
+                                                                
+                                                            </select>
+                                                        </li>
+                                                        <li>
+                                                            <label for="cities">Ciudad</label><br>
+                                                            <select class="custom-select location-select mb-3" id="cities">
+                                                                <option value="" disabled selected>Selecciona primero un departamento</option>
+                                                            </select>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-4">
+                                            <div class="g-recaptcha" data-sitekey="6LfhwHAUAAAAACJTEgtNR5HJAmE4zsf3KxifbVu2"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="f1-buttons">
+                                    <button type="button" class="btn btn-next">Next</button>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <h4>Tipo de Trámite:</h4>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-email">Email</label>
+                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-password">Password</label>
+                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-repeat-password">Repeat password</label>
+                                    <input type="password" name="f1-repeat-password" placeholder="Repeat password..." 
+                                                        class="f1-repeat-password form-control" id="f1-repeat-password">
+                                </div>
+                                <div class="f1-buttons">
+                                    <button type="button" class="btn btn-previous">Previous</button>
+                                    <button type="button" class="btn btn-next">Next</button>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <h4>Tipo de Trámite:</h4>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-email">Email</label>
+                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-password">Password</label>
+                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-repeat-password">Repeat password</label>
+                                    <input type="password" name="f1-repeat-password" placeholder="Repeat password..." 
+                                                        class="f1-repeat-password form-control" id="f1-repeat-password">
+                                </div>
+                                <div class="f1-buttons">
+                                    <button type="button" class="btn btn-previous">Previous</button>
+                                    <button type="button" class="btn btn-next">Next</button>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <h4>Tipo de Trámite:</h4>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-email">Email</label>
+                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-password">Password</label>
+                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-repeat-password">Repeat password</label>
+                                    <input type="password" name="f1-repeat-password" placeholder="Repeat password..." 
+                                                        class="f1-repeat-password form-control" id="f1-repeat-password">
+                                </div>
+                                <div class="f1-buttons">
+                                    <button type="button" class="btn btn-previous">Previous</button>
+                                    <button type="button" class="btn btn-next">Next</button>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <h4>Tipo de Trámite:</h4>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-email">Email</label>
+                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-password">Password</label>
+                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-repeat-password">Repeat password</label>
+                                    <input type="password" name="f1-repeat-password" placeholder="Repeat password..." 
+                                                        class="f1-repeat-password form-control" id="f1-repeat-password">
+                                </div>
+                                <div class="f1-buttons">
+                                    <button type="button" class="btn btn-previous">Previous</button>
+                                    <button type="button" class="btn btn-next">Next</button>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <h4>Social media profiles:</h4>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-facebook">Facebook</label>
+                                    <input type="text" name="f1-facebook" placeholder="Facebook..." class="f1-facebook form-control" id="f1-facebook">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-twitter">Twitter</label>
+                                    <input type="text" name="f1-twitter" placeholder="Twitter..." class="f1-twitter form-control" id="f1-twitter">
+                                </div>
+                                <div class="form-group">
+                                    <label class="sr-only" for="f1-google-plus">Google plus</label>
+                                    <input type="text" name="f1-google-plus" placeholder="Google plus..." class="f1-google-plus form-control" id="f1-google-plus">
+                                </div>
+                                <div class="f1-buttons">
+                                    <button type="button" class="btn btn-previous">Previous</button>
+                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                </div>
+                            </fieldset>
+                    	
+                    	</form>
+                    </div>
+                </div>
+                    
+            </div>
+        </div>
+
+
+        <!-- Javascript -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="{% static 'assets/js/jquery.backstretch.min.js' %}"></script>
+        <!-- <script src="{% static 'assets/js/retina-1.1.0.min.js' %}"></script> -->
+        <script src="{% static 'assets/js/scripts.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.imgcheckbox.js' %}"></script>
+        
+        <script>
+            $(".gender-choice img").imgCheckbox({ 
+                "styles": {
+                    "span.imgCheckbox.imgChked img": {
+                        // This property will overwrite the default grayscaling, we need to add it back in
+                        "filter": "blur(5px) grayscale(50%)",
+
+                        // This is just css: remember compatibility
+                        "-webkit-filter": "blur(5px) grayscale(50%)",
+
+                        // Let's change the amount of scaling from the default of "0.8"
+                        "transform": "scale(0.9)"
+                    }
+                }
+            });
+
+            function loadStatesSelect(){
+                $.ajax({
+                    type: "GET",
+                    url:"{% url 'api:manager:states' %}",
+                    success:function(data)
+                    {   
+                        $('select#states').empty()
+                        $(data).each(function(i, v){
+                            $('select#states').append(
+                                `<option value="${v.id}">${v.name}</option>`
+                            )
+                        })
+                        $('select#states').prepend(
+                            `<option value="" selected disabled>Seleccione un Departamento</option>`
+                        )
+                    },
+                });
+                    
+            }
+
+            function loadCitiesSelect(state_id){
+                $.ajax({
+                    type: "GET",
+                    url:"/api/manager/city/"+state_id+"/",
+                    success:function(data)
+                    {   
+                        $('select#cities').empty()
+                        $(data).each(function(i, v){
+                            $('select#cities').append(
+                                `<option value="${v.id}">${v.name}</option>`
+                            )
+                        })
+                        $('select#cities').prepend(
+                            `<option value="" disabled selected>Seleccione una ciudad</option>`
+                        )
+                    },
+                });
+                    
+            }
+
+            loadStatesSelect()
+
+            $('select#states').on('change', function(){
+                selected = $(this)
+                loadCitiesSelect(selected.val())
+            })
+
+
+        </script>
+
+    </body>
+
+</html>

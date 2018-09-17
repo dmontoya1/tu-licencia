@@ -18,7 +18,8 @@ class User(AbstractUser):
     CEDULA_CIUDADANIA = 'CC'
     CEDULA_EXTRANJERA = 'CE'
     TARJETA_IDENTIDAD = 'TI'
-    MANAGER = 'MAN'
+    ADMIN_CEA = 'CEA'
+    ADMIN_CRC = 'CRC'
     CLIENTE = 'CLI'
     EXPRESS_USER = 'EXU'
     DOCUMENT_TYPE = (
@@ -27,7 +28,8 @@ class User(AbstractUser):
         (TARJETA_IDENTIDAD, 'Tarjeta de identidad'),
     )
     USER_TYPE = (
-        (MANAGER, 'Administrador de CEA o CRC'),
+        (ADMIN_CEA, 'Administrador de CEA'),
+        (ADMIN_CRC, 'Administrador de CRC'),
         (CLIENTE, 'Cliente'),
         (EXPRESS_USER, 'Usuario express')
     )

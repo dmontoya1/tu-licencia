@@ -57,7 +57,7 @@ class CeaAdmin(admin.ModelAdmin):
         empresa a la que pertenece
         """
         query = super(CeaAdmin, self).get_queryset(request)
-        if request.user.user_type == User.MANAGER:
+        if request.user.user_type == User.ADMIN_CEA:
             try:
                 return query.filter(manager=request.user)
             except Exception as e:
@@ -67,7 +67,7 @@ class CeaAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "manager":
-            kwargs["queryset"] = User.objects.filter(user_type='MAN', is_active=True).order_by('document_id')
+            kwargs["queryset"] = User.objects.filter(user_type='CEA', is_active=True).order_by('document_id')
         return super(CeaAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 
@@ -93,7 +93,7 @@ class CrcAdmin(admin.ModelAdmin):
         empresa a la que pertenece
         """
         query = super(CrcAdmin, self).get_queryset(request)
-        if request.user.user_type == User.MANAGER:
+        if request.user.user_type == User.ADMIN_CRC:
             try:
                 return query.filter(manager=request.user)
             except Exception as e:
@@ -103,7 +103,7 @@ class CrcAdmin(admin.ModelAdmin):
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "manager":
-            kwargs["queryset"] = User.objects.filter(user_type='MAN', is_active=True).order_by('document_id')
+            kwargs["queryset"] = User.objects.filter(user_type='CRC', is_active=True).order_by('document_id')
         return super(CrcAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 

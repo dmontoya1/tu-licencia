@@ -48,19 +48,20 @@ class Police(models.Model):
 
     TERMINOS_CONDICIONES = 'TC'
     POLITICAS_PRIVACIDAD = 'PP'
+    COOKIES = 'CO'
 
     POLICE_TYPE = (
         (TERMINOS_CONDICIONES, 'Términos y condiciones'),
         (POLITICAS_PRIVACIDAD, 'Políticas de privacidad'),
+        (COOKIES, 'Cookies')
     )
 
-    name = models.CharField("Nombre", max_length=50)
-    text = models.TextField("Texto")
     police_type = models.CharField("Tipo de Política", max_length=2, choices=POLICE_TYPE,
                                    unique=True)
+    text = models.TextField("Texto")
 
     def __str__(self):
-        return "%s" % (self.name)
+        return "%s" % (self.police_type)
 
     class Meta:
         verbose_name = "Politica"
