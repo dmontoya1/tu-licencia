@@ -75,34 +75,36 @@
                     <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 form-box">
                     	<form role="form" action="" method="post" class="f1">
 
-                    		<h3>Register To Our App</h3>
-                    		<p>Fill in the form to get instant access</p>
+                    		<h3>Ingresa tus datos para obtener la licencia</h3>
+                    		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
+                            </p>
                     		<div class="f1-steps">
                     			<div class="f1-progress">
                     			    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="6" style="width: 16.66%;"></div>
                     			</div>
                     			<div class="f1-step active">
-                    				<div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                    				<div class="f1-step-icon"><img src="{% static '/images/1.png' %}" width="23" alt="stepper-1"></div>
                     				<p>Datos Usuario</p>
                     			</div>
                     			<div class="f1-step">
-                    				<div class="f1-step-icon"><i class="fa fa-key"></i></div>
+                    				<div class="f1-step-icon"><img src="{% static '/images/2.png' %}" width="23" alt="stepper-2"></div>
                     				<p>Tipo de trámite</p>
                     			</div>
                     		    <div class="f1-step">
-                    				<div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
+                    				<div class="f1-step-icon"><img src="{% static '/images/3.png' %}" width="23" alt="stepper-3"></div>
                     				<p>Seleccionar CRC</p>
                                 </div>
                                 <div class="f1-step">
-                    				<div class="f1-step-icon"><i class="fa fa-user"></i></div>
+                    				<div class="f1-step-icon"><img src="{% static '/images/4.png' %}" width="23" alt="stepper-4"></div>
                     				<p>Seleccionar CEA</p>
                     			</div>
                     			<div class="f1-step">
-                    				<div class="f1-step-icon"><i class="fa fa-key"></i></div>
+                    				<div class="f1-step-icon"><img src="{% static '/images/5.png' %}" width="23" alt="stepper-5"></div>
                     				<p>Organismo de Transporte</p>
                     			</div>
                     		    <div class="f1-step">
-                    				<div class="f1-step-icon"><i class="fa fa-twitter"></i></div>
+                    				<div class="f1-step-icon"><img src="{% static '/images/6.png' %}" width="23" alt="stepper-6"></div>
                     				<p>Datos finales usuario</p>
                     			</div>
                     		</div>
@@ -114,10 +116,16 @@
                                     </div>
                                     <ul class="gender-choice">
                                         <li>
-                                          <label for="cb1"><img src="{% static 'images/icon-men.png' %}" /></label>
+                                            <label for="cb1">
+                                                <img src="{% static 'images/icon-men.png' %}" /><br>
+                                                <p class="img-text">Hombre</p>
+                                            </label>
                                         </li>
                                         <li>
-                                          <label for="cb2"><img src="{% static 'images/icon-women.png' %}" /></label>
+                                            <label for="cb2">
+                                                <img src="{% static 'images/icon-women.png' %}" /><br>
+                                                <p class="img-text">Mujer</p>
+                                            </label>
                                         </li>
                                       </ul>
                                 </div>
@@ -185,7 +193,7 @@
                                         
                                     </div>
                                 </div>
-                                <div class="container">
+                                <div class="container mb-4">
                                     <div class="row justify-content-center">
                                         <div class="col-4">
                                             <div class="g-recaptcha" data-sitekey="6LfhwHAUAAAAACJTEgtNR5HJAmE4zsf3KxifbVu2"></div>
@@ -193,88 +201,250 @@
                                     </div>
                                 </div>
                                 <div class="f1-buttons">
-                                    <button type="button" class="btn btn-next">Next</button>
+                                    <button type="button" class="btn btn-next">Siguiente ---> </button>
                                 </div>
                             </fieldset>
 
                             <fieldset>
-                                <h4>Tipo de Trámite:</h4>
                                 <div class="form-group">
-                                    <label class="sr-only" for="f1-email">Email</label>
-                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email">
+                                    <ul class="gender-choice">
+                                        <li class="mr-sm-4">
+                                            <label for="licence-1">
+                                                <img src="{% static 'images/licence-yes.png' %}" id="licence-1"/><br>
+                                                <p class="img-text">Ya tienes Licencia?</p>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label for="licence-2">
+                                                <img src="{% static 'images/licence-no.png' %}" id="licence-2"/><br>
+                                                <p class="img-text">Es tu primera licencia?</p>
+                                            </label>
+                                        </li>
+                                        </ul>
                                 </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-password">Password</label>
-                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password">
+                                <!-- <div class="form-group d-none">
+                                    <div class="title">
+                                        <span>¿Qué tipo de trámite deseas realizar?</span>
+                                    </div>
+                                    <ul class="tramit-choice">
+                                        <li>
+                                            <input id="toggle1" type="checkbox" name="initial">
+                                            <label for="toggle1">Primera licencia</label>
+                                        </li>
+                                        <li>
+                                            <input id="toggle2" type="checkbox" name="recat">
+                                            <label for="toggle2">Recategorización hacia arriba</label>
+                                        </li>
+                                        <li>
+                                            <input id="toggle3" type="checkbox" name="renew">
+                                            <label for="toggle3">Renovación</label>
+                                        </li>
+                                        <li>
+                                            <input id="toggle4" type="checkbox" name="dupl">
+                                            <label for="toggle4">Duplicado</label>
+                                        </li>
+                                    </ul>
+                                </div> -->
+                                <div class="form-group licence-vehicle d-none">
+                                    <div class="title">
+                                        <span>¿Qué tipo de vehículo?</span>
+                                        <p>En caso de que necesites ambas licencias, puedes seleccionar los dos tipos de vehículo.</p>
+                                    </div>
+                                    <ul class="licence-vehicle-choice">
+                                        <li>
+                                            <label for="cb2">
+                                                <img src="{% static 'images/bike.png' %}" id="bike-licence" /><br>
+                                                <p class="img-text">Moto</p>
+                                            </label>
+                                        </li>
+                                        <li class="mr-sm-4">
+                                            <label for="cb1">
+                                                <img src="{% static 'images/car.png' %}" id="car-licence"/><br>
+                                                <p class="img-text">Auto</p>
+                                            </label>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-repeat-password">Repeat password</label>
-                                    <input type="password" name="f1-repeat-password" placeholder="Repeat password..." 
-                                                        class="f1-repeat-password form-control" id="f1-repeat-password">
+                                <div class="form-group vehicle-licences">
+                                    <div class="title">
+                                        <span>Selecciona la clase de licencia que necesitas</span>
+                                    </div>
+                                    <ul class="bike-licences d-none">
+                                        <li>
+                                            <div class="container">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-3">
+                                                        <input id="toggleA1" type="checkbox" name="A1">
+                                                        <label for="toggleA1">A1</label>
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <p>(Cilindraje igual o menor a 125 c.c. <br>de servicio particular)</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <input id="toggleA2" type="checkbox" name="A2">
+                                                        <label for="toggleA2">A2</label>
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <p>Motocicletas con cilindraje superior a 125cc <br>de servicio particular (Aplica para cualquier cilindraje).</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <ul class="car-licences d-none">
+                                        <li>
+                                            <div class="container">
+                                                <div class="row justify-content-center">
+                                                    <div class="col-3">
+                                                        <input id="toggleB1" type="checkbox" name="B1">
+                                                        <label for="toggleB1">B1</label>
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio particular.)</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-3">
+                                                        <input id="toggleC1" type="checkbox" name="C1">
+                                                        <label for="toggleC1">C1</label>
+                                                    </div>
+                                                    <div class="col-9">
+                                                        <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio público y particular.)</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="form-group runt">
+                                    <div class="title">
+                                        <span>¿Tienes RUNT?</span>
+                                        <p>Si no está seguro puede verificar haciendo clic <a href="https://www.runt.com.co/consultaCiudadana/#/consultaPersona" target="_blank" rel="noopener noreferrer">AQUI</a></p>
+                                    </div>
+                                    <ul class="licence-vehicle-choice">
+                                        <li>
+                                            <label for="cb2">
+                                                <img src="{% static 'images/SI.png' %}" /><br>
+                                                <p class="img-text">Si</p>
+                                            </label>
+                                        </li>
+                                        <li class="mr-sm-4">
+                                            <label for="cb1">
+                                                <img src="{% static 'images/NO.png' %}" id="no-runt"/><br>
+                                                <p class="img-text">No</p>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="form-group runt-info d-none">
+                                    <div class="title">
+                                        <span>
+                                            Al final te daremos las indicaciones para inscribirte en el RUNT. <br>
+                                            Este procedimiento tiene un valor de $13.900
+                                        </span>
+                                    </div>
+                                </div>
+                            
+                                
+                                <div class="f1-buttons">
+                                    <button type="button" class="btn btn-previous">Volver</button>
+                                    <button type="button" class="btn btn-next">Siguiente</button>
+                                </div>
+                            </fieldset>
+                            <fieldset>
+                                <div class="title">
+                                    <span>Lista de CRC (Centro de Reconocimiento de Conductores) disponibles en tu Ciudad</span>
+                                </div>
+                                <div class="container">
+                                    <div class="row justify-content-around">
+                                        <div class="col-sm-12 col-md-2 filters">
+                                            <div class="row title-filter">
+                                                <span>Filtrar por</span>
+                                            </div>
+                                            <div class="row filter">
+                                                <div class="col-12">
+                                                    <input type="text" name="name" id="name" placeholder="Nombre">
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="text" name="name" id="name" placeholder="Nombre">
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="text" name="name" id="name" placeholder="Nombre">
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="text" name="name" id="name" placeholder="Nombre">
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="text" name="name" id="name" placeholder="Nombre">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-9">
+                                            <div class="row justify-content-around">
+                                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                                    
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                                    
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                                    
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                                    
+                                                </div>
+                                                <div class="col-sm-12 col-md-6 col-lg-3">
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="f1-buttons">
-                                    <button type="button" class="btn btn-previous">Previous</button>
-                                    <button type="button" class="btn btn-next">Next</button>
+                                    <button type="button" class="btn btn-previous">Volver</button>
+                                    <button type="button" class="btn btn-next">Siguiente</button>
                                 </div>
                             </fieldset>
                             <fieldset>
                                 <h4>Tipo de Trámite:</h4>
                                 <div class="form-group">
                                     <label class="sr-only" for="f1-email">Email</label>
-                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email">
+                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email2">
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="f1-password">Password</label>
-                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password">
+                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password2">
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="f1-repeat-password">Repeat password</label>
                                     <input type="password" name="f1-repeat-password" placeholder="Repeat password..." 
-                                                        class="f1-repeat-password form-control" id="f1-repeat-password">
+                                                        class="f1-repeat-password form-control" id="f1-repeat-password2">
                                 </div>
                                 <div class="f1-buttons">
-                                    <button type="button" class="btn btn-previous">Previous</button>
-                                    <button type="button" class="btn btn-next">Next</button>
+                                    <button type="button" class="btn btn-previous">Volver</button>
+                                    <button type="button" class="btn btn-next">Siguiente</button>
                                 </div>
                             </fieldset>
                             <fieldset>
                                 <h4>Tipo de Trámite:</h4>
                                 <div class="form-group">
                                     <label class="sr-only" for="f1-email">Email</label>
-                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email">
+                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email3">
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="f1-password">Password</label>
-                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password">
+                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password3">
                                 </div>
                                 <div class="form-group">
                                     <label class="sr-only" for="f1-repeat-password">Repeat password</label>
                                     <input type="password" name="f1-repeat-password" placeholder="Repeat password..." 
-                                                        class="f1-repeat-password form-control" id="f1-repeat-password">
+                                                        class="f1-repeat-password form-control" id="f1-repeat-password3">
                                 </div>
                                 <div class="f1-buttons">
-                                    <button type="button" class="btn btn-previous">Previous</button>
-                                    <button type="button" class="btn btn-next">Next</button>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <h4>Tipo de Trámite:</h4>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-email">Email</label>
-                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-password">Password</label>
-                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-repeat-password">Repeat password</label>
-                                    <input type="password" name="f1-repeat-password" placeholder="Repeat password..." 
-                                                        class="f1-repeat-password form-control" id="f1-repeat-password">
-                                </div>
-                                <div class="f1-buttons">
-                                    <button type="button" class="btn btn-previous">Previous</button>
-                                    <button type="button" class="btn btn-next">Next</button>
+                                    <button type="button" class="btn btn-previous">Volver</button>
+                                    <button type="button" class="btn btn-next">Siguiente</button>
                                 </div>
                             </fieldset>
 
@@ -293,8 +463,8 @@
                                     <input type="text" name="f1-google-plus" placeholder="Google plus..." class="f1-google-plus form-control" id="f1-google-plus">
                                 </div>
                                 <div class="f1-buttons">
-                                    <button type="button" class="btn btn-previous">Previous</button>
-                                    <button type="submit" class="btn btn-submit">Submit</button>
+                                    <button type="button" class="btn btn-previous">Volver</button>
+                                    <button type="submit" class="btn btn-submit">Finalizar</button>
                                 </div>
                             </fieldset>
                     	
@@ -316,7 +486,7 @@
         <script src="{% static 'assets/js/jquery.imgcheckbox.js' %}"></script>
         
         <script>
-            $(".gender-choice img").imgCheckbox({ 
+            $("fieldset img").imgCheckbox({ 
                 "styles": {
                     "span.imgCheckbox.imgChked img": {
                         // This property will overwrite the default grayscaling, we need to add it back in
@@ -378,6 +548,51 @@
                 loadCitiesSelect(selected.val())
             })
 
+            $('#licence-2').on('click', function(ev){
+                $('.licence-vehicle').toggleClass('d-none')
+            })
+            $('#bike-licence').on('click', function(ev){
+                $('.bike-licences').toggleClass('d-none')
+            })
+            $('#car-licence').on('click', function(ev){
+                $('.car-licences').toggleClass('d-none')
+            })
+            $('#no-runt').on('click', function(ev){
+                $('.runt-info').toggleClass('d-none')
+            })
+
+            $('#toggleA1').on('click', function(e){
+                if ($('#toggleA2').attr('disabled')){
+                    $('#toggleA2').removeAttr('disabled')
+                }
+                else {
+                    $('#toggleA2').attr('disabled', true)
+                }
+            })
+            $('#toggleA2').on('click', function(e){
+                if ($('#toggleA1').attr('disabled')){
+                    $('#toggleA1').removeAttr('disabled')
+                }
+                else {
+                    $('#toggleA1').attr('disabled', true)
+                }
+            })
+            $('#toggleB1').on('click', function(e){
+                if ($('#toggleC1').attr('disabled')){
+                    $('#toggleC1').removeAttr('disabled')
+                }
+                else {
+                    $('#toggleC1').attr('disabled', true)
+                }
+            })
+            $('#toggleC1').on('click', function(e){
+                if ($('#toggleB1').attr('disabled')){
+                    $('#toggleB1').removeAttr('disabled')
+                }
+                else {
+                    $('#toggleB1').attr('disabled', true)
+                }
+            })
 
         </script>
 
