@@ -1,601 +1,1186 @@
+{% extends 'webclient/base.html' %}
+
 {% load static %}
 {% load custom_range %}
 
-<!DOCTYPE html>
-<html lang="es">
 
-    <head>
+{% block content %}
 
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Tu Licencia</title>
+    <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 form-box">
+        <form role="form" action="" method="post" class="f1">
 
-        <!-- CSS -->
-        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
-        <!-- <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}"> -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'assets/font-awesome/css/font-awesome.min.css' %}">
-		<link rel="stylesheet" href="{% static 'assets/css/form-elements.css' %}">
-        <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+            <h3>Ingresa tus datos para obtener la licencia</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
+            </p>
+            <div class="f1-steps row">
+                <div class="f1-progress">
+                    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="6" style="width: 16.66%;"></div>
+                </div>
+                <!-- <div class="col-xs-12 col-md-6 col-lg-6"> -->
+                    <div class="f1-step active">
+                        <div class="f1-step-icon"><img src="{% static '/images/1.png' %}" width="23" alt="stepper-1"></div>
+                        <p>Datos Usuario</p>
+                    </div>
+                    <div class="f1-step">
+                        <div class="f1-step-icon"><img src="{% static '/images/2.png' %}" width="23" alt="stepper-2"></div>
+                        <p>Tipo de trámite</p>
+                    </div>
+                    <div class="f1-step">
+                        <div class="f1-step-icon"><img src="{% static '/images/3.png' %}" width="23" alt="stepper-3"></div>
+                        <p>Seleccionar CRC</p>
+                    </div>
+                <!-- </div>
+                <div class="col-xs-12 col-md-6 col-lg-6"> -->
+                    <div class="f1-step">
+                        <div class="f1-step-icon"><img src="{% static '/images/4.png' %}" width="23" alt="stepper-4"></div>
+                        <p>Seleccionar CEA</p>
+                    </div>
+                    <div class="f1-step">
+                        <div class="f1-step-icon"><img src="{% static '/images/5.png' %}" width="23" alt="stepper-5"></div>
+                        <p>Organismo de Transporte</p>
+                    </div>
+                    <div class="f1-step">
+                        <div class="f1-step-icon"><img src="{% static '/images/6.png' %}" width="23" alt="stepper-6"></div>
+                        <p>Datos finales usuario</p>
+                    </div>
+                <!-- </div> -->
+            </div>
+            
+            <fieldset>
+                <div class="form-group">
+                    <div class="title">
+                        <span>Selecciona tu género</span>
+                    </div>
+                    <ul class="gender-choice">
+                        <li>
+                            <label for="cb1">
+                                <img class="img-check" src="{% static 'images/icon-men.png' %}" /><br>
+                                <p class="img-text">Hombre</p>
+                            </label>
+                        </li>
+                        <li>
+                            <label for="cb2">
+                                <img class="img-check" src="{% static 'images/icon-women.png' %}" /><br>
+                                <p class="img-text">Mujer</p>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group">
+                    <div class="title">
+                        <span>Fecha de nacimiento</span>
+                    </div>
+                    <ul class="select-birth">
+                        <li>
+                            <label for="day">DD</label>
+                            <select class="custom-select birth-select custom-select-lg mb-3" id="day">
+                                {% for value in 1|range:32 %}
+                                    <option value="{{ value }}">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                        <li>
+                            <label for="month">MM</label>
+                            <select class="custom-select birth-select custom-select-lg mb-3" id="month">
+                                {% for value in 1|range:13 %}
+                                    <option value="{{ value }}">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                        <li>
+                            <label for="year">AAAA</label>
+                            <select class="custom-select birth-select custom-select-lg mb-3" id="year">
+                                {% for value in 1905|range:2019 %}
+                                    {% if value == 2018 %}
+                                        <option selected value="{{value}}">{{value}}</option>
+                                    {% else %}                                               
+                                        <option value="{{ value }}">{{ value }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </li>
+                    </ul>
+                </div>
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-        <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="{% static 'assets/ico/favicon.png' %}">
-        <script src='https://www.google.com/recaptcha/api.js'></script>
-    </head>
-
-    <body>
-
-		<!-- Top menu -->
-		<nav class="navbar navbar-inverse navbar-no-bg" role="navigation">
-			<div class="container">
-				<!-- <div class="navbar-header">
-					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
-					<a class="navbar-brand" href="index.html">Tu Licencia</a>
-				</div> -->
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<!-- <div class="collapse navbar-collapse" id="top-navbar-1">
-					<ul class="nav navbar-nav navbar-right">
-						<li>
-							<span class="li-text">
-								Put some text or
-							</span> 
-							<a href="#"><strong>links</strong></a> 
-							<span class="li-text">
-								here, or some icons: 
-							</span> 
-							<span class="li-social">
-								<a href="https://www.facebook.com/pages/Azmindcom/196582707093191" target="_blank"><i class="fa fa-facebook"></i></a> 
-								<a href="https://twitter.com/anli_zaimi" target="_blank"><i class="fa fa-twitter"></i></a> 
-								<a href="https://plus.google.com/+AnliZaimi_azmind" target="_blank"><i class="fa fa-google-plus"></i></a> 
-								<a href="https://github.com/AZMIND" target="_blank"><i class="fa fa-github"></i></a>
-							</span>
-						</li>
-					</ul>
-				</div> -->
-			</div>
-		</nav>
-
-        <!-- Top content -->
-        <div class="top-content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 form-box">
-                    	<form role="form" action="" method="post" class="f1">
-
-                    		<h3>Ingresa tus datos para obtener la licencia</h3>
-                    		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
-                            </p>
-                    		<div class="f1-steps">
-                    			<div class="f1-progress">
-                    			    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="6" style="width: 16.66%;"></div>
-                    			</div>
-                    			<div class="f1-step active">
-                    				<div class="f1-step-icon"><img src="{% static '/images/1.png' %}" width="23" alt="stepper-1"></div>
-                    				<p>Datos Usuario</p>
-                    			</div>
-                    			<div class="f1-step">
-                    				<div class="f1-step-icon"><img src="{% static '/images/2.png' %}" width="23" alt="stepper-2"></div>
-                    				<p>Tipo de trámite</p>
-                    			</div>
-                    		    <div class="f1-step">
-                    				<div class="f1-step-icon"><img src="{% static '/images/3.png' %}" width="23" alt="stepper-3"></div>
-                    				<p>Seleccionar CRC</p>
-                                </div>
-                                <div class="f1-step">
-                    				<div class="f1-step-icon"><img src="{% static '/images/4.png' %}" width="23" alt="stepper-4"></div>
-                    				<p>Seleccionar CEA</p>
-                    			</div>
-                    			<div class="f1-step">
-                    				<div class="f1-step-icon"><img src="{% static '/images/5.png' %}" width="23" alt="stepper-5"></div>
-                    				<p>Organismo de Transporte</p>
-                    			</div>
-                    		    <div class="f1-step">
-                    				<div class="f1-step-icon"><img src="{% static '/images/6.png' %}" width="23" alt="stepper-6"></div>
-                    				<p>Datos finales usuario</p>
-                    			</div>
-                    		</div>
-                    		
-                    		<fieldset>
-                                <div class="form-group">
+                <div class="form-group">
+                    <div class="location">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-10">
                                     <div class="title">
-                                        <span>Selecciona tu género</span>
+                                        <span>Seleccionar ubicación</span>
                                     </div>
-                                    <ul class="gender-choice">
+                                    <ul class="select-location">
                                         <li>
-                                            <label for="cb1">
-                                                <img src="{% static 'images/icon-men.png' %}" /><br>
-                                                <p class="img-text">Hombre</p>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="cb2">
-                                                <img src="{% static 'images/icon-women.png' %}" /><br>
-                                                <p class="img-text">Mujer</p>
-                                            </label>
-                                        </li>
-                                      </ul>
-                                </div>
-                                <div class="form-group">
-                                    <div class="title">
-                                        <span>Fecha de nacimiento</span>
-                                    </div>
-                                    <ul class="select-birth">
-                                        <li>
-                                            <label for="day">DD</label>
-                                            <select class="custom-select birth-select custom-select-lg mb-3" id="day">
-                                                {% for value in 1|range:32 %}
-                                                    <option value="{{ value }}">{{ value }}</option>
-                                                {% endfor %}
+                                            <label for="states">Departamento</label><br>
+                                            <select class="custom-select location-select mb-3" id="states">
+                                                
                                             </select>
                                         </li>
                                         <li>
-                                            <label for="month">MM</label>
-                                            <select class="custom-select birth-select custom-select-lg mb-3" id="month">
-                                                {% for value in 1|range:13 %}
-                                                    <option value="{{ value }}">{{ value }}</option>
-                                                {% endfor %}
-                                            </select>
-                                        </li>
-                                        <li>
-                                            <label for="year">AAAA</label>
-                                            <select class="custom-select birth-select custom-select-lg mb-3" id="year">
-                                                {% for value in 1905|range:2019 %}
-                                                    {% if value == 2018 %}
-                                                        <option selected value="{{value}}">{{value}}</option>
-                                                    {% else %}                                               
-                                                        <option value="{{ value }}">{{ value }}</option>
-                                                    {% endif %}
-                                                {% endfor %}
+                                            <label for="cities">Ciudad</label><br>
+                                            <select class="custom-select location-select mb-3" id="cities">
+                                                <option value="" disabled selected>Selecciona primero un departamento</option>
                                             </select>
                                         </li>
                                     </ul>
                                 </div>
-
-                                <div class="form-group">
-                                    <div class="location">
-                                        <div class="container">
-                                            <div class="row justify-content-center">
-                                                <div class="col-10">
-                                                    <div class="title">
-                                                        <span>Seleccionar ubicación</span>
-                                                    </div>
-                                                    <ul class="select-location">
-                                                        <li>
-                                                            <label for="states">Departamento</label><br>
-                                                            <select class="custom-select location-select mb-3" id="states">
-                                                                
-                                                            </select>
-                                                        </li>
-                                                        <li>
-                                                            <label for="cities">Ciudad</label><br>
-                                                            <select class="custom-select location-select mb-3" id="cities">
-                                                                <option value="" disabled selected>Selecciona primero un departamento</option>
-                                                            </select>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                                <div class="container mb-4">
-                                    <div class="row justify-content-center">
-                                        <div class="col-4">
-                                            <div class="g-recaptcha" data-sitekey="6LfhwHAUAAAAACJTEgtNR5HJAmE4zsf3KxifbVu2"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="f1-buttons">
-                                    <button type="button" class="btn btn-next">Siguiente ---> </button>
-                                </div>
-                            </fieldset>
-
-                            <fieldset>
-                                <div class="form-group">
-                                    <ul class="gender-choice">
-                                        <li class="mr-sm-4">
-                                            <label for="licence-1">
-                                                <img src="{% static 'images/licence-yes.png' %}" id="licence-1"/><br>
-                                                <p class="img-text">Ya tienes Licencia?</p>
-                                            </label>
-                                        </li>
-                                        <li>
-                                            <label for="licence-2">
-                                                <img src="{% static 'images/licence-no.png' %}" id="licence-2"/><br>
-                                                <p class="img-text">Es tu primera licencia?</p>
-                                            </label>
-                                        </li>
-                                        </ul>
-                                </div>
-                                <!-- <div class="form-group d-none">
-                                    <div class="title">
-                                        <span>¿Qué tipo de trámite deseas realizar?</span>
-                                    </div>
-                                    <ul class="tramit-choice">
-                                        <li>
-                                            <input id="toggle1" type="checkbox" name="initial">
-                                            <label for="toggle1">Primera licencia</label>
-                                        </li>
-                                        <li>
-                                            <input id="toggle2" type="checkbox" name="recat">
-                                            <label for="toggle2">Recategorización hacia arriba</label>
-                                        </li>
-                                        <li>
-                                            <input id="toggle3" type="checkbox" name="renew">
-                                            <label for="toggle3">Renovación</label>
-                                        </li>
-                                        <li>
-                                            <input id="toggle4" type="checkbox" name="dupl">
-                                            <label for="toggle4">Duplicado</label>
-                                        </li>
-                                    </ul>
-                                </div> -->
-                                <div class="form-group licence-vehicle d-none">
-                                    <div class="title">
-                                        <span>¿Qué tipo de vehículo?</span>
-                                        <p>En caso de que necesites ambas licencias, puedes seleccionar los dos tipos de vehículo.</p>
-                                    </div>
-                                    <ul class="licence-vehicle-choice">
-                                        <li>
-                                            <label for="cb2">
-                                                <img src="{% static 'images/bike.png' %}" id="bike-licence" /><br>
-                                                <p class="img-text">Moto</p>
-                                            </label>
-                                        </li>
-                                        <li class="mr-sm-4">
-                                            <label for="cb1">
-                                                <img src="{% static 'images/car.png' %}" id="car-licence"/><br>
-                                                <p class="img-text">Auto</p>
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="form-group vehicle-licences">
-                                    <div class="title">
-                                        <span>Selecciona la clase de licencia que necesitas</span>
-                                    </div>
-                                    <ul class="bike-licences d-none">
-                                        <li>
-                                            <div class="container">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-3">
-                                                        <input id="toggleA1" type="checkbox" name="A1">
-                                                        <label for="toggleA1">A1</label>
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <p>(Cilindraje igual o menor a 125 c.c. <br>de servicio particular)</p>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-3">
-                                                        <input id="toggleA2" type="checkbox" name="A2">
-                                                        <label for="toggleA2">A2</label>
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <p>Motocicletas con cilindraje superior a 125cc <br>de servicio particular (Aplica para cualquier cilindraje).</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <ul class="car-licences d-none">
-                                        <li>
-                                            <div class="container">
-                                                <div class="row justify-content-center">
-                                                    <div class="col-3">
-                                                        <input id="toggleB1" type="checkbox" name="B1">
-                                                        <label for="toggleB1">B1</label>
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio particular.)</p>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-3">
-                                                        <input id="toggleC1" type="checkbox" name="C1">
-                                                        <label for="toggleC1">C1</label>
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio público y particular.)</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="form-group runt">
-                                    <div class="title">
-                                        <span>¿Tienes RUNT?</span>
-                                        <p>Si no está seguro puede verificar haciendo clic <a href="https://www.runt.com.co/consultaCiudadana/#/consultaPersona" target="_blank" rel="noopener noreferrer">AQUI</a></p>
-                                    </div>
-                                    <ul class="licence-vehicle-choice">
-                                        <li>
-                                            <label for="cb2">
-                                                <img src="{% static 'images/SI.png' %}" /><br>
-                                                <p class="img-text">Si</p>
-                                            </label>
-                                        </li>
-                                        <li class="mr-sm-4">
-                                            <label for="cb1">
-                                                <img src="{% static 'images/NO.png' %}" id="no-runt"/><br>
-                                                <p class="img-text">No</p>
-                                            </label>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="form-group runt-info d-none">
-                                    <div class="title">
-                                        <span>
-                                            Al final te daremos las indicaciones para inscribirte en el RUNT. <br>
-                                            Este procedimiento tiene un valor de $13.900
-                                        </span>
-                                    </div>
-                                </div>
-                            
-                                
-                                <div class="f1-buttons">
-                                    <button type="button" class="btn btn-previous">Volver</button>
-                                    <button type="button" class="btn btn-next">Siguiente</button>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <div class="title">
-                                    <span>Lista de CRC (Centro de Reconocimiento de Conductores) disponibles en tu Ciudad</span>
-                                </div>
-                                <div class="container">
-                                    <div class="row justify-content-around">
-                                        <div class="col-sm-12 col-md-2 filters">
-                                            <div class="row title-filter">
-                                                <span>Filtrar por</span>
-                                            </div>
-                                            <div class="row filter">
-                                                <div class="col-12">
-                                                    <input type="text" name="name" id="name" placeholder="Nombre">
-                                                </div>
-                                                <div class="col-12">
-                                                    <input type="text" name="name" id="name" placeholder="Nombre">
-                                                </div>
-                                                <div class="col-12">
-                                                    <input type="text" name="name" id="name" placeholder="Nombre">
-                                                </div>
-                                                <div class="col-12">
-                                                    <input type="text" name="name" id="name" placeholder="Nombre">
-                                                </div>
-                                                <div class="col-12">
-                                                    <input type="text" name="name" id="name" placeholder="Nombre">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-9">
-                                            <div class="row justify-content-around">
-                                                <div class="col-sm-12 col-md-6 col-lg-3">
-                                                    
-                                                </div>
-                                                <div class="col-sm-12 col-md-6 col-lg-3">
-                                                    
-                                                </div>
-                                                <div class="col-sm-12 col-md-6 col-lg-3">
-                                                    
-                                                </div>
-                                                <div class="col-sm-12 col-md-6 col-lg-3">
-                                                    
-                                                </div>
-                                                <div class="col-sm-12 col-md-6 col-lg-3">
-                                                    
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="f1-buttons">
-                                    <button type="button" class="btn btn-previous">Volver</button>
-                                    <button type="button" class="btn btn-next">Siguiente</button>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <h4>Tipo de Trámite:</h4>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-email">Email</label>
-                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email2">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-password">Password</label>
-                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password2">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-repeat-password">Repeat password</label>
-                                    <input type="password" name="f1-repeat-password" placeholder="Repeat password..." 
-                                                        class="f1-repeat-password form-control" id="f1-repeat-password2">
-                                </div>
-                                <div class="f1-buttons">
-                                    <button type="button" class="btn btn-previous">Volver</button>
-                                    <button type="button" class="btn btn-next">Siguiente</button>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <h4>Tipo de Trámite:</h4>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-email">Email</label>
-                                    <input type="text" name="f1-email" placeholder="Email..." class="f1-email form-control" id="f1-email3">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-password">Password</label>
-                                    <input type="password" name="f1-password" placeholder="Password..." class="f1-password form-control" id="f1-password3">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-repeat-password">Repeat password</label>
-                                    <input type="password" name="f1-repeat-password" placeholder="Repeat password..." 
-                                                        class="f1-repeat-password form-control" id="f1-repeat-password3">
-                                </div>
-                                <div class="f1-buttons">
-                                    <button type="button" class="btn btn-previous">Volver</button>
-                                    <button type="button" class="btn btn-next">Siguiente</button>
-                                </div>
-                            </fieldset>
-
-                            <fieldset>
-                                <h4>Social media profiles:</h4>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-facebook">Facebook</label>
-                                    <input type="text" name="f1-facebook" placeholder="Facebook..." class="f1-facebook form-control" id="f1-facebook">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-twitter">Twitter</label>
-                                    <input type="text" name="f1-twitter" placeholder="Twitter..." class="f1-twitter form-control" id="f1-twitter">
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="f1-google-plus">Google plus</label>
-                                    <input type="text" name="f1-google-plus" placeholder="Google plus..." class="f1-google-plus form-control" id="f1-google-plus">
-                                </div>
-                                <div class="f1-buttons">
-                                    <button type="button" class="btn btn-previous">Volver</button>
-                                    <button type="submit" class="btn btn-submit">Finalizar</button>
-                                </div>
-                            </fieldset>
-                    	
-                    	</form>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
-                    
-            </div>
-        </div>
+                <div class="container mb-4">
+                    <div class="row justify-content-center">
+                        <div class="col-4">
+                            <div class="g-recaptcha" data-sitekey="6LfhwHAUAAAAACJTEgtNR5HJAmE4zsf3KxifbVu2"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="f1-buttons">
+                    <button type="button" class="btn btn-next">Siguiente ---> </button>
+                </div>
+            </fieldset>
 
+            <fieldset>
+                <div class="form-group">
+                    <ul class="gender-choice">
+                        <li class="mr-sm-4">
+                            <label for="licence-1">
+                                <img class="img-check" src="{% static 'images/licence-yes.png' %}" id="licence-1"/><br>
+                                <p class="img-text">Ya tienes Licencia?</p>
+                            </label>
+                        </li>
+                        <li>
+                            <label for="licence-2">
+                                <img class="img-check" src="{% static 'images/licence-no.png' %}" id="licence-2"/><br>
+                                <p class="img-text">Es tu primera licencia?</p>
+                            </label>
+                        </li>
+                        </ul>
+                </div>
+                <!-- <div class="form-group d-none">
+                    <div class="title">
+                        <span>¿Qué tipo de trámite deseas realizar?</span>
+                    </div>
+                    <ul class="tramit-choice">
+                        <li>
+                            <input id="toggle1" type="checkbox" name="initial">
+                            <label for="toggle1">Primera licencia</label>
+                        </li>
+                        <li>
+                            <input id="toggle2" type="checkbox" name="recat">
+                            <label for="toggle2">Recategorización hacia arriba</label>
+                        </li>
+                        <li>
+                            <input id="toggle3" type="checkbox" name="renew">
+                            <label for="toggle3">Renovación</label>
+                        </li>
+                        <li>
+                            <input id="toggle4" type="checkbox" name="dupl">
+                            <label for="toggle4">Duplicado</label>
+                        </li>
+                    </ul>
+                </div> -->
+                <div class="form-group licence-vehicle d-none">
+                    <div class="title">
+                        <span>¿Qué tipo de vehículo?</span>
+                        <p>En caso de que necesites ambas licencias, puedes seleccionar los dos tipos de vehículo.</p>
+                    </div>
+                    <ul class="licence-vehicle-choice">
+                        <li>
+                            <label for="cb2">
+                                <img class="img-check" src="{% static 'images/bike.png' %}" id="bike-licence" /><br>
+                                <p class="img-text">Moto</p>
+                            </label>
+                        </li>
+                        <li class="mr-sm-4">
+                            <label for="cb1">
+                                <img class="img-check" src="{% static 'images/car.png' %}" id="car-licence"/><br>
+                                <p class="img-text">Auto</p>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group vehicle-licences">
+                    <div class="title">
+                        <span>Selecciona la clase de licencia que necesitas</span>
+                    </div>
+                    <ul class="bike-licences d-none">
+                        <li>
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-3">
+                                        <input id="toggleA1" type="checkbox" name="A1">
+                                        <label for="toggleA1">A1</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <p>(Cilindraje igual o menor a 125 c.c. <br>de servicio particular)</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <input id="toggleA2" type="checkbox" name="A2">
+                                        <label for="toggleA2">A2</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <p>Motocicletas con cilindraje superior a 125cc <br>de servicio particular (Aplica para cualquier cilindraje).</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="car-licences d-none">
+                        <li>
+                            <div class="container">
+                                <div class="row justify-content-center">
+                                    <div class="col-3">
+                                        <input id="toggleB1" type="checkbox" name="B1">
+                                        <label for="toggleB1">B1</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio particular.)</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-3">
+                                        <input id="toggleC1" type="checkbox" name="C1">
+                                        <label for="toggleC1">C1</label>
+                                    </div>
+                                    <div class="col-9">
+                                        <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio público y particular.)</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group runt">
+                    <div class="title">
+                        <span>¿Tienes RUNT?</span>
+                        <p>Si no está seguro puede verificar haciendo clic <a href="https://www.runt.com.co/consultaCiudadana/#/consultaPersona" target="_blank" rel="noopener noreferrer">AQUI</a></p>
+                    </div>
+                    <ul class="licence-vehicle-choice">
+                        <li>
+                            <label for="cb2">
+                                <img class="img-check" src="{% static 'images/SI.png' %}" /><br>
+                                <p class="img-text">Si</p>
+                            </label>
+                        </li>
+                        <li class="mr-sm-4">
+                            <label for="cb1">
+                                <img class="img-check" src="{% static 'images/NO.png' %}" id="no-runt"/><br>
+                                <p class="img-text">No</p>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group runt-info d-none">
+                    <div class="title">
+                        <span>
+                            Al final te daremos las indicaciones para inscribirte en el RUNT. <br>
+                            Este procedimiento tiene un valor de $13.900
+                        </span>
+                    </div>
+                </div>
+            
+                
+                <div class="f1-buttons">
+                    <button type="button" class="btn btn-previous">Volver</button>
+                    <button type="button" class="btn btn-next">Siguiente</button>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="title">
+                    <span>Lista de CRC (Centro de Reconocimiento de Conductores) disponibles en tu Ciudad</span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-around">
+                        <div class="col-sm-12 col-md-3 filters mb-4">
+                            <div class="row title-filter">
+                                <span>Filtrar por</span>
+                            </div>
+                            <div class="row filter">
+                                <div class="col-12">
+                                    <input type="text" name="vehicle" id="vehicle" placeholder="Vehículo">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="sector" id="sector" placeholder="Sector">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="city" id="city" placeholder="Ciudad">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="price" id="price" placeholder="Precio">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="qualify" id="qualify" placeholder="Calificación">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-9">
+                            <div class="row justify-content-around companies-list">
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/simetric.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Simetric</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-crc">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/evaluando.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Evaluando</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-crc">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/simetric.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Simetric</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-crc">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/evaluando.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Evaluando</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-crc">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/simetric.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Simetric</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-crc">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img class="img-fluid" src="{% static 'logos/simetric.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Simetric</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-crc">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="f1-buttons">
+                    <button type="button" class="btn btn-previous">Volver</button>
+                    <button type="button" class="btn btn-next">Siguiente</button>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="title">
+                    <span>Lista de CEA (Centro de Enseñanza Automovilísticos) disponibles en tu Ciudad</span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-around">
+                        <div class="col-sm-12 col-md-3 filters mb-4">
+                            <div class="row title-filter">
+                                <span>Filtrar por</span>
+                            </div>
+                            <div class="row filter">
+                                <div class="col-12">
+                                    <input type="text" name="vehicle" id="vehicle" placeholder="Vehículo">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="sector" id="sector" placeholder="Sector">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="city" id="city" placeholder="Ciudad">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="price" id="price" placeholder="Precio">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="qualify" id="qualify" placeholder="Calificación">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-9">
+                            <div class="row justify-content-around companies-list">
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/academia1.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Academia Colombiana de Automovilismo</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-cea">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/rodando.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Rodando</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-cea">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/academia1.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Academia Colombiana de Automovilismo</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-cea">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/rodando.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Rodando</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-cea">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/academia1.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Academia Colombiana de Automovilismo</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-cea">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/rodando.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Rodando</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-cea">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="f1-buttons">
+                    <button type="button" class="btn btn-previous">Volver</button>
+                    <button type="button" class="btn btn-next">Siguiente</button>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="title">
+                    <span>Lista de organismos de transporte disponibles en tu Ciudad</span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-around">
+                        <div class="col-sm-12 col-md-3 filters mb-4">
+                            <div class="row title-filter">
+                                <span>Filtrar por</span>
+                            </div>
+                            <div class="row filter">
+                                <div class="col-12">
+                                    <input type="text" name="vehicle" id="vehicle" placeholder="Vehículo">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="sector" id="sector" placeholder="Sector">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="city" id="city" placeholder="Ciudad">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="price" id="price" placeholder="Precio">
+                                </div>
+                                <div class="col-12">
+                                    <input type="text" name="qualify" id="qualify" placeholder="Calificación">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-9">
+                            <div class="row justify-content-around companies-list">
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/movilidad.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Instituto de movilidad de Pereira</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-licence">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/movilidad.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Instituto de movilidad de Pereira</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-licence">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/movilidad.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Instituto de movilidad de Pereira</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-licence">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/movilidad.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Instituto de movilidad de Pereira</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-licence">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/movilidad.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Instituto de movilidad de Pereira</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-licence">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/movilidad.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Instituto de movilidad de Pereira</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-licence">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="f1-buttons">
+                    <button type="button" class="btn btn-previous">Volver</button>
+                    <button type="button" class="btn btn-next">Siguiente</button>
+                </div>
+            </fieldset>
 
-        <!-- Javascript -->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-        <script src="{% static 'assets/js/jquery.backstretch.min.js' %}"></script>
-        <!-- <script src="{% static 'assets/js/retina-1.1.0.min.js' %}"></script> -->
-        <script src="{% static 'assets/js/scripts.js' %}"></script>
-        <script src="{% static 'assets/js/jquery.imgcheckbox.js' %}"></script>
+            <fieldset>
+                <h4>Social media profiles:</h4>
+                <div class="form-group">
+                    <label class="sr-only" for="f1-facebook">Facebook</label>
+                    <input type="text" name="f1-facebook" placeholder="Facebook..." class="f1-facebook form-control" id="f1-facebook">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="f1-twitter">Twitter</label>
+                    <input type="text" name="f1-twitter" placeholder="Twitter..." class="f1-twitter form-control" id="f1-twitter">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="f1-google-plus">Google plus</label>
+                    <input type="text" name="f1-google-plus" placeholder="Google plus..." class="f1-google-plus form-control" id="f1-google-plus">
+                </div>
+                <div class="f1-buttons">
+                    <button type="button" class="btn btn-previous">Volver</button>
+                    <button type="submit" class="btn btn-submit">Finalizar</button>
+                </div>
+            </fieldset>
         
-        <script>
-            $("fieldset img").imgCheckbox({ 
-                "styles": {
-                    "span.imgCheckbox.imgChked img": {
-                        // This property will overwrite the default grayscaling, we need to add it back in
-                        "filter": "blur(5px) grayscale(50%)",
+        </form>
+    </div>
 
-                        // This is just css: remember compatibility
-                        "-webkit-filter": "blur(5px) grayscale(50%)",
+{% endblock %}
+{% block extra_js %}
+    <script>
+        $(".img-check").imgCheckbox({ 
+            "styles": {
+                "span.imgCheckbox.imgChked img": {
+                    // This property will overwrite the default grayscaling, we need to add it back in
+                    "filter": "blur(5px) grayscale(50%)",
 
-                        // Let's change the amount of scaling from the default of "0.8"
-                        "transform": "scale(0.9)"
-                    }
+                    // This is just css: remember compatibility
+                    "-webkit-filter": "blur(5px) grayscale(50%)",
+
+                    // Let's change the amount of scaling from the default of "0.8"
+                    "transform": "scale(0.9)"
                 }
+            }
+        });
+
+        function loadStatesSelect(){
+            $.ajax({
+                type: "GET",
+                url:"{% url 'api:manager:states' %}",
+                success:function(data)
+                {   
+                    $('select#states').empty()
+                    $(data).each(function(i, v){
+                        $('select#states').append(
+                            `<option value="${v.id}">${v.name}</option>`
+                        )
+                    })
+                    $('select#states').prepend(
+                        `<option value="" selected disabled>Seleccione un Departamento</option>`
+                    )
+                },
             });
+                
+        }
 
-            function loadStatesSelect(){
-                $.ajax({
-                    type: "GET",
-                    url:"{% url 'api:manager:states' %}",
-                    success:function(data)
-                    {   
-                        $('select#states').empty()
-                        $(data).each(function(i, v){
-                            $('select#states').append(
-                                `<option value="${v.id}">${v.name}</option>`
-                            )
-                        })
-                        $('select#states').prepend(
-                            `<option value="" selected disabled>Seleccione un Departamento</option>`
+        function loadCitiesSelect(state_id){
+            $.ajax({
+                type: "GET",
+                url:"/api/manager/city/"+state_id+"/",
+                success:function(data)
+                {   
+                    $('select#cities').empty()
+                    $(data).each(function(i, v){
+                        $('select#cities').append(
+                            `<option value="${v.id}">${v.name}</option>`
                         )
-                    },
-                });
-                    
+                    })
+                    $('select#cities').prepend(
+                        `<option value="" disabled selected>Seleccione una ciudad</option>`
+                    )
+                },
+            });
+                
+        }
+
+        loadStatesSelect()
+
+        $('select#states').on('change', function(){
+            selected = $(this)
+            loadCitiesSelect(selected.val())
+        })
+
+        $('#licence-2').on('click', function(ev){
+            $('.licence-vehicle').toggleClass('d-none')
+        })
+        $('#bike-licence').on('click', function(ev){
+            $('.bike-licences').toggleClass('d-none')
+        })
+        $('#car-licence').on('click', function(ev){
+            $('.car-licences').toggleClass('d-none')
+        })
+        $('#no-runt').on('click', function(ev){
+            $('.runt-info').toggleClass('d-none')
+        })
+
+        $('#toggleA1').on('click', function(e){
+            if ($('#toggleA2').attr('disabled')){
+                $('#toggleA2').removeAttr('disabled')
             }
-
-            function loadCitiesSelect(state_id){
-                $.ajax({
-                    type: "GET",
-                    url:"/api/manager/city/"+state_id+"/",
-                    success:function(data)
-                    {   
-                        $('select#cities').empty()
-                        $(data).each(function(i, v){
-                            $('select#cities').append(
-                                `<option value="${v.id}">${v.name}</option>`
-                            )
-                        })
-                        $('select#cities').prepend(
-                            `<option value="" disabled selected>Seleccione una ciudad</option>`
-                        )
-                    },
-                });
-                    
+            else {
+                $('#toggleA2').attr('disabled', true)
             }
-
-            loadStatesSelect()
-
-            $('select#states').on('change', function(){
-                selected = $(this)
-                loadCitiesSelect(selected.val())
-            })
-
-            $('#licence-2').on('click', function(ev){
-                $('.licence-vehicle').toggleClass('d-none')
-            })
-            $('#bike-licence').on('click', function(ev){
-                $('.bike-licences').toggleClass('d-none')
-            })
-            $('#car-licence').on('click', function(ev){
-                $('.car-licences').toggleClass('d-none')
-            })
-            $('#no-runt').on('click', function(ev){
-                $('.runt-info').toggleClass('d-none')
-            })
-
-            $('#toggleA1').on('click', function(e){
-                if ($('#toggleA2').attr('disabled')){
-                    $('#toggleA2').removeAttr('disabled')
-                }
-                else {
-                    $('#toggleA2').attr('disabled', true)
-                }
-            })
-            $('#toggleA2').on('click', function(e){
-                if ($('#toggleA1').attr('disabled')){
-                    $('#toggleA1').removeAttr('disabled')
-                }
-                else {
-                    $('#toggleA1').attr('disabled', true)
-                }
-            })
-            $('#toggleB1').on('click', function(e){
-                if ($('#toggleC1').attr('disabled')){
-                    $('#toggleC1').removeAttr('disabled')
-                }
-                else {
-                    $('#toggleC1').attr('disabled', true)
-                }
-            })
-            $('#toggleC1').on('click', function(e){
-                if ($('#toggleB1').attr('disabled')){
-                    $('#toggleB1').removeAttr('disabled')
-                }
-                else {
-                    $('#toggleB1').attr('disabled', true)
-                }
-            })
-
-        </script>
-
-    </body>
-
-</html>
+        })
+        $('#toggleA2').on('click', function(e){
+            if ($('#toggleA1').attr('disabled')){
+                $('#toggleA1').removeAttr('disabled')
+            }
+            else {
+                $('#toggleA1').attr('disabled', true)
+            }
+        })
+        $('#toggleB1').on('click', function(e){
+            if ($('#toggleC1').attr('disabled')){
+                $('#toggleC1').removeAttr('disabled')
+            }
+            else {
+                $('#toggleC1').attr('disabled', true)
+            }
+        })
+        $('#toggleC1').on('click', function(e){
+            if ($('#toggleB1').attr('disabled')){
+                $('#toggleB1').removeAttr('disabled')
+            }
+            else {
+                $('#toggleB1').attr('disabled', true)
+            }
+        })
+        
+        $('.btn-crc').on('click', function(ev){
+            window.open("{% url 'webclient:crc-detail' %}", "_blank");
+        })
+        $('.btn-cea').on('click', function(ev){
+            window.open("{% url 'webclient:cea-detail' %}", "_blank");
+        })
+        $('.btn-licence').on('click', function(ev){
+            window.open("{% url 'webclient:transit-detail' %}", "_blank");
+        })
+    </script>
+{% endblock %}
