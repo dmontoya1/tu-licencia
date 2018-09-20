@@ -11,7 +11,7 @@ body {
 strong { font-weight: 500; }
 
 a, a:hover, a:focus {
-	color: #FFCA17;
+	color: #232f3f;
 	text-decoration: none;
     -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
 }
@@ -40,8 +40,8 @@ h4 {
 
 img { max-width: 100%; }
 
-::-moz-selection { background: #FFCA17; color: #fff; text-shadow: none; }
-::selection { background: #FFCA17; color: #fff; text-shadow: none; }
+::-moz-selection { background: #232f3f; color: #fff; text-shadow: none; }
+::selection { background: #232f3f; color: #fff; text-shadow: none; }
 
 
 /***** Top menu *****/
@@ -551,4 +551,57 @@ ul.car-licences input:checked + label::before {
     font-weight: 500;
     border-radius: 5px;
     margin-bottom: 5px;
+}
+
+ul.personal-data {
+	list-style-type: none;
+	text-align: center;
+}
+
+.personal-data li {
+	margin-bottom: 1.5em;
+}
+
+.personal-data label {
+	font-size: 1.1em;
+    color: #232F3E;
+	font-weight: 500;
+	float: left;
+}
+
+.personal-data select,
+.personal-data input {
+	border: 3px solid #bbb;
+    font-size: 0.8em;
+    color: #bbb;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    height: 50px;
+    padding-left: 20px;
+	border-radius: 10px;
+	width: 100%;
+}
+
+.wrap-icon-header.flex-w.flex-r-m.m-r-15 {
+    margin-bottom: 15px;
+}
+
+a.login {
+    font-size: 1.3em;
+    color: #1a2c3b;
+    font-weight: 500;
+    margin-right: 1em;
+    text-transform: uppercase;
+}
+
+.separator {
+    font-size: 2em;
+    color: #162d40;
+    padding-bottom: 6px;
+}
+
+.header-cart-item-img-c {
+    position: relative;
+    margin-right: 20px;
+    cursor: pointer;
 }

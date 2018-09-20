@@ -7,6 +7,120 @@
 {% block content %}
 
     <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 form-box">
+        <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+            <div>
+                <a href="#" class="login">Iniciar Sesión</a>
+            </div>
+            <div class="separator">
+                | 
+            </div>
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="3">
+                <img src="{% static 'images/cart.png' %}" alt="cart" >
+            </div>
+        </div>
+
+        <div class="wrap-header-cart js-panel-cart">
+            <div class="s-full js-hide-cart"></div>
+    
+            <div class="header-cart flex-col-l p-l-65 p-r-25">
+                <div class="header-cart-title flex-w flex-sb-m p-b-8">
+                    <span class="mtext-103 cl2">
+                        Carrito de compras
+                    </span>
+    
+                    <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+                        <i class="fa fa-times"></i>
+                    </div>
+                </div>
+                
+                <div class="header-cart-content flex-w js-pscroll">
+                    <ul class="header-cart-wrapitem w-full">
+                        <li class="header-cart-item flex-w flex-t m-b-12">
+                            <div class="header-cart-item-img-c">
+                                <img src="{% static 'images/2.png' %}" alt="IMG">
+                            </div>
+    
+                            <div class="header-cart-item-txt p-t-8">
+                                <span class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                    Licencia
+                                </a>
+    
+                                <span class="header-cart-item-info">
+                                    A2 - C1
+                                </span>
+                            </div>
+                        </li>
+    
+                        <li class="header-cart-item flex-w flex-t m-b-12">
+                            <div class="header-cart-item-img-c">
+                                <img src="{% static 'images/3.png' %}" alt="IMG">
+                            </div>
+    
+                            <div class="header-cart-item-txt p-t-8">
+                                <a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                    Centro de Reconociento de conductores
+                                </a>
+                                <span class="header-cart-item-info">
+                                   Simetric - Centro integral de reconocimiento
+                                </span>
+                                <span class="header-cart-item-info">
+                                    <strong>
+                                        $ 55.000
+                                    </strong> 
+                                </span>
+                            </div>
+                        </li>
+    
+                        <li class="header-cart-item flex-w flex-t m-b-12">
+                            <div class="header-cart-item-img-c">
+                                <img src="{% static 'images/5.png' %}" alt="IMG">
+                            </div>
+    
+                            <div class="header-cart-item-txt p-t-8">
+                                <a href="{% url 'webclient:cea-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                    Centro de Enseñanza Automotriz
+                                </a>
+                                <span class="header-cart-item-info">
+                                    Académia Colombiana de automovilismo
+                                </span>
+    
+                                <span class="header-cart-item-info">
+                                    <strong>
+                                        $ 750.000
+                                    </strong>
+                                </span>
+                            </div>
+                        </li>
+                        <li class="header-cart-item flex-w flex-t m-b-12">
+                            <div class="header-cart-item-img-c">
+                                <img src="{% static 'images/4.png' %}" alt="IMG">
+                            </div>
+    
+                            <div class="header-cart-item-txt p-t-8">
+                                <a href="{% url 'webclient:transit-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                    Organismo de Tránsito
+                                </a>
+                                <span class="header-cart-item-info">
+                                    Centro de movilidad de Pereira
+                                </span>
+    
+                                <span class="header-cart-item-info">
+                                    <strong>
+                                        $ 150.000
+                                    </strong>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <div class="w-full">
+                        <div class="header-cart-total w-full p-tb-40">
+                            Total: $ 955.000
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <form role="form" action="" method="post" class="f1">
 
             <h3>Ingresa tus datos para obtener la licencia</h3>
@@ -47,6 +161,7 @@
                 <!-- </div> -->
             </div>
             
+            <!-- Datos iniciales -->
             <fieldset>
                 <div class="form-group">
                     <div class="title">
@@ -139,10 +254,11 @@
                     </div>
                 </div>
                 <div class="f1-buttons">
-                    <button type="button" class="btn btn-next">Siguiente ---> </button>
+                    <button type="button" class="btn btn-next">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"> </button>
                 </div>
             </fieldset>
 
+            <!-- Selección de tipo de Trámite -->
             <fieldset>
                 <div class="form-group">
                     <ul class="gender-choice">
@@ -287,10 +403,12 @@
             
                 
                 <div class="f1-buttons">
-                    <button type="button" class="btn btn-previous">Volver</button>
-                    <button type="button" class="btn btn-next">Siguiente</button>
+                    <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
+                    <button type="button" class="btn btn-next">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
                 </div>
             </fieldset>
+            
+            <!-- Selección CRC -->
             <fieldset>
                 <div class="title">
                     <span>Lista de CRC (Centro de Reconocimiento de Conductores) disponibles en tu Ciudad</span>
@@ -303,19 +421,16 @@
                             </div>
                             <div class="row filter">
                                 <div class="col-12">
-                                    <input type="text" name="vehicle" id="vehicle" placeholder="Vehículo">
+                                    <input type="text" name="sector" id="sector-crc" placeholder="Sector">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="sector" id="sector" placeholder="Sector">
+                                    <input type="text" name="city" id="city-crc" placeholder="Ciudad">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="city" id="city" placeholder="Ciudad">
+                                    <input type="text" name="price" id="price-crc" placeholder="Precio">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="price" id="price" placeholder="Precio">
-                                </div>
-                                <div class="col-12">
-                                    <input type="text" name="qualify" id="qualify" placeholder="Calificación">
+                                    <input type="text" name="qualify" id="qualify-crc" placeholder="Calificación">
                                 </div>
                             </div>
                         </div>
@@ -536,10 +651,12 @@
                     </div>
                 </div>
                 <div class="f1-buttons">
-                    <button type="button" class="btn btn-previous">Volver</button>
-                    <button type="button" class="btn btn-next">Siguiente</button>
+                    <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
+                    <button type="button" class="btn btn-next">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
                 </div>
             </fieldset>
+            
+            <!-- Selección CEA -->
             <fieldset>
                 <div class="title">
                     <span>Lista de CEA (Centro de Enseñanza Automovilísticos) disponibles en tu Ciudad</span>
@@ -552,19 +669,19 @@
                             </div>
                             <div class="row filter">
                                 <div class="col-12">
-                                    <input type="text" name="vehicle" id="vehicle" placeholder="Vehículo">
+                                    <input type="text" name="vehicle" id="vehicle-cea" placeholder="Vehículo">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="sector" id="sector" placeholder="Sector">
+                                    <input type="text" name="sector" id="sector-cea" placeholder="Sector">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="city" id="city" placeholder="Ciudad">
+                                    <input type="text" name="city" id="city-cea" placeholder="Ciudad">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="price" id="price" placeholder="Precio">
+                                    <input type="text" name="price" id="price-cea" placeholder="Precio">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="qualify" id="qualify" placeholder="Calificación">
+                                    <input type="text" name="qualify" id="qualify-cea" placeholder="Calificación">
                                 </div>
                             </div>
                         </div>
@@ -785,10 +902,12 @@
                     </div>
                 </div>
                 <div class="f1-buttons">
-                    <button type="button" class="btn btn-previous">Volver</button>
-                    <button type="button" class="btn btn-next">Siguiente</button>
+                    <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
+                    <button type="button" class="btn btn-next">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
                 </div>
             </fieldset>
+            
+            <!-- Selección Tránsito -->
             <fieldset>
                 <div class="title">
                     <span>Lista de organismos de transporte disponibles en tu Ciudad</span>
@@ -801,19 +920,19 @@
                             </div>
                             <div class="row filter">
                                 <div class="col-12">
-                                    <input type="text" name="vehicle" id="vehicle" placeholder="Vehículo">
+                                    <input type="text" name="vehicle" id="vehicle-transit" placeholder="Vehículo">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="sector" id="sector" placeholder="Sector">
+                                    <input type="text" name="sector" id="sector-transit" placeholder="Sector">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="city" id="city" placeholder="Ciudad">
+                                    <input type="text" name="city" id="city-transit" placeholder="Ciudad">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="price" id="price" placeholder="Precio">
+                                    <input type="text" name="price" id="price-transit" placeholder="Precio">
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="qualify" id="qualify" placeholder="Calificación">
+                                    <input type="text" name="qualify" id="qualify-transit" placeholder="Calificación">
                                 </div>
                             </div>
                         </div>
@@ -1034,27 +1153,101 @@
                     </div>
                 </div>
                 <div class="f1-buttons">
-                    <button type="button" class="btn btn-previous">Volver</button>
-                    <button type="button" class="btn btn-next">Siguiente</button>
+                    <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
+                    <button type="button" class="btn btn-next">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
                 </div>
             </fieldset>
 
+            <!-- Datos finales -->
             <fieldset>
-                <h4>Social media profiles:</h4>
-                <div class="form-group">
-                    <label class="sr-only" for="f1-facebook">Facebook</label>
-                    <input type="text" name="f1-facebook" placeholder="Facebook..." class="f1-facebook form-control" id="f1-facebook">
+                <div class="title">
+                    <span>Datos personales</span>
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="f1-twitter">Twitter</label>
-                    <input type="text" name="f1-twitter" placeholder="Twitter..." class="f1-twitter form-control" id="f1-twitter">
-                </div>
-                <div class="form-group">
-                    <label class="sr-only" for="f1-google-plus">Google plus</label>
-                    <input type="text" name="f1-google-plus" placeholder="Google plus..." class="f1-google-plus form-control" id="f1-google-plus">
+                    <div class="location">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-10">
+                                    <ul class="personal-data">
+                                        <li>
+                                            <label for="doc_type">Tipo de documento</label><br>
+                                            <select class="custom-select doc-type-select" id="doc_type">
+                                                <option selected disabled value="">Selecciona el tipo de documento</option>
+                                                <option value="CC">Cédula de Ciudadanía</option>
+                                                <option value="TI">Tarjeta de identidad</option>
+                                                <option value="CE">Cédula de extranjería</option>
+                                            </select>
+                                        </li>
+                                        <li>
+                                            <label for="doc_id">Número de documento</label><br>
+                                            <input type="text" name="document_id" id="doc_id" placeholder="Número de documento">
+                                        </li>
+                                        <li>
+                                            <label for="first_name">Nombre</label><br>
+                                            <input type="text" name="first_name" id="first_name" placeholder="Nombre">
+                                        </li>
+                                        <li>
+                                            <label for="last_name">Apellido</label><br>
+                                            <input type="text" name="last_name" id="last_name" placeholder="Apellido">
+                                        </li>
+                                    </ul>
+                                    
+                                    <ul class="select-birth">
+                                        <label>Fecha de nacimiento</label><br>
+                                        <li>
+                                            <label for="day">DD</label>
+                                            <select class="custom-select birth-select custom-select-lg mb-3" id="day-1">
+                                                {% for value in 1|range:32 %}
+                                                    <option value="{{ value }}">{{ value }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </li>
+                                        <li>
+                                            <label for="month">MM</label>
+                                            <select class="custom-select birth-select custom-select-lg mb-3" id="month-1">
+                                                {% for value in 1|range:13 %}
+                                                    <option value="{{ value }}">{{ value }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </li>
+                                        <li>
+                                            <label for="year">AAAA</label>
+                                            <select class="custom-select birth-select custom-select-lg mb-3" id="year-1">
+                                                {% for value in 1905|range:2019 %}
+                                                    {% if value == 2018 %}
+                                                        <option selected value="{{value}}">{{value}}</option>
+                                                    {% else %}                                               
+                                                        <option value="{{ value }}">{{ value }}</option>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </li>
+                                    </ul>
+                                    <ul class="personal-data">
+                                        <li>
+                                            <label for="phone_number">Teléfono Celular</label><br>
+                                            <input type="text" name="phone_number" id="phone_number" placeholder="Teléfono Celular">
+                                        </li>
+                                        <li>
+                                            <label for="email">Correo Electrónico</label><br>
+                                            <input type="email" name="email" id="email" placeholder="Correo Electrónico">
+                                        </li>
+                                        <li>
+                                            <label for="pass1">Contraseña</label><br>
+                                            <input type="password" name="password1" id="pass1" placeholder="Contraseña">
+                                        </li>
+                                        <li>
+                                            <label for="pass2">Repetir Contraseña</label><br>
+                                            <input type="password" name="password2" id="pass2" placeholder="Repetir Contraseña">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="f1-buttons">
-                    <button type="button" class="btn btn-previous">Volver</button>
+                    <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
                     <button type="submit" class="btn btn-submit">Finalizar</button>
                 </div>
             </fieldset>

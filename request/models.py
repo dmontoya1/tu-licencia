@@ -38,7 +38,13 @@ class Request(models.Model):
         (PENDIENTE_APROBACION, 'Pendiente de aprobación'),
         (NO_APLICA, 'No aplica')
     )
-
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name="Cliente",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True
+    )
     cea = models.ForeignKey(
         Cea,
         verbose_name="CEA",
@@ -57,13 +63,6 @@ class Request(models.Model):
         TransitDepartment,
         verbose_name = "Departamento de Tránsito",
         on_delete=models.SET_NULL,
-        blank=True,
-        null=True
-    )
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        verbose_name="Cliente",
-        on_delete=models.CASCADE,
         blank=True,
         null=True
     )

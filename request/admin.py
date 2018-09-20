@@ -11,7 +11,6 @@ class RequestAdmin(admin.ModelAdmin):
     """
 
     model = Request
-
     search_fields = ('cea__name', 'crc__name', 'transit_name', 'user__document_id', 'status', 'payment_type')
 
     readonly_fields = ('get_crc_price', ) #Eliminar esta linea y dejar la de abajo
