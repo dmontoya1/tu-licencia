@@ -60,6 +60,7 @@ class VehicleImages(models.Model):
         Vehicle,
         verbose_name="Vehículo",
         on_delete=models.CASCADE,
+        related_name="images"
     )
     image = models.ImageField(
         "Imágen",

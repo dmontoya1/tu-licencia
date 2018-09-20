@@ -32,7 +32,7 @@ class UserAdmin(django_user_admin):
          {'fields':
           ('username', 'password')}),
         (_('Información Personal'), {'fields': ('first_name', 'last_name', 'email', 'user_type', 'document_type',
-                                                'document_id')}),
+                                                'document_id', 'gender', 'birth_date')}),
         (_('Permisos'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                      'groups')}),
         (_('Información Adicional'),

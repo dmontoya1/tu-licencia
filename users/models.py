@@ -22,6 +22,10 @@ class User(AbstractUser):
     ADMIN_CRC = 'CRC'
     CLIENTE = 'CLI'
     EXPRESS_USER = 'EXU'
+
+    MASCULINO = 'MA'
+    FEMENINO = 'FE'
+
     DOCUMENT_TYPE = (
         (CEDULA_CIUDADANIA, 'Cédula de ciudadania'),
         (CEDULA_EXTRANJERA, 'Cédula de extranjería'),
@@ -32,6 +36,11 @@ class User(AbstractUser):
         (ADMIN_CRC, 'Administrador de CRC'),
         (CLIENTE, 'Cliente'),
         (EXPRESS_USER, 'Usuario express')
+    )
+
+    GENDER = (
+        (MASCULINO, 'Masculino'),
+        (FEMENINO, 'Femenino'),
     )
 
     email = models.EmailField("Email", unique=False)
@@ -83,6 +92,18 @@ class User(AbstractUser):
         blank=True,
         null=True
     )
+    gender = models.CharField(
+        "Género",
+        max_length=2,
+        choices=GENDER,
+        blank=True, null=True
+    )
+    birth_date = models.DateField(
+        "Fecha de Nacimiento",
+        blank=True, null=True
+    )
+
+
 
     class Meta:
         verbose_name = "Usuario"
