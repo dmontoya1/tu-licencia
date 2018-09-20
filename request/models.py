@@ -80,12 +80,25 @@ class Request(models.Model):
     status = models.CharField(
         "Estado",
         choices=STATUS,
-        max_length=2
+        max_length=2,
+        default=PENDIENTE
     )
     credit_status = models.CharField(
         "Estado del crédito (si aplica)",
         choices=CREDIT,
-        max_length=2
+        max_length=2,
+        default=NO_APLICA
+    )
+    credit_request_code = models.CharField(
+        "Código solicitud del crédito (si aplica)",
+        help_text="Código del crédito (Systecrédito)",
+        max_length=255,
+        blank=True, null=True
+    )
+    booking = models.CharField(
+        "Número de reserva", 
+        max_length=255,
+        blank=True, null=True
     )
 
 

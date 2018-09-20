@@ -7,5 +7,7 @@ app_name = 'api'
 urlpatterns = [
     path('jet/', include('jet.urls', namespace='jet'), name='jet'),  # Django JET URLS
     path('admin/', admin.site.urls),
-    path('manager/', include('manager.urls', namespace='manager'), name='manager')
+    path('manager/', include('manager.urls', namespace='manager'), name='manager'),
+    path('request/', include('request.urls', namespace='request'), name='request'),
+    path('companies/', include('companies.urls', namespace='companies'), name='companies'),
 ]

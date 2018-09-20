@@ -39,17 +39,17 @@ class RequestAdmin(admin.ModelAdmin):
 
     cea_fieldsets = (
         (None, {
-            'fields': ('cea', 'user', 'licences')
+            'fields': ('cea', 'user', 'licences', 'booking')
         }),
     )
     crc_fieldsets = (
         (None, {
-            'fields': ('crc', 'user', 'licences')
+            'fields': ('crc', 'user', 'licences', 'booking')
         }),
     )
     exp_fieldsets = (
         (None, {
-            'fields': ('user', 'credit_status', )
+            'fields': ('user', 'credit_status', 'credit_request_code', 'booking')
         }),
     )
 

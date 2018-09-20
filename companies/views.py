@@ -1,3 +1,14 @@
 from django.shortcuts import render
 
-# Create your views here.
+from rest_framework import generics
+
+from .serializers import CeaLicenceSerializer
+from .models import Crc, Cea, TransitDepartment
+
+
+class CeaList(generics.ListAPIView):
+    """
+    """
+
+    serializer_class = CeaLicenceSerializer
+    queryset = Cea.objects.all()
