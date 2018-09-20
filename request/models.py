@@ -38,6 +38,7 @@ class Request(models.Model):
         (PENDIENTE_APROBACION, 'Pendiente de aprobación'),
         (NO_APLICA, 'No aplica')
     )
+    
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name="Cliente",
