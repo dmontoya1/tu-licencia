@@ -1256,6 +1256,21 @@
 {% endblock %}
 {% block extra_js %}
     <script>
+        function formatJSON(form, wsurl){
+            fetch.apply(wsurl);
+            if($.Callbacks(form).fetch(wsurl)){
+                $form.serializeFormToBackend = function() {
+                    var d = [];
+                    var f = this.serializeArray();
+                    $.each(f, function(){
+                        console.log(f)
+                    })
+                    return d;
+                }
+            }
+            return form
+        }   
+
         $(".img-check").imgCheckbox({ 
             "styles": {
                 "span.imgCheckbox.imgChked img": {
