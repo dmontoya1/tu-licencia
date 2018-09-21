@@ -121,7 +121,7 @@
                 </div>
             </div>
         </div>
-        <form role="form" action="" method="post" class="f1">
+        <form role="form" action="" method="post" class="f1" id="licence-request-form">
 
             <span class="title">Ingresa tus datos para obtener la licencia</span>
             
@@ -1212,11 +1212,7 @@
                                             <label for="year">AAAA</label>
                                             <select class="custom-select birth-2-select custom-select-lg mb-3" id="year-1">
                                                 {% for value in 1905|range:2019 %}
-                                                    {% if value == 2018 %}
-                                                        <option selected value="{{value}}">{{value}}</option>
-                                                    {% else %}                                               
-                                                        <option value="{{ value }}">{{ value }}</option>
-                                                    {% endif %}
+                                                    <option {% if value == 2018 %}selected{% endif %} value="{{value}}">{{value}}</option>                                                    
                                                 {% endfor %}
                                             </select>
                                         </li>
@@ -1326,7 +1322,7 @@
                 
         }
 
-        loadStatesSelect()
+        loadStatesSelect();
 
         $('select#states').on('change', function(){
             selected = $(this)
