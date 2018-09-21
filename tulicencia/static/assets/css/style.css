@@ -126,16 +126,19 @@ ul.navbar-nav {
 	color: #ccc; 
 	font-size: 0.9em;
 	font-weight: 500;
+	line-height: 17px;
 }
 .f1-step.activated p { 
 	color: #232F3E;
     font-size: 0.9em;
-    font-weight: 500;
+	font-weight: 500;
+	line-height: 17px;
 }
 .f1-step.active p { 
 	color: #232F3E;
     font-size: 0.9em;
-    font-weight: 500;
+	font-weight: 500;
+	line-height: 17px;
 }
 
 .f1 fieldset { display: none }
@@ -143,36 +146,6 @@ ul.navbar-nav {
 .f1-buttons { text-align: right; }
 
 .f1 .input-error { border-color: #FFCA17; }
-
-
-
-/***** Media queries *****/
-
-@media (min-width: 992px) and (max-width: 1199px) {}
-
-@media (min-width: 768px) and (max-width: 991px) {}
-
-@media (max-width: 767px) {
-	
-	.navbar { padding-top: 0; }
-	.navbar.navbar-no-bg { background: #333; background: rgba(51, 51, 51, 0.9); }
-	.navbar-brand { height: 60px; margin-left: 15px; }
-	.navbar-collapse { border: 0; }
-	.navbar-toggle { margin-top: 12px; }
-	
-	.top-content { padding: 40px 0 110px 0; }
-
-}
-
-@media (max-width: 415px) {
-	
-	h1, h2 { font-size: 32px; }
-	
-	.f1 { padding-bottom: 20px; }
-	.f1-buttons button { margin-bottom: 5px; }
-
-}
-
 
 /* Retina-ize images/icons */
 
@@ -191,9 +164,13 @@ only screen and (                min-resolution: 2dppx) {
 	
 }
 
-#Stepper CSS
+/* Stepper CSS */
 
-ul.gender-choice {
+ul {
+	margin-left: -35px;
+}
+
+.gender-choice {
 	list-style-type: none;
 	text-align: center;
 }
@@ -230,6 +207,21 @@ ul.select-birth label {
     font-weight: 500;
 }
 
+ul.select-birth-2 {
+	list-style-type: none;
+	text-align: center;
+}
+
+ul.select-birth-2 li {
+	display: inline-block;
+}
+
+ul.select-birth-2 label {
+	font-size: 1.1em;
+    color: #232F3E;
+    font-weight: 500;
+}
+
 fieldset {
 	max-height: 410px;
 	overflow-y: scroll;
@@ -241,6 +233,15 @@ fieldset {
 
 select.birth-select {
 	border-radius: 10px;
+    color: #bbb;
+    font-size: 2.5em;
+    height: 1.6em;
+    width: 80%;
+    border: 3px solid #bbb;
+}
+
+select.birth-2-select {
+    border-radius: 10px;
     color: #bbb;
     font-size: 2.5em;
     height: 1.6em;
@@ -337,7 +338,8 @@ ul.tramit-choice input:checked + label::before {
 p.img-text {
 	font-size: 1.1em;
     color: #232F3E;
-    font-weight: 500;
+	font-weight: 500;
+	line-height: 20px;
 }
 
 ul.licence-vehicle-choice {
@@ -467,21 +469,6 @@ ul.car-licences input:checked + label::before {
 	align-items: flex-end;
 } */
 
-@media (min-width: 992px){
-	.col-lg-c-3 
-	{
-		-ms-flex: 0 0 25%;
-		flex: 0 0 25%;
-		max-width: 23%;
-	}
-}
-@media (min-width: 768px) {
-	.col-md-3 {
-		-ms-flex: 0 0 25%;
-		flex: 0 0 25%;
-		max-width: 22%;
-	}
-}
 
 .companies-list {
 	border: 2px solid #ddd;
@@ -604,4 +591,155 @@ a.login {
     position: relative;
     margin-right: 20px;
     cursor: pointer;
+}
+
+/***** Media queries *****/
+
+@media (min-width: 992px) and (max-width: 1199px) {}
+
+@media (min-width: 768px) and (max-width: 991px) {
+	.col-md-3.licences-category {
+		max-width: 25%;
+	}
+}
+
+@media (max-width: 767px) {
+	
+	.navbar { padding-top: 0; }
+	.navbar.navbar-no-bg { background: #333; background: rgba(51, 51, 51, 0.9); }
+	.navbar-brand { height: 60px; margin-left: 15px; }
+	.navbar-collapse { border: 0; }
+	.navbar-toggle { margin-top: 12px; }
+	
+	.top-content { padding: 40px 0 110px 0; }
+
+}
+
+@media (max-width: 415px) {
+	
+	h1, h2 { font-size: 32px; }
+	
+	.f1 { padding-bottom: 20px; }
+	.f1-buttons button { margin-bottom: 5px; }
+
+}
+
+@media (min-width: 992px){
+	.col-lg-c-3 
+	{
+		-ms-flex: 0 0 25%;
+		flex: 0 0 25%;
+		max-width: 23%;
+	}
+	.col-lg-3.filters {
+		-ms-flex: 0 0 25%;
+		flex: 0 0 25%;
+		max-width: 22%;
+	}
+}
+@media (min-width: 768px) {
+	
+	.col-md-6.company-detail {
+		flex: 0 0 50%;
+		max-width: 48%;
+	}
+}
+
+@media (max-width: 425px) {
+
+	img.img-check {
+		width: 100px;
+	}
+
+	ul.select-birth li {
+		width: 100%;
+	}
+
+	select.birth-select {
+		width: 100%;
+	}
+	
+	ul.select-location {
+		margin-left: -65px;
+		margin-right: -32px;
+	}
+	
+	p.img-text {
+		font-size: 1em;
+	}
+	ul.gender-choice li {
+		width: 100px;
+	}
+	.title span {
+		font-size: 1.1em;
+	}
+}
+
+@media (max-width: 767px) {
+	ul.bike-licences label, ul.car-licences label {
+		width: 100%;
+	}
+
+	.vehicle-licences p {
+		text-align: justify;
+		font-size: 0.8em;
+	}
+
+	ul.personal-data {
+		margin-left: -65px;
+		margin-right: -32px;
+	}
+
+	ul.personal-data label, {
+		width: 100%;
+	}
+
+	.birth-2-select {
+		width: 100% !important;
+	}
+	
+	ul.select-birth-2 li {
+		width: 100%;
+	}
+
+	ul.select-birth-2 {
+		margin-left: -65px;
+		margin-right: -32px;
+	}
+
+}
+
+@media (max-width: 991px) {
+	.f1-buttons {
+		text-align: center;
+	}
+	button.btn {
+		width: 100%;
+	}
+
+	button.btn.btn-next, 
+	button.btn.btn-next:focus, 
+	button.btn.btn-next:active:focus, 
+	button.btn.btn-next.active:focus {
+		background: #162d40;
+		padding-left: 50px;
+		padding-right: 10px;
+		margin-right: 0px;
+		margin-left: 0px;
+		margin-top: 10px;
+	}
+	button.btn.btn-submit, 
+	button.btn.btn-submit:focus, 
+	button.btn.btn-submit:active:focus, 
+	button.btn.btn-submit.active:focus{
+		background: #162d40;
+		padding-left: 50px;
+		padding-right: 10px;
+		margin-right: 0px;
+		margin-left: 0px;
+		margin-top: 10px;
+	}
+	.companies-list {
+		border: 2px solid #fff;
+	}
 }

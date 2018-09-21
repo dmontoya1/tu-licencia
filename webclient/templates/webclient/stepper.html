@@ -123,7 +123,7 @@
         </div>
         <form role="form" action="" method="post" class="f1">
 
-            <h3 class="title">Ingresa tus datos para obtener la licencia</h3>
+            <span class="title">Ingresa tus datos para obtener la licencia</span>
             
             <div class="f1-steps row">
                 <div class="f1-progress">
@@ -325,20 +325,20 @@
                         <li>
                             <div class="container">
                                 <div class="row justify-content-center">
-                                    <div class="col-3">
+                                    <div class="col-12 col-md-3 licences-category ">
                                         <input id="toggleA1" type="checkbox" name="A1">
                                         <label for="toggleA1">A1</label>
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-12 col-md-9">
                                         <p>(Cilindraje igual o menor a 125 c.c. <br>de servicio particular)</p>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-12 col-md-3 licences-category">
                                         <input id="toggleA2" type="checkbox" name="A2">
                                         <label for="toggleA2">A2</label>
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-12 col-md-9">
                                         <p>Motocicletas con cilindraje superior a 125cc <br>de servicio particular (Aplica para cualquier cilindraje).</p>
                                     </div>
                                 </div>
@@ -349,20 +349,20 @@
                         <li>
                             <div class="container">
                                 <div class="row justify-content-center">
-                                    <div class="col-3">
+                                    <div class="col-12 col-md-3 licences-category">
                                         <input id="toggleB1" type="checkbox" name="B1">
                                         <label for="toggleB1">B1</label>
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-12 col-md-9">
                                         <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio particular.)</p>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-12 col-md-3 licences-category">
                                         <input id="toggleC1" type="checkbox" name="C1">
                                         <label for="toggleC1">C1</label>
                                     </div>
-                                    <div class="col-9">
+                                    <div class="col-12 col-md-9">
                                         <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio público y particular.)</p>
                                     </div>
                                 </div>
@@ -393,7 +393,7 @@
                 <div class="form-group runt-info d-none">
                     <div class="title">
                         <span>
-                            Al final te daremos las indicaciones para inscribirte en el RUNT. <br>
+                            Al final te daremos las indicaciones para inscribirte en el RUNT.
                             Este procedimiento tiene un valor de $13.900
                         </span>
                     </div>
@@ -413,7 +413,7 @@
                 </div>
                 <div class="container">
                     <div class="row justify-content-around">
-                        <div class="col-sm-12 col-md-3 filters mb-4">
+                        <div class="col-sm-12 col-lg-3 filters mb-4">
                             <div class="row title-filter">
                                 <span>Filtrar por</span>
                             </div>
@@ -432,7 +432,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-9">
+                        <div class="col-sm-12 col-lg-9">
                             <div class="row justify-content-around companies-list">
                                 <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
                                     <div class="row">
@@ -661,7 +661,7 @@
                 </div>
                 <div class="container">
                     <div class="row justify-content-around">
-                        <div class="col-sm-12 col-md-3 filters mb-4">
+                        <div class="col-sm-12 col-lg-3 filters mb-4">
                             <div class="row title-filter">
                                 <span>Filtrar por</span>
                             </div>
@@ -683,7 +683,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-9">
+                        <div class="col-sm-12 col-lg-9">
                             <div class="row justify-content-around companies-list">
                                 <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
                                     <div class="row">
@@ -912,7 +912,7 @@
                 </div>
                 <div class="container">
                     <div class="row justify-content-around">
-                        <div class="col-sm-12 col-md-3 filters mb-4">
+                        <div class="col-sm-12 col-lg-3 filters mb-4">
                             <div class="row title-filter">
                                 <span>Filtrar por</span>
                             </div>
@@ -934,7 +934,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-12 col-md-9">
+                        <div class="col-sm-12 col-lg-9">
                             <div class="row justify-content-around companies-list">
                                 <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
                                     <div class="row">
@@ -1190,11 +1190,11 @@
                                         </li>
                                     </ul>
                                     
-                                    <ul class="select-birth">
+                                    <ul class="select-birth-2">
                                         <label>Fecha de nacimiento</label><br>
                                         <li>
                                             <label for="day">DD</label>
-                                            <select class="custom-select birth-select custom-select-lg mb-3" id="day-1">
+                                            <select class="custom-select birth-2-select custom-select-lg mb-3" id="day-1">
                                                 {% for value in 1|range:32 %}
                                                     <option value="{{ value }}">{{ value }}</option>
                                                 {% endfor %}
@@ -1202,7 +1202,7 @@
                                         </li>
                                         <li>
                                             <label for="month">MM</label>
-                                            <select class="custom-select birth-select custom-select-lg mb-3" id="month-1">
+                                            <select class="custom-select birth-2-select custom-select-lg mb-3" id="month-1">
                                                 {% for value in 1|range:13 %}
                                                     <option value="{{ value }}">{{ value }}</option>
                                                 {% endfor %}
@@ -1210,7 +1210,7 @@
                                         </li>
                                         <li>
                                             <label for="year">AAAA</label>
-                                            <select class="custom-select birth-select custom-select-lg mb-3" id="year-1">
+                                            <select class="custom-select birth-2-select custom-select-lg mb-3" id="year-1">
                                                 {% for value in 1905|range:2019 %}
                                                     {% if value == 2018 %}
                                                         <option selected value="{{value}}">{{value}}</option>
