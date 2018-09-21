@@ -8,17 +8,17 @@ from .models import Brand, Vehicle, VehicleImages
 class VehicleImagesSerializer(serializers.ModelSerializer):
     """
     """
-
-    model = VehicleImages
-    fields = ('id', 'image')
+    class Meta:
+        model = VehicleImages
+        fields = ('id', 'image')
 
 
 class BrandSerializer(serializers.ModelSerializer):
     """
     """
-
-    model = Brand
-    fields = ('id', 'name')
+    class Meta:
+        model = Brand
+        fields = ('id', 'name')
 
 
 class VehicleSerializer(serializers.ModelSerializer):
@@ -32,5 +32,6 @@ class VehicleSerializer(serializers.ModelSerializer):
         slug_field='name'
     )
 
-    model = Vehicle
-    fields = ('id', 'brand', 'line', 'images')
+    class Meta:
+        model = Vehicle
+        fields = ('id', 'brand', 'line', 'images')

@@ -332,13 +332,13 @@ class CeaLicence(models.Model):
         Cea,
         verbose_name="CEA",
         on_delete=models.CASCADE,
+        related_name='licences'
     )
     licence = models.ForeignKey(
         Licence,
         on_delete=models.CASCADE,
         verbose_name="Licencias",
-        help_text="Selecciona las licencias disponibles en el CEA",
-        related_name='licences'
+        help_text="Selecciona las licencias disponibles en el CEA"
     )
     price = models.CharField(
         "Precio",
@@ -370,7 +370,7 @@ class CeaVehicle(models.Model):
         Cea,
         verbose_name="CEA",
         on_delete=models.CASCADE,
-        related_name='related_vehicles'
+        related_name='vehicles'
     )
     vehicle = models.ForeignKey(
         Vehicle,
