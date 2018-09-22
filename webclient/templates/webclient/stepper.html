@@ -1261,7 +1261,7 @@
                 </div>
                 <div class="f1-buttons">
                     <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
-                    <button type="submit" class="btn btn-submit">Finalizar</button>
+                    <button type="submit" class="btn btn-submit" id="form-submit">Finalizar</button>
                 </div>
             </fieldset>
         
@@ -1277,14 +1277,19 @@
                 $form.serializeFormToBackend = function() {
                     var d = [];
                     var f = this.serializeArray();
-                    $.each(f, function(){
-                        console.log(f)
+                    $.each(f, function(v){
+                        d[f] = v
                     })
                     return d;
                 }
             }
             return form
         }   
+        
+        $('button#form-submit').on('click', function(e){
+            e.preventDefault();
+            $(this).form(formatJSON($(this.form), '/api/request/'))
+        })
 
         $(".img-check").imgCheckbox({ 
             "styles": {
