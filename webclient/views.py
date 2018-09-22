@@ -28,3 +28,10 @@ class TransitDetail(TemplateView):
     """
 
     template_name = 'webclient/transit_detail.html'
+
+
+class BaucherView(TemplateView):
+    """Clase para ver el template del Boucher
+    """
+
+    template_name = 'webclient/baucher.html'
