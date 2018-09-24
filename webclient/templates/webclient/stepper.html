@@ -1269,6 +1269,7 @@
         
         $('button#form-submit').on('click', function(e){
             e.preventDefault();
+            console.log($('#licence-request-form').serializeArray())
             $(this).form(formatJSON($(this.form), '/api/request/'))
         })
 
