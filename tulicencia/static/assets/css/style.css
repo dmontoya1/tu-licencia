@@ -626,6 +626,10 @@ a.login {
 }
 
 @media (max-width: 374px) {
+	.f1-steps {
+		overflow-x: scroll;
+		flex-wrap: unset;
+	}
 	
 	.form-box {
 		padding-top: 0px;
@@ -638,6 +642,7 @@ a.login {
 	.f1-step {
 		width: 33.33%;
 		margin-bottom: 1em;
+		margin-right: 3px;
 	}
 
 	.f1-step p {
