@@ -24,7 +24,7 @@ class UserAdmin(django_user_admin):
         'first_name', 'last_name', 'email', 'cellphone', 'document_id'
     )
     list_display = (
-        'document_id', 'username','first_name', 'last_name',
+        'document_id', 'username','first_name', 'last_name', 'user_type'
     )
 
     fieldsets = (
@@ -38,18 +38,40 @@ class UserAdmin(django_user_admin):
         (_('Información Adicional'),
          {'fields': ('phone_number', 'cellphone', 'state', 'city', 'address',)})
     )
+    manager_fieldsets = (
+        (None,
+         {'fields':
+          ('username', 'password')}),
+        (_('Información Personal'), {'fields': ('first_name', 'last_name', 'email', 'document_type',
+                                                'document_id', 'gender', 'birth_date')}),
+        (_('Información Adicional'),
+         {'fields': ('phone_number', 'cellphone', 'state', 'city', 'address',)})
+    )
 
     class Media:
         js = (
             'js/admin/utils_admin.js',
         )
 
+    def get_fieldsets(self, request, obj=None):
+        """
+        Hook for specifying fieldsets.
+        """
+        if request.user.is_superuser:
+            return self.fieldsets
+        else:
+            return self.manager_fieldsets
+    
+
     def get_queryset(self, request):
         """
         Función para reemplazar el queryset por defecto de django.
         """
         query = super(UserAdmin, self).get_queryset(request)
-        return query.all().exclude(is_superuser=True)
+        if request.user.is_superuser:
+            return query.all().exclude(is_superuser=True)
+        else:
+            return query.filter(pk=request.user.pk)
 
 
 admin.site.register(User, UserAdmin)

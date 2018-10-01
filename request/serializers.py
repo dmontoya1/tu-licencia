@@ -1,3 +1,4 @@
+
 from rest_framework import serializers
 
 from users.serializers import UserSerializer
@@ -15,4 +16,4 @@ class RequestSerializer(serializers.ModelSerializer):
         model = Request
         fields = (
             'id', 'user', 'cea', 'crc', 'transit', 'payment_type',
-            'licences', 'credit_status')
+            'licences', 'credit_status', 'booking')

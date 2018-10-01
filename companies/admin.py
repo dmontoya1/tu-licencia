@@ -45,6 +45,8 @@ class CeaAdmin(admin.ModelAdmin):
     list_display = ('nit', 'name', 'manager', 'cellphone')
     inlines = [ScheduleAdmin, CeaLicenceAdmin, CeaVehicleAdmin]
 
+    manager_readonly_fields = ('manager', )
+
     class Media:
         js = (
             'js/admin/utils_admin.js',
@@ -65,6 +67,12 @@ class CeaAdmin(admin.ModelAdmin):
         else:
             return query.all()
 
+    def get_readonly_fields(self, request, obj=None):
+        if request.user.user_type == User.ADMIN_CEA:
+            return self.manager_readonly_fields
+        else:
+            return super(CeaAdmin, self).get_readonly_fields(request, obj=obj)
+
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "manager":
             kwargs["queryset"] = User.objects.filter(user_type='CEA', is_active=True).order_by('document_id')
@@ -77,7 +85,7 @@ class CrcAdmin(admin.ModelAdmin):
     """
 
     model = Crc
-    list_display = ('nit', 'name', 'cellphone')
+    list_display = ('nit', 'name', 'manager', 'cellphone')
     inlines = [ScheduleAdmin,]
 
     class Media:
@@ -128,7 +136,7 @@ class TuLicenciaAdmin(admin.ModelAdmin):
     """
 
     model = TuLicencia
-    list_display = ('address', 'city', 'state')
+    list_display = ('address', 'express_user', 'city', 'state')
 
     class Media:
         js = (
@@ -144,7 +152,7 @@ class TuLicenciaAdmin(admin.ModelAdmin):
         query = super(TuLicenciaAdmin, self).get_queryset(request)
         if request.user.user_type == User.EXPRESS_USER:
             try:
-                return query.filter(manager=request.user)
+                return query.filter(express_user=request.user)
             except Exception as e:
                 print (e)
         else:

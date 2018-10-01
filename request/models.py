@@ -43,6 +43,7 @@ class Request(models.Model):
         settings.AUTH_USER_MODEL,
         verbose_name="Cliente",
         on_delete=models.CASCADE,
+        related_name='related_requests',
         blank=True,
         null=True
     )
@@ -50,6 +51,7 @@ class Request(models.Model):
         Cea,
         verbose_name="CEA",
         on_delete=models.SET_NULL,
+        related_name='related_cea_requests',
         blank=True,
         null=True,
     )
@@ -57,6 +59,7 @@ class Request(models.Model):
         Crc,
         verbose_name="CRC",
         on_delete=models.SET_NULL,
+        related_name='related_crc_requests',
         blank=True,
         null=True
     )
@@ -100,6 +103,10 @@ class Request(models.Model):
         max_length=255,
         blank=True, null=True
     )
+    request_date = models.DateTimeField(
+        "Fecha de la solicitud",
+        auto_now_add=True,
+    )
 
 
     def __str__(self):
@@ -111,6 +118,13 @@ class Request(models.Model):
     class Meta:
         verbose_name = "Solicitud"
         verbose_name_plural = "Solicitudes"
+
+
+    def clean(self, *args, **kwargs):
+        "Funcion para generar el booking de los clientes"
+        d = self.request_date
+        self.booking = 'RE{}{}{}{}'.format(d.month, d.day, self.user.pk, self.pk)
+        super(Request, self).save(*args, **kwargs)
 
 
     def get_crc_price(self):
