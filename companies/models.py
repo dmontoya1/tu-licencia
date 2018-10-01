@@ -397,3 +397,33 @@ class CeaVehicle(models.Model):
         verbose_name = "Vehículo del CEA"
         verbose_name = "Vehículos del CEA"
 
+
+class TransitLicence(models.Model):
+    """Guarda los precios de las licencias de los departamentos
+    de tránsito
+    """
+
+    transit = models.ForeignKey(
+        TransitDepartment,
+        verbose_name="Oficina de Tránsito",
+        on_delete=models.CASCADE,
+        related_name='related_licences'
+    )
+    licence = models.ForeignKey(
+        Licence,
+        on_delete=models.CASCADE,
+        verbose_name="Licencias",
+        help_text="Selecciona la licencia"
+    )
+    price = models.CharField(
+        "Precio",
+        max_length=255,
+        help_text="Precio de la licencia nueva")
+
+    def __str__(self):
+        return "Licencia %s de %s" % (self.licence, self.transit)
+
+
+    class Meta:
+        verbose_name = "Precio de licencia de tránsito"
+        verbose_name_plural = "Precios de licencias de tránsito"

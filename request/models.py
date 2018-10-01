@@ -3,7 +3,7 @@ from django.db import models
 from django.conf import settings
 
 from companies.models import Cea, Crc, TransitDepartment
-from licences.models import Licence
+from licences.models import Licence, AgeRange, AnsvRanges
 
 
 class Request(models.Model):

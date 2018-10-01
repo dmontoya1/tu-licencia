@@ -16,7 +16,7 @@ class RequestAdmin(admin.ModelAdmin):
     'user__last_name', 'status', 'payment_type')
 
     readonly_fields = ('get_crc_price', 'request_date') #Eliminar esta linea y dejar la de abajo
-    # readonly_fields = ('cea', 'crc', 'transit', 'user', 'licences', 'get_crc_price')
+    # readonly_fields = ('cea', 'crc', 'transit', 'user', 'licences', 'get_crc_price', 'request_date)
     
     def changelist_view(self, request, extra_context=None):
         """

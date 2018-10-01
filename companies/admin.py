@@ -5,7 +5,9 @@ from django.conf import settings
 from django.contrib import admin
 
 from users.models import User
-from .models import Cea, Crc, TransitDepartment, Schedule, CeaLicence, CeaVehicle, TuLicencia
+from .models import (
+    Cea, Crc, TransitDepartment, Schedule, CeaLicence, CeaVehicle,
+    TuLicencia, TransitLicence)
 
 
 class ScheduleAdmin(admin.StackedInline):
@@ -34,6 +36,13 @@ class CeaVehicleAdmin(admin.StackedInline):
     """
     model = CeaVehicle
     extra = 1
+
+
+class TransitLicenceAdmin(admin.StackedInline):
+    """
+    """
+    model = TransitLicence
+    extra = 0
 
 
 @admin.register(Cea)
@@ -122,7 +131,7 @@ class TransitDepartmentAdmin(admin.ModelAdmin):
 
     model = TransitDepartment
     list_display = ('nit', 'name', 'cellphone')
-    inlines = [ScheduleAdmin,]
+    inlines = [ScheduleAdmin, TransitLicenceAdmin]
 
     class Media:
         js = (
