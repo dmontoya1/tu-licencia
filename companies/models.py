@@ -203,6 +203,10 @@ class TransitDepartment(models.Model):
         blank=True,
         null=True
     )
+    runt_price = models.CharField(
+        "Precio del RUNT",
+        max_length=255
+    )
 
     def __str__(self):
         return self.name
