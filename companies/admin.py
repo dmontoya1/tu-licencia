@@ -97,6 +97,8 @@ class CrcAdmin(admin.ModelAdmin):
     list_display = ('nit', 'name', 'manager', 'cellphone')
     inlines = [ScheduleAdmin,]
 
+    manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo' )
+
     class Media:
         js = (
             'js/admin/utils_admin.js',
@@ -122,6 +124,12 @@ class CrcAdmin(admin.ModelAdmin):
         if db_field.name == "manager":
             kwargs["queryset"] = User.objects.filter(user_type='CRC', is_active=True).order_by('document_id')
         return super(CrcAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
+
+    def get_readonly_fields(self, request, obj=None):
+        if request.user.user_type == User.ADMIN_CRC:
+            return self.manager_readonly_fields
+        else:
+            return super(CrcAdmin, self).get_readonly_fields(request, obj=obj)
 
 
 @admin.register(TransitDepartment)

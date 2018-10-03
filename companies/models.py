@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 from licences.models import Licence
-from manager.models import State, City
+from manager.models import State, City, CRCAdminPrices
 from vehicles.models import Vehicle
 from .utils import get_upload_to
 
@@ -134,10 +134,25 @@ class Crc(models.Model):
         blank=True,
         null=True
     )
+    collection = models.ForeignKey(
+        CRCAdminPrices,
+        verbose_name="Pin sicov y recaudo banco",
+        on_delete=models.SET_NULL,
+        blank=True, null=True
+    )
     
+
+    def get_pin_sicov(self):
+        return '$ %s' % (self.collection.pin_sicov)
+    
+    def get_recaudo(self):
+        return '$ %s' % (self.collection.recaudo)
 
     def __str__(self):
         return self.name
+    
+    get_pin_sicov.short_description = "Pin Sicov"
+    get_recaudo.short_description = "Recaudo banco"
 
 
     class Meta:

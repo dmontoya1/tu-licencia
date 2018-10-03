@@ -29,6 +29,7 @@ class Licence(models.Model):
     class Meta:
         verbose_name = "Licencia"
 
+
 class AgeRange(models.Model):
     """Creación de los rangos de edades para los ansv
     Se creó un modelo aparte ya que hay que validar en que rango de edad

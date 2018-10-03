@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 from django.contrib import messages
 from django.db.models import Q
-from .models import State, City, Police
+from .models import State, City, Police, CRCAdminPrices
 
 
 @admin.register(State)
@@ -80,3 +80,13 @@ class PoliceAdmin(admin.ModelAdmin):
             ),
         }),
     )
+
+
+@admin.register(CRCAdminPrices)
+class CRCAdminPricesAdmin(admin.ModelAdmin):
+    """
+    Administra los datos de pin sicov y recaudo de las CRC
+    """
+
+    model = CRCAdminPrices
+    list_display = ('id', 'pin_sicov', 'recaudo')

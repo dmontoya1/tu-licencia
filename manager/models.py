@@ -65,3 +65,27 @@ class Police(models.Model):
 
     class Meta:
         verbose_name = "Politica"
+
+
+class CRCAdminPrices(models.Model):
+    """Modelo para guardar los valores de
+    Pin Sicov y Recaudo de Banco para el cálculo del valor
+    total a pagar del CRC
+    """
+
+    pin_sicov = models.CharField(
+        "Precio PIN SICOV",
+        max_length=255,
+    )
+    recaudo = models.CharField(
+        "Precio Recaudo Banco",
+        max_length=255,
+    )
+
+    def __str__(self):
+        return "Recaudos PIN SICOV Y RECAUDO BANCO"
+    
+
+    class Meta:
+        verbose_name = "Adminsitración Recaudo CRC"
+        verbose_name_plural = "Administración Recaudos CRC"
