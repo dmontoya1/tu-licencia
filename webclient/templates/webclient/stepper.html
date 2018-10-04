@@ -14,7 +14,7 @@
             <div class="separator">
                 | 
             </div>
-            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="3">
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="0">
                 <img src="{% static 'images/cart.png' %}" alt="cart" >
             </div>
         </div>
@@ -129,58 +129,54 @@
                 <div class="f1-progress">
                     <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="6" style="width: 16.66%;"></div>
                 </div>
-                <!-- <div class="col-xs-12 col-md-6 col-lg-6"> -->
-                    <div class="f1-step active">
-                        <div class="f1-step-icon"><img src="{% static '/images/1.png' %}" width="23" alt="stepper-1"></div>
-                        <p>Datos Usuario</p>
-                    </div>
-                    <div class="f1-step">
-                        <div class="f1-step-icon"><img src="{% static '/images/2.png' %}" width="23" alt="stepper-2"></div>
-                        <p>Tipo de trámite</p>
-                    </div>
-                    <div class="f1-step">
-                        <div class="f1-step-icon"><img src="{% static '/images/3.png' %}" width="23" alt="stepper-3"></div>
-                        <p>Seleccionar CRC</p>
-                    </div>
-                <!-- </div>
-                <div class="col-xs-12 col-md-6 col-lg-6"> -->
-                    <div class="f1-step">
-                        <div class="f1-step-icon"><img src="{% static '/images/4.png' %}" width="23" alt="stepper-4"></div>
-                        <p>Seleccionar CEA</p>
-                    </div>
-                    <div class="f1-step">
-                        <div class="f1-step-icon"><img src="{% static '/images/5.png' %}" width="23" alt="stepper-5"></div>
-                        <p>Organismo de Transporte</p>
-                    </div>
-                    <div class="f1-step">
-                        <div class="f1-step-icon"><img src="{% static '/images/6.png' %}" width="23" alt="stepper-6"></div>
-                        <p>Datos finales usuario</p>
-                    </div>
-                <!-- </div> -->
+                <div class="f1-step active">
+                    <div class="f1-step-icon"><img src="{% static '/images/1.png' %}" width="23" alt="stepper-1"></div>
+                    <p>Datos Usuario</p>
+                </div>
+                <div class="f1-step">
+                    <div class="f1-step-icon"><img src="{% static '/images/2.png' %}" width="23" alt="stepper-2"></div>
+                    <p>Tipo de trámite</p>
+                </div>
+                <div class="f1-step">
+                    <div class="f1-step-icon"><img src="{% static '/images/3.png' %}" width="23" alt="stepper-3"></div>
+                    <p>Seleccionar CRC</p>
+                </div>
+                <div class="f1-step">
+                    <div class="f1-step-icon"><img src="{% static '/images/4.png' %}" width="23" alt="stepper-4"></div>
+                    <p>Seleccionar CEA</p>
+                </div>
+                <div class="f1-step">
+                    <div class="f1-step-icon"><img src="{% static '/images/5.png' %}" width="23" alt="stepper-5"></div>
+                    <p>Organismo de Transporte</p>
+                </div>
+                <div class="f1-step">
+                    <div class="f1-step-icon"><img src="{% static '/images/6.png' %}" width="23" alt="stepper-6"></div>
+                    <p>Datos finales usuario</p>
+                </div>
             </div>
             
             <!-- Datos iniciales -->
             <fieldset>
-                <div class="form-group">
+                <div class="form-group choice-gender">
                     <div class="title">
                         <span>Selecciona tu género</span>
                     </div>
                     <ul class="gender-choice">
-                        <li>
+                        <li class="male">
                             <label for="cb1">
-                                <img class="img-check" src="{% static 'images/icon-men.png' %}" /><br>
+                                <img class="img-check gender" data-value="M" src="{% static 'images/icon-men.png' %}" /><br>
                                 <p class="img-text">Hombre</p>
                             </label>
                         </li>
-                        <li>
+                        <li class="female">
                             <label for="cb2">
-                                <img class="img-check" src="{% static 'images/icon-women.png' %}" /><br>
+                                <img class="img-check gender" data-value="F" src="{% static 'images/icon-women.png' %}" /><br>
                                 <p class="img-text">Mujer</p>
                             </label>
                         </li>
                     </ul>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="birthdate-select">
                     <div class="title">
                         <span>Fecha de nacimiento</span>
                     </div>
@@ -188,6 +184,7 @@
                         <li>
                             <label for="day">DD</label>
                             <select class="custom-select birth-select custom-select-lg mb-3" id="day">
+                                <option value="" disabled selected>DD</option>
                                 {% for value in 1|range:32 %}
                                     <option value="{{ value }}">{{ value }}</option>
                                 {% endfor %}
@@ -196,6 +193,7 @@
                         <li>
                             <label for="month">MM</label>
                             <select class="custom-select birth-select custom-select-lg mb-3" id="month">
+                                <option value="" disabled selected>MM</option>
                                 {% for value in 1|range:13 %}
                                     <option value="{{ value }}">{{ value }}</option>
                                 {% endfor %}
@@ -204,12 +202,9 @@
                         <li>
                             <label for="year">AAAA</label>
                             <select class="custom-select birth-select custom-select-lg mb-3" id="year">
+                                <option value="" disabled selected>AAAA</option>
                                 {% for value in 1905|range:2019 %}
-                                    {% if value == 2018 %}
-                                        <option selected value="{{value}}">{{value}}</option>
-                                    {% else %}                                               
-                                        <option value="{{ value }}">{{ value }}</option>
-                                    {% endif %}
+                                    <option value="{{ value }}">{{ value }}</option>
                                 {% endfor %}
                             </select>
                         </li>
@@ -252,7 +247,9 @@
                     </div>
                 </div>
                 <div class="f1-buttons">
-                    <button type="button" class="btn btn-next">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"> </button>
+                    <button type="button" class="btn btn-next btn-step-1">
+                        Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next">
+                    </button>
                 </div>
             </fieldset>
 
@@ -260,13 +257,13 @@
             <fieldset>
                 <div class="form-group">
                     <ul class="gender-choice">
-                        <li class="mr-sm-4">
+                        <li class="mr-sm-4 have-licence disabled">
                             <label for="licence-1">
                                 <img class="img-check" src="{% static 'images/licence-yes.png' %}" id="licence-1"/><br>
                                 <p class="img-text">Ya tienes Licencia?</p>
                             </label>
                         </li>
-                        <li>
+                        <li class="no-licence">
                             <label for="licence-2">
                                 <img class="img-check" src="{% static 'images/licence-no.png' %}" id="licence-2"/><br>
                                 <p class="img-text">Es tu primera licencia?</p>
@@ -281,7 +278,7 @@
                     <ul class="tramit-choice">
                         <li>
                             <input id="toggle1" type="checkbox" name="initial">
-                            <label for="toggle1">Primera licencia</label>
+                            <label for="toggle1">Segunda licencia</label>
                         </li>
                         <li>
                             <input id="toggle2" type="checkbox" name="recat">
@@ -326,7 +323,7 @@
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-12 col-md-3 licences-category ">
-                                        <input id="toggleA1" type="checkbox" name="A1">
+                                        <input id="toggleA1" type="checkbox" data-name="A1" name="A1">
                                         <label for="toggleA1">A1</label>
                                     </div>
                                     <div class="col-12 col-md-9">
@@ -335,7 +332,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12 col-md-3 licences-category">
-                                        <input id="toggleA2" type="checkbox" name="A2">
+                                        <input id="toggleA2" type="checkbox" data-name="A2" name="A2">
                                         <label for="toggleA2">A2</label>
                                     </div>
                                     <div class="col-12 col-md-9">
@@ -350,7 +347,7 @@
                             <div class="container">
                                 <div class="row justify-content-center">
                                     <div class="col-12 col-md-3 licences-category">
-                                        <input id="toggleB1" type="checkbox" name="B1">
+                                        <input id="toggleB1" type="checkbox" data-name="B1" name="B1">
                                         <label for="toggleB1">B1</label>
                                     </div>
                                     <div class="col-12 col-md-9">
@@ -359,7 +356,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12 col-md-3 licences-category">
-                                        <input id="toggleC1" type="checkbox" name="C1">
+                                        <input id="toggleC1" type="checkbox" data-name="C1" name="C1">
                                         <label for="toggleC1">C1</label>
                                     </div>
                                     <div class="col-12 col-md-9">
@@ -376,13 +373,13 @@
                         <p>Si no está seguro puede verificar haciendo clic <a href="https://www.runt.com.co/consultaCiudadana/#/consultaPersona" target="_blank" rel="noopener noreferrer">AQUI</a></p>
                     </div>
                     <ul class="licence-vehicle-choice">
-                        <li>
+                        <li class="si-runt">
                             <label for="cb2">
                                 <img class="img-check" src="{% static 'images/SI.png' %}" /><br>
                                 <p class="img-text">Si</p>
                             </label>
                         </li>
-                        <li class="mr-sm-4">
+                        <li class="mr-sm-4 no-runt">
                             <label for="cb1">
                                 <img class="img-check" src="{% static 'images/NO.png' %}" id="no-runt"/><br>
                                 <p class="img-text">No</p>
@@ -402,7 +399,7 @@
                 
                 <div class="f1-buttons">
                     <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
-                    <button type="button" class="btn btn-next">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
+                    <button type="button" class="btn btn-next btn-step-2">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
                 </div>
             </fieldset>
             
@@ -1288,9 +1285,7 @@
         
         $('button#form-submit').on('click', function(e){
             e.preventDefault();
-            console.log($('#licence-request-form').serializeArray
-            
-            ())
+            console.log($('#licence-request-form').serializeArray())
             $(this).form(formatJSON($(this.form), '/api/request/'))
         })
 
@@ -1356,51 +1351,105 @@
             loadCitiesSelect(selected.val())
         })
 
+        var gender = ""
+        var birth_date = ""
+        var age = ""
+        var tramit = ""
+        var licences = {}
+        var bike = false
+        var car = false
+        var runt = ""
+
         $('#licence-2').on('click', function(ev){
             $('.licence-vehicle').toggleClass('d-none')
         })
         $('#bike-licence').on('click', function(ev){
             $('.bike-licences').toggleClass('d-none')
+            bike = !bike;
+            if (!(bike)){
+                if ('bike' in licences){
+                    delete licences['bike']
+                }
+            }
         })
         $('#car-licence').on('click', function(ev){
             $('.car-licences').toggleClass('d-none')
+            car = !car;
+            if (!(car)){
+                if ('car' in licences){
+                    delete licences['car']
+                }
+            }
         })
         $('#no-runt').on('click', function(ev){
             $('.runt-info').toggleClass('d-none')
+        })
+        $('.si-runt').on('click', function(e){
+            if ($('.no-runt').hasClass('disabled'))
+            {
+                $('.no-runt').removeClass('disabled')
+                runt = ""
+            }
+            else {
+                $('.no-runt').addClass('disabled')
+                runt = 'si'
+            }
+            console.log(runt)
+        })
+        $('.no-runt').on('click', function(e){
+            if ($('.si-runt').hasClass('disabled'))
+            {
+                $('.si-runt').removeClass('disabled')
+                runt = ""
+            }
+            else {
+                $('.si-runt').addClass('disabled')
+                runt = 'no'
+            }
+            console.log(runt)
         })
 
         $('#toggleA1').on('click', function(e){
             if ($('#toggleA2').attr('disabled')){
                 $('#toggleA2').removeAttr('disabled')
+                delete licences['bike']
             }
             else {
                 $('#toggleA2').attr('disabled', true)
+                licences['bike'] = $(this).data('name')
             }
         })
         $('#toggleA2').on('click', function(e){
             if ($('#toggleA1').attr('disabled')){
                 $('#toggleA1').removeAttr('disabled')
+                delete licences['bike']
             }
             else {
                 $('#toggleA1').attr('disabled', true)
+                licences['bike'] = $(this).data('name')
             }
         })
         $('#toggleB1').on('click', function(e){
             if ($('#toggleC1').attr('disabled')){
                 $('#toggleC1').removeAttr('disabled')
+                delete licences['car']
             }
             else {
                 $('#toggleC1').attr('disabled', true)
+                licences['car'] = $(this).data('name')
             }
         })
         $('#toggleC1').on('click', function(e){
             if ($('#toggleB1').attr('disabled')){
                 $('#toggleB1').removeAttr('disabled')
+                delete licences['car']
             }
             else {
                 $('#toggleB1').attr('disabled', true)
+                licences['car'] = $(this).data('name')
             }
         })
+        
         
         $('.btn-crc').on('click', function(ev){
             window.open("{% url 'webclient:crc-detail' %}", "_blank");
@@ -1410,6 +1459,46 @@
         })
         $('.btn-licence').on('click', function(ev){
             window.open("{% url 'webclient:transit-detail' %}", "_blank");
+        })
+
+
+        $('#year').on('change', function(e){
+            birth_date = `${$('#month').val()}-${$('#day').val()}-${$(this).val()}`
+            dob = new Date(birth_date);
+            var today = new Date();
+            age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+        })
+
+
+        $('.male').on('click', function(e){
+            if ($('.female').hasClass('disabled'))
+            {
+                $('.female').removeClass('disabled')
+                gender = ""
+            }
+            else {
+                $('.female').addClass('disabled')
+                gender = 'MA'
+            }
+        })
+        $('.female').on('click', function(e){
+            if ($('.male').hasClass('disabled'))
+            {
+                $('.male').removeClass('disabled')
+                gender = ""
+            }
+            else {
+                $('.male').addClass('disabled')
+                gender = 'FE'
+            }
+        })
+        $('.no-licence').on('click', function(e){
+            if (tramit == ""){
+                tramit = "first_licence"
+            }
+            else {
+                tramit = ""
+            }
         })
     </script>
 {% endblock %}

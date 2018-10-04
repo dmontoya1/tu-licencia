@@ -39,6 +39,11 @@ h4 {
     line-height: 26px;
 }
 
+li.disabled {
+    pointer-events:none; 
+    opacity:0.6;
+}
+
 img { max-width: 100%; }
 
 ::-moz-selection { background: #232f3f; color: #fff; text-shadow: none; }
