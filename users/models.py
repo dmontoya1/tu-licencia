@@ -72,16 +72,16 @@ class User(AbstractUser):
         null=True
     )
     cellphone = models.CharField("Celular", max_length=10)
-    city = models.ForeignKey(
-        City,
-        verbose_name="Ciudad",
+    state = models.ForeignKey(
+        State,
+        verbose_name="Departamento",
         on_delete=models.SET_NULL,
         blank=True,
         null=True
     )
-    state = models.ForeignKey(
-        State,
-        verbose_name="Departamento",
+    city = models.ForeignKey(
+        City,
+        verbose_name="Ciudad",
         on_delete=models.SET_NULL,
         blank=True,
         null=True

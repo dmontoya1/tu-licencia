@@ -92,14 +92,12 @@ class Crc(models.Model):
         blank=True,
         null=True
     )
-    price = models.CharField(
+    price = models.IntegerField(
         "Precio del servicio",
-        max_length=7,
         help_text="Precio del servicio para una sola licencia"
     )
-    price_double = models.CharField(
+    price_double = models.IntegerField(
         "Precio del servicio doble",
-        max_length=7,
         help_text="Precio del servicio para 2 licencias"
     )
     state = models.ForeignKey(

@@ -24,20 +24,20 @@ class UserAdmin(django_user_admin):
         'first_name', 'last_name', 'email', 'cellphone', 'document_id'
     )
     list_display = (
-        'document_id', 'username','first_name', 'last_name', 'user_type'
+        'username', 'document_id','first_name', 'last_name', 'user_type'
     )
 
-    fieldsets = (
-        (None,
-         {'fields':
-          ('username', 'password')}),
-        (_('Información Personal'), {'fields': ('first_name', 'last_name', 'email', 'user_type', 'document_type',
-                                                'document_id', 'gender', 'birth_date')}),
-        (_('Permisos'), {'fields': ('is_active', 'is_staff', 'is_superuser',
-                                     'groups')}),
-        (_('Información Adicional'),
-         {'fields': ('phone_number', 'cellphone', 'state', 'city', 'address',)})
-    )
+    # fieldsets = (
+    #     (None,
+    #      {'fields':
+    #       ('username', 'password')}),
+    #     (_('Información Personal'), {'fields': ('first_name', 'last_name', 'email', 'user_type', 'document_type',
+    #                                             'document_id', 'gender', 'birth_date')}),
+    #     (_('Permisos'), {'fields': ('is_active', 'is_staff', 'is_superuser',
+    #                                  'groups')}),
+    #     (_('Información Adicional'),
+    #      {'fields': ('phone_number', 'cellphone', 'state', 'city', 'address',)})
+    # )
     manager_fieldsets = (
         (None,
          {'fields':
@@ -58,7 +58,8 @@ class UserAdmin(django_user_admin):
         Hook for specifying fieldsets.
         """
         if request.user.is_superuser:
-            return self.fieldsets
+            return [(None, {'fields': self.get_fields(request, obj)})]
+            # return self.fieldsets
         else:
             return self.manager_fieldsets
     

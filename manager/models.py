@@ -73,13 +73,11 @@ class CRCAdminPrices(models.Model):
     total a pagar del CRC
     """
 
-    pin_sicov = models.CharField(
+    pin_sicov = models.IntegerField(
         "Precio PIN SICOV",
-        max_length=255,
     )
-    recaudo = models.CharField(
+    recaudo = models.IntegerField(
         "Precio Recaudo Banco",
-        max_length=255,
     )
 
     def __str__(self):

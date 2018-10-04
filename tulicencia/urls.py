@@ -10,3 +10,6 @@ urlpatterns = [
     path('api/', include('api.urls', namespace='api'), name='api'),
     path('', include('webclient.urls', namespace='webclient'), name='webclient')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

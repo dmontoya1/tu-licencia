@@ -36,13 +36,11 @@ class AgeRange(models.Model):
     se encuentra una persona, y asi determinar el precio que debe cancelar
     """
 
-    start_age = models.CharField(
+    start_age = models.IntegerField(
         "Edad inicial",
-        max_length=3
     )
-    end_age = models.CharField(
+    end_age = models.IntegerField(
         "Edad final",
-        max_length=3
     )
 
     def __str__(self):
@@ -82,9 +80,8 @@ class AnsvRanges(models.Model):
         verbose_name="Rango de edades",
         on_delete=models.CASCADE
     )
-    price = models.CharField(
+    price = models.IntegerField(
         "Precio",
-        max_length=10,
     )
 
     def __str__(self):

@@ -24,11 +24,6 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
-    # 'rest_auth',
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'rest_auth.registration',
 ]
 
 PROJECT_APPS = [
@@ -117,6 +112,12 @@ USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
+
+# Static files
+STATIC_URL = '/static/'
+
+# User uploades files
+MEDIA_URL = '/media/'
 
 
 # DRF Config

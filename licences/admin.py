@@ -24,6 +24,6 @@ class AgeRangeAdmin(admin.ModelAdmin):
 class AnsvRangesAdmin(admin.ModelAdmin):
     """
     """
-
+    search_fields = ('age_range__start_age', 'price')
     model = AnsvRanges
     list_display = ('gender', 'age_range', 'price', 'licence')

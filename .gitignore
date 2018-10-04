@@ -4,4 +4,4 @@
 launch.json
 media
 .vscode
-*.cpython-37.pyc
+*.pyc

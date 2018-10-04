@@ -51,9 +51,6 @@ jQuery(document).ready(function() {
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
 		
-
-		
-		/* 
 		if ($('#cities').val() == "" || $('#cities').val() == null){
 			next_step = false;
 			swal({
@@ -97,8 +94,6 @@ jQuery(document).ready(function() {
 			  })
 
 		}
-		*/
-
     	if( next_step ) {
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
@@ -138,7 +133,6 @@ jQuery(document).ready(function() {
 				}
 			})
 		}
-
 		if (car){
 			if (!('car' in licences)){
 				next_step = false;			
@@ -189,9 +183,267 @@ jQuery(document).ready(function() {
 				}
 			})
 		}
-
+		var licence = ""
     	if( next_step ) {
-			
+			$.each(licences, function(i, v){
+				licence += (`${v},`)
+			})
+			axios.get('/api/companies/crc', {
+				params: {
+					state: $('#states').val(),
+					age: age,
+					gender: gender,
+					licences: licence
+				}
+			})
+			.then(function (response) {
+				data = response.data;
+				$('.crc-list').empty()
+				$.each(data, function(i, v){
+					if(v.logo == null){
+						logo = '/static/logos/simetric.png'
+					}
+					else{
+						logo = v.logo
+					}
+					$('.crc-list').append(
+						`
+							<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+								<div class="row">
+									<div class="col-12 logo-company">			
+										<img 
+											src="${logo}" 
+										width="70" alt="Logo Company">
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col-12 company-name">
+										<span>${v.name}</span>
+									</div>
+									<div class="col-12 company-location mt-3">
+										<div class="row">
+											<div class="col-3 img-location">
+												<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
+											</div>
+											<div class="col-8 sector">
+												<span>
+													${v.city.name}, ${v.city.state.name}
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-12 company-rating mt-3">
+										<span>Rating</span>
+									</div>
+									<div class="col-12 company-button mt-3">
+										<button type="button" class="see-detail btn-crc">
+											Ver detalle
+										</button>
+										<button type="button" class="add-to-cart">
+											Añadir al carrito
+										</button>
+									</div>
+								</div>
+							</div>
+						`
+					)
+				})
+			})
+			.catch(function (error) {
+				console.log(error);
+			})
+    		parent_fieldset.fadeOut(400, function() {
+    			// change icons
+    			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
+    			// progress bar
+    			bar_progress(progress_line, 'right');
+    			// show next step
+	    		$(this).next().fadeIn();
+	    		// scroll window to beginning of the form
+    			scroll_to_class( $('.f1'), 20 );
+	    	});
+    	}
+    	
+	});
+	
+	// next step 3
+    $('.f1 .btn-step-3').on('click', function() {
+    	var parent_fieldset = $(this).parents('fieldset');
+    	var next_step = true;
+    	// navigation steps / progress steps
+    	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
+    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+		var licence = ""
+    	if( next_step ) {
+			$.each(licences, function(i, v){
+				licence += (`${v},`)
+			})
+			axios.get('/api/companies/cea', {
+				params: {
+					state: $('#states').val(),
+					licences__licence__category__in: licence
+				}
+			})
+			.then(function (response) {
+				data = response.data;
+				$('.cea-list').empty()
+				$.each(data, function(i, v){
+					if(v.logo == null){
+						logo = '/static/logos/academia1.png'
+					}
+					else{
+						logo = v.logo
+					}
+					$('.cea-list').append(
+						`
+							<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+								<div class="row">
+									<div class="col-12 logo-company">			
+										<img 
+											src="${logo}" 
+										width="70" alt="Logo Company">
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col-12 company-name">
+										<span>${v.name}</span>
+									</div>
+									<div class="col-12 company-location mt-3">
+										<div class="row">
+											<div class="col-3 img-location">
+												<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
+											</div>
+											<div class="col-8 sector">
+												<span>
+													${v.city.name}, ${v.city.state.name}
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-12 company-rating mt-3">
+										<span>Rating</span>
+									</div>
+									<div class="col-12 company-button mt-3">
+										<button type="button" class="see-detail btn-crc">
+											Ver detalle
+										</button>
+										<button type="button" class="add-to-cart">
+											Añadir al carrito
+										</button>
+									</div>
+								</div>
+							</div>
+						`
+					)
+				})
+			})
+			.catch(function (error) {
+				console.log(error);
+			})
+    		parent_fieldset.fadeOut(400, function() {
+    			// change icons
+    			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
+    			// progress bar
+    			bar_progress(progress_line, 'right');
+    			// show next step
+	    		$(this).next().fadeIn();
+	    		// scroll window to beginning of the form
+    			scroll_to_class( $('.f1'), 20 );
+	    	});
+    	}
+    	
+	});
+	
+	// next step 4
+    $('.f1 .btn-step-4').on('click', function() {
+    	var parent_fieldset = $(this).parents('fieldset');
+    	var next_step = true;
+    	// navigation steps / progress steps
+    	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
+    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+    	if( next_step ) {
+			axios.get('/api/companies/transit', {
+				params: {
+					state: $('#states').val(),
+				}
+			})
+			.then(function (response) {
+				data = response.data;
+				$('.transit-list').empty()
+				$.each(data, function(i, v){
+					if(v.logo == null){
+						logo = '/static/logos/movilidad.png'
+					}
+					else{
+						logo = v.logo
+					}
+					$('.transit-list').append(
+						`
+							<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+								<div class="row">
+									<div class="col-12 logo-company">			
+										<img 
+											src="${logo}"
+										width="70" alt="Logo Company">
+									</div>
+								</div>
+								<div class="row mt-2">
+									<div class="col-12 company-name">
+										<span>${v.name}</span>
+									</div>
+									<div class="col-12 company-location mt-3">
+										<div class="row">
+											<div class="col-3 img-location">
+												<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
+											</div>
+											<div class="col-8 sector">
+												<span>
+													${v.city.name}, ${v.city.state.name}
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-12 company-rating mt-3">
+										<span>Rating</span>
+									</div>
+									<div class="col-12 company-button mt-3">
+										<button type="button" class="see-detail btn-crc">
+											Ver detalle
+										</button>
+										<button type="button" class="add-to-cart">
+											Añadir al carrito
+										</button>
+									</div>
+								</div>
+							</div>
+						`
+					)
+				})
+			})
+			.catch(function (error) {
+				console.log(error);
+			})
+    		parent_fieldset.fadeOut(400, function() {
+    			// change icons
+    			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
+    			// progress bar
+    			bar_progress(progress_line, 'right');
+    			// show next step
+	    		$(this).next().fadeIn();
+	    		// scroll window to beginning of the form
+    			scroll_to_class( $('.f1'), 20 );
+	    	});
+    	}
+    	
+	});
+	// next step 4
+    $('.f1 .btn-step-5').on('click', function() {
+    	var parent_fieldset = $(this).parents('fieldset');
+    	var next_step = true;
+    	// navigation steps / progress steps
+    	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
+    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+    	if( next_step ) {
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
     			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
