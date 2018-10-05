@@ -22,7 +22,6 @@ class CrcSerializer(serializers.ModelSerializer):
         gender = request.GET.get('gender')
         licences = request.GET.get('licences')
         licences = licences.split(',')
-        print (licences)
         collection = CRCAdminPrices.objects.first()
         age_ranges = AgeRange.objects.all()
 

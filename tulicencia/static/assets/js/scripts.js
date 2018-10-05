@@ -87,11 +87,11 @@ jQuery(document).ready(function() {
 				type: 'error',
 				showCancelButton: false,
 				confirmButtonText: 'Ok'
-			  }).then((result) => {
+			}).then((result) => {
 				if (result.value) {
 					scroll_to_class( $('.choice-gender'), 20 );
 				}
-			  })
+			})
 
 		}
     	if( next_step ) {
@@ -198,56 +198,65 @@ jQuery(document).ready(function() {
 			})
 			.then(function (response) {
 				data = response.data;
-				$('.crc-list').empty()
-				$.each(data, function(i, v){
-					if(v.logo == null){
-						logo = '/static/logos/simetric.png'
-					}
-					else{
-						logo = v.logo
-					}
-					$('.crc-list').append(
-						`
-							<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-								<div class="row">
-									<div class="col-12 logo-company">			
-										<img 
-											src="${logo}" 
-										width="70" alt="Logo Company">
-									</div>
-								</div>
-								<div class="row mt-2">
-									<div class="col-12 company-name">
-										<span>${v.name}</span>
-									</div>
-									<div class="col-12 company-location mt-3">
-										<div class="row">
-											<div class="col-3 img-location">
-												<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-											</div>
-											<div class="col-8 sector">
-												<span>
-													${v.city.name}, ${v.city.state.name}
-												</span>
-											</div>
+				if (data.length > 0){
+					$('.crc-list').empty()
+					$.each(data, function(i, v){
+						if(v.logo == null){
+							logo = '/static/logos/simetric.png'
+						}
+						else{
+							logo = v.logo
+						}
+						$('.crc-list').append(
+							`
+								<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+									<div class="row">
+										<div class="col-12 logo-company">			
+											<img 
+												src="${logo}" 
+											width="70" alt="Logo Company">
 										</div>
 									</div>
-									<div class="col-12 company-rating mt-3">
-										<span>Rating</span>
-									</div>
-									<div class="col-12 company-button mt-3">
-										<button type="button" class="see-detail btn-crc">
-											Ver detalle
-										</button>
-										<button type="button" class="add-to-cart">
-											Añadir al carrito
-										</button>
+									<div class="row mt-2">
+										<div class="col-12 company-name">
+											<span>${v.name}</span>
+										</div>
+										<div class="col-12 company-location mt-3">
+											<div class="row">
+												<div class="col-3 img-location">
+													<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
+												</div>
+												<div class="col-8 sector">
+													<span>
+														${v.city.name}, ${v.city.state.name}
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 company-rating mt-3">
+											<span>Rating</span>
+										</div>
+										<div class="col-12 company-button mt-3">
+											<button type="button" class="see-detail btn-crc">
+												Ver detalle
+											</button>
+											<button type="button" class="add-to-cart">
+												Añadir al carrito
+											</button>
+										</div>
 									</div>
 								</div>
-							</div>
-						`
+							`
+						)
+					})
+				}
+				else {
+					$('.crc-list').empty()
+					$('.crc-list').append(
+						'<h3 style="padding:25px;">No se han encontrado Centros de recomocimientos de conductores en tu localidad. '+
+						'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
 					)
-				})
+				}
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -286,56 +295,65 @@ jQuery(document).ready(function() {
 			})
 			.then(function (response) {
 				data = response.data;
-				$('.cea-list').empty()
-				$.each(data, function(i, v){
-					if(v.logo == null){
-						logo = '/static/logos/academia1.png'
-					}
-					else{
-						logo = v.logo
-					}
-					$('.cea-list').append(
-						`
-							<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-								<div class="row">
-									<div class="col-12 logo-company">			
-										<img 
-											src="${logo}" 
-										width="70" alt="Logo Company">
-									</div>
-								</div>
-								<div class="row mt-2">
-									<div class="col-12 company-name">
-										<span>${v.name}</span>
-									</div>
-									<div class="col-12 company-location mt-3">
-										<div class="row">
-											<div class="col-3 img-location">
-												<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-											</div>
-											<div class="col-8 sector">
-												<span>
-													${v.city.name}, ${v.city.state.name}
-												</span>
-											</div>
+				if (data.length > 0){
+					$('.cea-list').empty()
+					$.each(data, function(i, v){
+						if(v.logo == null){
+							logo = '/static/logos/academia1.png'
+						}
+						else{
+							logo = v.logo
+						}
+						$('.cea-list').append(
+							`
+								<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+									<div class="row">
+										<div class="col-12 logo-company">			
+											<img 
+												src="${logo}" 
+											width="70" alt="Logo Company">
 										</div>
 									</div>
-									<div class="col-12 company-rating mt-3">
-										<span>Rating</span>
-									</div>
-									<div class="col-12 company-button mt-3">
-										<button type="button" class="see-detail btn-crc">
-											Ver detalle
-										</button>
-										<button type="button" class="add-to-cart">
-											Añadir al carrito
-										</button>
+									<div class="row mt-2">
+										<div class="col-12 company-name">
+											<span>${v.name}</span>
+										</div>
+										<div class="col-12 company-location mt-3">
+											<div class="row">
+												<div class="col-3 img-location">
+													<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
+												</div>
+												<div class="col-8 sector">
+													<span>
+														${v.city.name}, ${v.city.state.name}
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 company-rating mt-3">
+											<span>Rating</span>
+										</div>
+										<div class="col-12 company-button mt-3">
+											<button type="button" class="see-detail btn-crc">
+												Ver detalle
+											</button>
+											<button type="button" class="add-to-cart">
+												Añadir al carrito
+											</button>
+										</div>
 									</div>
 								</div>
-							</div>
-						`
+							`
+						)
+					})
+				}
+				else {
+					$('.cea-list').empty()
+					$('.cea-list').append(
+						'<h3 style="padding:25px;">No se han encontrado Centros de enseñanza en tu localidad. '+
+						'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
 					)
-				})
+				}
 			})
 			.catch(function (error) {
 				console.log(error);

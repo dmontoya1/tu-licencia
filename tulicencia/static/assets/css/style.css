@@ -6,7 +6,7 @@ body {
     color: #888;
     line-height: 30px;
 	text-align: center;
-	overflow-y: hidden;
+	/* overflow-y: hidden; */
 }
 
 strong { font-weight: 500; }
@@ -481,6 +481,7 @@ ul.car-licences input:checked + label::before {
 	border-radius: 10px;
 	margin-bottom: 15px;
 	padding-bottom: 11px;
+	min-height: 240px;
 }
 
 .company-detail {

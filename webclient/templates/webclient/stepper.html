@@ -164,13 +164,13 @@
                     <ul class="gender-choice">
                         <li class="male">
                             <label for="cb1">
-                                <img class="img-check gender" data-value="M" src="{% static 'images/icon-men.png' %}" /><br>
+                                <img class="img-check gender" data-value="M" name="men" src="{% static 'images/icon-men.png' %}" /><br>
                                 <p class="img-text">Hombre</p>
                             </label>
                         </li>
                         <li class="female">
                             <label for="cb2">
-                                <img class="img-check gender" data-value="F" src="{% static 'images/icon-women.png' %}" /><br>
+                                <img class="img-check gender" data-value="F" name="women" src="{% static 'images/icon-women.png' %}" /><br>
                                 <p class="img-text">Mujer</p>
                             </label>
                         </li>
@@ -203,7 +203,7 @@
                             <label for="year">AAAA</label>
                             <select class="custom-select birth-select custom-select-lg mb-3" id="year">
                                 <option value="" disabled selected>AAAA</option>
-                                {% for value in 1905|range:2019 %}
+                                {% for value in 1920|range:2003 %}
                                     <option value="{{ value }}">{{ value }}</option>
                                 {% endfor %}
                             </select>
@@ -259,13 +259,13 @@
                     <ul class="gender-choice">
                         <li class="mr-sm-4 have-licence disabled">
                             <label for="licence-1">
-                                <img class="img-check" src="{% static 'images/licence-yes.png' %}" id="licence-1"/><br>
+                                <img class="img-check" name="have-licence" src="{% static 'images/licence-yes.png' %}" id="licence-1"/><br>
                                 <p class="img-text">Ya tienes Licencia?</p>
                             </label>
                         </li>
                         <li class="no-licence">
                             <label for="licence-2">
-                                <img class="img-check" src="{% static 'images/licence-no.png' %}" id="licence-2"/><br>
+                                <img class="img-check" name="no-licence" src="{% static 'images/licence-no.png' %}" id="licence-2"/><br>
                                 <p class="img-text">Es tu primera licencia?</p>
                             </label>
                         </li>
@@ -302,13 +302,13 @@
                     <ul class="licence-vehicle-choice">
                         <li>
                             <label for="cb2">
-                                <img class="img-check" src="{% static 'images/bike.png' %}" id="bike-licence" /><br>
+                                <img class="img-check" name="bike" src="{% static 'images/bike.png' %}" id="bike-licence" /><br>
                                 <p class="img-text">Moto</p>
                             </label>
                         </li>
                         <li class="mr-sm-4">
                             <label for="cb1">
-                                <img class="img-check" src="{% static 'images/car.png' %}" id="car-licence"/><br>
+                                <img class="img-check" name="car" src="{% static 'images/car.png' %}" id="car-licence"/><br>
                                 <p class="img-text">Auto</p>
                             </label>
                         </li>
@@ -375,13 +375,13 @@
                     <ul class="licence-vehicle-choice">
                         <li class="si-runt">
                             <label for="cb2">
-                                <img class="img-check" src="{% static 'images/SI.png' %}" /><br>
+                                <img class="img-check" name="si-runt" src="{% static 'images/SI.png' %}" /><br>
                                 <p class="img-text">Si</p>
                             </label>
                         </li>
                         <li class="mr-sm-4 no-runt">
                             <label for="cb1">
-                                <img class="img-check" src="{% static 'images/NO.png' %}" id="no-runt"/><br>
+                                <img class="img-check" name="no-runt" src="{% static 'images/NO.png' %}" id="no-runt"/><br>
                                 <p class="img-text">No</p>
                             </label>
                         </li>
@@ -641,7 +641,7 @@
                                     <ul class="personal-data">
                                         <li>
                                             <label for="doc_type">Tipo de documento</label><br>
-                                            <select class="custom-select doc-type-select" id="doc_type">
+                                            <select class="custom-select doc-type-select" id="doc_type" required>
                                                 <option selected disabled value="">Selecciona el tipo de documento</option>
                                                 <option value="CC">Cédula de Ciudadanía</option>
                                                 <option value="TI">Tarjeta de identidad</option>
@@ -650,15 +650,15 @@
                                         </li>
                                         <li>
                                             <label for="doc_id">Número de documento</label><br>
-                                            <input type="text" name="document_id" id="doc_id" placeholder="Número de documento">
+                                            <input type="text" name="document_id" id="doc_id" placeholder="Número de documento" required>
                                         </li>
                                         <li>
                                             <label for="first_name">Nombre</label><br>
-                                            <input type="text" name="first_name" id="first_name" placeholder="Nombre">
+                                            <input type="text" name="first_name" id="first_name" placeholder="Nombre" required>
                                         </li>
                                         <li>
                                             <label for="last_name">Apellido</label><br>
-                                            <input type="text" name="last_name" id="last_name" placeholder="Apellido">
+                                            <input type="text" name="last_name" id="last_name" placeholder="Apellido" required>
                                         </li>
                                     </ul>
                                     
@@ -666,7 +666,7 @@
                                         <label>Fecha de nacimiento</label><br>
                                         <li>
                                             <label for="day">DD</label>
-                                            <select class="custom-select birth-2-select custom-select-lg mb-3" id="day-1">
+                                            <select class="custom-select birth-2-select custom-select-lg mb-3" id="day-1" required>
                                                 {% for value in 1|range:32 %}
                                                     <option value="{{ value }}">{{ value }}</option>
                                                 {% endfor %}
@@ -674,7 +674,7 @@
                                         </li>
                                         <li>
                                             <label for="month">MM</label>
-                                            <select class="custom-select birth-2-select custom-select-lg mb-3" id="month-1">
+                                            <select class="custom-select birth-2-select custom-select-lg mb-3" id="month-1" required>
                                                 {% for value in 1|range:13 %}
                                                     <option value="{{ value }}">{{ value }}</option>
                                                 {% endfor %}
@@ -682,8 +682,8 @@
                                         </li>
                                         <li>
                                             <label for="year">AAAA</label>
-                                            <select class="custom-select birth-2-select custom-select-lg mb-3" id="year-1">
-                                                {% for value in 1905|range:2019 %}
+                                            <select class="custom-select birth-2-select custom-select-lg mb-3" id="year-1" required>
+                                                {% for value in 1920|range:2003 %}
                                                     <option {% if value == 2018 %}selected{% endif %} value="{{value}}">{{value}}</option>                                                    
                                                 {% endfor %}
                                             </select>
@@ -692,19 +692,19 @@
                                     <ul class="personal-data">
                                         <li>
                                             <label for="phone_number">Teléfono Celular</label><br>
-                                            <input type="text" name="phone_number" id="phone_number" placeholder="Teléfono Celular">
+                                            <input type="text" name="phone_number" id="phone_number" placeholder="Teléfono Celular" required>
                                         </li>
                                         <li>
                                             <label for="email">Correo Electrónico</label><br>
-                                            <input type="email" name="email" id="email" placeholder="Correo Electrónico">
+                                            <input type="email" name="email" id="email" placeholder="Correo Electrónico" required>
                                         </li>
                                         <li>
                                             <label for="pass1">Contraseña</label><br>
-                                            <input type="password" name="password1" id="pass1" placeholder="Contraseña">
+                                            <input type="password" name="password1" id="pass1" placeholder="Contraseña" required>
                                         </li>
                                         <li>
                                             <label for="pass2">Repetir Contraseña</label><br>
-                                            <input type="password" name="password2" id="pass2" placeholder="Repetir Contraseña">
+                                            <input type="password" name="password2" id="pass2" placeholder="Repetir Contraseña" required>
                                         </li>
                                     </ul>
                                 </div>
@@ -743,26 +743,6 @@
 {% endblock %}
 {% block extra_js %}
     <script>
-        function formatJSON(form, wsurl){
-            fetch.apply(wsurl);
-            if($.Callbacks(form).fetch(wsurl)){
-                $form.serializeFormToBackend = function() {
-                    var d = [];
-                    var f = this.serializeArray();
-                    $.each(f, function(v){
-                        d[f] = v
-                    })
-                    return d;
-                }
-            }
-            return form
-        }   
-        
-        $('button#form-submit').on('click', function(e){
-            e.preventDefault();
-            console.log($('#licence-request-form').serializeArray())
-            $(this).form(formatJSON($(this.form), '/api/request/'))
-        })
 
         $(".img-check").imgCheckbox({ 
             "styles": {
@@ -835,14 +815,19 @@
         var car = false
         var runt = ""
         
-
+        $('#day').on('change', function(e){
+            $('#day-1').find(`option[value="${$(this).val()}"]`).attr('selected', true)
+        })
+        $('#month').on('change', function(e){
+            $('#month-1').find(`option[value="${$(this).val()}"]`).attr('selected', true)
+        })
         $('#year').on('change', function(e){
+            $('#year-1').find(`option[value="${$(this).val()}"]`).attr('selected', true)
             birth_date = `${$('#month').val()}-${$('#day').val()}-${$(this).val()}`
             dob = new Date(birth_date);
             var today = new Date();
             age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
         })
-
 
         $('.male').on('click', function(e){
             if ($('.female').hasClass('disabled'))
@@ -866,7 +851,6 @@
                 gender = 'F'
             }
         })
-
         $('#licence-2').on('click', function(ev){
             $('.licence-vehicle').toggleClass('d-none')
         })
@@ -955,7 +939,6 @@
             }
         })
         
-        
         $('.btn-crc').on('click', function(ev){
             window.open("{% url 'webclient:crc-detail' %}", "_blank");
         })
@@ -973,6 +956,119 @@
             else {
                 tramit = ""
             }
+        })
+
+        function formatJSON(form, wsurl){
+            fetch.apply(wsurl);
+            if($.Callbacks(form).fetch(wsurl)){
+                $form.serializeFormToBackend = function() {
+                    var d = [];
+                    var f = this.serializeArray();
+                    $.each(f, function(v){
+                        d[f] = v
+                    })
+                    return d;
+                }
+            }
+            return form
+        }   
+        
+        $('button#form-submit').on('click', function(e){
+            e.preventDefault();
+            submit = true
+            
+            if($('#pass1').val() != $('#pass2').val()){
+                submit = false
+                swal({
+                    title: 'Atención',
+                    text: 'Tus contraseñas no coinciden',
+                    type: 'error',
+                    showCancelButton: false,
+                    confirmButtonText: 'Ok'
+                })
+            }
+            if($('#pass1').val() == ""){
+                submit = false
+                swal({
+				title: 'Atención',
+				text: 'Ingresa tu contraseña',
+				type: 'error',
+				showCancelButton: false,
+				confirmButtonText: 'Ok'
+                })
+            }
+            if($('#email').val() == ""){
+                submit = false
+                swal({
+				title: 'Atención',
+				text: 'Ingresa tu email',
+				type: 'error',
+				showCancelButton: false,
+				confirmButtonText: 'Ok'
+                })
+            }
+            if($('#phone_number').val() == ""){
+                submit = false
+                swal({
+				title: 'Atención',
+				text: 'Ingresa tu número de celular',
+				type: 'error',
+				showCancelButton: false,
+				confirmButtonText: 'Ok'
+                })
+            }
+            if($('#last_name').val() == ""){
+                submit = false
+                swal({
+				title: 'Atención',
+				text: 'Ingresa tus apellidos',
+				type: 'error',
+				showCancelButton: false,
+				confirmButtonText: 'Ok'
+                })
+            }
+            if($('#first_name').val() == ""){
+                submit = false
+                swal({
+				title: 'Atención',
+				text: 'Ingresa tus nombres',
+				type: 'error',
+				showCancelButton: false,
+				confirmButtonText: 'Ok'
+                })
+            }
+            if($('#doc_id').val() == ""){
+                submit = false
+                swal({
+				title: 'Atención',
+				text: 'Ingresa el de número de documento de identidad',
+				type: 'error',
+				showCancelButton: false,
+				confirmButtonText: 'Ok'
+                })
+            }
+            if($('#doc_type').val() == ""){
+                submit = false
+                swal({
+				title: 'Atención',
+				text: 'Ingresa el tipo de documento de identidad',
+				type: 'error',
+				showCancelButton: false,
+				confirmButtonText: 'Ok'
+                })
+            }
+            if (submit){
+                swal({
+                    title: 'Felicitaciones!',
+                    text: 'Tus datos se han enviado correctamente',
+                    type: 'success',
+                    showCancelButton: false,
+                    confirmButtonText: 'Ok'
+                })
+                console.log($('#licence-request-form').serializeArray())
+                $(this).form(formatJSON($(this.form), '/api/request/'))
+            }
+            
         })
     </script>
 {% endblock %}
