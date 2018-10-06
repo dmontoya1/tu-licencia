@@ -43,7 +43,7 @@ class RequestAdmin(admin.ModelAdmin):
 
     model = Request
     search_fields = ('cea__name', 'crc__name', 'transit__name', 'user__document_id', 'user__first_name',
-    'user__last_name', 'request_status', 'payment_type')
+    'user__last_name', 'request_status', 'payment_type', 'request_date', 'cea_status', 'crc_status')
 
     readonly_fields = ('booking', 'get_crc_price', 'request_date') #Eliminar esta linea y dejar la de abajo
     # readonly_fields = ('booking', 'user', 'licences', 'get_crc_price', 'request_date)

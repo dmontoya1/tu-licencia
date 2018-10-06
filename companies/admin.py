@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.conf import settings
-from django.contrib import admin
+from django.contrib import admin, messages
 
 from users.models import User
 from .models import (
@@ -60,6 +60,14 @@ class CeaAdmin(admin.ModelAdmin):
         js = (
             'js/admin/utils_admin.js',
         )
+    
+    def save_formset(self, request, form, formset, change):
+        # print (form.changed_data)
+        print (formset.changed_data)
+        # print (change)
+        if 'price' in form.changed_data or 'price_recat' in form.changed_data:
+            messages.warning(request, "Tus precios han cambiado. Recuerda reportar este cambio ante el ministerio de transporte de tu ciudad")
+        super(CeaAdmin, self).save_formset(request, form, formset, change)
 
     def get_queryset(self, request):
         """
@@ -130,6 +138,11 @@ class CrcAdmin(admin.ModelAdmin):
             return self.manager_readonly_fields
         else:
             return super(CrcAdmin, self).get_readonly_fields(request, obj=obj)
+    
+    def save_model(self, request, obj, form, change):
+        if 'price' in form.changed_data or 'price_double' in form.changed_data:
+            messages.warning(request, "Tus precios han cambiado. Recuerda reportar este cambio ante el ministerio de transporte de tu ciudad")
+        super(CrcAdmin, self).save_model(request, obj, form, change)
 
 
 @admin.register(TransitDepartment)

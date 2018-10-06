@@ -20,6 +20,23 @@ function bar_progress(progress_line_object, direction) {
 }
 
 jQuery(document).ready(function() {
+	toastr.options = {
+		"closeButton": false,
+		"debug": false,
+		"newestOnTop": false,
+		"progressBar": false,
+		"positionClass": "toast-top-full-width",
+		"preventDuplicates": false,
+		"onclick": null,
+		"showDuration": "300",
+		"hideDuration": "1000",
+		"timeOut": "5000",
+		"extendedTimeOut": "1000",
+		"showEasing": "swing",
+		"hideEasing": "linear",
+		"showMethod": "fadeIn",
+		"hideMethod": "fadeOut"
+	  }
 	
     /*
         Fullscreen background
@@ -240,7 +257,12 @@ jQuery(document).ready(function() {
 											<button type="button" class="see-detail btn-crc">
 												Ver detalle
 											</button>
-											<button type="button" class="add-to-cart">
+											<button 
+												type="button" 
+												class="add-to-cart add-cart-crc"
+												data-id="${v.id}" 
+												data-name="${v.name}"
+												data-price=${v.final_price}>
 												Añadir al carrito
 											</button>
 										</div>
@@ -249,6 +271,34 @@ jQuery(document).ready(function() {
 							`
 						)
 					})
+					$('.add-cart-crc').on('click', function(){
+						crc = $(this).data('id')
+						$('li.cart-crc').empty()
+						$('li.cart-crc').append(
+							`
+								<div class="header-cart-item-img-c">
+									<img src="/static/images/3.png" alt="IMG">
+								</div>
+		
+								<div class="header-cart-item-txt p-t-8">
+									<a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+										Centro de Reconociento de conductores
+									</a>
+									<span class="header-cart-item-info">
+										${$(this).data('name')}
+									</span>
+									<span class="header-cart-item-info">
+										<strong>
+											$ ${$(this).data('price')}
+										</strong> 
+									</span>
+								</div>
+							`
+						)
+						toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+					})
+			
+					
 				}
 				else {
 					$('.crc-list').empty()
@@ -283,6 +333,22 @@ jQuery(document).ready(function() {
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
 		var licence = ""
+		if (crc == ""){
+			next_step = false;
+			swal({
+				title: 'Atención',
+				text: 'Para continuar debes seleccionar un Centro de reconocimiento para hacerte los exámenes',
+				type: 'error',
+				showCancelButton: false,
+				confirmButtonText: 'Ok'
+			}).then((result) => {
+				if (result.value) {
+					$('html, body, #licence-request-form').animate({
+						scrollTop: $('#birthdate-select').offset().top
+					}, 1000);
+				}
+			})
+		}
     	if( next_step ) {
 			$.each(licences, function(i, v){
 				licence += (`${v},`)
@@ -337,7 +403,12 @@ jQuery(document).ready(function() {
 											<button type="button" class="see-detail btn-crc">
 												Ver detalle
 											</button>
-											<button type="button" class="add-to-cart">
+											<button 
+												type="button" 
+												class="add-to-cart add-cart-cea"
+												data-id="${v.id}" 
+												data-name="${v.name}"
+												data-price=${v.final_price}>
 												Añadir al carrito
 											</button>
 										</div>
@@ -345,6 +416,32 @@ jQuery(document).ready(function() {
 								</div>
 							`
 						)
+					})
+					$('.add-cart-cea').on('click', function(){
+						cea = $(this).data('id')
+						$('li.cart-cea').empty()
+						$('li.cart-cea').append(
+							`
+								<div class="header-cart-item-img-c">
+									<img src="/static/images/4.png" alt="IMG">
+								</div>
+		
+								<div class="header-cart-item-txt p-t-8">
+									<a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+									Centro de Enseñanza Automotriz
+									</a>
+									<span class="header-cart-item-info">
+										${$(this).data('name')}
+									</span>
+									<span class="header-cart-item-info">
+										<strong>
+											$ 750.000 
+										</strong> 
+									</span>
+								</div>
+							`
+						)
+						toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
 					})
 				}
 				else {
@@ -378,7 +475,23 @@ jQuery(document).ready(function() {
     	var next_step = true;
     	// navigation steps / progress steps
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+		var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+		if (cea == ""){
+			next_step = false;
+			swal({
+				title: 'Atención',
+				text: 'Para continuar debes seleccionar un Centro de enseñanza para hacer tu curso',
+				type: 'error',
+				showCancelButton: false,
+				confirmButtonText: 'Ok'
+			}).then((result) => {
+				if (result.value) {
+					$('html, body, #licence-request-form').animate({
+						scrollTop: $('#birthdate-select').offset().top
+					}, 1000);
+				}
+			})
+		}
     	if( next_step ) {
 			axios.get('/api/companies/transit', {
 				params: {
@@ -388,55 +501,95 @@ jQuery(document).ready(function() {
 			.then(function (response) {
 				data = response.data;
 				$('.transit-list').empty()
-				$.each(data, function(i, v){
-					if(v.logo == null){
-						logo = '/static/logos/movilidad.png'
-					}
-					else{
-						logo = v.logo
-					}
-					$('.transit-list').append(
-						`
-							<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-								<div class="row">
-									<div class="col-12 logo-company">			
-										<img 
-											src="${logo}"
-										width="70" alt="Logo Company">
-									</div>
-								</div>
-								<div class="row mt-2">
-									<div class="col-12 company-name">
-										<span>${v.name}</span>
-									</div>
-									<div class="col-12 company-location mt-3">
-										<div class="row">
-											<div class="col-3 img-location">
-												<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-											</div>
-											<div class="col-8 sector">
-												<span>
-													${v.city.name}, ${v.city.state.name}
-												</span>
-											</div>
+				if (data.length > 0){
+					$.each(data, function(i, v){
+						if(v.logo == null){
+							logo = '/static/logos/movilidad.png'
+						}
+						else{
+							logo = v.logo
+						}
+						$('.transit-list').append(
+							`
+								<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+									<div class="row">
+										<div class="col-12 logo-company">			
+											<img 
+												src="${logo}"
+											width="70" alt="Logo Company">
 										</div>
 									</div>
-									<div class="col-12 company-rating mt-3">
-										<span>Rating</span>
-									</div>
-									<div class="col-12 company-button mt-3">
-										<button type="button" class="see-detail btn-crc">
-											Ver detalle
-										</button>
-										<button type="button" class="add-to-cart">
-											Añadir al carrito
-										</button>
+									<div class="row mt-2">
+										<div class="col-12 company-name">
+											<span>${v.name}</span>
+										</div>
+										<div class="col-12 company-location mt-3">
+											<div class="row">
+												<div class="col-3 img-location">
+													<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
+												</div>
+												<div class="col-8 sector">
+													<span>
+														${v.city.name}, ${v.city.state.name}
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 company-rating mt-3">
+											<span>Rating</span>
+										</div>
+										<div class="col-12 company-button mt-3">
+											<button type="button" class="see-detail btn-crc">
+												Ver detalle
+											</button>
+											<button 
+												type="button" 
+												class="add-to-cart add-cart-transit"
+												data-id="${v.id}" 
+												data-name="${v.name}"
+												data-price=${v.runt_price}>
+												Añadir al carrito
+											</button>
+										</div>
 									</div>
 								</div>
-							</div>
-						`
+							`
+						)
+					})
+					$('.add-cart-transit').on('click', function(){
+						transit = $(this).data('id')
+						$('li.cart-transit').empty()
+						$('li.cart-transit').append(
+							`
+								<div class="header-cart-item-img-c">
+									<img src="/static/images/5.png" alt="IMG">
+								</div>
+		
+								<div class="header-cart-item-txt p-t-8">
+									<a href="{% url 'webclient:transit-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+										Distrito de Tránsito
+									</a>
+									<span class="header-cart-item-info">
+										${$(this).data('name')}
+									</span>
+									<span class="header-cart-item-info">
+										<strong>
+											$ ${$(this).data('price')} 
+										</strong> 
+									</span>
+								</div>
+							`
+						)
+						toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+					})
+				}
+				else {
+					$('.transit-list').empty()
+					$('.transit-list').append(
+						'<h3 style="padding:25px;">No se han encontrado organismos de tránsito en tu localidad. '+
+						'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
 					)
-				})
+				}
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -454,13 +607,30 @@ jQuery(document).ready(function() {
     	}
     	
 	});
-	// next step 4
+
+	// next step 5
     $('.f1 .btn-step-5').on('click', function() {
     	var parent_fieldset = $(this).parents('fieldset');
     	var next_step = true;
     	// navigation steps / progress steps
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+		var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+		if (transit == ""){
+			next_step = false;
+			swal({
+				title: 'Atención',
+				text: 'Para continuar debes seleccionar un Organismo de tránsito ',
+				type: 'error',
+				showCancelButton: false,
+				confirmButtonText: 'Ok'
+			}).then((result) => {
+				if (result.value) {
+					$('html, body, #licence-request-form').animate({
+						scrollTop: $('#birthdate-select').offset().top
+					}, 1000);
+				}
+			})
+		}
     	if( next_step ) {
     		parent_fieldset.fadeOut(400, function() {
     			// change icons

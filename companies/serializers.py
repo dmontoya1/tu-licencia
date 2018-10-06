@@ -108,5 +108,5 @@ class TransitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TransitDepartment
-        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo',)
+        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'runt_price')
 

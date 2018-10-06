@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load custom_range %}
+{% load humanize %}
 
 
 {% block content %}
@@ -35,7 +36,7 @@
                 
                 <div class="header-cart-content flex-w js-pscroll">
                     <ul class="header-cart-wrapitem w-full">
-                        <li class="header-cart-item flex-w flex-t m-b-12">
+                        <li class="header-cart-item flex-w flex-t m-b-12 cart-licences">
                             <div class="header-cart-item-img-c">
                                 <img src="{% static 'images/2.png' %}" alt="IMG">
                             </div>
@@ -51,63 +52,39 @@
                             </div>
                         </li>
     
-                        <li class="header-cart-item flex-w flex-t m-b-12">
+                        <li class="header-cart-item flex-w flex-t m-b-12 cart-crc">
                             <div class="header-cart-item-img-c">
                                 <img src="{% static 'images/3.png' %}" alt="IMG">
                             </div>
     
                             <div class="header-cart-item-txt p-t-8">
-                                <a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                    Centro de Reconociento de conductores
-                                </a>
                                 <span class="header-cart-item-info">
-                                   Simetric - Centro integral de reconocimiento
+                                    Selecciona el Centro de reconocimento de tu preferencia
                                 </span>
-                                <span class="header-cart-item-info">
-                                    <strong>
-                                        $ 55.000
-                                    </strong> 
-                                </span>
+    
                             </div>
                         </li>
     
-                        <li class="header-cart-item flex-w flex-t m-b-12">
-                            <div class="header-cart-item-img-c">
-                                <img src="{% static 'images/5.png' %}" alt="IMG">
-                            </div>
-    
-                            <div class="header-cart-item-txt p-t-8">
-                                <a href="{% url 'webclient:cea-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                    Centro de Enseñanza Automotriz
-                                </a>
-                                <span class="header-cart-item-info">
-                                    Académia Colombiana de automovilismo
-                                </span>
-    
-                                <span class="header-cart-item-info">
-                                    <strong>
-                                        $ 750.000
-                                    </strong>
-                                </span>
-                            </div>
-                        </li>
-                        <li class="header-cart-item flex-w flex-t m-b-12">
+                        <li class="header-cart-item flex-w flex-t m-b-12 cart-cea">
                             <div class="header-cart-item-img-c">
                                 <img src="{% static 'images/4.png' %}" alt="IMG">
                             </div>
     
                             <div class="header-cart-item-txt p-t-8">
-                                <a href="{% url 'webclient:transit-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                    Organismo de Tránsito
-                                </a>
                                 <span class="header-cart-item-info">
-                                    Centro de movilidad de Pereira
+                                    Selecciona el Centro de Enseñanza de tu preferencia
                                 </span>
+
+                            </div>
+                        </li>
+                        <li class="header-cart-item flex-w flex-t m-b-12 cart-transit">
+                            <div class="header-cart-item-img-c">
+                                <img src="{% static 'images/5.png' %}" alt="IMG">
+                            </div>
     
+                            <div class="header-cart-item-txt p-t-8">
                                 <span class="header-cart-item-info">
-                                    <strong>
-                                        $ 150.000
-                                    </strong>
+                                    Selecciona el distrito de transporte de tu preferencia
                                 </span>
                             </div>
                         </li>
@@ -115,7 +92,7 @@
                     
                     <div class="w-full">
                         <div class="header-cart-total w-full p-tb-40">
-                            Total: $ 955.000
+                            Total: $ <span class="total-price-cart">955.000</span>
                         </div>
                     </div>
                 </div>
@@ -460,7 +437,7 @@
                                             <button type="button" class="see-detail btn-crc">
                                                 Ver detalle
                                             </button>
-                                            <button type="button" class="add-to-cart">
+                                            <button type="button" class="add-to-cart add-cart-crc">
                                                 Añadir al carrito
                                             </button>
                                         </div>
@@ -814,6 +791,9 @@
         var bike = false
         var car = false
         var runt = ""
+        var crc = ""
+        var cea = ""
+        var transit = ""
         
         $('#day').on('change', function(e){
             $('#day-1').find(`option[value="${$(this).val()}"]`).attr('selected', true)
@@ -957,6 +937,12 @@
                 tramit = ""
             }
         })
+        
+        
+
+
+
+
 
         function formatJSON(form, wsurl){
             fetch.apply(wsurl);
@@ -1070,5 +1056,8 @@
             }
             
         })
+        
+
+
     </script>
 {% endblock %}
