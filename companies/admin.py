@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib import admin, messages
 
 from users.models import User
+from utils.admin import SoftDeletionModelAdminMixin
 from .models import (
     Cea, Crc, TransitDepartment, Schedule, CeaLicence, CeaVehicle,
     TuLicencia, TransitLicence)
@@ -46,12 +47,12 @@ class TransitLicenceAdmin(admin.StackedInline):
 
 
 @admin.register(Cea)
-class CeaAdmin(admin.ModelAdmin):
+class CeaAdmin(SoftDeletionModelAdminMixin):
     """
     """
 
     model = Cea
-    list_display = ('nit', 'name', 'manager', 'cellphone')
+    extra_list_display = ('nit', 'name', 'manager', 'cellphone')
     inlines = [ScheduleAdmin, CeaLicenceAdmin, CeaVehicleAdmin]
 
     manager_readonly_fields = ('manager', )
@@ -61,13 +62,13 @@ class CeaAdmin(admin.ModelAdmin):
             'js/admin/utils_admin.js',
         )
     
-    def save_formset(self, request, form, formset, change):
-        # print (form.changed_data)
-        print (formset.changed_data)
-        # print (change)
-        if 'price' in form.changed_data or 'price_recat' in form.changed_data:
-            messages.warning(request, "Tus precios han cambiado. Recuerda reportar este cambio ante el ministerio de transporte de tu ciudad")
-        super(CeaAdmin, self).save_formset(request, form, formset, change)
+    # def save_formset(self, request, form, formset, change):
+    #     # print (form.changed_data)
+    #     print (formset.changed_data)
+    #     # print (change)
+    #     if 'price' in form.changed_data or 'price_recat' in form.changed_data:
+    #         messages.warning(request, "Tus precios han cambiado. Recuerda reportar este cambio ante el ministerio de transporte de tu ciudad")
+    #     super(CeaAdmin, self).save_formset(request, form, formset, change)
 
     def get_queryset(self, request):
         """
@@ -97,12 +98,12 @@ class CeaAdmin(admin.ModelAdmin):
 
 
 @admin.register(Crc)
-class CrcAdmin(admin.ModelAdmin):
+class CrcAdmin(SoftDeletionModelAdminMixin):
     """
     """
 
     model = Crc
-    list_display = ('nit', 'name', 'manager', 'cellphone')
+    extra_list_display = ('nit', 'name', 'manager', 'cellphone')
     inlines = [ScheduleAdmin,]
 
     manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo' )
@@ -146,12 +147,12 @@ class CrcAdmin(admin.ModelAdmin):
 
 
 @admin.register(TransitDepartment)
-class TransitDepartmentAdmin(admin.ModelAdmin):
+class TransitDepartmentAdmin(SoftDeletionModelAdminMixin):
     """
     """
 
     model = TransitDepartment
-    list_display = ('nit', 'name', 'cellphone')
+    extra_list_display = ('nit', 'name', 'cellphone')
     inlines = [ScheduleAdmin, TransitLicenceAdmin]
 
     class Media:
@@ -161,12 +162,12 @@ class TransitDepartmentAdmin(admin.ModelAdmin):
 
 
 @admin.register(TuLicencia)
-class TuLicenciaAdmin(admin.ModelAdmin):
+class TuLicenciaAdmin(SoftDeletionModelAdminMixin):
     """
     """
 
     model = TuLicencia
-    list_display = ('address', 'express_user', 'city', 'state')
+    extra_list_display = ('address', 'express_user', 'city', 'state')
 
     class Media:
         js = (

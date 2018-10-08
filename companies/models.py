@@ -7,11 +7,12 @@ from django.db import models
 
 from licences.models import Licence
 from manager.models import State, City, CRCAdminPrices
+from utils.models import SoftDeletionModelMixin
 from vehicles.models import Vehicle
 from .utils import get_upload_to
 
 
-class Cea(models.Model):
+class Cea(SoftDeletionModelMixin):
     """Modelo para guardar los datos de los cea
     Centro de Enseñanaza Automovilísitico
     """
@@ -72,7 +73,7 @@ class Cea(models.Model):
         verbose_name_plural = "Centros de Enseñanaza Automovilísiticos"
 
 
-class Crc(models.Model):
+class Crc(SoftDeletionModelMixin):
     """Modelo para guardar los datos de los crc
     Centro de Reconocimiento de Conductores
     """
@@ -158,7 +159,7 @@ class Crc(models.Model):
         verbose_name_plural = "Centros de Reconocimiento de Conductores"
     
 
-class TransitDepartment(models.Model):
+class TransitDepartment(SoftDeletionModelMixin):
     """Modelo para guardar los datos de los departamentos
     de tránsito de las ciudades
     """
@@ -215,7 +216,7 @@ class TransitDepartment(models.Model):
         verbose_name_plural = "Departamentos de Tránsito"
 
 
-class TuLicencia(models.Model):
+class TuLicencia(SoftDeletionModelMixin):
     """Administrador de los puntos de TuLicencia
     """
 

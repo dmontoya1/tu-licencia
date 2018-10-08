@@ -6,9 +6,11 @@ from django.contrib import messages
 from django.db.models import Q
 from .models import State, City, Police, CRCAdminPrices
 
+from utils.admin import SoftDeletionModelAdminMixin
+
 
 @admin.register(State)
-class StateAdmin(admin.ModelAdmin):
+class StateAdmin(SoftDeletionModelAdminMixin):
     """
     Clase para la administración de los Departamentos
     """
@@ -18,23 +20,16 @@ class StateAdmin(admin.ModelAdmin):
     search_fields = (
         'name', 'related_cities__name'
     )
-    list_display = (
+    extra_list_display = (
         'name', 'code',
     )
 
     def has_add_permission(self, request):
         return False
 
-    def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-
 
 @admin.register(City)
-class CityAdmin(admin.ModelAdmin):
+class CityAdmin(SoftDeletionModelAdminMixin):
     """
     Clase para la admintración de los municipios
     """
@@ -50,13 +45,6 @@ class CityAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
 
 
 @admin.register(Police)

@@ -5,6 +5,9 @@ from django.contrib import admin
 from django.contrib import messages
 from django.contrib.auth.admin import UserAdmin as django_user_admin
 from django.contrib.auth.forms import UserChangeForm as django_change_form
+from django.http import HttpResponse,HttpResponseRedirect
+from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.translation import ugettext, ugettext_lazy as _
 from .models import User
 
@@ -26,6 +29,9 @@ class UserAdmin(django_user_admin):
     list_display = (
         'username', 'document_id','first_name', 'last_name', 'user_type'
     )
+    exclude = ('deleted_at',)
+    actions = None
+    extra_list_display = ('username', 'document_id','first_name', 'last_name', 'user_type')
 
     # fieldsets = (
     #     (None,
@@ -63,6 +69,14 @@ class UserAdmin(django_user_admin):
         else:
             return self.manager_fieldsets
     
+    def get_list_display(self, request):
+        """Modifica el 'list_display' predeterminado para mostrar siempre el estado de inhabilitación
+        del objeto y los campos específicos de cada ModelAdmin, los cuales se agregan en 'extra_list_display'
+        """
+        if request.user.is_superuser:
+            return self.extra_list_display + ('is_alive', )
+        return self.list_display
+        
 
     def get_queryset(self, request):
         """
@@ -73,6 +87,43 @@ class UserAdmin(django_user_admin):
             return query.all().exclude(is_superuser=True)
         else:
             return query.filter(pk=request.user.pk)
+    
+    def response_change(self, request, obj):
+        """Modifica la respuesta de las acciones en el template de edición de objeto para 
+        procesar el botón de 'Inhabilitar'.
+        """
+
+        opts = self.model._meta
+        custom_redirect = False
+
+        if "_soft-delete" in request.POST:
+            obj.soft_delete() 
+            custom_redirect = True
+
+        if "_revive" in request.POST:
+            obj.revive() 
+            custom_redirect = True
+
+        if custom_redirect:
+            redirect_url = reverse('admin:%s_%s_changelist' % (opts.app_label, opts.model_name))
+            return HttpResponseRedirect(redirect_url)
+        else:
+             return super(UserAdmin, self).response_change(request, obj)
+
+    def is_alive(self, obj):
+        """Método para evaluar si un objeto está inhabilitado o no y mostrar un 'check' en el 
+        listado de objetos del admin.
+        """
+
+        icon = 'yes'
+        if obj.deleted_at:
+            icon = 'no'        
+        return format_html(
+            '<img src="/static/admin/img/icon-{icon}.svg" alt="{icon}">'.format(
+                icon=icon
+            )
+        )
+    is_alive.short_description = '¿Habilitado?'
 
 
 admin.site.register(User, UserAdmin)

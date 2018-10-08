@@ -46,7 +46,7 @@ class StateList(generics.ListAPIView):
     Api para obtener los departamentos
     """
     permission_classes = (AllowAny,)
-    queryset = State.objects.all().order_by('name')
+    queryset = State.objects.alive().order_by('name')
     serializer_class = StateSerializer
 
 
@@ -59,7 +59,7 @@ class CityList(generics.ListAPIView):
     serializer_class = CitySerializer
 
     def get_queryset(self):
-        queryset = City.objects.all()
+        queryset = City.objects.alive()
         stateId = self.kwargs['stateId']
         if stateId:
             queryset = queryset.filter(state=stateId).order_by('name')

@@ -1,11 +1,13 @@
 from django.db import models
 
+from licences.models import Licence
+from utils.models import SoftDeletionModelMixin
+
 from .utils import get_upload_to
 
-from licences.models import Licence
 
 
-class Brand(models.Model):
+class Brand(SoftDeletionModelMixin):
     """Se almacenan las marcas de vehículos 
     (Kia, Chevrolet, Renault, etc)
     """
@@ -25,7 +27,7 @@ class Brand(models.Model):
         verbose_name_plural = "Marcas de vehículo"
 
 
-class Vehicle(models.Model):
+class Vehicle(SoftDeletionModelMixin):
     """
     """
 

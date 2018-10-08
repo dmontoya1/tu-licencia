@@ -5,8 +5,10 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
 
+from utils.models import SoftDeletionModelMixin
 
-class State(models.Model):
+
+class State(SoftDeletionModelMixin):
     """
     Clase para los departamentos
     """
@@ -22,7 +24,7 @@ class State(models.Model):
         verbose_name = "Departamento"
 
 
-class City(models.Model):
+class City(SoftDeletionModelMixin):
     """
     Clase para los municipios
     """

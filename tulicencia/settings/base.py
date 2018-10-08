@@ -34,6 +34,7 @@ PROJECT_APPS = [
     'request',
     # 'reports',
     'users',
+    'utils',
     'vehicles',
     'webclient'
 ]

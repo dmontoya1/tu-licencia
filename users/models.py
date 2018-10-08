@@ -6,8 +6,10 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 
 from manager.models import City, State
+from utils.managers import SoftDeletionManager
 
 
 class User(AbstractUser):
@@ -102,7 +104,8 @@ class User(AbstractUser):
         "Fecha de Nacimiento",
         blank=True, null=True
     )
-
+    deleted_at = models.DateTimeField(blank=True, null=True)
+    objects = SoftDeletionManager()
 
 
     class Meta:
@@ -111,3 +114,18 @@ class User(AbstractUser):
 
     def __str__(self):
         return "%s %s (%s)" % (self.first_name, self.last_name, self.document_id)
+
+
+    def soft_delete(self):
+        """Ejecuta un borrado lógico desde la instancia
+        """
+
+        self.deleted_at = timezone.now()
+        self.save()
+
+    def revive(self):
+        """Habilita un objeto que esté lógicamente borrado
+        """
+
+        self.deleted_at = None
+        self.save()
