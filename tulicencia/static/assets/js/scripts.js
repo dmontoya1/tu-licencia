@@ -205,112 +205,13 @@ jQuery(document).ready(function() {
 			$.each(licences, function(i, v){
 				licence += (`${v},`)
 			})
-			axios.get('/api/companies/crc', {
-				params: {
-					state: $('#states').val(),
-					age: age,
-					gender: gender,
-					licences: licence
-				}
-			})
-			.then(function (response) {
-				data = response.data;
-				if (data.length > 0){
-					$('.crc-list').empty()
-					$.each(data, function(i, v){
-						if(v.logo == null){
-							logo = '/static/logos/simetric.png'
-						}
-						else{
-							logo = v.logo
-						}
-						$('.crc-list').append(
-							`
-								<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-									<div class="row">
-										<div class="col-12 logo-company">			
-											<img 
-												src="${logo}" 
-											width="70" alt="Logo Company">
-										</div>
-									</div>
-									<div class="row mt-2">
-										<div class="col-12 company-name">
-											<span>${v.name}</span>
-										</div>
-										<div class="col-12 company-location mt-3">
-											<div class="row">
-												<div class="col-3 img-location">
-													<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-												</div>
-												<div class="col-8 sector">
-													<span>
-														${v.city.name}, ${v.city.state.name}
-													</span>
-												</div>
-											</div>
-										</div>
-										<div class="col-12 company-rating mt-3">
-											<span>Rating</span>
-										</div>
-										<div class="col-12 company-button mt-3">
-											<button type="button" class="see-detail btn-crc">
-												Ver detalle
-											</button>
-											<button 
-												type="button" 
-												class="add-to-cart add-cart-crc"
-												data-id="${v.id}" 
-												data-name="${v.name}"
-												data-price=${v.final_price}>
-												Añadir al carrito
-											</button>
-										</div>
-									</div>
-								</div>
-							`
-						)
-					})
-					$('.add-cart-crc').on('click', function(){
-						crc = $(this).data('id')
-						$('li.cart-crc').empty()
-						$('li.cart-crc').append(
-							`
-								<div class="header-cart-item-img-c">
-									<img src="/static/images/3.png" alt="IMG">
-								</div>
-		
-								<div class="header-cart-item-txt p-t-8">
-									<a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-										Centro de Reconociento de conductores
-									</a>
-									<span class="header-cart-item-info">
-										${$(this).data('name')}
-									</span>
-									<span class="header-cart-item-info">
-										<strong>
-											$ ${$(this).data('price')}
-										</strong> 
-									</span>
-								</div>
-							`
-						)
-						toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
-					})
-			
-					
-				}
-				else {
-					$('.crc-list').empty()
-					$('.crc-list').append(
-						'<h3 style="padding:25px;">No se han encontrado Centros de recomocimientos de conductores en tu localidad. '+
-						'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
-					)
-				}
-			})
-			.catch(function (error) {
-				console.log(error);
-			})
+			var params = {
+				state: $('#states').val(),
+				age: age,
+				gender: gender,
+				licences: licence
+			}
+			crc_filter(params)
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
     			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
@@ -353,108 +254,13 @@ jQuery(document).ready(function() {
 			$.each(licences, function(i, v){
 				licence += (`${v},`)
 			})
-			axios.get('/api/companies/cea', {
-				params: {
-					state: $('#states').val(),
-					licences__licence__category__in: licence
-				}
-			})
-			.then(function (response) {
-				data = response.data;
-				if (data.length > 0){
-					$('.cea-list').empty()
-					$.each(data, function(i, v){
-						if(v.logo == null){
-							logo = '/static/logos/academia1.png'
-						}
-						else{
-							logo = v.logo
-						}
-						$('.cea-list').append(
-							`
-								<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-									<div class="row">
-										<div class="col-12 logo-company">			
-											<img 
-												src="${logo}" 
-											width="70" alt="Logo Company">
-										</div>
-									</div>
-									<div class="row mt-2">
-										<div class="col-12 company-name">
-											<span>${v.name}</span>
-										</div>
-										<div class="col-12 company-location mt-3">
-											<div class="row">
-												<div class="col-3 img-location">
-													<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-												</div>
-												<div class="col-8 sector">
-													<span>
-														${v.city.name}, ${v.city.state.name}
-													</span>
-												</div>
-											</div>
-										</div>
-										<div class="col-12 company-rating mt-3">
-											<span>Rating</span>
-										</div>
-										<div class="col-12 company-button mt-3">
-											<button type="button" class="see-detail btn-crc">
-												Ver detalle
-											</button>
-											<button 
-												type="button" 
-												class="add-to-cart add-cart-cea"
-												data-id="${v.id}" 
-												data-name="${v.name}"
-												data-price=${v.final_price}>
-												Añadir al carrito
-											</button>
-										</div>
-									</div>
-								</div>
-							`
-						)
-					})
-					$('.add-cart-cea').on('click', function(){
-						cea = $(this).data('id')
-						$('li.cart-cea').empty()
-						$('li.cart-cea').append(
-							`
-								<div class="header-cart-item-img-c">
-									<img src="/static/images/4.png" alt="IMG">
-								</div>
-		
-								<div class="header-cart-item-txt p-t-8">
-									<a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-									Centro de Enseñanza Automotriz
-									</a>
-									<span class="header-cart-item-info">
-										${$(this).data('name')}
-									</span>
-									<span class="header-cart-item-info">
-										<strong>
-											$ 750.000 
-										</strong> 
-									</span>
-								</div>
-							`
-						)
-						toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
-					})
-				}
-				else {
-					$('.cea-list').empty()
-					$('.cea-list').append(
-						'<h3 style="padding:25px;">No se han encontrado Centros de enseñanza en tu localidad. '+
-						'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
-					)
-				}
-			})
-			.catch(function (error) {
-				console.log(error);
-			})
+
+			var params = {
+				state: $('#states').val(),
+				licences__licence__category__in: licence
+			}
+			loadVehicleSelect()
+			cea_filter(params)
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
     			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
@@ -493,107 +299,10 @@ jQuery(document).ready(function() {
 			})
 		}
     	if( next_step ) {
-			axios.get('/api/companies/transit', {
-				params: {
-					state: $('#states').val(),
-				}
-			})
-			.then(function (response) {
-				data = response.data;
-				$('.transit-list').empty()
-				if (data.length > 0){
-					$.each(data, function(i, v){
-						if(v.logo == null){
-							logo = '/static/logos/movilidad.png'
-						}
-						else{
-							logo = v.logo
-						}
-						$('.transit-list').append(
-							`
-								<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-									<div class="row">
-										<div class="col-12 logo-company">			
-											<img 
-												src="${logo}"
-											width="70" alt="Logo Company">
-										</div>
-									</div>
-									<div class="row mt-2">
-										<div class="col-12 company-name">
-											<span>${v.name}</span>
-										</div>
-										<div class="col-12 company-location mt-3">
-											<div class="row">
-												<div class="col-3 img-location">
-													<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-												</div>
-												<div class="col-8 sector">
-													<span>
-														${v.city.name}, ${v.city.state.name}
-													</span>
-												</div>
-											</div>
-										</div>
-										<div class="col-12 company-rating mt-3">
-											<span>Rating</span>
-										</div>
-										<div class="col-12 company-button mt-3">
-											<button type="button" class="see-detail btn-crc">
-												Ver detalle
-											</button>
-											<button 
-												type="button" 
-												class="add-to-cart add-cart-transit"
-												data-id="${v.id}" 
-												data-name="${v.name}"
-												data-price=${v.runt_price}>
-												Añadir al carrito
-											</button>
-										</div>
-									</div>
-								</div>
-							`
-						)
-					})
-					$('.add-cart-transit').on('click', function(){
-						transit = $(this).data('id')
-						$('li.cart-transit').empty()
-						$('li.cart-transit').append(
-							`
-								<div class="header-cart-item-img-c">
-									<img src="/static/images/5.png" alt="IMG">
-								</div>
-		
-								<div class="header-cart-item-txt p-t-8">
-									<a href="{% url 'webclient:transit-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-										Distrito de Tránsito
-									</a>
-									<span class="header-cart-item-info">
-										${$(this).data('name')}
-									</span>
-									<span class="header-cart-item-info">
-										<strong>
-											$ ${$(this).data('price')} 
-										</strong> 
-									</span>
-								</div>
-							`
-						)
-						toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
-					})
-				}
-				else {
-					$('.transit-list').empty()
-					$('.transit-list').append(
-						'<h3 style="padding:25px;">No se han encontrado organismos de tránsito en tu localidad. '+
-						'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
-					)
-				}
-			})
-			.catch(function (error) {
-				console.log(error);
-			})
+			var params = {
+				state: $('#states').val(),
+			}
+			transit_filter(params)
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
     			current_active_step.removeClass('active').addClass('activated').next().addClass('active');

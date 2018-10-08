@@ -445,3 +445,76 @@ class TransitLicence(models.Model):
     class Meta:
         verbose_name = "Precio de licencia de tránsito"
         verbose_name_plural = "Precios de licencias de tránsito"
+
+
+class CeaRating(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name="Usuario",
+        on_delete=models.CASCADE,
+        related_name='related_cea_user_ratings'
+    )
+    cea = models.ForeignKey(
+        Cea,
+        verbose_name="Cea",
+        on_delete=models.CASCADE,
+        related_name="related_cea_ratings"
+        )
+    detail = models.TextField(null=True, default="N/A")
+    stars = models.IntegerField()
+
+    def __str__(self):
+        return "%s - %s" % self.user, self.stars
+
+    class Meta:
+        verbose_name = "Calificacion CEA"
+        verbose_name_plural = "Calificaciones CEA"
+
+
+class CrcRating(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name="Usuario",
+        on_delete=models.CASCADE,
+        related_name='related_crc_user_ratings'
+    )
+    crc = models.ForeignKey(
+        Crc,
+        verbose_name="Crc",
+        on_delete=models.CASCADE,
+        related_name="related_crc_ratings"
+        )
+    detail = models.TextField(null=True, default="N/A")
+    stars = models.IntegerField()
+
+    def __str__(self):
+        return "%s - %s" % self.user, self.stars
+
+    class Meta:
+        verbose_name = "Calificacion CRC"
+        verbose_name_plural = "Calificaciones CRC"
+        
+        
+class TransitRating(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name="Usuario",
+        on_delete=models.CASCADE,
+        related_name='related_transit_user_ratings'
+    )
+    transit = models.ForeignKey(
+        TransitDepartment,
+        verbose_name="Organismo de transporte",
+        on_delete=models.CASCADE,
+        related_name="related_transit_ratings"
+        )
+    detail = models.TextField(null=True, default="N/A")
+    stars = models.IntegerField()
+
+    def __str__(self):
+        return "%s - %s" % self.user, self.stars
+
+    class Meta:
+        verbose_name = "Calificacion Organismo de transporte"
+        verbose_name_plural = "Calificaciones Organismo de transporte"
+

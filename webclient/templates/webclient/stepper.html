@@ -47,7 +47,7 @@
                                 </a>
     
                                 <span class="header-cart-item-info">
-                                    A2 - C1
+                                   <span class="licences-list">A2 - C1</span>
                                 </span>
                             </div>
                         </li>
@@ -393,16 +393,18 @@
                             </div>
                             <div class="row filter">
                                 <div class="col-12">
-                                    <input type="text" name="sector" id="sector-crc" placeholder="Sector">
+                                    <label class="filter-label" for="cities-crc">Ciudad</label>
+                                    <select class="city-select location-filter" id="cities-crc">
+                                    </select>
                                 </div>
-                                <div class="col-12">
-                                    <input type="text" name="city" id="city-crc" placeholder="Ciudad">
-                                </div>
-                                <div class="col-12">
+                                <!-- <div class="col-12">
                                     <input type="text" name="price" id="price-crc" placeholder="Precio">
                                 </div>
                                 <div class="col-12">
                                     <input type="text" name="qualify" id="qualify-crc" placeholder="Calificación">
+                                </div> -->
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-filter filter-crc">Filtrar</button>
                                 </div>
                             </div>
                         </div>
@@ -466,19 +468,24 @@
                             </div>
                             <div class="row filter">
                                 <div class="col-12">
-                                    <input type="text" name="vehicle" id="vehicle-cea" placeholder="Vehículo">
+                                    <label class="filter-label" for="cea-city">Vehículo</label>
+                                    <select class="vehicle-select location-filter" id="vehicle-cea">
+                                        <option value="" disabled selected>Filtro de vehículo</option>
+                                    </select>
                                 </div>
                                 <div class="col-12">
-                                    <input type="text" name="sector" id="sector-cea" placeholder="Sector">
+                                    <label class="filter-label" for="cea-city">Ciudad</label>
+                                    <select class="city-select location-filter" id="cea-city">
+                                    </select>
                                 </div>
-                                <div class="col-12">
-                                    <input type="text" name="city" id="city-cea" placeholder="Ciudad">
-                                </div>
-                                <div class="col-12">
+                                <!-- <div class="col-12">
                                     <input type="text" name="price" id="price-cea" placeholder="Precio">
                                 </div>
                                 <div class="col-12">
                                     <input type="text" name="qualify" id="qualify-cea" placeholder="Calificación">
+                                </div> -->
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-filter filter-cea">Filtrar</button>
                                 </div>
                             </div>
                         </div>
@@ -541,20 +548,26 @@
                                 <span>Filtrar por</span>
                             </div>
                             <div class="row filter">
-                                <div class="col-12">
+                                <!-- <div class="col-12">
                                     <input type="text" name="vehicle" id="vehicle-transit" placeholder="Vehículo">
                                 </div>
                                 <div class="col-12">
                                     <input type="text" name="sector" id="sector-transit" placeholder="Sector">
-                                </div>
+                                </div> -->
                                 <div class="col-12">
-                                    <input type="text" name="city" id="city-transit" placeholder="Ciudad">
+                                    <label class="filter-label" for="transit-city">Ciudad</label>
+                                    <select class="city-select location-filter" id="transit-city">
+                                        <option value="" disabled selected>Selecciona una ciudad</option>
+                                    </select>
                                 </div>
-                                <div class="col-12">
+                                <!-- <div class="col-12">
                                     <input type="text" name="price" id="price-transit" placeholder="Precio">
                                 </div>
                                 <div class="col-12">
                                     <input type="text" name="qualify" id="qualify-transit" placeholder="Calificación">
+                                </div> -->
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-filter filter-transit">Filtrar</button>
                                 </div>
                             </div>
                         </div>
@@ -771,6 +784,16 @@
                     $('select#cities').prepend(
                         `<option value="" disabled selected>Seleccione una ciudad</option>`
                     )
+
+                    $('select.city-select').empty()
+                    $(data).each(function(i, v){
+                        $('select.city-select').append(
+                            `<option value="${v.id}">${v.name}</option>`
+                        )
+                    })
+                    $('select.city-select').prepend(
+                        `<option value="" disabled selected>Filtro por ciudad</option>`
+                    )
                 },
             });
                 
@@ -782,6 +805,32 @@
             selected = $(this)
             loadCitiesSelect(selected.val())
         })
+
+        function loadVehicleSelect(){
+            axios.get('/api/vehicles/vehicles/', )
+			.then(function (response) {
+				data = response.data;
+				$('.vehicle-select').empty()
+				if (data.length > 0){
+					$.each(data, function(i, v){
+						$('.vehicle-select').append(
+							`
+								<option value="${v.line}">${v.brand.name} - ${v.line}</option>
+							`
+						)
+					})
+				}
+				else {
+					$('.vehicle-select').empty()
+					$('.vehicle-select').append(
+						'<option value="" disabled> No hay vehículos disponibles</option>'
+					)
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+			})
+        }
 
         var gender = ""
         var birth_date = ""
@@ -795,6 +844,314 @@
         var cea = ""
         var transit = ""
         
+        function crc_filter(params){
+            axios.get('/api/companies/crc', {
+				params: params
+            })
+            .then(function (response) {
+				data = response.data;
+				if (data.length > 0){
+					$('.crc-list').empty()
+					$.each(data, function(i, v){
+						if(v.logo == null){
+							logo = '/static/logos/simetric.png'
+						}
+						else{
+							logo = v.logo
+						}
+						$('.crc-list').append(
+							`
+								<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+									<div class="row">
+										<div class="col-12 logo-company">			
+											<img 
+												src="${logo}" 
+											width="70" alt="Logo Company">
+										</div>
+									</div>
+									<div class="row mt-2">
+										<div class="col-12 company-name">
+											<span>${v.name}</span>
+										</div>
+										<div class="col-12 company-location mt-3">
+											<div class="row">
+												<div class="col-3 img-location">
+													<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
+												</div>
+												<div class="col-8 sector">
+													<span>
+														${v.city.name}, ${v.city.state.name}
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 company-rating mt-3">
+											<span>Rating</span>
+										</div>
+										<div class="col-12 company-button mt-3">
+											<button type="button" class="see-detail btn-crc">
+												Ver detalle
+											</button>
+											<button 
+												type="button" 
+												class="add-to-cart add-cart-crc"
+												data-id="${v.id}" 
+												data-name="${v.name}"
+												data-price=${v.final_price}>
+												Añadir al carrito
+											</button>
+										</div>
+									</div>
+								</div>
+							`
+						)
+					})
+					$('.add-cart-crc').on('click', function(){
+						crc = $(this).data('id')
+						$('li.cart-crc').empty()
+						$('li.cart-crc').append(
+							`
+								<div class="header-cart-item-img-c">
+									<img src="/static/images/3.png" alt="IMG">
+								</div>
+		
+								<div class="header-cart-item-txt p-t-8">
+									<a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+										Centro de Reconociento de conductores
+									</a>
+									<span class="header-cart-item-info">
+										${$(this).data('name')}
+									</span>
+									<span class="header-cart-item-info">
+										<strong>
+											$ ${$(this).data('price')}
+										</strong> 
+									</span>
+								</div>
+							`
+						)
+						toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+					})
+			
+					
+				}
+				else {
+					$('.crc-list').empty()
+					$('.crc-list').append(
+						'<h3 style="padding:25px;">No se han encontrado Centros de recomocimientos de conductores en tu localidad. '+
+						'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
+					)
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+			})
+        }
+        
+        function cea_filter(params){
+            axios.get('/api/companies/cea', {
+				params : params
+			})
+			.then(function (response) {
+				data = response.data;
+				if (data.length > 0){
+					$('.cea-list').empty()
+					$.each(data, function(i, v){
+						if(v.logo == null){
+							logo = '/static/logos/academia1.png'
+						}
+						else{
+							logo = v.logo
+						}
+						$('.cea-list').append(
+							`
+								<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+									<div class="row">
+										<div class="col-12 logo-company">			
+											<img 
+												src="${logo}" 
+											width="70" alt="Logo Company">
+										</div>
+									</div>
+									<div class="row mt-2">
+										<div class="col-12 company-name">
+											<span>${v.name}</span>
+										</div>
+										<div class="col-12 company-location mt-3">
+											<div class="row">
+												<div class="col-3 img-location">
+													<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
+												</div>
+												<div class="col-8 sector">
+													<span>
+														${v.city.name}, ${v.city.state.name}
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 company-rating mt-3">
+											<span>Rating</span>
+										</div>
+										<div class="col-12 company-button mt-3">
+											<button type="button" class="see-detail btn-crc">
+												Ver detalle
+											</button>
+											<button 
+												type="button" 
+												class="add-to-cart add-cart-cea"
+												data-id="${v.id}" 
+												data-name="${v.name}"
+												data-price=${v.final_price}>
+												Añadir al carrito
+											</button>
+										</div>
+									</div>
+								</div>
+							`
+						)
+					})
+					$('.add-cart-cea').on('click', function(){
+						cea = $(this).data('id')
+						$('li.cart-cea').empty()
+						$('li.cart-cea').append(
+							`
+								<div class="header-cart-item-img-c">
+									<img src="/static/images/4.png" alt="IMG">
+								</div>
+		
+								<div class="header-cart-item-txt p-t-8">
+									<a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+									Centro de Enseñanza Automotriz
+									</a>
+									<span class="header-cart-item-info">
+										${$(this).data('name')}
+									</span>
+									<span class="header-cart-item-info">
+										<strong>
+											$ 750.000 
+										</strong> 
+									</span>
+								</div>
+							`
+						)
+						toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+					})
+				}
+				else {
+					$('.cea-list').empty()
+					$('.cea-list').append(
+						'<h3 style="padding:25px;">No se han encontrado Centros de enseñanza en tu localidad. '+
+						'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
+					)
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+			})
+        }
+
+        function transit_filter(params){
+            axios.get('/api/companies/transit', {
+				params: params
+			})
+			.then(function (response) {
+				data = response.data;
+				$('.transit-list').empty()
+				if (data.length > 0){
+					$.each(data, function(i, v){
+						if(v.logo == null){
+							logo = '/static/logos/movilidad.png'
+						}
+						else{
+							logo = v.logo
+						}
+						$('.transit-list').append(
+							`
+								<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+									<div class="row">
+										<div class="col-12 logo-company">			
+											<img 
+												src="${logo}"
+											width="70" alt="Logo Company">
+										</div>
+									</div>
+									<div class="row mt-2">
+										<div class="col-12 company-name">
+											<span>${v.name}</span>
+										</div>
+										<div class="col-12 company-location mt-3">
+											<div class="row">
+												<div class="col-3 img-location">
+													<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
+												</div>
+												<div class="col-8 sector">
+													<span>
+														${v.city.name}, ${v.city.state.name}
+													</span>
+												</div>
+											</div>
+										</div>
+										<div class="col-12 company-rating mt-3">
+											<span>Rating</span>
+										</div>
+										<div class="col-12 company-button mt-3">
+											<button type="button" class="see-detail btn-crc">
+												Ver detalle
+											</button>
+											<button 
+												type="button" 
+												class="add-to-cart add-cart-transit"
+												data-id="${v.id}" 
+												data-name="${v.name}"
+												data-price=${v.runt_price}>
+												Añadir al carrito
+											</button>
+										</div>
+									</div>
+								</div>
+							`
+						)
+					})
+					$('.add-cart-transit').on('click', function(){
+						transit = $(this).data('id')
+						$('li.cart-transit').empty()
+						$('li.cart-transit').append(
+							`
+								<div class="header-cart-item-img-c">
+									<img src="/static/images/5.png" alt="IMG">
+								</div>
+		
+								<div class="header-cart-item-txt p-t-8">
+									<a href="{% url 'webclient:transit-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+										Distrito de Tránsito
+									</a>
+									<span class="header-cart-item-info">
+										${$(this).data('name')}
+									</span>
+									<span class="header-cart-item-info">
+										<strong>
+											$ ${$(this).data('price')} 
+										</strong> 
+									</span>
+								</div>
+							`
+						)
+						toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+					})
+				}
+				else {
+					$('.transit-list').empty()
+					$('.transit-list').append(
+						'<h3 style="padding:25px;">No se han encontrado organismos de tránsito en tu localidad. '+
+						'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
+					)
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+			})
+        }
+
         $('#day').on('change', function(e){
             $('#day-1').find(`option[value="${$(this).val()}"]`).attr('selected', true)
         })
@@ -918,6 +1275,46 @@
                 licences['car'] = $(this).data('name')
             }
         })
+
+        $('button.filter-crc').on('click', function(e){
+            var licence = ""
+            $.each(licences, function(i, v){
+				licence += (`${v},`)
+            })
+            var params = {
+                    state: $('#states').val(),
+                    city: $('#cities-crc').val(),
+					age: age,
+					gender: gender,
+					licences: licence
+				}
+            crc_filter(params)
+			
+        })
+
+        $('button.filter-cea').on('click', function(e){
+            var licence = ""
+            $.each(licences, function(i, v){
+				licence += (`${v},`)
+			})
+			var params = {
+                state: $('#states').val(),
+                city: $('#cea-city').val(),
+				licences__licence__category__in: licence
+			}
+            cea_filter(params)
+
+        })
+
+        $('button.filter-transit').on('click', function(e){
+            console.log("Filtro de ciudad transit")
+			var params = {
+                state: $('#states').val(),
+                city: $('#transit-city').val(),
+			}
+            transit_filter(params)
+
+        })
         
         $('.btn-crc').on('click', function(ev){
             window.open("{% url 'webclient:crc-detail' %}", "_blank");
@@ -938,12 +1335,6 @@
             }
         })
         
-        
-
-
-
-
-
         function formatJSON(form, wsurl){
             fetch.apply(wsurl);
             if($.Callbacks(form).fetch(wsurl)){

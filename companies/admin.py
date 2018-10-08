@@ -8,7 +8,7 @@ from users.models import User
 from utils.admin import SoftDeletionModelAdminMixin
 from .models import (
     Cea, Crc, TransitDepartment, Schedule, CeaLicence, CeaVehicle,
-    TuLicencia, TransitLicence)
+    TuLicencia, TransitLicence, CeaRating, CrcRating, TransitRating)
 
 
 class ScheduleAdmin(admin.StackedInline):
@@ -46,6 +46,27 @@ class TransitLicenceAdmin(admin.StackedInline):
     extra = 0
 
 
+class CrcRatingAdmin(admin.StackedInline):
+    """
+    """
+    model = CrcRating
+    extra = 0
+
+
+class CeaRatingAdmin(admin.StackedInline):
+    """
+    """
+    model = CeaRating
+    extra = 0
+
+
+class TransitRatingAdmin(admin.StackedInline):
+    """
+    """
+    model = TransitRating
+    extra = 0
+
+
 @admin.register(Cea)
 class CeaAdmin(SoftDeletionModelAdminMixin):
     """
@@ -53,7 +74,7 @@ class CeaAdmin(SoftDeletionModelAdminMixin):
 
     model = Cea
     extra_list_display = ('nit', 'name', 'manager', 'cellphone')
-    inlines = [ScheduleAdmin, CeaLicenceAdmin, CeaVehicleAdmin]
+    inlines = [ScheduleAdmin, CeaLicenceAdmin, CeaVehicleAdmin, CeaRatingAdmin]
 
     manager_readonly_fields = ('manager', )
 
@@ -104,7 +125,7 @@ class CrcAdmin(SoftDeletionModelAdminMixin):
 
     model = Crc
     extra_list_display = ('nit', 'name', 'manager', 'cellphone')
-    inlines = [ScheduleAdmin,]
+    inlines = [ScheduleAdmin, CrcRatingAdmin]
 
     manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo' )
 
@@ -153,7 +174,7 @@ class TransitDepartmentAdmin(SoftDeletionModelAdminMixin):
 
     model = TransitDepartment
     extra_list_display = ('nit', 'name', 'cellphone')
-    inlines = [ScheduleAdmin, TransitLicenceAdmin]
+    inlines = [ScheduleAdmin, TransitLicenceAdmin, TransitRatingAdmin]
 
     class Media:
         js = (

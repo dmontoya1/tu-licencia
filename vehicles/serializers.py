@@ -26,11 +26,7 @@ class VehicleSerializer(serializers.ModelSerializer):
     """
 
     brand = BrandSerializer(many=False)
-    images = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='name'
-    )
+    images = VehicleImagesSerializer(many=True, read_only=True)
 
     class Meta:
         model = Vehicle
