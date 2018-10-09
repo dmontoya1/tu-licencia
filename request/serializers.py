@@ -10,10 +10,12 @@ class RequestSerializer(serializers.ModelSerializer):
     Serializador para las politicas de la plataforma
     """
 
+
+
     user = UserSerializer(many=False,)
 
     class Meta:
         model = Request
         fields = (
             'id', 'user', 'cea', 'crc', 'transit', 'payment_type',
-            'licences', 'credit_status', 'booking')
+            'licences',)
