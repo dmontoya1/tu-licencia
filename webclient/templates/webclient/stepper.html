@@ -819,6 +819,11 @@
 							`
 						)
 					})
+                    $('.vehicle-select').append(
+                        `
+                            <option value="" disabled selected>Filtro vehículos</option>
+                        `
+                    )
 				}
 				else {
 					$('.vehicle-select').empty()
@@ -1292,22 +1297,31 @@
 			
         })
 
+        var licence = ""
+        $.each(licences, function(i, v){
+            licence += (`${v},`)
+        })
+        
+        var params_cea = {}
+        $('#vehicle-cea').on('change', function(e){
+            params_cea['vehicle'] = $(this).val()
+            console.log(params_cea)
+        })
+
         $('button.filter-cea').on('click', function(e){
             var licence = ""
             $.each(licences, function(i, v){
-				licence += (`${v},`)
-			})
-			var params = {
-                state: $('#states').val(),
-                city: $('#cea-city').val(),
-				licences__licence__category__in: licence
-			}
-            cea_filter(params)
+                licence += (`${v},`)
+            })
+            params_cea['state'] = $('#states').val()
+            params_cea['city'] = $('#cea-city').val()
+            params_cea['licences__licence__category__in'] = licence
+            console.log('params_cea')
+            cea_filter(params_cea)
 
         })
 
         $('button.filter-transit').on('click', function(e){
-            console.log("Filtro de ciudad transit")
 			var params = {
                 state: $('#states').val(),
                 city: $('#transit-city').val(),

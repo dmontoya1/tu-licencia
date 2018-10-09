@@ -105,7 +105,7 @@ class User(AbstractUser):
         blank=True, null=True
     )
     deleted_at = models.DateTimeField(blank=True, null=True)
-    objects = SoftDeletionManager()
+    # objects = SoftDeletionManager()
 
 
     class Meta:

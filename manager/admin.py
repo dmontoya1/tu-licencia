@@ -39,7 +39,7 @@ class CityAdmin(SoftDeletionModelAdminMixin):
     search_fields = (
         'state__name', 'name',
     )
-    list_display = (
+    extra_list_display = (
         'name', 'state', 'code'
     )
 
