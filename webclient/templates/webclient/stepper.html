@@ -15,7 +15,7 @@
             <div class="separator">
                 | 
             </div>
-            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" data-notify="0">
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" >
                 <img src="{% static 'images/cart.png' %}" alt="cart" >
             </div>
         </div>
@@ -1305,7 +1305,6 @@
         var params_cea = {}
         $('#vehicle-cea').on('change', function(e){
             params_cea['vehicles__vehicle__line'] = $(this).val()
-            console.log(params_cea)
         })
 
         $('button.filter-cea').on('click', function(e){
@@ -1316,7 +1315,6 @@
             params_cea['state'] = $('#states').val()
             params_cea['city'] = $('#cea-city').val()
             params_cea['licences__licence__category__in'] = licence
-            console.log(params_cea)
             cea_filter(params_cea)
 
         })
@@ -1448,20 +1446,58 @@
 				confirmButtonText: 'Ok'
                 })
             }
+            
             if (submit){
-                swal({
-                    title: 'Felicitaciones!',
-                    text: 'Tus datos se han enviado correctamente',
-                    type: 'success',
-                    showCancelButton: false,
-                    confirmButtonText: 'Ok'
+                var lic = []
+                $.each(licences, function(i, v){
+                    lic.push(v)
                 })
-                console.log($('#licence-request-form').serializeArray())
-                $(this).form(formatJSON($(this.form), '/api/request/'))
+                user = {
+                    "first_name": $('#first_name').val(),
+                    "last_name": $('#last_name').val(),
+                    "email": $('#email').val(),
+                    "password": $('#pass1').val(),
+                    "gender": gender,
+                    "document_type": 'CC',
+                    "document_id": $('#doc_id').val(),
+                    "cellphone": $('#phone_number').val(),
+                    "city": $('#cities').val(),
+                    "state": $('#states').val(),
+                    "birth_date": birth_date
+                },
+
+                request = {
+                    "user": user,
+                    "cea": cea,
+                    "crc": crc,
+                    "transit": transit,
+                    "payment_type": "CO",
+                    "licences": lic,
+                }
+                console.log("Request")
+                console.log(request)
+                axios.post('/api/request/', request)
+                .then(function (response) {
+                    data = response.data;
+                    console.log(data)
+                    swal({
+                        title: 'Felicitaciones!',
+                        text: 'Tus datos se han enviado correctamente',
+                        type: 'success',
+                        showCancelButton: false,
+                        confirmButtonText: 'Ok'
+                    })
+                })
+                .catch(function (error) {
+                    console.log("Error")
+                    console.log(error);
+                })
+
+                // console.log($('#licence-request-form').serializeArray())
+                // $(this).form(formatJSON($(this.form), '/api/request/'))
             }
             
         })
-        
 
 
     </script>
