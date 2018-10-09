@@ -1304,7 +1304,7 @@
         
         var params_cea = {}
         $('#vehicle-cea').on('change', function(e){
-            params_cea['vehicle'] = $(this).val()
+            params_cea['vehicles__vehicle__line'] = $(this).val()
             console.log(params_cea)
         })
 
@@ -1316,7 +1316,7 @@
             params_cea['state'] = $('#states').val()
             params_cea['city'] = $('#cea-city').val()
             params_cea['licences__licence__category__in'] = licence
-            console.log('params_cea')
+            console.log(params_cea)
             cea_filter(params_cea)
 
         })
