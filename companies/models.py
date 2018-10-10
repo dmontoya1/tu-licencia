@@ -57,6 +57,11 @@ class Cea(SoftDeletionModelMixin):
         "Celular",
         max_length=10,
     )
+    email = models.CharField(
+        "Correo Electrónico",
+        max_length=255,
+        blank=True, null=True
+    )
     logo = models.ImageField(
         "logo de la empresa",
         upload_to=get_upload_to,
@@ -114,6 +119,11 @@ class Crc(SoftDeletionModelMixin):
         on_delete=models.SET_NULL,
         blank=True,
         null=True
+    )
+    email = models.CharField(
+        "Correo Electrónico",
+        max_length=255,
+        blank=True, null=True
     )
     address = models.CharField("Dirección", max_length=255)
     phone = models.CharField(
@@ -184,6 +194,11 @@ class TransitDepartment(SoftDeletionModelMixin):
         blank=True,
         null=True
     )
+    email = models.CharField(
+        "Correo Electrónico",
+        max_length=255,
+        blank=True, null=True
+    )
     address = models.CharField("Dirección", max_length=255)
     phone = models.CharField(
         "Teléfono Fijo",
@@ -243,8 +258,12 @@ class TuLicencia(SoftDeletionModelMixin):
         State,
         verbose_name="Departamento",
         on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
+        blank=True, null=True
+    )
+    email = models.CharField(
+        "Correo Electrónico",
+        max_length=255,
+        blank=True, null=True
     )
     city = models.ForeignKey(
         City,

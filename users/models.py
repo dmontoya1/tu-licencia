@@ -25,8 +25,8 @@ class User(AbstractUser):
     CLIENTE = 'CLI'
     EXPRESS_USER = 'EXU'
 
-    MASCULINO = 'MA'
-    FEMENINO = 'FE'
+    MASCULINO = 'M'
+    FEMENINO = 'F'
 
     DOCUMENT_TYPE = (
         (CEDULA_CIUDADANIA, 'Cédula de ciudadania'),

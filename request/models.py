@@ -161,6 +161,10 @@ class Request(models.Model):
         "Fecha de la solicitud",
         auto_now_add=True,
     )
+    has_runt = models.BooleanField(
+        "Tiene RUNT?",
+        default=False
+    )
 
     def __init__(self, *args, **kwargs):
         super(Request, self).__init__(*args, **kwargs)

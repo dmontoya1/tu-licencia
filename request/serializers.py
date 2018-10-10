@@ -10,8 +10,6 @@ class RequestSerializer(serializers.ModelSerializer):
     Serializador para las politicas de la plataforma
     """
 
-
-
     user = UserSerializer(many=False,)
 
     class Meta:

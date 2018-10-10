@@ -1473,19 +1473,21 @@
                     "transit": transit,
                     "payment_type": "CO",
                     "licences": lic,
+                    "runt":runt,
                 }
-                console.log("Request")
-                console.log(request)
                 axios.post('/api/request/', request)
                 .then(function (response) {
                     data = response.data;
-                    console.log(data)
                     swal({
                         title: 'Felicitaciones!',
-                        text: 'Tus datos se han enviado correctamente',
+                        text: 'Tu solicitud se ha creado exitosamente. Mira tu baucher para ver los pasos que debes seguir',
                         type: 'success',
                         showCancelButton: false,
-                        confirmButtonText: 'Ok'
+                        confirmButtonText: 'Ver Baucher'
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location.replace(`/baucher/${data.request}/request`);
+                        }
                     })
                 })
                 .catch(function (error) {
@@ -1493,8 +1495,6 @@
                     console.log(error);
                 })
 
-                // console.log($('#licence-request-form').serializeArray())
-                // $(this).form(formatJSON($(this.form), '/api/request/'))
             }
             
         })

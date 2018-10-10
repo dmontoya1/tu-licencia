@@ -18,77 +18,138 @@
     <div class="container">
         <div class="row mb-5">
             <div class="col-12 tiquet-number mb-4">
-                <p> Reserva / Compra Nº: <strong>28072018-1</strong></p>
+                <p> Reserva / Compra Nº: <strong>{{request.booking}}</strong></p>
             </div>
             <div class="col-12 client-name">
                 <span class="title">Señor (a)</span><br>
-                <span class="name">Daniel Montoya</span>
+                <span class="name">{{request.user.get_full_name}}</span>
                 <br>
-                <p class="item-info">A continuación encontrará la información necesaria para realizar el trámite de tu licencia categoría C1</p>
+                <p class="item-info">A continuación encontrará la información necesaria para realizar el trámite de tu licencia(s) categoría(s) {% for lic in request.licences.all %}{{lic.category}}. {%endfor%}</p>
             </div>
         </div>
         <div class="row runt-info mb-5">
             <div class="col-12">
                 <span class="item-title">RUNT</span>
 
-                <p class="item-info">
-                        Indicaste que ya estas incrito en el RUNT, puedes dirigirte al Centro de Reconocimiento de Conductores; 
-                        si aún no estás inscrito en el RUNT debes dirigirte a la oficina del organismo de transporte y realizar allí la inscripción, 
-                        este proceso tiene un valor de 13.900, los cuales deberá pagar en la oficina:
-                </p>
-                <p class="company-name">DEPARTAMENTO DE TRÁNSITO DE PEREIRA</p>
-                <div class="row">
-                    <div class="col-3">
-                        <div class="row">
-                            <div class="col-3 img-location">
-                                <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
-                            </div>
-                            <div class="col-8 item">
-                                <span class="item-description-title">
-                                    Dirección: <br>
-                                </span><br>
-                                <span class="item-detail">
-                                    Calle 40 # 13-30
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="row">
-                            <div class="col-3 img-location">
-                                <img src="{% static 'icons/horario/res/mipmap-mdpi/horario.png' %}" width="30" height="30">
-                            </div>
-                            <div class="col-8 item">
-                                <span class="item-description-title">
-                                    Horario: <br>
-                                    <span class="day-schedule">Lunes a Viernes</span>
-                                </span><br>
-                                <span class="item-detail">
-                                    08:00 AM - 12:00 PM <br>
-                                    02:00 PM - 06:00 PM
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
-                        <div class="row">
-                            <div class="col-3 img-location">
-                                <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
-                            </div>
-                            <div class="col-8 item">
-                                <span class="item-description-title">
-                                    Teléfono: <br>
-                                </span><br>
-                                <span class="item-detail">
-                                    3178883333
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3">
+                {% if request.has_runt %}
 
+                    <p class="item-info">
+                            Indicaste que ya estas incrito en el RUNT, puedes dirigirte al Centro de Reconocimiento de Conductores; 
+                            si aún no estás inscrito en el RUNT debes dirigirte a la oficina del organismo de transporte y realizar allí la inscripción, 
+                            este proceso tiene un valor de 13.900, los cuales deberá pagar en la oficina:
+                    </p>
+                    <p class="company-name">DEPARTAMENTO DE TRÁNSITO DE PEREIRA</p>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="row">
+                                <div class="col-3 img-location">
+                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                </div>
+                                <div class="col-8 item">
+                                    <span class="item-description-title">
+                                        Dirección: <br>
+                                    </span><br>
+                                    <span class="item-detail">
+                                        Calle 40 # 13-30
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="row">
+                                <div class="col-3 img-location">
+                                    <img src="{% static 'icons/horario/res/mipmap-mdpi/horario.png' %}" width="30" height="30">
+                                </div>
+                                <div class="col-8 item">
+                                    <span class="item-description-title">
+                                        Horario: <br>
+                                        <span class="day-schedule">Lunes a Viernes</span>
+                                    </span><br>
+                                    <span class="item-detail">
+                                        08:00 AM - 12:00 PM <br>
+                                        02:00 PM - 06:00 PM
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="row">
+                                <div class="col-3 img-location">
+                                    <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
+                                </div>
+                                <div class="col-8 item">
+                                    <span class="item-description-title">
+                                        Teléfono: <br>
+                                    </span><br>
+                                    <span class="item-detail">
+                                        3178883333
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+
+                        </div>
                     </div>
-                </div>
+                {% else %}
+                    <p class="item-info">
+                        Indicaste que ya aún no estas incrito en el RUNT, por lo que debes dirigirte a la oficina del organismo de transporte y realizar allí la inscripción, 
+                        este proceso tiene un valor de 13.900, los cuales deberá pagar en la oficina:
+                    </p>
+                    <p class="company-name">{{request.transit.name}}</p>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="row">
+                                <div class="col-3 img-location">
+                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                </div>
+                                <div class="col-8 item">
+                                    <span class="item-description-title">
+                                        Dirección: <br>
+                                    </span><br>
+                                    <span class="item-detail">
+                                        {{request.transit.address}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="row">
+                                <div class="col-3 img-location">
+                                    <img src="{% static 'icons/horario/res/mipmap-mdpi/horario.png' %}" width="30" height="30">
+                                </div>
+                                <div class="col-8 item">
+                                    <span class="item-description-title">
+                                        Horario: <br>
+                                        <span class="day-schedule">Lunes a Viernes</span>
+                                    </span><br>
+                                    <span class="item-detail">
+                                        08:00 AM - 12:00 PM <br>
+                                        02:00 PM - 06:00 PM
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="row">
+                                <div class="col-3 img-location">
+                                    <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
+                                </div>
+                                <div class="col-8 item">
+                                    <span class="item-description-title">
+                                        Teléfonos: <br>
+                                    </span><br>
+                                    <span class="item-detail">
+                                        {{request.transit.phone}} - {{request.transit.cellphone}}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
 
@@ -99,7 +160,7 @@
                 <p class="item-info">
                     Una vez inscrito en el RUNT debes proceder al Centro de Reconocimiento de Conductores :
                 </p>
-                <p class="company-name">SIMETRIC</p>
+                <p class="company-name">{{request.crc.name}}</p>
                 <div class="row">
                     <div class="col-3">
                         <div class="row">
@@ -111,7 +172,7 @@
                                     Dirección: <br>
                                 </span><br>
                                 <span class="item-detail">
-                                    Calle 40 # 13-30
+                                    {{request.crc.address}}
                                 </span>
                             </div>
                         </div>
@@ -150,7 +211,7 @@
                                     Teléfono: <br>
                                 </span><br>
                                 <span class="item-detail">
-                                    3178883333
+                                    {{request.crc.cellphone}}
                                 </span>
                             </div>
                         </div>
@@ -165,7 +226,7 @@
                                     Correo: <br>
                                 </span><br>
                                 <span class="item-detail">
-                                    mail@mail.com
+                                    {{request.crc.email|default:"Sin Correo"}}
                                 </span>
                             </div>
                         </div>
@@ -179,9 +240,9 @@
                 <span class="item-title">CEA</span>
 
                 <p class="item-info">
-                    Una vez inscrito en el RUNT debes proceder al Centro de Reconocimiento de Conductores :
+                    Después de realizarte los exámenes en el Centro de Recomocimiento de conductores, debes dirigirte al Centro de Enseñanza Automovilística:
                 </p>
-                <p class="company-name">INSTITUTO DE MOVILIDAD DE PEREIRA</p>
+                <p class="company-name">{{request.cea.name}}</p>
                 <div class="row">
                     <div class="col-3">
                         <div class="row">
@@ -193,7 +254,7 @@
                                     Dirección: <br>
                                 </span><br>
                                 <span class="item-detail">
-                                    Calle 40 # 13-30
+                                    {{request.cea.address}}
                                 </span>
                             </div>
                         </div>
@@ -219,7 +280,7 @@
                 <div class="row mt-3">
                     <div class="col-12 mt-5">
                         <p class="item-info">
-                                Después de realizar los examenes en el Centro de Reconocimiento de Conductores debes dirigirte a:
+                            Te puedes comunicar a través del siguiente teléfono y correo electrónico:
                         </p>
                     </div>
                     <div class="col-3">
@@ -232,7 +293,7 @@
                                     Teléfono: <br>
                                 </span><br>
                                 <span class="item-detail">
-                                    3178883333
+                                    {{request.cea.cellphone}}
                                 </span>
                             </div>
                         </div>
@@ -247,7 +308,7 @@
                                     Correo: <br>
                                 </span><br>
                                 <span class="item-detail">
-                                    mail@mail.com
+                                    {{request.cea.email|default:"Sin Correo"}}
                                 </span>
                             </div>
                         </div>
@@ -260,7 +321,7 @@
                 <span class="item-title transport">Organismo de transporte</span>
 
                 <p class="item-info">
-                    Una vez completado el curso de conducción te haremos llegar la documentación necesaria para que te acerques a la oficina del organismo de transporte INSTITUTO DE MOVILIDAD DE PEREIRA para reclamar la licencia solicitada.
+                    Una vez completado el curso de conducción te haremos llegar la documentación necesaria para que te acerques a la oficina del organismo de transporte {{request.transit.name}} para reclamar la licencia solicitada.
                 </p>
                 
             </div>
@@ -272,7 +333,7 @@
                 <p class="tulicencia-info">
                     Si tienes alguna duda te puedes comunicar con nosotros a través de nuestras líneas de atención:
                 </p>
-                <p class="company-name">TU LICENCIA PEREIRA</p>
+                <p class="company-name">Tu Licencia {{tulicencia.city}}</p>
                 <div class="row">
                     <div class="col-4">
                         <div class="row">
@@ -284,7 +345,7 @@
                                     Teléfono: <br>
                                 </span><br>
                                 <span class="item-detail">
-                                    (6) 342 1112
+                                    {{tulicencia.phone|default:"(6) 334 2480"}}
                                 </span>
                             </div>
                         </div>
@@ -299,7 +360,7 @@
                                     Celular: <br>
                                 </span><br>
                                 <span class="item-detail">
-                                    (+57) 317 8883 333
+                                    {{tulicencia.cellphone|default:"311 684 4142"}}
                                 </span>
                             </div>
                         </div>
@@ -311,10 +372,10 @@
                             </div>
                             <div class="col-8 item">
                                 <span class="item-description-title">
-                                        Línea nacional gratuita: <br>
+                                    Línea nacional gratuita: <br>
                                 </span><br>
                                 <span class="item-detail">
-                                    3178883333
+                                    311 684 4142
                                 </span>
                             </div>
                         </div>
