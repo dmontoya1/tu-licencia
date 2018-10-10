@@ -32,7 +32,7 @@ class RequestCreate(APIView):
             try:
                 user = User.objects.get(username=user_data['document_id'])
             except User.DoesNotExist:
-                # birth_date = datetime.strptime(user_data['birth_date'], '%m %d %Y')
+                birth_date = datetime.strptime(user_data['birth_date'], '%m-%d-%Y')
                 user = get_user_model()
                 user = user()
                 user.username = user_data['document_id']
@@ -47,7 +47,7 @@ class RequestCreate(APIView):
                 user.state = state
                 user.city = city
                 user.gender = user_data['gender']
-                # user.birth_date = birth_date
+                user.birth_date = birth_date
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 user.save()
                 Token.objects.create(user=user)
@@ -63,7 +63,7 @@ class RequestCreate(APIView):
                 crc=crc,
                 transit=transit,
                 payment_type = request.data['payment_type'],
-                runt=runt
+                has_runt=runt
             )
             request_obj.save()
 
