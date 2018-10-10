@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Police, State, City
+from .models import Police, State, City, Sector
 
 
 class PoliceSerializer(serializers.ModelSerializer):
@@ -32,4 +32,16 @@ class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = ('id', 'name', 'state')
+
+
+class SectorSerializer(serializers.ModelSerializer):
+    """
+    Serializador para los sectores
+    """
+
+    city = CitySerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Sector
+        fields = ('id', 'name', 'city')
 

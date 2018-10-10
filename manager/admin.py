@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 from django.contrib import messages
 from django.db.models import Q
-from .models import State, City, Police, CRCAdminPrices
+from .models import State, City, Police, CRCAdminPrices, Sector
 
 from utils.admin import SoftDeletionModelAdminMixin
 
@@ -16,7 +16,6 @@ class StateAdmin(SoftDeletionModelAdminMixin):
     """
 
     model = State
-    icon = '<i class="material-icons">beenhere</i>'
     search_fields = (
         'name', 'related_cities__name'
     )
@@ -35,7 +34,6 @@ class CityAdmin(SoftDeletionModelAdminMixin):
     """
 
     model = City
-    icon = '<i class="material-icons">place</i>'
     search_fields = (
         'state__name', 'name',
     )
@@ -45,6 +43,21 @@ class CityAdmin(SoftDeletionModelAdminMixin):
 
     def has_add_permission(self, request):
         return False
+
+
+@admin.register(Sector)
+class SectorAdmin(SoftDeletionModelAdminMixin):
+    """
+    Clase para la admintración de los sectores
+    """
+
+    model = Sector
+    search_fields = (
+        'city__name', 'name',
+    )
+    extra_list_display = (
+        'name', 'city',
+    )
 
 
 @admin.register(Police)

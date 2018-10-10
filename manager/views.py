@@ -21,8 +21,8 @@ from rest_framework.response import Response
 import requests
 
 
-from .models import Police, State, City
-from .serializers import PoliceSerializer, StateSerializer, CitySerializer
+from .models import Police, State, City, Sector
+from .serializers import PoliceSerializer, StateSerializer, CitySerializer, SectorSerializer
 
 
 class TermsAndConditions(generics.ListAPIView):
@@ -64,3 +64,20 @@ class CityList(generics.ListAPIView):
         if stateId:
             queryset = queryset.filter(state=stateId).order_by('name')
         return queryset
+
+
+class SectorList(generics.ListAPIView):
+    """
+    Api para obtener los sectores dependiendo del municipio
+    """
+
+    permission_classes = (AllowAny,)
+    serializer_class = SectorSerializer
+
+    def get_queryset(self):
+        queryset = Sector.objects.alive()
+        cityId = self.kwargs['cityId']
+        if cityId:
+            queryset = queryset.filter(city=cityId).order_by('name')
+        return queryset
+

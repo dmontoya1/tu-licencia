@@ -6,7 +6,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 from licences.models import Licence
-from manager.models import State, City, CRCAdminPrices
+from manager.models import State, City, CRCAdminPrices, Sector
 from utils.models import SoftDeletionModelMixin
 from vehicles.models import Vehicle
 from .utils import get_upload_to
@@ -41,6 +41,13 @@ class Cea(SoftDeletionModelMixin):
     city = models.ForeignKey(
         City,
         verbose_name="Ciudad",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
+    sector = models.ForeignKey(
+        Sector,
+        verbose_name="Sector",
         on_delete=models.SET_NULL,
         blank=True,
         null=True
@@ -120,6 +127,13 @@ class Crc(SoftDeletionModelMixin):
         blank=True,
         null=True
     )
+    sector = models.ForeignKey(
+        Sector,
+        verbose_name="Sector",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
     email = models.CharField(
         "Correo Electrónico",
         max_length=255,
@@ -190,6 +204,13 @@ class TransitDepartment(SoftDeletionModelMixin):
     city = models.ForeignKey(
         City,
         verbose_name="Ciudad",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True
+    )
+    sector = models.ForeignKey(
+        Sector,
+        verbose_name="Sector",
         on_delete=models.SET_NULL,
         blank=True,
         null=True

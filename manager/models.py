@@ -43,6 +43,24 @@ class City(SoftDeletionModelMixin):
         verbose_name_plural = "Ciudades"
 
 
+class Sector(SoftDeletionModelMixin):
+    """
+    Clase para los sectores
+    """
+
+    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='related_sectors',
+                              verbose_name="Ciudad")
+    name = models.CharField("Nombre Sector", max_length=255)
+
+    def __str__(self):
+        return "%s" % (self.name)
+
+
+    class Meta:
+        verbose_name = "Sector"
+        verbose_name_plural = "Sectores"
+
+
 class Police(models.Model):
     """
     clase para las politicas de la plataforma

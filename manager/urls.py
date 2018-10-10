@@ -10,4 +10,5 @@ urlpatterns = [
     path('privacy-policies/', views.PrivacyPolicies.as_view(), name='privacy-policies'),
     path('states/', views.StateList.as_view(), name='states'),
     path('city/<int:stateId>/', views.CityList.as_view(), name='cities'),
+    path('sector/<int:cityId>/', views.SectorList.as_view(), name='sectors'),
 ]
