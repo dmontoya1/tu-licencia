@@ -397,6 +397,12 @@
                                     <select class="city-select location-filter" id="cities-crc">
                                     </select>
                                 </div>
+                                <div class="col-12">
+                                    <label class="filter-label" for="sector-crc">Sector</label>
+                                    <select class="sector-select location-filter" id="sector-crc">
+                                        <option selected disabled value="">Selecciona primero una ciudad</option>
+                                    </select>
+                                </div>
                                 <!-- <div class="col-12">
                                     <input type="text" name="price" id="price-crc" placeholder="Precio">
                                 </div>
@@ -477,6 +483,12 @@
                                     <label class="filter-label" for="cea-city">Ciudad</label>
                                     <select class="city-select location-filter" id="cea-city">
                                     </select>
+                                </div>
+                                <div class="col-12">
+                                        <label class="filter-label" for="sector-crc">Sector</label>
+                                        <select class="sector-select location-filter" id="sector-cea">
+                                            <option selected disabled value="">Selecciona primero una ciudad</option>
+                                        </select>
                                 </div>
                                 <!-- <div class="col-12">
                                     <input type="text" name="price" id="price-cea" placeholder="Precio">
@@ -798,12 +810,57 @@
             });
                 
         }
+        
+        function loadCRCSectorSelect(cityId){
+            $.ajax({
+                type: "GET",
+                url:"/api/manager/sector/"+cityId+"/",
+                success:function(data)
+                {   
+                    $('select#sector-crc').empty()
+                    $(data).each(function(i, v){
+                        $('select#sector-crc').append(
+                            `<option value="${v.id}">${v.name}</option>`
+                        )
+                    })
+                    $('select#sector-crc').prepend(
+                        `<option value="" selected disabled>Seleccione un sector</option>`
+                    )
+                },
+            });
+                
+        }
+        
+        function loadCEASectorSelect(cityId){
+            $.ajax({
+                type: "GET",
+                url:"/api/manager/sector/"+cityId+"/",
+                success:function(data)
+                {   
+                    $('select#sector-cea').empty()
+                    $(data).each(function(i, v){
+                        $('select#sector-cea').append(
+                            `<option value="${v.id}">${v.name}</option>`
+                        )
+                    })
+                    $('select#sector-cea').prepend(
+                        `<option value="" selected disabled>Seleccione un sector</option>`
+                    )
+                },
+            });
+                
+        }
 
         loadStatesSelect();
 
-        $('select#states').on('change', function(){
+        $('select#cities-crc').on('change', function(){
             selected = $(this)
-            loadCitiesSelect(selected.val())
+            loadCRCSectorSelect(selected.val())
+        })
+
+        $('select#cea-city').on('change', function(){
+            selected = $(this)
+            loadCEASectorSelect(selected.val())
         })
 
         function loadVehicleSelect(){
@@ -1280,21 +1337,28 @@
                 licences['car'] = $(this).data('name')
             }
         })
+        
+        $('select#states').on('change', function(){
+            selected = $(this)
+            loadCitiesSelect(selected.val())
+        })
+
+        var params_crc = {}
+        $('#sector-crc').on('change', function(e){
+            params_crc['sector'] = $(this).val()
+        })
 
         $('button.filter-crc').on('click', function(e){
             var licence = ""
             $.each(licences, function(i, v){
 				licence += (`${v},`)
             })
-            var params = {
-                    state: $('#states').val(),
-                    city: $('#cities-crc').val(),
-					age: age,
-					gender: gender,
-					licences: licence
-				}
-            crc_filter(params)
-			
+            params_crc['state']= $('#states').val()
+            params_crc['city']= $('#cities-crc').val()
+            params_crc['age']= age
+            params_crc['gender']= gender
+            params_crc['licences']= licence
+            crc_filter(params_crc)
         })
 
         var licence = ""
@@ -1305,6 +1369,10 @@
         var params_cea = {}
         $('#vehicle-cea').on('change', function(e){
             params_cea['vehicles__vehicle__line'] = $(this).val()
+        })
+
+        $('#sector-cea').on('change', function(e){
+            params_cea['sector'] = $(this).val()
         })
 
         $('button.filter-cea').on('click', function(e){

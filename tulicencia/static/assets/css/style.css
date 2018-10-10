@@ -453,7 +453,7 @@ ul.car-licences input:checked + label::before {
 	border: 2px solid #ddd;
 	border-radius: 10px;
 	padding-bottom: 8px;
-	max-height: 300px;
+	max-height: 400px;
 }
 
 .filters input {
