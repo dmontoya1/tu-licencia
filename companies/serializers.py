@@ -6,7 +6,7 @@ from manager.serializers import StateSerializer, CitySerializer
 from licences.models import AnsvRanges, AgeRange, Licence
 from licences.serializers import LicenceSerializer
 from vehicles.serializers import VehicleSerializer
-from .models import Crc, Cea, TransitDepartment, Schedule, CeaLicence, CeaVehicle
+from .models import Crc, Cea, TransitDepartment, Schedule, CeaLicence, CeaVehicle, CeaRating, CrcRating, TransitRating
 
 
 class CrcSerializer(serializers.ModelSerializer):
@@ -14,7 +14,6 @@ class CrcSerializer(serializers.ModelSerializer):
     """
     final_price = serializers.SerializerMethodField()
     city = CitySerializer(many=False, read_only=True)
-
 
     def get_final_price(self, obj):
         request = self.context.get("request")
@@ -61,7 +60,7 @@ class CrcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Crc
-        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'final_price', )
+        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'final_price', 'rating')
 
 
 class CeaVehicleSerializer(serializers.ModelSerializer):
@@ -94,10 +93,9 @@ class CeaSerializer(serializers.ModelSerializer):
     vehicles = CeaVehicleSerializer(many=True, read_only=True)
     city = CitySerializer(many=False, read_only=True)
 
-
     class Meta:
         model = Cea
-        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'licences', 'vehicles')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'licences', 'vehicles', 'rating')
 
 
 class TransitSerializer(serializers.ModelSerializer):
@@ -108,5 +106,5 @@ class TransitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TransitDepartment
-        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'runt_price')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'runt_price', 'rating')
 

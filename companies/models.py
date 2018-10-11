@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Avg
 
 from licences.models import Licence
 from manager.models import State, City, CRCAdminPrices, Sector
@@ -74,6 +75,10 @@ class Cea(SoftDeletionModelMixin):
         upload_to=get_upload_to,
         blank=True,
         null=True
+    )
+    rating = models.FloatField(
+        "Calificación Promedio",
+        default=0
     )
 
     def __str__(self):
@@ -163,8 +168,11 @@ class Crc(SoftDeletionModelMixin):
         on_delete=models.SET_NULL,
         blank=True, null=True
     )
+    rating = models.FloatField(
+        "Calificación Promedio",
+        default=0
+    )
     
-
     def get_pin_sicov(self):
         return '$ %s' % (self.collection.pin_sicov)
     
@@ -242,10 +250,13 @@ class TransitDepartment(SoftDeletionModelMixin):
         "Precio del RUNT",
         max_length=255
     )
+    rating = models.FloatField(
+        "Calificación Promedio",
+        default=0
+    )
 
     def __str__(self):
         return self.name
-
 
     class Meta:
         verbose_name = "Departamento de Tránsito"
@@ -498,13 +509,13 @@ class CeaRating(models.Model):
         Cea,
         verbose_name="Cea",
         on_delete=models.CASCADE,
-        related_name="related_cea_ratings"
+        related_name="cea_ratings"
         )
     detail = models.TextField(null=True, default="N/A")
     stars = models.IntegerField()
 
     def __str__(self):
-        return "%s - %s" % self.user, self.stars
+        return "%s - %s" % (self.user, self.stars)
 
     class Meta:
         verbose_name = "Calificacion CEA"
@@ -522,13 +533,13 @@ class CrcRating(models.Model):
         Crc,
         verbose_name="Crc",
         on_delete=models.CASCADE,
-        related_name="related_crc_ratings"
+        related_name="crc_ratings"
         )
     detail = models.TextField(null=True, default="N/A")
     stars = models.IntegerField()
 
     def __str__(self):
-        return "%s - %s" % self.user, self.stars
+        return "%s - %s" % (self.user, self.stars)
 
     class Meta:
         verbose_name = "Calificacion CRC"
@@ -546,13 +557,13 @@ class TransitRating(models.Model):
         TransitDepartment,
         verbose_name="Organismo de transporte",
         on_delete=models.CASCADE,
-        related_name="related_transit_ratings"
+        related_name="transit_ratings"
         )
     detail = models.TextField(null=True, default="N/A")
     stars = models.IntegerField()
 
     def __str__(self):
-        return "%s - %s" % self.user, self.stars
+        return "%s - %s" % (self.user, self.stars)
 
     class Meta:
         verbose_name = "Calificacion Organismo de transporte"

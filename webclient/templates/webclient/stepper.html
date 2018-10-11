@@ -405,10 +405,19 @@
                                 </div>
                                 <!-- <div class="col-12">
                                     <input type="text" name="price" id="price-crc" placeholder="Precio">
-                                </div>
-                                <div class="col-12">
-                                    <input type="text" name="qualify" id="qualify-crc" placeholder="Calificación">
                                 </div> -->
+                                <div class="col-12">
+                                    <label class="filter-label" for="rating-crc">Calificación</label>
+                                    <select class="rating-select location-filter" id="rating-crc">
+                                        <option selected disabled value="">Selecciona el rango</option>
+                                        <option value="0">Ver todos</option>
+                                        <option value="1">1 Estrella</option>
+                                        <option value="2">2 Estrellas</option>
+                                        <option value="3">3 Estrellas</option>
+                                        <option value="4">4 Estrellas</option>
+                                        <option value="5">5 Estrellas</option>
+                                    </select>
+                                </div>
                                 <div class="col-12">
                                     <button type="button" class="btn btn-filter filter-crc">Filtrar</button>
                                 </div>
@@ -492,10 +501,19 @@
                                 </div>
                                 <!-- <div class="col-12">
                                     <input type="text" name="price" id="price-cea" placeholder="Precio">
-                                </div>
-                                <div class="col-12">
-                                    <input type="text" name="qualify" id="qualify-cea" placeholder="Calificación">
                                 </div> -->
+                                <div class="col-12">
+                                    <label class="filter-label" for="rating-cea">Calificación</label>
+                                    <select class="rating-select location-filter" id="rating-cea">
+                                        <option selected disabled value="">Selecciona el rango</option>
+                                        <option value="0">Ver todos</option>
+                                        <option value="1">1 Estrella</option>
+                                        <option value="2">2 Estrellas</option>
+                                        <option value="3">3 Estrellas</option>
+                                        <option value="4">4 Estrellas</option>
+                                        <option value="5">5 Estrellas</option>
+                                    </select>
+                                </div>
                                 <div class="col-12">
                                     <button type="button" class="btn btn-filter filter-cea">Filtrar</button>
                                 </div>
@@ -574,10 +592,19 @@
                                 </div>
                                 <!-- <div class="col-12">
                                     <input type="text" name="price" id="price-transit" placeholder="Precio">
-                                </div>
-                                <div class="col-12">
-                                    <input type="text" name="qualify" id="qualify-transit" placeholder="Calificación">
                                 </div> -->
+                                <div class="col-12">
+                                    <label class="filter-label" for="rating-transit">Calificación</label>
+                                    <select class="rating-select location-filter" id="rating-transit">
+                                        <option selected disabled value="">Selecciona el rango</option>
+                                        <option value="0">Ver todos</option>
+                                        <option value="1">1 Estrella</option>
+                                        <option value="2">2 Estrellas</option>
+                                        <option value="3">3 Estrellas</option>
+                                        <option value="4">4 Estrellas</option>
+                                        <option value="5">5 Estrellas</option>
+                                    </select>
+                                </div>
                                 <div class="col-12">
                                     <button type="button" class="btn btn-filter filter-transit">Filtrar</button>
                                 </div>
@@ -913,6 +940,7 @@
             .then(function (response) {
 				data = response.data;
 				if (data.length > 0){
+                    const starTotal = 5;
 					$('.crc-list').empty()
 					$.each(data, function(i, v){
 						if(v.logo == null){
@@ -947,8 +975,10 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-12 company-rating mt-3">
-											<span>Rating</span>
+										<div class="col-12 crc-${v.id}-rating mt-3">
+											<div class="stars-outer">
+                                                <div class="stars-inner"></div>
+                                            </div>
 										</div>
 										<div class="col-12 company-button mt-3">
 											<button type="button" class="see-detail btn-crc">
@@ -966,7 +996,10 @@
 									</div>
 								</div>
 							`
-						)
+                        )
+                        const starPercentage = (v.rating / starTotal) * 100;
+                        const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                        $(`.crc-${v.id}-rating .stars-outer .stars-inner`).width(starPercentageRounded);
 					})
 					$('.add-cart-crc').on('click', function(){
 						crc = $(this).data('id')
@@ -1017,6 +1050,7 @@
 			.then(function (response) {
 				data = response.data;
 				if (data.length > 0){
+                    const starTotal = 5;
 					$('.cea-list').empty()
 					$.each(data, function(i, v){
 						if(v.logo == null){
@@ -1051,8 +1085,10 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-12 company-rating mt-3">
-											<span>Rating</span>
+										<div class="col-12 cea-${v.id}-rating mt-3">
+											<div class="stars-outer">
+                                                <div class="stars-inner"></div>
+                                            </div>
 										</div>
 										<div class="col-12 company-button mt-3">
 											<button type="button" class="see-detail btn-crc">
@@ -1070,7 +1106,10 @@
 									</div>
 								</div>
 							`
-						)
+                        )
+                        const starPercentage = (v.rating / starTotal) * 100;
+                        const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                        $(`.cea-${v.id}-rating .stars-outer .stars-inner`).width(starPercentageRounded);
 					})
 					$('.add-cart-cea').on('click', function(){
 						cea = $(this).data('id')
@@ -1120,6 +1159,7 @@
 				data = response.data;
 				$('.transit-list').empty()
 				if (data.length > 0){
+                    const starTotal = 5;
 					$.each(data, function(i, v){
 						if(v.logo == null){
 							logo = '/static/logos/movilidad.png'
@@ -1153,8 +1193,10 @@
 												</div>
 											</div>
 										</div>
-										<div class="col-12 company-rating mt-3">
-											<span>Rating</span>
+										<div class="col-12 transit-${v.id}-rating mt-3">
+											<div class="stars-outer">
+                                                <div class="stars-inner"></div>
+                                            </div>
 										</div>
 										<div class="col-12 company-button mt-3">
 											<button type="button" class="see-detail btn-crc">
@@ -1172,7 +1214,10 @@
 									</div>
 								</div>
 							`
-						)
+                        )
+                        const starPercentage = (v.rating / starTotal) * 100;
+                        const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
+                        $(`.transit-${v.id}-rating .stars-outer .stars-inner`).width(starPercentageRounded);
 					})
 					$('.add-cart-transit').on('click', function(){
 						transit = $(this).data('id')
@@ -1347,7 +1392,14 @@
         $('#sector-crc').on('change', function(e){
             params_crc['sector'] = $(this).val()
         })
-
+        $('#rating-crc').on('change', function(){
+            if ($(this).val() === 0){
+                delete params_crc['rating__gte']
+            }
+            else{
+                params_crc['rating__gte'] = $(this).val()
+            }
+        })
         $('button.filter-crc').on('click', function(e){
             var licence = ""
             $.each(licences, function(i, v){
@@ -1370,7 +1422,14 @@
         $('#vehicle-cea').on('change', function(e){
             params_cea['vehicles__vehicle__line'] = $(this).val()
         })
-
+        $('#rating-cea').on('change', function(){
+            if ($(this).val() === 0){
+                delete params_cea['rating__gte']
+            }
+            else {
+                params_cea['rating__gte'] = $(this).val()
+            }
+        })
         $('#sector-cea').on('change', function(e){
             params_cea['sector'] = $(this).val()
         })
@@ -1386,14 +1445,20 @@
             cea_filter(params_cea)
 
         })
-
+        
+        var params_transit = {}
+        $('#rating-transit').on('change', function(){
+            if ($(this).val() === 0){
+                delete params_transit['rating__gte']
+            }
+            else {
+                params_transit['rating__gte'] = $(this).val()
+            }
+        })
         $('button.filter-transit').on('click', function(e){
-			var params = {
-                state: $('#states').val(),
-                city: $('#transit-city').val(),
-			}
+            params_transit['state'] = $('#states').val(),
+            params_transit['city'] = $('#transit-city').val(),
             transit_filter(params)
-
         })
         
         $('.btn-crc').on('click', function(ev){
@@ -1566,7 +1631,6 @@
             }
             
         })
-
 
     </script>
 {% endblock %}
