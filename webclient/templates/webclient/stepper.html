@@ -1458,7 +1458,7 @@
         $('button.filter-transit').on('click', function(e){
             params_transit['state'] = $('#states').val(),
             params_transit['city'] = $('#transit-city').val(),
-            transit_filter(params)
+            transit_filter(params_transit)
         })
         
         $('.btn-crc').on('click', function(ev){
