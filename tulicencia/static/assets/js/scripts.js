@@ -112,6 +112,31 @@ jQuery(document).ready(function() {
 
 		}
     	if( next_step ) {
+			console.log(age)
+			if (age == 18){
+				swal({
+					title: 'Atención',
+					text: 'Tienes 18 años. Para sacar tu licencia es necesario tu documento original. No se aceptan contraseñas',
+					type: 'info',
+					showCancelButton: false,
+					confirmButtonText: 'Ok'
+				})
+			}
+			if (age < 18){
+				swal({
+					title: 'Atención',
+					text: 'Tienes menos de 18 años. Solamente puedes sacar licencias de auto B1 y de moto A1 o A2',
+					type: 'info',
+					showCancelButton: false,
+					confirmButtonText: 'Ok'
+				})
+				$("label[for='toggleC1']").addClass('disabled');
+				$("input[id='toggleC1']").attr('disabled', true);
+				$("label[for='toggleC2']").addClass('disabled');
+				$("input[id='toggleC2']").attr('disabled', true);
+				$("label[for='toggleC3']").addClass('disabled');
+				$("input[id='toggleC3']").attr('disabled', true);
+			}
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
     			current_active_step.removeClass('active').addClass('activated').next().addClass('active');

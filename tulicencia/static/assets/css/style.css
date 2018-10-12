@@ -384,6 +384,26 @@ ul.car-licences label {
 	margin-right: 35px;
 }
 
+ul.bike-licences label.disabled, 
+ul.car-licences label.disabled {
+	font-size: 1.1em;
+    color: #dfe0e0;
+    font-weight: 500;
+    border: 3px solid #e2e2e2;
+    height: 50px;
+    width: 115px;
+	text-align: left;
+	position: relative;
+	padding: 7px 30px 15px 19px;
+	border-radius: 10px;
+	background-color: #fff;
+	white-space: nowrap;
+	cursor: pointer;
+	user-select: none;
+	transition: background-color .2s, box-shadow .2s;
+	margin-right: 35px;
+}
+
 ul.bike-licences li, 
 ul.car-licences li {
 	display: inline-flex;
@@ -406,6 +426,22 @@ ul.car-licences label::before {
 	width: 30px;
 	height: 30px;
     border: 3px solid #999;
+    border-radius: 5px;
+    transition: background-color .2s;
+    text-align: center;
+}
+
+ul.bike-licences label.disabled::before, 
+ul.car-licences label.disabled::before {
+	content: "";
+    display: block;
+    position: absolute;
+    top: 6px;
+    bottom: 10px;
+    right: 10px;
+	width: 30px;
+	height: 30px;
+    border: 3px solid #e2e2e2;
     border-radius: 5px;
     transition: background-color .2s;
     text-align: center;
