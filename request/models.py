@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from django.db import models
-
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.db import models
 
 from companies.models import Cea, Crc, TransitDepartment
 from licences.models import Licence, AgeRange, AnsvRanges
@@ -195,26 +195,19 @@ class Request(models.Model):
 
 
     def save(self, *args, **kwargs):
-        "Funcion para generar el booking de los clientes"
+        "Funcion para generar el booking de los clientes, y crear los logs en los cambios de estados"
         try:
             if self.request_status != self.__last_request_status:
                 self.add_new_status(self.get_request_status_display())
-            if self.docs_status != self.__last_docs_status:
-                log_docs = LogDocsStatus(
-                    request_obj=self,
-                    status=self.get_request_status_display()
-                )
-                log_docs.save()
-
             if self.crc_status == self.STARTED:
                 self.request_status = self.EN_CRC
                 self.add_new_status(self.get_request_status_display())
-
             if self.cea_status == self.STARTED and (self.crc_status == self.STARTED or self.crc_status == self.FINISH):
                 self.request_status = self.EN_CEA
                 self.add_new_status(self.get_request_status_display())
-        except:
-            pass
+        except Exception as e:
+            print ("Exception")
+            print (e)
 
         super(Request, self).save(*args, **kwargs)
         try:
@@ -279,8 +272,14 @@ class LogDocsStatus(models.Model):
         "Estado",
         max_length=255,
     )
-    manager = models.CharField(
-        "Responsable de la documentación",
+    process_manager = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name="Responsable del proceso",
+        on_delete=models.SET_NULL,
+        blank=True, null=True,
+    )
+    transaction_manager = models.CharField(
+        "Responsable de la operación",
         max_length=255,
         blank=True, null=True,
     )
@@ -290,5 +289,5 @@ class LogDocsStatus(models.Model):
 
     
     class Meta:
-        verbose_name = "Log Estado de la solicitud"
-        verbose_name_plural = "Logs de estados de la solicitud"
+        verbose_name = "Log Estado de la documentación"
+        verbose_name_plural = "Logs de estados de la documentación"

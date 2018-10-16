@@ -27,7 +27,7 @@ class LogDocsStatusAdmin(admin.StackedInline):
 
     model = LogDocsStatus
     extra = 0
-    readonly_fields = ('date', 'status',)
+    readonly_fields = ('process_manager', 'date', 'status',)
 
 
     def has_add_permission(self, request):
@@ -64,7 +64,6 @@ class RequestAdmin(admin.ModelAdmin):
             self.list_display = ('user', 'booking','cea', 'crc', 'transit', 'payment_type', 'request_status',)
         return super(RequestAdmin, self).changelist_view(request, extra_context)
     
-
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
         if db_field.name == "user":
             kwargs["queryset"] = User.objects.filter(user_type=User.CLIENTE)
@@ -96,7 +95,6 @@ class RequestAdmin(admin.ModelAdmin):
 
     cea_readonly_fields = ('user', 'cea', 'booking', 'licences', 'request_status', 'request_date',)
     crc_readonly_fields = ('user', 'crc', 'booking', 'licences', 'request_status', 'request_date',)
-
 
     def get_fieldsets(self, request, obj=None):
         """
@@ -134,3 +132,13 @@ class RequestAdmin(admin.ModelAdmin):
         else:
             return super(RequestAdmin, self).get_readonly_fields(request, obj=obj)
 
+    def save_model(self, request, obj, form, change):
+        if 'docs_status' in form.changed_data:
+            print ("Cambiado")
+            log_docs = LogDocsStatus(
+                request_obj=obj,
+                status=obj.get_docs_status_display(),
+                process_manager = request.user
+            )
+            log_docs.save()
+        super(RequestAdmin, self).save_model(request, obj, form, change)
