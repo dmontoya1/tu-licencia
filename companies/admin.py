@@ -76,20 +76,25 @@ class CeaAdmin(SoftDeletionModelAdminMixin):
     extra_list_display = ('nit', 'name', 'manager', 'cellphone')
     inlines = [ScheduleAdmin, CeaLicenceAdmin, CeaVehicleAdmin, CeaRatingAdmin]
 
-    manager_readonly_fields = ('manager', )
+    manager_readonly_fields = ('manager', 'rating', 'collection', 'get_pin_sicov', 'get_recaudo' )
+    readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo')
 
     class Media:
         js = (
             'js/admin/utils_admin.js',
         )
     
-    # def save_formset(self, request, form, formset, change):
-    #     # print (form.changed_data)
-    #     print (formset.changed_data)
-    #     # print (change)
-    #     if 'price' in form.changed_data or 'price_recat' in form.changed_data:
-    #         messages.warning(request, "Tus precios han cambiado. Recuerda reportar este cambio ante el ministerio de transporte de tu ciudad")
-    #     super(CeaAdmin, self).save_formset(request, form, formset, change)
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'nit', 'manager', 'phone', 'cellphone', 'email', 'logo', 'rating')
+        }),
+        ('Datos de ubicación', {
+            'fields': ('state', 'city', 'sector', 'address'),
+        }),
+        ('Precios', {
+            'fields': ('collection', 'get_pin_sicov', 'get_recaudo'),
+        }),
+    )
 
     def get_queryset(self, request):
         """
@@ -127,7 +132,20 @@ class CrcAdmin(SoftDeletionModelAdminMixin):
     extra_list_display = ('nit', 'name', 'manager', 'cellphone')
     inlines = [ScheduleAdmin, CrcRatingAdmin]
 
-    manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo' )
+    manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo', 'rating', )
+    readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo')
+
+    fieldsets = (
+        (None, {
+            'fields': ('name', 'nit', 'manager', 'phone', 'cellphone', 'email', 'logo', 'rating')
+        }),
+        ('Datos de ubicación', {
+            'fields': ('state', 'city', 'sector', 'address'),
+        }),
+        ('Precios', {
+            'fields': ('price', 'price_double', 'collection', 'get_pin_sicov', 'get_recaudo'),
+        }),
+    )
 
     class Media:
         js = (

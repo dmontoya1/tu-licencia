@@ -80,9 +80,25 @@ class Cea(SoftDeletionModelMixin):
         "Calificación Promedio",
         default=0
     )
+    collection = models.ForeignKey(
+        CompaniesAdminPrices,
+        verbose_name="Pin sicov y recaudo banco",
+        on_delete=models.SET_NULL,
+        blank=True, null=True
+    )
 
     def __str__(self):
         return self.name
+
+    def get_pin_sicov(self):
+        return '$ %s' % (self.collection.pin_sicov)
+    
+    def get_recaudo(self):
+        return '$ %s' % (self.collection.recaudo)
+
+    
+    get_pin_sicov.short_description = "Pin Sicov"
+    get_recaudo.short_description = "Recaudo banco"
 
 
     class Meta:
