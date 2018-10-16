@@ -7,7 +7,7 @@ from django.db import models
 from django.db.models import Avg
 
 from licences.models import Licence
-from manager.models import State, City, CRCAdminPrices, Sector
+from manager.models import State, City, CompaniesAdminPrices, Sector
 from utils.models import SoftDeletionModelMixin
 from vehicles.models import Vehicle
 from .utils import get_upload_to
@@ -163,7 +163,7 @@ class Crc(SoftDeletionModelMixin):
         null=True
     )
     collection = models.ForeignKey(
-        CRCAdminPrices,
+        CompaniesAdminPrices,
         verbose_name="Pin sicov y recaudo banco",
         on_delete=models.SET_NULL,
         blank=True, null=True

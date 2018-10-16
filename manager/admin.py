@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 from django.contrib import messages
 from django.db.models import Q
-from .models import State, City, Police, CRCAdminPrices, Sector
+from .models import State, City, Police, CompaniesAdminPrices, Sector
 
 from utils.admin import SoftDeletionModelAdminMixin
 
@@ -83,11 +83,11 @@ class PoliceAdmin(admin.ModelAdmin):
     )
 
 
-@admin.register(CRCAdminPrices)
-class CRCAdminPricesAdmin(admin.ModelAdmin):
+@admin.register(CompaniesAdminPrices)
+class CompaniesAdminPricesAdmin(admin.ModelAdmin):
     """
     Administra los datos de pin sicov y recaudo de las CRC
     """
 
-    model = CRCAdminPrices
-    list_display = ('id', 'pin_sicov', 'recaudo')
+    model = CompaniesAdminPrices
+    list_display = ('id', 'supplier', 'company', 'pin_sicov', 'recaudo')

@@ -87,11 +87,19 @@ class Police(models.Model):
         verbose_name = "Politica"
 
 
-class CRCAdminPrices(models.Model):
+class CompaniesAdminPrices(models.Model):
     """Modelo para guardar los valores de
     Pin Sicov y Recaudo de Banco para el cálculo del valor
     total a pagar del CRC
     """
+
+    CEA = 'CEA'
+    CRC = 'CRC'
+
+    COMPANIES = (
+        (CEA, 'Centro de enseñanza automovilístico'),
+        (CRC, 'Centro de reconocimiento de conductores')
+    )
 
     pin_sicov = models.IntegerField(
         "Precio PIN SICOV",
@@ -99,11 +107,23 @@ class CRCAdminPrices(models.Model):
     recaudo = models.IntegerField(
         "Precio Recaudo Banco",
     )
+    supplier = models.CharField(
+        "Proveedor",
+        max_length=255,
+        default=""
+    )
+    company = models.CharField(
+        "Compañía",
+        max_length=3,
+        choices=COMPANIES,
+        default=CRC
+    )
+
 
     def __str__(self):
-        return "Recaudos PIN SICOV Y RECAUDO BANCO"
+        return "Recaudo de %s para %s" % (self.supplier, self.company)
     
 
     class Meta:
-        verbose_name = "Adminsitración Recaudo CRC"
-        verbose_name_plural = "Administración Recaudos CRC"
+        verbose_name = "Adminsitración Recaudo"
+        verbose_name_plural = "Administración Recaudos"
