@@ -78,6 +78,8 @@ class CeaAdmin(SoftDeletionModelAdminMixin):
 
     manager_readonly_fields = ('manager', 'rating', 'collection', 'get_pin_sicov', 'get_recaudo' )
     readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo')
+    search_fields = ('name', 'nit', 'manager__document_id', 'rating',)
+    list_filter = ('city', 'state', )
 
     class Media:
         js = (
@@ -134,6 +136,8 @@ class CrcAdmin(SoftDeletionModelAdminMixin):
 
     manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo', 'rating', )
     readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo')
+    search_fields = ('name', 'nit', 'manager__document_id', 'rating',)
+    list_filter = ('state', 'city', )
 
     fieldsets = (
         (None, {

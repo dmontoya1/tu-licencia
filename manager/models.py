@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.utils import timezone
 
 from utils.models import SoftDeletionModelMixin
 
@@ -18,6 +19,26 @@ class State(SoftDeletionModelMixin):
 
     def __str__(self):
         return "%s" % (self.name)
+
+    def soft_delete(self):
+        """Ejecuta un borrado lógico desde la instancia
+        """
+
+        self.deleted_at = timezone.now()
+        self.save()
+        for city in self.related_cities.all():
+            city.deleted_at = timezone.now()
+            city.save()
+
+    def revive(self):
+        """Habilita un objeto que esté lógicamente borrado
+        """
+
+        self.deleted_at = None
+        self.save()
+        for city in self.related_cities.all():
+            city.deleted_at = None
+            city.save()
 
 
     class Meta:
@@ -36,6 +57,27 @@ class City(SoftDeletionModelMixin):
 
     def __str__(self):
         return "%s" % (self.name)
+
+    
+    def soft_delete(self):
+        """Ejecuta un borrado lógico desde la instancia
+        """
+
+        self.deleted_at = timezone.now()
+        self.save()
+        for sector in self.related_sectors.all():
+            sector.deleted_at = timezone.now()
+            sector.save()
+
+    def revive(self):
+        """Habilita un objeto que esté lógicamente borrado
+        """
+
+        self.deleted_at = None
+        self.save()
+        for sector in self.related_sectors.all():
+            sector.deleted_at = None
+            sector.save()
 
 
     class Meta:

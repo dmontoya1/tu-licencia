@@ -713,7 +713,7 @@
                                             <label for="year">AAAA</label>
                                             <select class="custom-select birth-2-select custom-select-lg mb-3" id="year-1" required>
                                                 {% for value in 1920|range:2003 %}
-                                                    <option {% if value == 2018 %}selected{% endif %} value="{{value}}">{{value}}</option>                                                    
+                                                    <option value="{{value}}">{{value}}</option>                                                    
                                                 {% endfor %}
                                             </select>
                                         </li>
@@ -1272,6 +1272,30 @@
             var today = new Date();
             age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
         })
+        
+        function get_age(){
+            swal({
+				title: 'Atención',
+				text: 'Si cambias tu fecha de nacimiento, los precios mostrados de los servicios pueden cambiar',
+				type: 'warning',
+				showCancelButton: false,
+				confirmButtonText: 'Ok'
+			})
+            birth_date = `${$('#month-1').val()}-${$('#day-1').val()}-${$('#year-1').val()}`
+            dob = new Date(birth_date);
+            var today = new Date();
+            age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+        }
+
+        $('#day-1').on('change', function(e){
+            get_age()
+        })
+        $('#month-1').on('change', function(e){
+            get_age()
+        })
+        $('#year-1').on('change', function(e){
+            get_age()
+        })
 
         $('.male').on('click', function(e){
             if ($('.female').hasClass('disabled'))
@@ -1478,22 +1502,7 @@
             else {
                 tramit = ""
             }
-        })
-        
-        function formatJSON(form, wsurl){
-            fetch.apply(wsurl);
-            if($.Callbacks(form).fetch(wsurl)){
-                $form.serializeFormToBackend = function() {
-                    var d = [];
-                    var f = this.serializeArray();
-                    $.each(f, function(v){
-                        d[f] = v
-                    })
-                    return d;
-                }
-            }
-            return form
-        }   
+        }) 
         
         $('button#form-submit').on('click', function(e){
             e.preventDefault();

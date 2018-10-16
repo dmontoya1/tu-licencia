@@ -44,6 +44,7 @@ class RequestAdmin(admin.ModelAdmin):
     model = Request
     search_fields = ('cea__name', 'crc__name', 'transit__name', 'user__document_id', 'user__first_name',
     'user__last_name', 'request_status', 'payment_type', 'request_date', 'cea_status', 'crc_status')
+    list_filter = ('cea', 'crc', 'transit', 'request_status', 'payment_type', 'docs_status',)
 
     readonly_fields = ('booking', 'get_crc_price', 'request_date') #Eliminar esta linea y dejar la de abajo
     # readonly_fields = ('booking', 'user', 'licences', 'get_crc_price', 'request_date)
@@ -131,6 +132,13 @@ class RequestAdmin(admin.ModelAdmin):
         #     return self.exp_fieldsets
         else:
             return super(RequestAdmin, self).get_readonly_fields(request, obj=obj)
+    
+    # def get_list_filter(self, request):
+    #     """
+    #     Return a sequence containing the fields to be displayed as filters in
+    #     the right sidebar of the changelist page.
+    #     """
+    #     return self.list_filter
 
     def save_model(self, request, obj, form, change):
         if 'docs_status' in form.changed_data:

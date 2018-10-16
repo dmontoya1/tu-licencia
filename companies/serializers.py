@@ -1,6 +1,7 @@
 
 from rest_framework import serializers
 
+from manager.models import CompaniesAdminPrices
 from manager.serializers import StateSerializer, CitySerializer
 from licences.models import AnsvRanges, AgeRange, Licence
 from licences.serializers import LicenceSerializer
@@ -20,7 +21,11 @@ class CrcSerializer(serializers.ModelSerializer):
         gender = request.GET.get('gender')
         licences = request.GET.get('licences')
         licences = licences.split(',')
-        collection = obj.collection
+        if obj.collection:
+            collection = obj.collection
+        else:
+            collection = CompaniesAdminPrices.objects.first()
+
         age_ranges = AgeRange.objects.all()
 
         for a in age_ranges:

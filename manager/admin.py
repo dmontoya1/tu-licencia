@@ -22,6 +22,7 @@ class StateAdmin(SoftDeletionModelAdminMixin):
     extra_list_display = (
         'name', 'code',
     )
+    ordering = ('name',)
 
     def has_add_permission(self, request):
         return False
@@ -40,6 +41,7 @@ class CityAdmin(SoftDeletionModelAdminMixin):
     extra_list_display = (
         'name', 'state', 'code'
     )
+    ordering = ('state', 'name')
 
     def has_add_permission(self, request):
         return False
