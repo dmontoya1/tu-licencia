@@ -9,7 +9,3 @@ register = template.Library()
 def is_softdeletion_instance(value):
     return isinstance(value, SoftDeletionModelMixin)
 
-
-@register.filter(name="is_user_instance")
-def is_user_instance(value):
-    return isinstance(value, User)

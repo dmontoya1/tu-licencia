@@ -17,3 +17,5 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_ROOT = 'media'
+
+EMAIL_ADMIN = 'dmontoya@apptitud.com.co'

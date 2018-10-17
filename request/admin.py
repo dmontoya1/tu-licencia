@@ -45,9 +45,17 @@ class RequestAdmin(admin.ModelAdmin):
     search_fields = ('cea__name', 'crc__name', 'transit__name', 'user__document_id', 'user__first_name',
     'user__last_name', 'request_status', 'payment_type', 'request_date', 'cea_status', 'crc_status')
     list_filter = ('cea', 'crc', 'transit', 'request_status', 'payment_type', 'docs_status',)
+    list_filter_companies = ('request_status', 'payment_type', 'docs_status',)
 
     readonly_fields = ('booking', 'get_crc_price', 'request_date') #Eliminar esta linea y dejar la de abajo
     # readonly_fields = ('booking', 'user', 'licences', 'get_crc_price', 'request_date)
+
+    class Media:
+        js = (
+            'https://unpkg.com/axios/dist/axios.min.js',
+            'https://cdn.jsdelivr.net/npm/sweetalert2@7.28.4/dist/sweetalert2.all.min.js',
+            'js/admin/request.js',
+        )
 
     inlines = [LogRequestStatusAdmin, LogDocsStatusAdmin, ]
     
@@ -133,12 +141,14 @@ class RequestAdmin(admin.ModelAdmin):
         else:
             return super(RequestAdmin, self).get_readonly_fields(request, obj=obj)
     
-    # def get_list_filter(self, request):
-    #     """
-    #     Return a sequence containing the fields to be displayed as filters in
-    #     the right sidebar of the changelist page.
-    #     """
-    #     return self.list_filter
+    def get_list_filter(self, request):
+        """
+        Return a sequence containing the fields to be displayed as filters in
+        the right sidebar of the changelist page.
+        """
+        if request.user.is_superuser:
+            return self.list_filter
+        return self.list_filter_companies
 
     def save_model(self, request, obj, form, change):
         if 'docs_status' in form.changed_data:

@@ -82,3 +82,58 @@ class RequestCreate(APIView):
             status_e = status.HTTP_400_BAD_REQUEST
 
         return Response(response, status=status_e)
+
+
+class ValidRequestDocument(APIView):
+    """
+    """
+
+    def get(self, request):
+        try:
+            booking = request.GET['booking']
+            document = request.GET['document']
+
+            request_obj = Request.objects.get(booking=booking)
+            if request_obj:
+                if request_obj.user.document_id == document:
+                    response = {'detail': 'Los usuarios son iguales'}
+                    status_e = status.HTTP_200_OK
+                else:
+                    response = {'error': 'Los documentos no coinciden'}
+                    status_e = status.HTTP_400_BAD_REQUEST
+        except Exception as e:
+            print (e)
+            message = 'Ha ocurrido un error inesperado'
+            response = {'error': message}
+            status_e = status.HTTP_400_BAD_REQUEST
+
+        return Response(response, status=status_e)
+
+
+class CRCPendingRequestList(generics.ListAPIView):
+    """
+    """
+
+    serializer_class = RequestSerializer
+
+    def get_queryset(self):
+        nit = self.request.GET['nit']
+        crc = Crc.objects.get(nit=nit)
+
+        requests = Request.objects.filter(crc=crc, crc_status=Request.HAS_NOT_STARTER)
+        return requests
+
+
+class CEAPendingRequestList(generics.ListAPIView):
+    """
+    """
+
+    serializer_class = RequestSerializer
+
+    def get_queryset(self):
+        nit = self.request.GET['nit']
+        cea = Cea.objects.get(nit=nit)
+
+        requests = Request.objects.filter(cea=cea, cea_status=Request.HAS_NOT_STARTER)
+        return requests
+

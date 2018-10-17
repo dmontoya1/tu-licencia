@@ -113,6 +113,8 @@ class User(AbstractUser):
         verbose_name_plural = "Usuarios"
 
     def __str__(self):
+        if self.user_type == self.CLIENTE:
+            return "%s %s" %(self.first_name, self.last_name)
         return "%s %s (%s)" % (self.first_name, self.last_name, self.document_id)
 
 

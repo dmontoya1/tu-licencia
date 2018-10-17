@@ -1,5 +1,6 @@
 ;(function($) {
-  
+    
+    axios.defaults.headers.common['Api-Key'] = 'bbad6718c8f00fb8d3012647d383f123d9a89308';7
     function getCities(idState) {
         $.ajax({
             type: "GET",
@@ -88,6 +89,42 @@
         $('select#id_city').on('change', function(ev){
             getSectors($(this).val())
         })
+
+        $('.softdeletelink').on('click', function(ev){
+            ev.preventDefault()
+            swal({
+                title: '¿Estas Seguro?',
+                text: "¿Seguro quieres inhabilitar esta compañía?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si, Inhabilitar!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    $('.softdeletelink').off()
+                    $('.softdeletelink').trigger('click')
+                }
+            })
+        })
+
+        $('.revivelink').on('click', function(ev){
+            ev.preventDefault()
+            swal({
+                title: '¿Estas Seguro?',
+                text: "¿Seguro quieres habilitar esta compañía?",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Si, habilitar!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    $('.revivelink').off()
+                    $('.revivelink').trigger('click')
+                }
+            })
+        })
     });
+
+    
 
   })(django.jQuery);

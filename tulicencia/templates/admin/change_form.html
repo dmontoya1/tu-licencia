@@ -31,10 +31,18 @@
                 {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
                 <a href="{% add_preserved_filters delete_url %}" class="deletelink custom">Eliminar definitivamente</a>
                 {% if original|is_softdeletion_instance %}
-                    {% if not original.deleted_at %}
-                        <input type="submit" class="softdeletelink" value="Inhabilitar" name="_soft-delete" />
+                    {% if request.user.is_superuser %}
+                        {% if not original.deleted_at %}
+                            <input type="submit" class="softdeletelink" value="Inhabilitar" name="_soft-delete" />
+                        {% else %}
+                            <input type="submit" class="revivelink" value="Habilitar" name="_revive" />
+                        {% endif %}
                     {% else %}
-                        <input type="submit" class="revivelink" value="Habilitar" name="_revive" />
+                        {% if not original.deleted_at %}
+                            <input type="submit" class="softdeletelink request-soft" value="Solicitar Inhabilitación" name="_request-soft-delete" />
+                        {% else %}
+                            <input type="submit" class="revivelink request-revive" value="Solicitar Habilitación" name="_request-revive" />
+                        {% endif %}
                     {% endif %}
                 {% endif %}
             </p>        

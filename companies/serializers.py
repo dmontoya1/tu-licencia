@@ -6,7 +6,7 @@ from manager.serializers import StateSerializer, CitySerializer
 from licences.models import AnsvRanges, AgeRange, Licence
 from licences.serializers import LicenceSerializer
 from vehicles.serializers import VehicleSerializer
-from .models import Crc, Cea, TransitDepartment, Schedule, CeaLicence, CeaVehicle, CeaRating, CrcRating, TransitRating
+from .models import Crc, Cea, TransitDepartment, CeaLicence, CeaVehicle, CeaRating, CrcRating, TransitRating
 
 
 class CrcSerializer(serializers.ModelSerializer):
@@ -64,7 +64,7 @@ class CrcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Crc
-        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'final_price', 'rating')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'final_price', 'rating', 'schedule')
 
 
 class CeaVehicleSerializer(serializers.ModelSerializer):
@@ -99,7 +99,7 @@ class CeaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cea
-        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'licences', 'vehicles', 'rating')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'licences', 'vehicles', 'rating', 'schedule')
 
 
 class TransitSerializer(serializers.ModelSerializer):
@@ -110,5 +110,5 @@ class TransitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TransitDepartment
-        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'runt_price', 'rating')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'runt_price', 'rating', 'schedule')
 

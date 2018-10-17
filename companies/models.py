@@ -86,6 +86,10 @@ class Cea(SoftDeletionModelMixin):
         on_delete=models.SET_NULL,
         blank=True, null=True
     )
+    schedule = models.TextField(
+        "Horarios de atención",
+        help_text="Ejm: De lunes a viernes de 8:00 am a 6:00 pm"
+    )
 
     def __str__(self):
         return self.name
@@ -188,6 +192,10 @@ class Crc(SoftDeletionModelMixin):
         "Calificación Promedio",
         default=0
     )
+    schedule = models.TextField(
+        "Horarios de atención",
+        help_text="Ejm: De lunes a viernes de 8:00 am a 6:00 pm"
+    )
     
     def get_pin_sicov(self):
         return '$ %s' % (self.collection.pin_sicov)
@@ -270,6 +278,10 @@ class TransitDepartment(SoftDeletionModelMixin):
         "Calificación Promedio",
         default=0
     )
+    schedule = models.TextField(
+        "Horarios de atención",
+        help_text="Ejm: De lunes a viernes de 8:00 am a 6:00 pm"
+    )
 
     def __str__(self):
         return self.name
@@ -328,84 +340,6 @@ class TuLicencia(SoftDeletionModelMixin):
     class Meta:
         verbose_name = "Punto TuLicencia"
         verbose_name_plural = "Puntos TuLicencia"
-
-
-class Schedule(models.Model):
-    """Guarda los horarios de disponibilidad de un establecimiento.
-    El campo 'day' corresponde la número del día de la semana según el
-    estándar ISO 8601, donde Lunes (monday) es 1, y Domingo (sunday) es 7
-    """
-
-    DAY_CHOICES = (
-		("1", 'Lunes'),
-		("2", 'Martes'),
-		("3", 'Miercoles'),
-		("4", 'Jueves'),
-		("5", 'Viernes'),
-		("6", 'Sábado'),
-		("7", 'Domingo'),
-	)
-
-    JOURNEY = (
-        ('J1', 'Jornada 1'),
-        ('J2', 'Jornada 2')
-    )
-
-    day = models.CharField('Dia', choices=DAY_CHOICES, max_length=1)
-    start_time = models.TimeField('Hora de inicio')
-    end_time = models.TimeField('Hora de cierre')
-    journey = models.CharField(
-        'Jornada',
-        max_length=2,
-        choices=JOURNEY,
-        default='J1'
-    )
-    cea = models.ForeignKey(
-        Cea,
-        on_delete=models.CASCADE,
-        verbose_name="Centro de Enseñanaza Automovilísitico",
-        related_name="related_%(class)ss",
-        blank=True, null=True
-    )
-    crc = models.ForeignKey(
-        Crc,
-        on_delete=models.CASCADE,
-        verbose_name="Centro de Reconocimiento de Conductores",
-        related_name="related_%(class)ss",
-        blank=True, null=True
-    )
-    transit = models.ForeignKey(
-        TransitDepartment,
-        verbose_name="Departamento de Tránsito",
-        on_delete=models.CASCADE,
-        related_name="related_%(class)ss",
-        blank=True,
-        null=True
-    )
-
-    class Meta:
-        verbose_name = 'Horario'
-
-    def __unicode__(self):
-        if self.cea:
-            return "Horario de %s" %(self.cea.name)
-        elif self.crc:
-            return "Horario de %s" %(self.crc.name)
-        return "Horario de %s " %(self.transit.name)
-
-    def clean(self):
-        if (self.cea and self.crc ) or (self.cea and self.transit) or (self.crc and self.transit):
-            raise ValidationError('El horario no puede pertenecer a varias compañías a la vez. Selecciona solamente una')
-        if not self.cea and not self.crc and not self.transit:
-            raise ValidationError('Selecciona una compañía para estos horarios')
-
-    def get_day(self):
-        if not self.day:
-            day = 1
-        else:
-            day = self.day
-        day_dict = dict((x, y) for x, y in self.DAY_CHOICES)
-        return day_dict.get(int(day))
 
 
 class CeaLicence(models.Model):

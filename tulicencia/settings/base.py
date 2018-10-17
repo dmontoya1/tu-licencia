@@ -29,6 +29,7 @@ THIRD_PARTY_APPS = [
 PROJECT_APPS = [
     'api',
     'companies',
+    'core',
     'licences',
     'manager',
     'request',
@@ -156,3 +157,11 @@ JET_THEMES = [
         'title': 'Light Gray'
     },
 ]
+
+#email configuration
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_USER = 'TuLicencia.co <no-reply@tulicencia.co>'
+EMAIL_HOST_USER = 'apptitud'
+EMAIL_HOST_PASSWORD = 'jkdsjk4534.sd!"'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

@@ -7,21 +7,8 @@ from django.contrib import admin, messages
 from users.models import User
 from utils.admin import SoftDeletionModelAdminMixin
 from .models import (
-    Cea, Crc, TransitDepartment, Schedule, CeaLicence, CeaVehicle,
+    Cea, Crc, TransitDepartment, CeaLicence, CeaVehicle,
     TuLicencia, TransitLicence, CeaRating, CrcRating, TransitRating)
-
-
-class ScheduleAdmin(admin.StackedInline):
-    
-    model = Schedule
-    extra = 1
-    fieldsets = (
-        (None, {
-            'fields': (
-                'id', 'day', 'start_time', 'end_time', 'journey'
-            ),
-        }),
-    )
 
 
 class CeaLicenceAdmin(admin.StackedInline):
@@ -74,7 +61,7 @@ class CeaAdmin(SoftDeletionModelAdminMixin):
 
     model = Cea
     extra_list_display = ('nit', 'name', 'manager', 'cellphone')
-    inlines = [ScheduleAdmin, CeaLicenceAdmin, CeaVehicleAdmin, CeaRatingAdmin]
+    inlines = [CeaLicenceAdmin, CeaVehicleAdmin, CeaRatingAdmin]
 
     manager_readonly_fields = ('manager', 'rating', 'collection', 'get_pin_sicov', 'get_recaudo' )
     readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo')
@@ -83,12 +70,15 @@ class CeaAdmin(SoftDeletionModelAdminMixin):
 
     class Media:
         js = (
+            'https://unpkg.com/axios/dist/axios.min.js',
+            'https://cdn.jsdelivr.net/npm/sweetalert2@7.28.4/dist/sweetalert2.all.min.js',
             'js/admin/utils_admin.js',
+            'js/admin/cea_admin.js',
         )
     
     fieldsets = (
         (None, {
-            'fields': ('name', 'nit', 'manager', 'phone', 'cellphone', 'email', 'logo', 'rating')
+            'fields': ('name', 'nit', 'manager', 'phone', 'cellphone', 'email', 'logo', 'rating', 'schedule')
         }),
         ('Datos de ubicación', {
             'fields': ('state', 'city', 'sector', 'address'),
@@ -132,9 +122,9 @@ class CrcAdmin(SoftDeletionModelAdminMixin):
 
     model = Crc
     extra_list_display = ('nit', 'name', 'manager', 'cellphone')
-    inlines = [ScheduleAdmin, CrcRatingAdmin]
+    inlines = [CrcRatingAdmin, ]
 
-    manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo', 'rating', )
+    manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo', 'rating', 'schedule')
     readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo')
     search_fields = ('name', 'nit', 'manager__document_id', 'rating',)
     list_filter = ('state', 'city', )
@@ -153,7 +143,10 @@ class CrcAdmin(SoftDeletionModelAdminMixin):
 
     class Media:
         js = (
+            'https://unpkg.com/axios/dist/axios.min.js',
+            'https://cdn.jsdelivr.net/npm/sweetalert2@7.28.4/dist/sweetalert2.all.min.js',
             'js/admin/utils_admin.js',
+            'js/admin/crc_admin.js',
         )
 
     
@@ -196,10 +189,12 @@ class TransitDepartmentAdmin(SoftDeletionModelAdminMixin):
 
     model = TransitDepartment
     extra_list_display = ('nit', 'name', 'cellphone')
-    inlines = [ScheduleAdmin, TransitLicenceAdmin, TransitRatingAdmin]
+    inlines = [TransitLicenceAdmin, TransitRatingAdmin]
 
     class Media:
         js = (
+            'https://unpkg.com/axios/dist/axios.min.js',
+            'https://cdn.jsdelivr.net/npm/sweetalert2@7.28.4/dist/sweetalert2.all.min.js',
             'js/admin/utils_admin.js',
         )
 
