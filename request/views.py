@@ -26,6 +26,9 @@ class RequestCreate(APIView):
             cea = Cea.objects.get(pk=request.data['cea'])
             crc = Crc.objects.get(pk=request.data['crc'])
             transit = TransitDepartment.objects.get(pk=request.data['transit'])
+            crc_price = request.data['crc_price']
+            cea_price = request.data['cea_price']
+            transit_price = request.data['transit_price']
 
             city = City.objects.get(pk=user_data['city'])
             state = city.state
@@ -56,6 +59,8 @@ class RequestCreate(APIView):
                 runt = True
             else:
                 runt = False
+            
+            total_price = int(crc_price) + int(cea_price) + int(transit_price)
 
             request_obj = Request(
                 user=user,
@@ -63,7 +68,8 @@ class RequestCreate(APIView):
                 crc=crc,
                 transit=transit,
                 payment_type = request.data['payment_type'],
-                has_runt=runt
+                has_runt=runt,
+                total_price=total_price
             )
             request_obj.save()
 

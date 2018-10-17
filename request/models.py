@@ -83,6 +83,11 @@ class Request(models.Model):
         blank=True,
         null=True
     )
+    total_price = models.IntegerField(
+        "Precio total",
+        default=0,
+        
+    )
     cea = models.ForeignKey(
         Cea,
         verbose_name="CEA",

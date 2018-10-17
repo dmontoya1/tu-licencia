@@ -932,6 +932,9 @@
         var crc = ""
         var cea = ""
         var transit = ""
+        var cea_price = ""
+        var crc_price = ""
+        var transit_price = ""
         
         function crc_filter(params){
             axios.get('/api/companies/crc', {
@@ -1002,7 +1005,8 @@
                         $(`.crc-${v.id}-rating .stars-outer .stars-inner`).width(starPercentageRounded);
 					})
 					$('.add-cart-crc').on('click', function(){
-						crc = $(this).data('id')
+                        crc = $(this).data('id')
+                        crc_price = $(this).data('price')
 						$('li.cart-crc').empty()
 						$('li.cart-crc').append(
 							`
@@ -1112,7 +1116,8 @@
                         $(`.cea-${v.id}-rating .stars-outer .stars-inner`).width(starPercentageRounded);
 					})
 					$('.add-cart-cea').on('click', function(){
-						cea = $(this).data('id')
+                        cea = $(this).data('id')
+                        cea_price = $(this).data('price')
 						$('li.cart-cea').empty()
 						$('li.cart-cea').append(
 							`
@@ -1129,7 +1134,7 @@
 									</span>
 									<span class="header-cart-item-info">
 										<strong>
-											$ 750.000 
+											$ ${$(this).data('price')}
 										</strong> 
 									</span>
 								</div>
@@ -1220,7 +1225,8 @@
                         $(`.transit-${v.id}-rating .stars-outer .stars-inner`).width(starPercentageRounded);
 					})
 					$('.add-cart-transit').on('click', function(){
-						transit = $(this).data('id')
+                        transit = $(this).data('id')
+                        transit_price = $(this).data('price')
 						$('li.cart-transit').empty()
 						$('li.cart-transit').append(
 							`
@@ -1616,6 +1622,9 @@
                     "payment_type": "CO",
                     "licences": lic,
                     "runt":runt,
+                    "cea_price":cea_price,
+                    "crc_price": crc_price,
+                    "transit_price": transit_price,
                 }
                 axios.post('/api/request/', request)
                 .then(function (response) {
