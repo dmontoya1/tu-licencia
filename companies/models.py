@@ -359,13 +359,11 @@ class CeaLicence(models.Model):
         verbose_name="Licencias",
         help_text="Selecciona las licencias disponibles en el CEA"
     )
-    price = models.CharField(
+    price = models.IntegerField(
         "Precio",
-        max_length=255,
         help_text="Precio de la licencia nueva")
-    price_recat = models.CharField(
+    price_recat = models.IntegerField(
         "Precio recategorización",
-        max_length=255,
         help_text="Precio de la licencia para recategorización"
     )
     theoretical_classes = models.IntegerField("Número de clases teóricas")

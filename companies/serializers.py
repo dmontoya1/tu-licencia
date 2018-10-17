@@ -96,10 +96,75 @@ class CeaSerializer(serializers.ModelSerializer):
     licences = CeaLicenceSerializer(many=True, read_only=True)
     vehicles = CeaVehicleSerializer(many=True, read_only=True)
     city = CitySerializer(many=False, read_only=True)
+    final_price = serializers.SerializerMethodField()
+
+    def get_final_price(self, obj):
+        request = self.context.get("request")
+        age = request.GET.get('age')
+        gender = request.GET.get('gender')
+        licences = request.GET.get('licences')
+        licences = licences.split(',')
+        final_price = 0
+        if obj.collection:
+            collection = obj.collection
+        else:
+            collection = CompaniesAdminPrices.objects.filter(company=CompaniesAdminPrices.CEA).first()
+        
+        age_ranges = AgeRange.objects.all()
+
+        for a in age_ranges:
+            if int(age) in range(a.start_age, a.end_age+1):
+                a_range = a
+                break
+        
+        if len(licences) == 2:
+            licence = Licence.objects.get(category=licences[0])
+            ansv = AnsvRanges.objects.get(
+                licence=licence,
+                gender=gender,
+                age_range=a_range,
+            )
+            cealicence = CeaLicence.objects.filter(cea=obj, licence=licence).first()
+            if cealicence:
+                course_price = cealicence.price
+            else:
+                course_price = 0
+            
+            final_price = course_price + collection.pin_sicov + collection.recaudo + ansv.price
+        else:
+            licence_1 = Licence.objects.get(category=licences[0])
+            licence_2 = Licence.objects.get(category=licences[1])
+            ansv1 = AnsvRanges.objects.get(
+                licence=licence_1,
+                gender=gender,
+                age_range=a_range,
+            )
+            ansv2 = AnsvRanges.objects.get(
+                licence=licence_2,
+                gender=gender,
+                age_range=a_range,
+            )
+            cealicence1 = CeaLicence.objects.filter(cea=obj, licence=licence_1).first()
+            cealicence2 = CeaLicence.objects.filter(cea=obj, licence=licence_2).first()
+            if cealicence1:
+                course_price1 = cealicence1.price
+            else:
+                course_price1 = 0
+            if cealicence2:
+                course_price2 = cealicence2.price
+            else:
+                course_price2 = 0
+
+            price1 = course_price1 + collection.pin_sicov + collection.recaudo + ansv1.price
+            price2 = course_price2 + collection.pin_sicov + collection.recaudo + ansv2.price
+
+            final_price = price1 + price2
+        
+        return final_price
 
     class Meta:
         model = Cea
-        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'licences', 'vehicles', 'rating', 'schedule')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'licences', 'vehicles', 'rating', 'schedule', 'final_price')
 
 
 class TransitSerializer(serializers.ModelSerializer):

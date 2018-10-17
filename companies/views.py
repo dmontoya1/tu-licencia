@@ -35,7 +35,11 @@ class CeaList(generics.ListAPIView):
     serializer_class = CeaSerializer
     
     def get_queryset(self):
-        params = params_to_filter(self.request.GET.items())
+        get_list = self.request.GET.copy()
+        get_list.pop('age')
+        get_list.pop('gender')
+        get_list.pop('licences')
+        params = params_to_filter(get_list.items())
         return Cea.objects.filter(**params).distinct()
 
 
@@ -164,5 +168,4 @@ class EnableCeaRequest(APIView):
             status_e = status.HTTP_400_BAD_REQUEST
 
         return Response(response, status=status_e)
-
 

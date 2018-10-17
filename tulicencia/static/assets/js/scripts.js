@@ -282,6 +282,9 @@ jQuery(document).ready(function() {
 
 			var params = {
 				state: $('#states').val(),
+				age: age,
+				gender: gender,
+				licences: licence,
 				licences__licence__category__in: licence
 			}
 			loadVehicleSelect()
