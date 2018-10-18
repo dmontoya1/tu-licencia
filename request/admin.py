@@ -3,7 +3,7 @@ from django.contrib import admin
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from users.models import User
-from .models import Request, LogRequestStatus, LogDocsStatus
+from .models import Request, LogRequestStatus, LogDocsStatus, RequestTramit
 
 
 class LogRequestStatusAdmin(admin.StackedInline):
@@ -36,6 +36,15 @@ class LogDocsStatusAdmin(admin.StackedInline):
     def has_delete_permission(self, request, ob=None):
         return False
 
+
+class RequestTramitAdmin(admin.StackedInline):
+    """
+    """
+
+    model = RequestTramit
+    extra = 0
+
+
 @admin.register(Request)
 class RequestAdmin(admin.ModelAdmin):
     """
@@ -57,7 +66,7 @@ class RequestAdmin(admin.ModelAdmin):
             'js/admin/request.js',
         )
 
-    inlines = [LogRequestStatusAdmin, LogDocsStatusAdmin, ]
+    inlines = [RequestTramitAdmin, LogRequestStatusAdmin, LogDocsStatusAdmin, ]
     
     def changelist_view(self, request, extra_context=None):
         """

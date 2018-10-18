@@ -231,6 +231,50 @@ class Request(models.Model):
     get_crc_price.short_description = "Precio del CRC"
 
 
+class RequestTramit(models.Model):
+    """Guarda los trámites que se van a hacer en cada solicitud
+    """
+
+    FIRST_LICENCE = 'FL'
+    SECOND_LICENCE = 'SL'
+    RENEW = 'RN'
+    RECAT = 'RC'
+    DUPLICATED = 'DU'
+
+    TRAMIT_TYPE = (
+        (FIRST_LICENCE, 'Primera Licencia'),
+        (SECOND_LICENCE, 'Segunda Licencia'),
+        (RENEW, 'Renovación'),
+        (RECAT, 'Recategorización'),
+        (DUPLICATED, 'Duplicado')
+    )
+
+    request = models.ForeignKey(
+        Request,
+        verbose_name="Trámites",
+        on_delete=models.CASCADE
+    )
+    tramit_type = models.CharField(
+        "Tipo de Trámite",
+        max_length=2,
+        choices=TRAMIT_TYPE
+    )
+    licence = models.ForeignKey(
+        Licence,
+        verbose_name="Licencia",
+        on_delete=models.SET_NULL,
+        blank=True, null=True
+    )
+
+    def __str__(self):
+        return "Tipo de trámite (%s => %s)" % (self.get_tramit_type_display(), self.licence.category)
+
+    
+    class Meta:
+        verbose_name = 'Tramite'
+
+
+
 class LogRequestStatus(models.Model):
     """Se guarda el log para los cambios de estado de la
     solicitud
