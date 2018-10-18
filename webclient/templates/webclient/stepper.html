@@ -234,7 +234,7 @@
             <fieldset>
                 <div class="form-group">
                     <ul class="gender-choice">
-                        <li class="mr-sm-4 have-licence disabled">
+                        <li class="mr-sm-4 have-licence">
                             <label for="licence-1">
                                 <img class="img-check" name="have-licence" src="{% static 'images/licence-yes.png' %}" id="licence-1"/><br>
                                 <p class="img-text">Ya tienes Licencia?</p>
@@ -248,7 +248,7 @@
                         </li>
                         </ul>
                 </div>
-                <!-- <div class="form-group d-none">
+                <div class="form-group have-licences d-none">
                     <div class="title">
                         <span>¿Qué tipo de trámite deseas realizar?</span>
                     </div>
@@ -258,19 +258,19 @@
                             <label for="toggle1">Segunda licencia</label>
                         </li>
                         <li>
-                            <input id="toggle2" type="checkbox" name="recat">
+                            <input id="toggle2" type="checkbox" name="recat" disabled>
                             <label for="toggle2">Recategorización hacia arriba</label>
                         </li>
                         <li>
-                            <input id="toggle3" type="checkbox" name="renew">
+                            <input id="toggle3" type="checkbox" name="renew" disabled>
                             <label for="toggle3">Renovación</label>
                         </li>
                         <li>
-                            <input id="toggle4" type="checkbox" name="dupl">
+                            <input id="toggle4" type="checkbox" name="dupl" disabled>
                             <label for="toggle4">Duplicado</label>
                         </li>
                     </ul>
-                </div> -->
+                </div>
                 <div class="form-group licence-vehicle d-none">
                     <div class="title">
                         <span>¿Qué tipo de vehículo?</span>
@@ -1324,6 +1324,9 @@
                 $('.male').addClass('disabled')
                 gender = 'F'
             }
+        })
+        $('#licence-1').on('click', function(ev){
+            $('.have-licences').toggleClass('d-none')
         })
         $('#licence-2').on('click', function(ev){
             $('.licence-vehicle').toggleClass('d-none')
