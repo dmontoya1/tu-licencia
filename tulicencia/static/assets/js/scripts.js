@@ -209,7 +209,7 @@ jQuery(document).ready(function() {
 				confirmButtonText: 'Ok'
 			})
 		}
-		if (tramit == ""){
+		if (tramits['licence_1'] == "" && tramits['licence_2'] == ""){
 			next_step = false;
 			swal({
 				title: 'Atención',

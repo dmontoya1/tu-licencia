@@ -128,11 +128,6 @@ class Request(models.Model):
         choices=PAYMENTS,
         max_length=2,
     )
-    licences = models.ManyToManyField(
-        Licence,
-        verbose_name="Licencias solicitadas",
-        related_name="related_licences",
-    )
     request_status = models.CharField(
         "Estado de la reserva",
         choices=REQUEST_STATUS,

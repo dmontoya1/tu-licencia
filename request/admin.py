@@ -57,7 +57,7 @@ class RequestAdmin(admin.ModelAdmin):
     list_filter_companies = ('request_status', 'payment_type', 'docs_status',)
 
     readonly_fields = ('booking', 'get_crc_price', 'request_date') #Eliminar esta linea y dejar la de abajo
-    # readonly_fields = ('booking', 'user', 'licences', 'get_crc_price', 'request_date)
+    # readonly_fields = ('booking', 'user', 'get_crc_price', 'request_date)
 
     class Media:
         js = (
@@ -92,27 +92,27 @@ class RequestAdmin(admin.ModelAdmin):
          {'fields':
           ('user', 'payment_type', 'request_status', 'docs_status', 'credit_status', 'credit_request_code', 'booking', 'request_date')}),
         (_('CRC'), {'fields': ('crc', 'crc_status',)}),
-        (_('CEA'), {'fields': ('cea', 'licences', 'cea_status', )}),
+        (_('CEA'), {'fields': ('cea', 'cea_status', )}),
         (_('Transito'), {'fields': ('transit',)})
     )
     cea_fieldsets = (
         (None, {
-            'fields': ('user', 'cea', 'booking', 'licences', 'request_status', 'request_date', 'cea_status')
+            'fields': ('user', 'cea', 'booking', 'request_status', 'request_date', 'cea_status')
         }),
     )
     crc_fieldsets = (
         (None, {
-            'fields': ('user', 'crc', 'booking', 'licences', 'request_status', 'request_date', 'crc_status')
+            'fields': ('user', 'crc', 'booking', 'request_status', 'request_date', 'crc_status')
         }),
     )
     exp_fieldsets = (
         (None, {
-            'fields': ('user', 'request_status', 'payment_type', 'credit_status', 'credit_request_code', 'booking', 'licences', 'request_date',)
+            'fields': ('user', 'request_status', 'payment_type', 'credit_status', 'credit_request_code', 'booking', 'request_date',)
         }),
     )
 
-    cea_readonly_fields = ('user', 'cea', 'booking', 'licences', 'request_status', 'request_date',)
-    crc_readonly_fields = ('user', 'crc', 'booking', 'licences', 'request_status', 'request_date',)
+    cea_readonly_fields = ('user', 'cea', 'booking', 'request_status', 'request_date',)
+    crc_readonly_fields = ('user', 'crc', 'booking', 'request_status', 'request_date',)
 
     def get_fieldsets(self, request, obj=None):
         """
