@@ -262,7 +262,7 @@
                             <label for="toggle3">Renovación</label>
                         </li>
                         <li>
-                            <input id="toggle2" type="checkbox" name="recat" value="RC" disabled>
+                            <input id="toggle2" type="checkbox" name="recat" value="RC">
                             <label for="toggle2">Recategorización hacia arriba</label>
                         </li>
                         <li>
@@ -322,7 +322,7 @@
                     <ul class="car-licences d-none">
                         <li>
                             <div class="container">
-                                <div class="row justify-content-center">
+                                <div class="row justify-content-center row-B1">
                                     <div class="col-12 col-md-3 licences-category">
                                         <input id="toggleB1" type="checkbox" data-name="B1" name="B1">
                                         <label for="toggleB1">B1</label>
@@ -331,10 +331,28 @@
                                         <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio particular.)</p>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row row-C1">
                                     <div class="col-12 col-md-3 licences-category">
                                         <input id="toggleC1" type="checkbox" data-name="C1" name="C1">
                                         <label for="toggleC1">C1</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio público y particular.)</p>
+                                    </div>
+                                </div>
+                                <div class="row row-C2 d-none">
+                                    <div class="col-12 col-md-3 licences-category">
+                                        <input id="toggleC2" type="checkbox" data-name="C2" name="C2">
+                                        <label for="toggleC2">C2</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio público y particular.)</p>
+                                    </div>
+                                </div>
+                                <div class="row row-C3 d-none">
+                                    <div class="col-12 col-md-3 licences-category">
+                                        <input id="toggleC3" type="checkbox" data-name="C3" name="C3">
+                                        <label for="toggleC3">C3</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio público y particular.)</p>
@@ -1307,28 +1325,33 @@
         })
 
         $('.male').on('click', function(e){
-            if ($('.female').hasClass('disabled'))
-            {
-                $('.female').removeClass('disabled')
+            if($(this).attr('selected')){
                 gender = ""
+                $(this).removeAttr('selected')
             }
-            else {
-                $('.female').addClass('disabled')
+            else{
+                if ($('.female').attr('selected')){
+                    $('.female span.imgCheckbox0').removeClass('imgChked');
+                    $('.female').removeAttr('selected')
+                }
+                $(this).attr('selected', true)
                 gender = 'M'
             }
         })
         $('.female').on('click', function(e){
-            if ($('.male').hasClass('disabled'))
-            {
-                $('.male').removeClass('disabled')
+            if($(this).attr('selected')){
                 gender = ""
+                $(this).removeAttr('selected')
             }
-            else {
-                $('.male').addClass('disabled')
+            else{
+                if ($('.male').attr('selected')){
+                    $('.male span.imgCheckbox0').removeClass('imgChked');
+                    $('.male').removeAttr('selected')
+                }
+                $(this).attr('selected', true)
                 gender = 'F'
             }
         })
-        
         
         $('#licence-1').on('click', function(ev){
             $('.have-licences').toggleClass('d-none')
@@ -1349,6 +1372,31 @@
 
         $('.have-licences input').on('click', function(ev){
             if ($(this).is(':checked')){
+                if($(this).val() != 'SL' ){
+                    $('.row-C2').removeClass('d-none')
+                    $('.row-C3').removeClass('d-none')
+                }
+                if($(this).val() == 'RC' ){
+                    if (!($('bikelicence').hasClass('disabled'))){
+                        $('.bikelicence').addClass('disabled')
+                    }
+                    $('.row-B1').addClass('d-none')
+                    swal({
+                        title: 'Atención',
+                        type: 'info',
+                        html:
+                            'Solo puedes recategorizar licencias de carros, de la siguiente manera: ' +
+                            '<ul class="recat-info"> ' +
+                                '<li>De B1 a C1</li>'+
+                                '<li>De C1 a C2</li>'+
+                                '<li>De C2 a C3</li>'+
+                            '</ul>' +
+                            'Debes seleccionar la licencia a la cual quieres recategorizar',
+                        showCancelButton: false,
+                        confirmButtonText: 'Ok'
+                    })
+                }
+                
                 if (tramit_type1 == ""){
                     tramit_type1 = $(this).val()
                     $('.licence-vehicle').toggleClass('d-none')
@@ -1370,10 +1418,12 @@
                             $('.bikelicence').toggleClass('disabled')
                             $('.carlicence').toggleClass('disabled')
                         }
-                        if ('car' in licences){
+                        else{
                             $('.car-licences').toggleClass('d-none')
                             $('.carlicence').toggleClass('disabled')
-                            $('.bikelicence').toggleClass('disabled')
+                            if(!($(this).val() == 'RC' )){
+                                $('.bikelicence').toggleClass('disabled')
+                            }
                         }
                         tramit_type2 = $(this).val()
                     }
@@ -1381,6 +1431,14 @@
                 }
             }
             else {
+                if($(this).val() != 'SL' ){
+                    $('.row-C2').addClass('d-none')
+                    $('.row-C3').addClass('d-none')
+                }
+                if($(this).val() == 'RC' ){
+                    $('.bikelicence').removeClass('disabled')
+                    $('.row-B1').removeClass('d-none')
+                }
                 if (tramit_type1 == $(this).val() && tramit_type2 == ""){
                     tramit_type1 = ""
                     $('.licence-vehicle').toggleClass('d-none')
@@ -1397,10 +1455,13 @@
             }
         })
 
-
         $('#bike-licence').on('click', function(ev){
-            if(tramit_type1 != 'FL' && tramit_type1 != ""){
-                if (!($('.carlicence').attr('disabled'))){
+            if(tramit_type1 == 'SL' && tramit_type1 != ""){
+                if ($('.carlicence').hasClass('disabled'))
+                {
+                    $('.carlicence').removeClass('disabled')
+                }
+                else {
                     $('.carlicence').addClass('disabled')
                 }
             }
@@ -1413,8 +1474,12 @@
             }
         })
         $('#car-licence').on('click', function(ev){
-            if(tramit_type1 != 'FL' && tramit_type1 != ''){
-                if (!($('.bikelicence').attr('disabled'))){
+            if(tramit_type1 == 'SL'){
+                if ($('.bikelicence').hasClass('disabled'))
+                {
+                    $('.bikelicence').removeClass('disabled')
+                }
+                else {
                     $('.bikelicence').addClass('disabled')
                 }
             }
@@ -1457,78 +1522,180 @@
             }
             console.log(tramits)
         }
-
+        
+        // MOTOS
         $('#toggleA1').on('click', function(e){
-            if ($('#toggleA2').attr('disabled')){
-                $('#toggleA2').removeAttr('disabled')
+            if($(this).attr('selected')){
                 delete licences['bike']
                 deleteTramit($(this).data('name'))
+                $(this).removeAttr('selected')
             }
-            else {
-                $('#toggleA2').attr('disabled', true)
+            else{
+                if ($('#toggleA2').attr('selected')){
+                    $('#toggleA2').removeAttr('selected')
+                    $('#toggleA2')[0].checked = false;
+                    deleteTramit($('#toggleA2').data('name'))
+                }
+                $(this).attr('selected', true)
                 licences['bike'] = $(this).data('name')
                 addTramit($(this).data('name'))
             }
         })
         $('#toggleA2').on('click', function(e){
-            if ($('#toggleA1').attr('disabled')){
-                $('#toggleA1').removeAttr('disabled')
+            if($(this).attr('selected')){
                 delete licences['bike']
                 deleteTramit($(this).data('name'))
+                $(this).removeAttr('selected')
             }
-            else {
-                $('#toggleA1').attr('disabled', true)
+            else{
+                if ($('#toggleA1').attr('selected')){
+                    $('#toggleA1').removeAttr('selected')
+                    $('#toggleA1')[0].checked = false;
+                    deleteTramit($('#toggleA1').data('name'))
+                }
+                $(this).attr('selected', true)
                 licences['bike'] = $(this).data('name')
                 addTramit($(this).data('name'))
             }
         })
+        // CARROS
         $('#toggleB1').on('click', function(e){
-            if ($('#toggleC1').attr('disabled')){
-                $('#toggleC1').removeAttr('disabled')
+            if($(this).attr('selected')){
                 delete licences['car']
                 deleteTramit($(this).data('name'))
+                $(this).removeAttr('selected')
             }
-            else {
-                $('#toggleC1').attr('disabled', true)
+            else{
+                if ($('#toggleC1').attr('selected')){
+                    $('#toggleC1').removeAttr('selected')
+                    $('#toggleC1')[0].checked = false;
+                    deleteTramit($('#toggleC1').data('name'))
+                }
+                if ($('#toggleC2').attr('selected')){
+                    $('#toggleC2').removeAttr('selected')
+                    $('#toggleC2')[0].checked = false;
+                    deleteTramit($('#toggleC2').data('name'))
+                }
+                if ($('#toggleC3').attr('selected')){
+                    $('#toggleC3').removeAttr('selected')
+                    $('#toggleC3')[0].checked = false;
+                    deleteTramit($('#toggleC3').data('name'))
+                }
+                $(this).attr('selected', true)
                 licences['car'] = $(this).data('name')
                 addTramit($(this).data('name'))
             }
         })
         $('#toggleC1').on('click', function(e){
-            if ($('#toggleB1').attr('disabled')){
-                $('#toggleB1').removeAttr('disabled')
+            if($(this).attr('selected')){
                 delete licences['car']
                 deleteTramit($(this).data('name'))
+                $(this).removeAttr('selected')
             }
-            else {
-                $('#toggleB1').attr('disabled', true)
+            else{
+                if ($('#toggleB1').attr('selected')){
+                    $('#toggleB1').removeAttr('selected')
+                    $('#toggleB1')[0].checked = false;
+                    deleteTramit($('#toggleB1').data('name'))
+                }
+                if ($('#toggleC2').attr('selected')){
+                    $('#toggleC2').removeAttr('selected')
+                    $('#toggleC2')[0].checked = false;
+                    deleteTramit($('#toggleC2').data('name'))
+                }
+                if ($('#toggleC3').attr('selected')){
+                    $('#toggleC3').removeAttr('selected')
+                    $('#toggleC3')[0].checked = false;
+                    deleteTramit($('#toggleC3').data('name'))
+                }
+                $(this).attr('selected', true)
+                licences['car'] = $(this).data('name')
+                addTramit($(this).data('name'))
+            }
+        })
+        $('#toggleC2').on('click', function(e){
+            if($(this).attr('selected')){
+                delete licences['car']
+                deleteTramit($(this).data('name'))
+                $(this).removeAttr('selected')
+            }
+            else{
+                if ($('#toggleB1').attr('selected')){
+                    $('#toggleB1').removeAttr('selected')
+                    $('#toggleB1')[0].checked = false;
+                    deleteTramit($('#toggleB1').data('name'))
+                }
+                if ($('#toggleC1').attr('selected')){
+                    $('#toggleC1').removeAttr('selected')
+                    $('#toggleC1')[0].checked = false;
+                    deleteTramit($('#toggleC1').data('name'))
+                }
+                if ($('#toggleC3').attr('selected')){
+                    $('#toggleC3').removeAttr('selected')
+                    $('#toggleC3')[0].checked = false;
+                    deleteTramit($('#toggleC3').data('name'))
+                }
+                $(this).attr('selected', true)
+                licences['car'] = $(this).data('name')
+                addTramit($(this).data('name'))
+            }
+        })
+        $('#toggleC3').on('click', function(e){
+            if($(this).attr('selected')){
+                delete licences['car']
+                deleteTramit($(this).data('name'))
+                $(this).removeAttr('selected')
+            }
+            else{
+                if ($('#toggleB1').attr('selected')){
+                    $('#toggleB1').removeAttr('selected')
+                    $('#toggleB1')[0].checked = false;
+                    deleteTramit($('#toggleB1').data('name'))
+                }
+                if ($('#toggleC1').attr('selected')){
+                    $('#toggleC1').removeAttr('selected')
+                    $('#toggleC1')[0].checked = false;
+                    deleteTramit($('#toggleC1').data('name'))
+                }
+                if ($('#toggleC2').attr('selected')){
+                    $('#toggleC2').removeAttr('selected')
+                    $('#toggleC2')[0].checked = false;
+                    deleteTramit($('#toggleC2').data('name'))
+                }
+                $(this).attr('selected', true)
                 licences['car'] = $(this).data('name')
                 addTramit($(this).data('name'))
             }
         })
 
-        $('#no-runt').on('click', function(ev){
-            $('.runt-info').toggleClass('d-none')
-        })
         $('.si-runt').on('click', function(e){
-            if ($('.no-runt').hasClass('disabled'))
-            {
-                $('.no-runt').removeClass('disabled')
+            if($(this).attr('selected')){
                 runt = ""
+                $(this).removeAttr('selected')
             }
-            else {
-                $('.no-runt').addClass('disabled')
+            else{
+                if ($('.no-runt').attr('selected')){
+                    $('.no-runt span.imgCheckbox0').removeClass('imgChked');
+                    $('.no-runt').removeAttr('selected')
+                    $('.runt-info').addClass('d-none')
+                }
+                $(this).attr('selected', true)
                 runt = 'si'
             }
         })
         $('.no-runt').on('click', function(e){
-            if ($('.si-runt').hasClass('disabled'))
-            {
-                $('.si-runt').removeClass('disabled')
+            if($(this).attr('selected')){
                 runt = ""
+                $(this).removeAttr('selected')
+                $('.runt-info').addClass('d-none')
             }
-            else {
-                $('.si-runt').addClass('disabled')
+            else{
+                if ($('.si-runt').attr('selected')){
+                    $('.si-runt span.imgCheckbox0').removeClass('imgChked');
+                    $('.si-runt').removeAttr('selected')
+                }
+                $(this).attr('selected', true)
+                $('.runt-info').removeClass('d-none')
                 runt = 'no'
             }
         })
