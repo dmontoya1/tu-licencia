@@ -37,6 +37,58 @@ class LogDocsStatusAdmin(admin.StackedInline):
         return False
 
 
+class RequestStatusFilter(admin.SimpleListFilter):
+    title = 'Estado de la Solicitud'
+
+    parameter_name = 'request_status'
+
+    def lookups(self, request, model_admin):
+        EN_CRC = "ICRC"
+        EN_CEA = 'ICEA'
+        FINISH = 'FNS'
+    
+        return (
+            (None, 'Pagados'),
+            (EN_CRC, 'En exámen CRC'),
+            (EN_CEA, 'En curso CEA'),
+            (FINISH, 'Finalizado'),
+            ('Todos', 'Ver todos')
+        )
+
+    def choices(self, cl):
+        for lookup, title in self.lookup_choices:
+            yield {
+                'selected': self.value() == lookup,
+                'query_string': cl.get_query_string({
+                    self.parameter_name: lookup,
+                }, []),
+                'display': title,
+            }
+
+    def queryset(self, request, queryset):
+        if self.value() in ('ICRC', 'ICEA', 'FNS'):
+            if request.user.user_type == User.ADMIN_CEA:
+                return queryset.filter(cea=request.user.cea, request_status=self.value())
+            elif request.user.user_type == User.ADMIN_CRC:
+                return queryset.filter(crc=request.user.crc, request_status=self.value())
+            else:
+                return queryset.filter(request_status=self.value())
+        elif self.value() == 'Todos':
+            if request.user.user_type == User.ADMIN_CEA:
+                return queryset.filter(cea=request.user.cea).exclude(request_status=Request.PENDING)
+            elif request.user.user_type == User.ADMIN_CRC:
+                return queryset.filter(crc=request.user.crc).exclude(request_status=Request.PENDING)
+            else:
+                return queryset.all()
+        elif self.value() == None:
+            if request.user.user_type == User.ADMIN_CEA:
+                return queryset.filter(cea=request.user.cea, request_status='PAI')
+            elif request.user.user_type == User.ADMIN_CRC:
+                return queryset.filter(crc=request.user.crc, request_status='PAI')
+            else:
+                return queryset.filter(request_status='PAI')
+
+
 class RequestTramitAdmin(admin.StackedInline):
     """
     """
@@ -54,10 +106,9 @@ class RequestAdmin(admin.ModelAdmin):
     search_fields = ('cea__name', 'crc__name', 'transit__name', 'user__document_id', 'user__first_name',
     'user__last_name', 'request_status', 'payment_type', 'request_date', 'cea_status', 'crc_status')
     list_filter = ('cea', 'crc', 'transit', 'request_status', 'payment_type', 'docs_status',)
-    list_filter_companies = ('request_status', 'payment_type', 'docs_status',)
+    list_filter_companies = [RequestStatusFilter,]
 
-    readonly_fields = ('booking', 'get_crc_price', 'request_date') #Eliminar esta linea y dejar la de abajo
-    # readonly_fields = ('booking', 'user', 'get_crc_price', 'request_date)
+    readonly_fields = ('booking', 'user', 'get_crc_price', 'request_date')
 
     class Media:
         js = (
@@ -67,15 +118,18 @@ class RequestAdmin(admin.ModelAdmin):
         )
 
     inlines = [RequestTramitAdmin, LogRequestStatusAdmin, LogDocsStatusAdmin, ]
+
+    def has_delete_permission(self, request, ob=None):
+        return False
     
     def changelist_view(self, request, extra_context=None):
         """
         funcion para cambiar los nombres a mostrar para las solicitudes dependiendo del tipo de usuario registrado
         """
         if request.user.user_type == User.ADMIN_CEA:
-            self.list_display = ('user', 'cea', 'booking')
+            self.list_display = ('user', 'cea', 'booking', 'request_status')
         elif request.user.user_type == User.ADMIN_CRC:
-            self.list_display = ('user', 'crc', 'booking')
+            self.list_display = ('user', 'crc', 'booking', 'request_status')
         elif request.user.user_type == User.EXPRESS_USER:
             self.list_display = ('user', 'payment_type', 'request_status', 'credit_status', 'booking')
         else:
@@ -134,9 +188,9 @@ class RequestAdmin(admin.ModelAdmin):
         """
         query = super(RequestAdmin, self).get_queryset(request)
         if request.user.user_type == User.ADMIN_CEA:
-            return query.filter(cea=request.user.cea)
+            return query.filter(cea=request.user.cea).exclude(request_status=Request.PENDING)
         elif request.user.user_type == User.ADMIN_CRC:
-            return query.filter(crc=request.user.crc)
+            return query.filter(crc=request.user.crc).exclude(request_status=Request.PENDING)
         else:
             return query.all()
     
@@ -161,7 +215,6 @@ class RequestAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         if 'docs_status' in form.changed_data:
-            print ("Cambiado")
             log_docs = LogDocsStatus(
                 request_obj=obj,
                 status=obj.get_docs_status_display(),

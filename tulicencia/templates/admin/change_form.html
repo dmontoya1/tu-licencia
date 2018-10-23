@@ -28,8 +28,10 @@
     {% if change %}        
         <div class="submit-row">
             <p class="deletelink-box">
-                {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
-                <a href="{% add_preserved_filters delete_url %}" class="deletelink custom">Eliminar definitivamente</a>
+                {% if show_delete_link and original %}
+                    {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+                    <a href="{% add_preserved_filters delete_url %}" class="deletelink custom">Eliminar definitivamente</a>
+                {% endif %}
                 {% if original|is_softdeletion_instance %}
                     {% if request.user.is_superuser %}
                         {% if not original.deleted_at %}
@@ -49,5 +51,3 @@
         </div>     
     {% endif %}
 {% endblock %}
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>

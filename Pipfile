@@ -36,6 +36,7 @@ Django = "==2.1.1"
 MarkupSafe = "==1.0"
 Pillow = "==5.2.0"
 pipenv = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
 

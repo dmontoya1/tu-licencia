@@ -178,7 +178,7 @@ class Request(models.Model):
 
     def __str__(self):
         if self.user:
-            return "Solicitud del usuario %s con documento %s" % (self.user, self.user.document_id)
+            return "Solicitud del usuario %s" % (self.user)
         return " Solicitud %s " % (self.pk)
 
     
@@ -267,7 +267,6 @@ class RequestTramit(models.Model):
     
     class Meta:
         verbose_name = 'Tramite'
-
 
 
 class LogRequestStatus(models.Model):

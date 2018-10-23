@@ -87,7 +87,11 @@ class Cea(SoftDeletionModelMixin):
         blank=True, null=True
     )
     schedule = models.TextField(
-        "Horarios de atención",
+        "Horarios de atención administrativo",
+        help_text="Ejm: De lunes a viernes de 8:00 am a 6:00 pm"
+    )
+    courses_schedule = models.TextField(
+        "Horarios de atención para cursos",
         help_text="Ejm: De lunes a viernes de 8:00 am a 6:00 pm"
     )
 

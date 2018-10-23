@@ -4,11 +4,23 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.contrib import admin, messages
 
+from request.models import Request
 from users.models import User
 from utils.admin import SoftDeletionModelAdminMixin
 from .models import (
     Cea, Crc, TransitDepartment, CeaLicence, CeaVehicle,
     TuLicencia, TransitLicence, CeaRating, CrcRating, TransitRating)
+
+
+
+class RequestAdmin(admin.StackedInline):
+    """
+    """
+    model = Request
+    extra = 0
+    fields = ('user', 'request_status', 'request_date', 'booking')
+    readonly_fields = ('user', 'request_status', 'request_date', 'booking')
+    show_change_link = True
 
 
 class CeaLicenceAdmin(admin.StackedInline):
@@ -61,7 +73,7 @@ class CeaAdmin(SoftDeletionModelAdminMixin):
 
     model = Cea
     extra_list_display = ('nit', 'name', 'manager', 'cellphone')
-    inlines = [CeaLicenceAdmin, CeaVehicleAdmin, CeaRatingAdmin]
+    inlines = [CeaLicenceAdmin, CeaVehicleAdmin, CeaRatingAdmin, RequestAdmin]
 
     manager_readonly_fields = ('manager', 'rating', 'collection', 'get_pin_sicov', 'get_recaudo' )
     readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo')
@@ -78,7 +90,7 @@ class CeaAdmin(SoftDeletionModelAdminMixin):
     
     fieldsets = (
         (None, {
-            'fields': ('name', 'nit', 'manager', 'phone', 'cellphone', 'email', 'logo', 'rating', 'schedule')
+            'fields': ('name', 'nit', 'manager', 'phone', 'cellphone', 'email', 'logo', 'rating', 'schedule', 'courses_schedule')
         }),
         ('Datos de ubicación', {
             'fields': ('state', 'city', 'sector', 'address'),
@@ -122,7 +134,7 @@ class CrcAdmin(SoftDeletionModelAdminMixin):
 
     model = Crc
     extra_list_display = ('nit', 'name', 'manager', 'cellphone')
-    inlines = [CrcRatingAdmin, ]
+    inlines = [CrcRatingAdmin, RequestAdmin]
 
     manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo', 'rating', 'schedule')
     readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo')
