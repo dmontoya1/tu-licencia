@@ -33,6 +33,7 @@ PROJECT_APPS = [
     'core',
     'licences',
     'manager',
+    'payments',
     'request',
     # 'reports',
     'users',
