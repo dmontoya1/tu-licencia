@@ -1,6 +1,10 @@
 
+
+
+
 body {
-    font-family: 'Roboto', sans-serif;
+	font-family: 'Roboto', sans-serif;
+	background-color: #f0f0f0;
     font-size: 16px;
     font-weight: 300;
     color: #888;
@@ -52,10 +56,13 @@ img { max-width: 100%; }
 
 /***** Top menu *****/
 
+nav.navbar.navbar-light {
+    background-color: #162d40;
+    height: 90px;
+}
+
 .navbar {
 	padding-top: 10px;
-	background: #333;
-	background: rgba(51, 51, 51, 0.3);
 	border: 0;
 	-o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
 }
@@ -83,15 +90,13 @@ ul.navbar-nav {
 .navbar-inverse ul.navbar-nav li .li-social a:focus { border: 0; color: #FFCA17; }
 
 .navbar-brand {
-	width: 162px;
-	background: url(../img/logo.png) left center no-repeat;
-	text-indent: -99999px;
+	width: 162px;	
 }
 
 
 /***** Top content *****/
 
-.top-content { padding: 40px 0 170px 0; }
+.top-content { padding: 0 0 50px 0; }
 
 .top-content .text { color: #fff; }
 .top-content .text h1 { color: #fff; }
@@ -101,7 +106,6 @@ ul.navbar-nav {
 .top-content .description a:hover, 
 .top-content .description a:focus { border-bottom: 1px dotted #fff; }
 
-.form-box { padding-top: 40px; }
 
 .f1 {
 	padding: 25px; background: #fff;
@@ -885,3 +889,72 @@ ul.recat-info {
 ul.recat-info li{
 	font-weight: 500;
 }
+
+
+/*//////////////////////////////////////////////////////////////////
+[ Table Shopping Cart ]*/
+
+.wrap-table-shopping-cart {
+	overflow: auto;
+	border-left: 1px solid #e6e6e6;
+	border-right: 1px solid #e6e6e6;
+  }
+  
+  .table-shopping-cart {
+	border-collapse: collapse;
+	width: 100%;
+	min-width: 600px;
+  }
+  
+  .table-shopping-cart tr {
+	border: 1px solid #999;
+  }
+  
+  .table-shopping-cart .column-1 {
+	width: 30%;
+    text-align: left;
+    padding-left: 40px;
+  }
+  
+  .table-shopping-cart .column-2 {
+	width: 40%;
+    font-size: 16px;
+    padding-left: 40px;
+    padding-right: 40px;
+    text-align: left;
+    text-transform: uppercase;
+  }
+  
+  .table-shopping-cart .column-3 {
+	width: 20%;
+	text-align: left;
+	font-size: 16px;
+  }
+  
+  .table-shopping-cart .table_row {
+	height: 185px;
+  }
+  
+  .table-shopping-cart .table_row td {
+	padding-bottom: 20px;
+  }
+  
+  .table-shopping-cart .table_row td.column-1 {
+	padding-bottom: 30px;
+  }
+  
+  .table-shopping-cart .table_head th {
+	font-family: 'Roboto', sans-serif;
+	font-size: 13px;
+	color: #555;
+	text-transform: uppercase;
+	line-height: 1.6;
+	padding-top: 15px;
+	padding-bottom: 15px;
+  }
+  
+  .table-shopping-cart td {
+	font-family: Poppins-Regular;
+	color: #555;
+	line-height: 1.6;
+  }
