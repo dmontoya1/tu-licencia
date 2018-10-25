@@ -254,19 +254,19 @@
                     </div>
                     <ul class="tramit-choice">
                         <li>
-                            <input id="toggle1" type="checkbox" name="initial">
+                            <input id="toggle1" type="checkbox" name="initial" value="SL">
                             <label for="toggle1">Segunda licencia</label>
                         </li>
                         <li>
-                            <input id="toggle2" type="checkbox" name="recat" disabled>
-                            <label for="toggle2">Recategorización hacia arriba</label>
-                        </li>
-                        <li>
-                            <input id="toggle3" type="checkbox" name="renew" disabled>
+                            <input id="toggle3" type="checkbox" name="renew" value="RN">
                             <label for="toggle3">Renovación</label>
                         </li>
                         <li>
-                            <input id="toggle4" type="checkbox" name="dupl" disabled>
+                            <input id="toggle2" type="checkbox" name="recat" value="RC">
+                            <label for="toggle2">Recategorización hacia arriba</label>
+                        </li>
+                        <li>
+                            <input id="toggle4" type="checkbox" name="dupl" value="DU" disabled>
                             <label for="toggle4">Duplicado</label>
                         </li>
                     </ul>
@@ -277,13 +277,13 @@
                         <p>En caso de que necesites ambas licencias, puedes seleccionar los dos tipos de vehículo.</p>
                     </div>
                     <ul class="licence-vehicle-choice">
-                        <li>
+                        <li class="bikelicence">
                             <label for="cb2">
                                 <img class="img-check" name="bike" src="{% static 'images/bike.png' %}" id="bike-licence" /><br>
                                 <p class="img-text">Moto</p>
                             </label>
                         </li>
-                        <li class="mr-sm-4">
+                        <li class="mr-sm-4 carlicence">
                             <label for="cb1">
                                 <img class="img-check" name="car" src="{% static 'images/car.png' %}" id="car-licence"/><br>
                                 <p class="img-text">Auto</p>
@@ -322,7 +322,7 @@
                     <ul class="car-licences d-none">
                         <li>
                             <div class="container">
-                                <div class="row justify-content-center">
+                                <div class="row justify-content-center row-B1">
                                     <div class="col-12 col-md-3 licences-category">
                                         <input id="toggleB1" type="checkbox" data-name="B1" name="B1">
                                         <label for="toggleB1">B1</label>
@@ -331,10 +331,28 @@
                                         <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio particular.)</p>
                                     </div>
                                 </div>
-                                <div class="row">
+                                <div class="row row-C1">
                                     <div class="col-12 col-md-3 licences-category">
                                         <input id="toggleC1" type="checkbox" data-name="C1" name="C1">
                                         <label for="toggleC1">C1</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio público y particular.)</p>
+                                    </div>
+                                </div>
+                                <div class="row row-C2 d-none">
+                                    <div class="col-12 col-md-3 licences-category">
+                                        <input id="toggleC2" type="checkbox" data-name="C2" name="C2">
+                                        <label for="toggleC2">C2</label>
+                                    </div>
+                                    <div class="col-12 col-md-9">
+                                        <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio público y particular.)</p>
+                                    </div>
+                                </div>
+                                <div class="row row-C3 d-none">
+                                    <div class="col-12 col-md-3 licences-category">
+                                        <input id="toggleC3" type="checkbox" data-name="C3" name="C3">
+                                        <label for="toggleC3">C3</label>
                                     </div>
                                     <div class="col-12 col-md-9">
                                         <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio público y particular.)</p>
@@ -880,6 +898,231 @@
 
         loadStatesSelect();
 
+        function clearLicences(){
+            console.log("Clear Licence")
+            $('#toggleA1')[0].checked = false;
+            $('#toggleA2')[0].checked = false;
+            $('#toggleB1')[0].checked = false;
+            $('#toggleC1')[0].checked = false;
+            $('#toggleC2')[0].checked = false;
+            $('#toggleC3')[0].checked = false;
+            $('#toggle1')[0].checked = false;
+            $('#toggle2')[0].checked = false;
+            $('#toggle3')[0].checked = false;
+            $('#toggle4')[0].checked = false;
+            licences = {}
+            bike = false
+            car = false
+            tramit_type1 = ""
+            tramit_type2 = ""
+            tramits['licence_1'] = ""
+            tramits['licence_2'] = ""
+            $('.licence-vehicle').addClass('d-none')
+            $('ul.bike-licences').addClass('d-none')
+            $('li.bikelicence span.imgCheckbox0').removeClass('imgChked');
+            $('li.bikelicence').removeClass('disabled');
+            $('ul.car-licences').addClass('d-none')
+            $('li.carlicence span.imgCheckbox0').removeClass('imgChked');
+            $('li.carlicence').removeClass('disabled');
+
+        }
+
+        function clearTramit(tramit){
+            console.log("Clear Tramit: " +tramit)
+            console.log("Tramits llega: ")
+            console.warn(tramits)
+            var licence = ""
+            if(tramit != 'SL' ){
+                $('.row-C2').addClass('d-none')
+                $('.row-C3').addClass('d-none')
+            }
+            switch (tramit) { 
+                case 'SL': 
+                    if (tramit_type1 == tramit && tramit_type2 == ""){
+                        tramit_type1 = ""
+                    }
+                    else{
+                        if (tramit_type1 == tramit){
+                            tramit_type1 = tramit_type2
+                            tramit_type2 = ""
+                        }
+                        else{
+                            tramit_type2 = ""
+                        }
+                    }
+                    if (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] == ""){
+                        licence = tramits['licence_1']['licence']
+                        tramits['licence_1'] = ""
+                        tramit_type1 = ""
+                        $('.licence-vehicle').toggleClass('d-none')
+                    }
+                    else {
+                        if (tramits['licence_1']['tramit'] == tramit){
+                            licence = tramits['licence_1']['licence']
+                            tramits['licence_1'] = tramits['licence_2']
+                            tramits['licence_2'] = ""
+                        }
+                        else {
+                            if (tramits['licence_2']['tramit'] == tramit){
+                                licence = tramits['licence_2']['licence']
+                                tramits['licence_2'] = ""
+                            }
+                        }
+                    }
+                    if (licence != ""){
+                        bike = jQuery.inArray( licence, ['A1', 'A2'] )
+                        car = jQuery.inArray( licence, ['B1', 'C1', 'C2', 'C3'] )
+                        if (bike != -1){
+                            console.log("Licence Bike ")
+                            $('ul.bike-licences').addClass('d-none')
+                            $('li.bikelicence span.imgCheckbox0').removeClass('imgChked');
+                            $('li.carlicence').removeClass('disabled');
+                        }
+                        else{
+                            if (car != -1){
+                                console.log("Licence CAR ")
+                                $('ul.car-licences').addClass('d-none')
+                                $('li.carlicence span.imgCheckbox0').removeClass('imgChked');
+                                $('li.bikelicence').removeClass('disabled');
+                            }
+                        }
+                        $('#toggle'+licence)[0].checked = false;
+                    }
+                    else{
+                        $('.licence-vehicle').addClass('d-none')
+                    }
+                    break;
+                case 'RN': 
+                    console.log("Tramit es RN")
+                    if (tramit_type1 == tramit && tramit_type2 == ""){
+                        clearLicences()
+                    }
+                    else{
+                        if (tramit_type1 == tramit){
+                            tramit_type1 = tramit_type2
+                            tramit_type2 = ""
+                        }
+                        else{
+                            tramit_type2 = ""
+                        }
+                    }
+                    if ((tramits['licence_1']['tramit'] == tramit && tramits['licence_2']['tramit'] == tramit) ||
+                        (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] == "")){
+                            console.log("solo RN")
+                            clearLicences()
+                    }
+                    else{
+                        console.log("Elseeee")
+                        if (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] != ""){
+                            licence = tramits['licence_1']['licence']
+                            tramits['licence_1'] = ""
+                            tramit_type1 = ""
+                            $('.licence-vehicle').toggleClass('d-none')
+                        }
+                        else {
+                            if (tramits['licence_1']['tramit'] == tramit){
+                                licence = tramits['licence_1']['licence']
+                                tramits['licence_1'] = tramits['licence_2']
+                                tramits['licence_2'] = ""
+                            }
+                            else {
+                                if (tramits['licence_2']['tramit'] == tramit){
+                                    licence = tramits['licence_2']['licence']
+                                    tramits['licence_2'] = ""
+                                }
+                            }
+                        }
+                        if (licence != ""){
+                            bike = jQuery.inArray( licence, ['A1', 'A2'] )
+                            car = jQuery.inArray( licence, ['B1', 'C1', 'C2', 'C3'] )
+                            if (bike != -1){
+                                console.log("Licence Bike ")
+                                $('ul.bike-licences').addClass('d-none')
+                                $('li.bikelicence span.imgCheckbox0').removeClass('imgChked');
+                                $('li.carlicence').removeClass('disabled');
+                            }
+                            else{
+                                if (car != -1){
+                                    console.log("Licence CAR ")
+                                    $('ul.car-licences').addClass('d-none')
+                                    $('li.carlicence span.imgCheckbox0').removeClass('imgChked');
+                                    $('li.bikelicence').removeClass('disabled');
+                                }
+                            }
+                            $('#toggle'+licence)[0].checked = false;
+                        }
+                    }
+                    break;
+                case 'RC': 
+                    console.log("Tramit es RC")
+                    $('.bikelicence').removeClass('disabled')
+                    $('.row-B1').removeClass('d-none')
+                    if (tramit_type1 == tramit && tramit_type2 == ""){
+                        clearLicences()
+                    }
+                    else{
+                        if (tramit_type1 == tramit){
+                            tramit_type1 = tramit_type2
+                            tramit_type2 = ""
+                        }
+                        else{
+                            tramit_type2 = ""
+                        }
+                    }
+                    if ((tramits['licence_1']['tramit'] == tramit && tramits['licence_2']['tramit'] == tramit) ||
+                        (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] == "")){
+                            console.log("solo RC")
+                            clearLicences()
+                    }
+                    else{
+                        console.log("Elseeee")
+                        if (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] != ""){
+                            licence = tramits['licence_1']['licence']
+                            tramits['licence_1'] = ""
+                            tramit_type1 = ""
+                            $('.licence-vehicle').toggleClass('d-none')
+                        }
+                        else {
+                            if (tramits['licence_1']['tramit'] == tramit){
+                                licence = tramits['licence_1']['licence']
+                                tramits['licence_1'] = tramits['licence_2']
+                                tramits['licence_2'] = ""
+                            }
+                            else {
+                                if (tramits['licence_2']['tramit'] == tramit){
+                                    licence = tramits['licence_2']['licence']
+                                    tramits['licence_2'] = ""
+                                }
+                            }
+                        }
+                        if (licence != ""){
+                            bike = jQuery.inArray( licence, ['A1', 'A2'] )
+                            car = jQuery.inArray( licence, ['B1', 'C1', 'C2', 'C3'] )
+                            if (bike != -1){
+                                console.log("Licence Bike ")
+                                $('ul.bike-licences').addClass('d-none')
+                                $('li.bikelicence span.imgCheckbox0').removeClass('imgChked');
+                                $('li.carlicence').removeClass('disabled');
+                            }
+                            else{
+                                if (car != -1){
+                                    console.log("Licence CAR ")
+                                    $('ul.car-licences').addClass('d-none')
+                                    $('li.carlicence span.imgCheckbox0').removeClass('imgChked');
+                                    $('li.bikelicence').removeClass('disabled');
+                                }
+                            }
+                            $('#toggle'+licence)[0].checked = false;
+                        }
+                    }
+                    break;
+                default:
+                    console.log('Default');
+            }
+            console.log("Tramits sale: ")
+            console.warn(tramits)
+        }
+
         $('select#cities-crc').on('change', function(){
             selected = $(this)
             loadCRCSectorSelect(selected.val())
@@ -935,6 +1178,9 @@
         var cea_price = ""
         var crc_price = ""
         var transit_price = ""
+        var tramits = {'licence_1':'', 'licence_2':''}
+        var tramit_type1 = ""
+        var tramit_type2 = ""
         
         function crc_filter(params){
             axios.get('/api/companies/crc', {
@@ -1304,38 +1550,146 @@
         })
 
         $('.male').on('click', function(e){
-            if ($('.female').hasClass('disabled'))
-            {
-                $('.female').removeClass('disabled')
+            if($(this).attr('selected')){
                 gender = ""
+                $(this).removeAttr('selected')
             }
-            else {
-                $('.female').addClass('disabled')
+            else{
+                if ($('.female').attr('selected')){
+                    $('.female span.imgCheckbox0').removeClass('imgChked');
+                    $('.female').removeAttr('selected')
+                }
+                $(this).attr('selected', true)
                 gender = 'M'
             }
         })
         $('.female').on('click', function(e){
-            if ($('.male').hasClass('disabled'))
-            {
-                $('.male').removeClass('disabled')
+            if($(this).attr('selected')){
                 gender = ""
+                $(this).removeAttr('selected')
             }
-            else {
-                $('.male').addClass('disabled')
+            else{
+                if ($('.male').attr('selected')){
+                    $('.male span.imgCheckbox0').removeClass('imgChked');
+                    $('.male').removeAttr('selected')
+                }
+                $(this).attr('selected', true)
                 gender = 'F'
             }
         })
         
-        
         $('#licence-1').on('click', function(ev){
-            $('.have-licences').toggleClass('d-none')
+            clearLicences()
+            if($(this).attr('selected')){
+                $(this).removeAttr('selected')
+                $('.have-licences').toggleClass('d-none')
+            }
+            else{
+                if ($('#licence-2').attr('selected')){
+                    $('li.no-licence span.imgCheckbox0').removeClass('imgChked');
+                    $('#licence-2').removeAttr('selected')
+                    $('.licence-vehicle').addClass('d-none')
+                    tramit_type1 = ""
+                }
+                $(this).attr('selected', true)
+                $('.have-licences').toggleClass('d-none')
+            }
         })
         $('#licence-2').on('click', function(ev){
-            $('.licence-vehicle').toggleClass('d-none')
+            clearLicences()
+            if($(this).attr('selected')){
+                $(this).removeAttr('selected')
+                tramit_type1 = ""
+            }
+            else{
+                if ($('#licence-1').attr('selected')){
+                    $('li.have-licence span.imgCheckbox0').removeClass('imgChked');
+                    $('#licence-1').removeAttr('selected')
+                }
+                $(this).attr('selected', true)
+                $('.have-licences').addClass('d-none')
+                $('.licence-vehicle').removeClass('d-none')
+                tramit_type1 = "FL"
+            }
         })
-        
-        
+
+        $('.have-licences input').on('click', function(ev){
+            if ($(this).is(':checked')){
+                if($(this).val() != 'SL' ){
+                    $('.row-C2').removeClass('d-none')
+                    $('.row-C3').removeClass('d-none')
+                }
+                if($(this).val() == 'RC' ){
+                    if (!($('bikelicence').hasClass('disabled'))){
+                        $('.bikelicence').addClass('disabled')
+                    }
+                    $('.row-B1').addClass('d-none')
+                    swal({
+                        title: 'Atención',
+                        type: 'info',
+                        html:
+                            'Solo puedes recategorizar licencias de carros, de la siguiente manera: ' +
+                            '<ul class="recat-info"> ' +
+                                '<li>De B1 a C1</li>'+
+                                '<li>De C1 a C2</li>'+
+                                '<li>De C2 a C3</li>'+
+                            '</ul>' +
+                            'Debes seleccionar la licencia a la cual quieres recategorizar',
+                        showCancelButton: false,
+                        confirmButtonText: 'Ok'
+                    })
+                }
+                
+                if (tramit_type1 == ""){
+                    tramit_type1 = $(this).val()
+                    $('.licence-vehicle').toggleClass('d-none')
+                }
+                else{
+                    if (jQuery.isEmptyObject(licences)){
+                        $(this)[0].checked = false;
+                        swal({
+                            title: 'Atención',
+                            text: 'Primero selecciona la licencia para tu primer categoría',
+                            type: 'error',
+                            showCancelButton: false,
+                            confirmButtonText: 'Ok'
+                        })
+                    }
+                    else{
+                        if ('bike' in licences){
+                            $('.bike-licences').toggleClass('d-none')
+                            $('.bikelicence').toggleClass('disabled')
+                            if ($('.carlicence').hasClass('disabled')){
+                                $('.carlicence').removeClass('disabled')
+                            }
+                        }
+                        else{
+                            $('.car-licences').toggleClass('d-none')
+                            $('.carlicence').toggleClass('disabled')
+                            if(!($(this).val() == 'RC' )){
+                                $('.bikelicence').toggleClass('disabled')
+                            }
+                        }
+                        tramit_type2 = $(this).val()
+                    }
+                    
+                }
+            }
+            else {
+                clearTramit($(this).val())
+            }
+        })
+
         $('#bike-licence').on('click', function(ev){
+            if(tramit_type1 == 'SL'){
+                if ($('.carlicence').hasClass('disabled'))
+                {
+                    $('.carlicence').removeClass('disabled')
+                }
+                else {
+                    $('.carlicence').addClass('disabled')
+                }
+            }
             $('.bike-licences').toggleClass('d-none')
             bike = !bike;
             if (!(bike)){
@@ -1345,6 +1699,9 @@
             }
         })
         $('#car-licence').on('click', function(ev){
+            if(tramit_type1 == 'SL'){
+                $('.bikelicence').toggleClass('disabled')
+            }
             $('.car-licences').toggleClass('d-none')
             car = !car;
             if (!(car)){
@@ -1353,73 +1710,215 @@
                 }
             }
         })
-        $('#no-runt').on('click', function(ev){
-            $('.runt-info').toggleClass('d-none')
-        })
-        $('.si-runt').on('click', function(e){
-            if ($('.no-runt').hasClass('disabled'))
-            {
-                $('.no-runt').removeClass('disabled')
-                runt = ""
+
+        function addTramit(licence){
+            if (tramit_type1 != '' && tramit_type2 == ''){
+                if (tramits['licence_1'] == ''){
+                    tramits['licence_1'] = {'tramit': tramit_type1, 'licence':licence}
+                }
+                else{
+                    tramits['licence_2'] = {'tramit': tramit_type1, 'licence':licence}
+                }
             }
-            else {
-                $('.no-runt').addClass('disabled')
+            else{
+                if (tramits['licence_1'] == ''){
+                    tramits['licence_1'] = {'tramit': tramit_type2, 'licence':licence}
+                }
+                else{
+                    tramits['licence_2'] = {'tramit': tramit_type2, 'licence':licence}
+                }
+            }
+            console.log(tramits)
+        }
+
+        function deleteTramit(licence){
+            if(tramits['licence_1']['licence'] == licence){
+                tramits['licence_1'] = tramits['licence_2']
+                tramits['licence_2'] = ''
+            }
+            if(tramits['licence_2']['licence'] == licence){
+                tramits['licence_2'] = ''
+            }
+            console.log(tramits)
+        }
+        
+        // MOTOS
+        $('#toggleA1').on('click', function(e){
+            if($(this).attr('selected')){
+                delete licences['bike']
+                deleteTramit($(this).data('name'))
+                $(this).removeAttr('selected')
+            }
+            else{
+                if ($('#toggleA2').attr('selected')){
+                    $('#toggleA2').removeAttr('selected')
+                    $('#toggleA2')[0].checked = false;
+                    deleteTramit($('#toggleA2').data('name'))
+                }
+                $(this).attr('selected', true)
+                licences['bike'] = $(this).data('name')
+                addTramit($(this).data('name'))
+            }
+        })
+        $('#toggleA2').on('click', function(e){
+            if($(this).attr('selected')){
+                delete licences['bike']
+                deleteTramit($(this).data('name'))
+                $(this).removeAttr('selected')
+            }
+            else{
+                if ($('#toggleA1').attr('selected')){
+                    $('#toggleA1').removeAttr('selected')
+                    $('#toggleA1')[0].checked = false;
+                    deleteTramit($('#toggleA1').data('name'))
+                }
+                $(this).attr('selected', true)
+                licences['bike'] = $(this).data('name')
+                addTramit($(this).data('name'))
+            }
+        })
+        // CARROS
+        $('#toggleB1').on('click', function(e){
+            if($(this).attr('selected')){
+                delete licences['car']
+                deleteTramit($(this).data('name'))
+                $(this).removeAttr('selected')
+            }
+            else{
+                if ($('#toggleC1').attr('selected')){
+                    $('#toggleC1').removeAttr('selected')
+                    $('#toggleC1')[0].checked = false;
+                    deleteTramit($('#toggleC1').data('name'))
+                }
+                if ($('#toggleC2').attr('selected')){
+                    $('#toggleC2').removeAttr('selected')
+                    $('#toggleC2')[0].checked = false;
+                    deleteTramit($('#toggleC2').data('name'))
+                }
+                if ($('#toggleC3').attr('selected')){
+                    $('#toggleC3').removeAttr('selected')
+                    $('#toggleC3')[0].checked = false;
+                    deleteTramit($('#toggleC3').data('name'))
+                }
+                $(this).attr('selected', true)
+                licences['car'] = $(this).data('name')
+                addTramit($(this).data('name'))
+            }
+        })
+        $('#toggleC1').on('click', function(e){
+            if($(this).attr('selected')){
+                delete licences['car']
+                deleteTramit($(this).data('name'))
+                $(this).removeAttr('selected')
+            }
+            else{
+                if ($('#toggleB1').attr('selected')){
+                    $('#toggleB1').removeAttr('selected')
+                    $('#toggleB1')[0].checked = false;
+                    deleteTramit($('#toggleB1').data('name'))
+                }
+                if ($('#toggleC2').attr('selected')){
+                    $('#toggleC2').removeAttr('selected')
+                    $('#toggleC2')[0].checked = false;
+                    deleteTramit($('#toggleC2').data('name'))
+                }
+                if ($('#toggleC3').attr('selected')){
+                    $('#toggleC3').removeAttr('selected')
+                    $('#toggleC3')[0].checked = false;
+                    deleteTramit($('#toggleC3').data('name'))
+                }
+                $(this).attr('selected', true)
+                licences['car'] = $(this).data('name')
+                addTramit($(this).data('name'))
+            }
+        })
+        $('#toggleC2').on('click', function(e){
+            if($(this).attr('selected')){
+                delete licences['car']
+                deleteTramit($(this).data('name'))
+                $(this).removeAttr('selected')
+            }
+            else{
+                if ($('#toggleB1').attr('selected')){
+                    $('#toggleB1').removeAttr('selected')
+                    $('#toggleB1')[0].checked = false;
+                    deleteTramit($('#toggleB1').data('name'))
+                }
+                if ($('#toggleC1').attr('selected')){
+                    $('#toggleC1').removeAttr('selected')
+                    $('#toggleC1')[0].checked = false;
+                    deleteTramit($('#toggleC1').data('name'))
+                }
+                if ($('#toggleC3').attr('selected')){
+                    $('#toggleC3').removeAttr('selected')
+                    $('#toggleC3')[0].checked = false;
+                    deleteTramit($('#toggleC3').data('name'))
+                }
+                $(this).attr('selected', true)
+                licences['car'] = $(this).data('name')
+                addTramit($(this).data('name'))
+            }
+        })
+        $('#toggleC3').on('click', function(e){
+            if($(this).attr('selected')){
+                delete licences['car']
+                deleteTramit($(this).data('name'))
+                $(this).removeAttr('selected')
+            }
+            else{
+                if ($('#toggleB1').attr('selected')){
+                    $('#toggleB1').removeAttr('selected')
+                    $('#toggleB1')[0].checked = false;
+                    deleteTramit($('#toggleB1').data('name'))
+                }
+                if ($('#toggleC1').attr('selected')){
+                    $('#toggleC1').removeAttr('selected')
+                    $('#toggleC1')[0].checked = false;
+                    deleteTramit($('#toggleC1').data('name'))
+                }
+                if ($('#toggleC2').attr('selected')){
+                    $('#toggleC2').removeAttr('selected')
+                    $('#toggleC2')[0].checked = false;
+                    deleteTramit($('#toggleC2').data('name'))
+                }
+                $(this).attr('selected', true)
+                licences['car'] = $(this).data('name')
+                addTramit($(this).data('name'))
+            }
+        })
+
+        $('.si-runt').on('click', function(e){
+            if($(this).attr('selected')){
+                runt = ""
+                $(this).removeAttr('selected')
+            }
+            else{
+                if ($('.no-runt').attr('selected')){
+                    $('.no-runt span.imgCheckbox0').removeClass('imgChked');
+                    $('.no-runt').removeAttr('selected')
+                    $('.runt-info').addClass('d-none')
+                }
+                $(this).attr('selected', true)
                 runt = 'si'
             }
         })
         $('.no-runt').on('click', function(e){
-            if ($('.si-runt').hasClass('disabled'))
-            {
-                $('.si-runt').removeClass('disabled')
+            if($(this).attr('selected')){
                 runt = ""
+                $(this).removeAttr('selected')
+                $('.runt-info').addClass('d-none')
             }
-            else {
-                $('.si-runt').addClass('disabled')
+            else{
+                if ($('.si-runt').attr('selected')){
+                    $('.si-runt span.imgCheckbox0').removeClass('imgChked');
+                    $('.si-runt').removeAttr('selected')
+                }
+                $(this).attr('selected', true)
+                $('.runt-info').removeClass('d-none')
                 runt = 'no'
             }
         })
 
-        $('#toggleA1').on('click', function(e){
-            if ($('#toggleA2').attr('disabled')){
-                $('#toggleA2').removeAttr('disabled')
-                delete licences['bike']
-            }
-            else {
-                $('#toggleA2').attr('disabled', true)
-                licences['bike'] = $(this).data('name')
-            }
-        })
-        $('#toggleA2').on('click', function(e){
-            if ($('#toggleA1').attr('disabled')){
-                $('#toggleA1').removeAttr('disabled')
-                delete licences['bike']
-            }
-            else {
-                $('#toggleA1').attr('disabled', true)
-                licences['bike'] = $(this).data('name')
-            }
-        })
-        $('#toggleB1').on('click', function(e){
-            if ($('#toggleC1').attr('disabled')){
-                $('#toggleC1').removeAttr('disabled')
-                delete licences['car']
-            }
-            else {
-                $('#toggleC1').attr('disabled', true)
-                licences['car'] = $(this).data('name')
-            }
-        })
-        $('#toggleC1').on('click', function(e){
-            if ($('#toggleB1').attr('disabled')){
-                $('#toggleB1').removeAttr('disabled')
-                delete licences['car']
-            }
-            else {
-                $('#toggleB1').attr('disabled', true)
-                licences['car'] = $(this).data('name')
-            }
-        })
-        
         $('select#states').on('change', function(){
             selected = $(this)
             loadCitiesSelect(selected.val())
@@ -1534,11 +2033,11 @@
             if($('#pass1').val() == ""){
                 submit = false
                 swal({
-				title: 'Atención',
-				text: 'Ingresa tu contraseña',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
+                    title: 'Atención',
+                    text: 'Ingresa tu contraseña',
+                    type: 'error',
+                    showCancelButton: false,
+                    confirmButtonText: 'Ok'
                 })
             }
             if($('#email').val() == ""){
@@ -1631,7 +2130,8 @@
                     "runt":runt,
                     "cea_price":cea_price,
                     "crc_price": crc_price,
-                    "transit_price": transit_pricew,
+                    "transit_price": transit_price,
+                    "tramits": tramits
                 }
                 axios.post('/api/request/', request)
                 .then(function (response) {

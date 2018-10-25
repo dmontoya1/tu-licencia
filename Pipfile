@@ -36,8 +36,10 @@ Django = "==2.1.1"
 MarkupSafe = "==1.0"
 Pillow = "==5.2.0"
 pipenv = "*"
+django-debug-toolbar = "*"
 
 [dev-packages]
+pylint = "<2.0.0"
 
 [requires]
 python_version = "3.7"

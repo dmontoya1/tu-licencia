@@ -128,11 +128,6 @@ class Request(models.Model):
         choices=PAYMENTS,
         max_length=2,
     )
-    licences = models.ManyToManyField(
-        Licence,
-        verbose_name="Licencias solicitadas",
-        related_name="related_licences",
-    )
     request_status = models.CharField(
         "Estado de la reserva",
         choices=REQUEST_STATUS,
@@ -183,7 +178,7 @@ class Request(models.Model):
 
     def __str__(self):
         if self.user:
-            return "Solicitud del usuario %s con documento %s" % (self.user, self.user.document_id)
+            return "Solicitud del usuario %s" % (self.user)
         return " Solicitud %s " % (self.pk)
 
     
@@ -272,7 +267,6 @@ class RequestTramit(models.Model):
     
     class Meta:
         verbose_name = 'Tramite'
-
 
 
 class LogRequestStatus(models.Model):

@@ -12,7 +12,7 @@ from companies.models import Cea, Crc, TransitDepartment
 from licences.models import Licence
 from manager.models import State, City
 from users.models import User
-from .models import Request
+from .models import Request, RequestTramit
 from .serializers import RequestSerializer
 
 
@@ -29,6 +29,7 @@ class RequestCreate(APIView):
             crc_price = request.data['crc_price']
             cea_price = request.data['cea_price']
             transit_price = request.data['transit_price']
+            tramits = request.data['tramits']
 
             city = City.objects.get(pk=user_data['city'])
             state = city.state
@@ -72,12 +73,24 @@ class RequestCreate(APIView):
                 total_price=total_price
             )
             request_obj.save()
-
-            for i in range(0, len(request.data['licences'])):
-                licence = Licence.objects.get(category=request.data['licences'][i])
-                request_obj.licences.add(licence)
             
-            request_obj.save()
+            licence1 = tramits['licence_1']
+            licence2 = tramits['licence_2']
+
+            tramit1 = RequestTramit(
+                request=request_obj,
+                tramit_type=licence1['tramit'],
+                licence=Licence.objects.get(category=licence1['licence'])
+            )
+            tramit1.save()
+            if (licence2 != ''):
+                tramit2 = RequestTramit(
+                    request=request_obj,
+                    tramit_type=licence2['tramit'],
+                    licence=Licence.objects.get(category=licence2['licence'])
+                )
+                tramit2.save()
+
             message = 'Se ha creado la solicitud con éxito'
             response = {'detail': message, 'request': request_obj.pk}
             status_e = status.HTTP_201_CREATED

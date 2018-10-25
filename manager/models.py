@@ -36,9 +36,6 @@ class State(SoftDeletionModelMixin):
 
         self.deleted_at = None
         self.save()
-        for city in self.related_cities.all():
-            city.deleted_at = None
-            city.save()
 
 
     class Meta:
