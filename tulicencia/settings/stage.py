@@ -14,6 +14,11 @@ DATABASES = {
 STATIC_ROOT = '/var/www/tulicencia/static/'
 MEDIA_ROOT = '/var/www/tulicencia/media/'
 
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_DIR, 'static'),
+]
+
+
 
 MEDIA_ROOT = 'media'
 
