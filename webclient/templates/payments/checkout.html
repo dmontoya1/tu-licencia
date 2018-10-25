@@ -1,0 +1,233 @@
+{% extends 'webclient/base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+<div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 form-box">
+
+    
+    <form class="bg0 p-t-75 p-b-85 shoping-cart-form" method="POST">
+        <div class="container">
+            <div class="row">
+                <span class="request-title">Resumen de tu solicitud</span>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
+                    <div class="wrap-table-shopping-cart">
+                        <table class="table-shopping-cart">
+                            <tr class="table_head">
+                                <th class="column-1">
+                                    <span class="request">
+                                        Solicitud
+                                    </span>
+                                </th>
+                                <th class="column-2">Detalle</th>
+                                <th class="column-3">Precio</th>
+                            </tr>
+
+                            <tr class="table_row">
+                                <td class="column-1">
+                                    <div class="how-itemcart1">
+                                        <a href="#" data-id="item.pk">
+                                            <img class="item-img" src="{% static 'images/2.png' %}" alt="IMG">
+                                        </a>
+                                        <span>CEA</span>
+                                    </div>
+                                </td>
+                                <td class="column-2">Academia Colombiana de Automovilismo</td>
+                                <td class="column-3">
+                                    <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                        $ 750.000
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="table_row">
+                                <td class="column-1">
+                                    <div class="how-itemcart1">
+                                        <a href="#" data-id="item.pk">
+                                            <img class="item-img" src="{% static 'images/4.png' %}" alt="IMG">
+                                        </a>
+                                        <span>CRC</span>
+                                    </div>
+                                </td>
+                                <td class="column-2">Academia Colombiana de Automovilismo</td>
+                                <td class="column-3">
+                                    <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                        $ 750.000
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="table_row">
+                                <td class="column-1">
+                                    <div class="how-itemcart1">
+                                        <a href="#" data-id="item.pk">
+                                            <img class="item-img" src="{% static 'images/3.png' %}" alt="IMG">
+                                        </a>
+                                        <span>Organismo de transporte</span>
+                                    </div>
+                                </td>
+                                <td class="column-2">Academia Colombiana de Automovilismo</td>
+                                <td class="column-3">
+                                    <div class="wrap-num-product flex-w m-l-auto m-r-0">
+                                        $ 750.000
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+    
+                </div>
+    
+                <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
+                    <div class="bor10 p-l-20 p-t-30 p-b-40 ">
+                        <h4 class="mtext-109 cl2 p-b-30">
+                            Total en tu carrito
+                        </h4>
+    
+                        <div class="flex-w flex-t bor12 p-b-13">
+                            <div class="size-208">
+                                <span class="stext-110 cl2">
+                                    Subtotal:
+                                </span>
+                            </div>
+    
+                            <div class="size-209">
+                                <span class="mtext-110 cl2">
+                                    ${{order.get_total_price|intcomma}}
+                                </span>
+                            </div>
+                        </div>
+    
+                        <div class="flex-w flex-t bor12 p-t-15 p-b-30">
+                            <div class="size-208 w-full-ssm">
+                                <span class="stext-110 cl2">
+                                    Envío:
+                                </span>
+                            </div>
+    
+                            <div class="p-r-18 p-r-0-sm w-full-ssm" style="width: 100%">
+                                
+                                <div class="p-t-15">
+                                    <div class="bor8 bg0 m-b-12">
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="Departamento/Estado" required>
+                                    </div>
+    
+                                    <div class="bor8 bg0 m-b-22">
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="city" placeholder="Ciudad/Municipio" required>
+                                    </div>
+    
+                                    <div class="bor8 bg0 m-b-22">
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="tel" name="telephone" placeholder="Teléfono" required>
+                                    </div>
+    
+                                    <div class="bor8 bg0 m-b-22">
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="email" name="email" placeholder="Correo electrónico" required>
+                                    </div>
+    
+                                    <div class="bor8 bg0 m-b-22">
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="address" placeholder="Dirección" required>
+                                    </div>
+                                    <input type="hidden" name="order" value="{{order.pk}}">
+                                        
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div class="flex-w flex-t p-t-27 p-b-33">
+                            <div class="size-208">
+                                <span class="mtext-101 cl2">
+                                    Total:
+                                </span>
+                            </div>
+    
+                            <div class="size-209 p-t-1">
+                                <span class="mtext-110 cl2">
+                                    ${{order.get_total_price|intcomma}}
+                                </span>
+                            </div>
+                        </div>
+    
+                        <button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                            Enviar solicitud de compra
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+
+
+{% endblock %}
+
+{% block extra_js %}
+
+	<script>
+		$('.shoping-cart-form').on('submit', function(ev){
+			ev.preventDefault()
+			data = $(this).serialize(),
+			axios.post('{% url "payments:checkout" %}', data)
+			.then(function (response) {
+				console.log(response);
+				swal({
+					title: "Felicitaciones",
+					text: response.data.detail,
+					icon: "success",
+				})
+				.then((willDelete) =>{
+					location.replace('{% url "webclient:stepper" %}')
+				})
+			})
+			.catch(function (error) {
+				console.log(error);
+				swal("Ha ocurrido un error", {
+					icon: "error",
+				});
+			});
+			
+			
+		})
+
+		$('.item-img').on('click', function(ev){
+			ev.preventDefault()
+			id = $(this).data('id')
+			swal({
+				title: "Esta seguro?",
+				text: "Seguro quieres eliminar este producto del carrito de compras?",
+				icon: "warning",
+				buttons: ["Cancelar", "Eliminar"],
+				dangerMode: true,
+			})
+			.then((willDelete) => {
+				if (willDelete) {
+					url = "/api/order/item/"+id+"/"
+					$.ajax({
+						url: url,
+						method: "DELETE"
+					})
+					.done(function(data) {
+						swal("Tu producto se ha eliminado del carrito de compras", {
+							icon: "success",
+						})
+						.then((willDelete) =>{
+							location.reload()
+						})
+					})
+					.fail(function(error){
+						swal("Ha ocurrido un error", {
+							icon: "error",
+						});
+					});
+				} else {
+					swal("Tu producto sigue en el carrito de compras");
+				}
+			});
+			
+		})
+	</script>
+
+{% endblock %}
