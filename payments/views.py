@@ -2,17 +2,20 @@
 from __future__ import unicode_literals
 
 import hashlib
+import json
 import time
 
 from datetime import datetime
 
 from rest_framework import generics, status
+from rest_framework.authtoken.models import Token
+from rest_framework.views import APIView
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.sites.models import Site
-from django.http import HttpResponse, HttpResponseNotAllowed
+from django.http import HttpResponse, HttpResponseNotAllowed, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.decorators import method_decorator
@@ -20,123 +23,137 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView, View, ListView
 
-# from users.models import Staff
 
-# from .models import Subscription, Invoice
-# from .serializers import SubscriptionSerializer
-
-
-# class Payments(LoginRequiredMixin, TemplateView):
-#     """Vista para seleccionar el plan y la moneda que se va a comprar
-#     """
-
-#     template_name = 'payments/payment.html'
-
-#     def get_context_data(self, **kwargs):
-#         context = super(Payments, self).get_context_data(**kwargs)
-#         plans = Subscription.objects.all()
-#         context['plans'] = plans
-#         return context
+from companies.models import Cea, Crc, TransitDepartment
+from licences.models import Licence
+from manager.models import State, City
+from request.models import Request, RequestTramit
+from users.models import User
 
 
 class Checkout(TemplateView):
     """Vista para ver el formulario de seleccionar plan y moneda
     que se va a comprar
     """
-    template_name = 'payments/checkout.html'
 
-    def post(self, request, *args, **kwargs):
-
-        tax = 0
-        taxReturnBase = 0
-        description = "Compra realizada desde Clinket"
+    @csrf_exempt
+    def post(self, request):
+        print (request.body)
+        body_unicode = request.body.decode('utf-8')
+        body = json.loads(body_unicode)
+        p_tax = 0
+        p_description = "Compra realizada desde TuLicencia"
 
         if settings.DEBUG:
-            test = 1
-            accountId = 512321
-            apiKey = '4Vj8eK4rloUd272L48hsrarnUA'
-            merchantId = 508029
-            url = "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu"
-            host = 'http://clinket.apptitud.com.co'
+            p_test_request = True
+            p_cust_id_cliente='24075'
+            p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
+            host = 'http://tulicencia.apptitud.com.co'
         else:
-            test = 0
-            accountId = 730741
-            apiKey = 'IXltfYxCYPA2efIuyqj3L8k3uG'
-            merchantId = 725814
-            url = "https://checkout.payulatam.com/ppp-web-gateway-payu"
-            host = 'http://clinket.com'
-
+            p_test_request = False
+            p_cust_id_cliente='24075'
+            p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
+            host = 'http://tulicencia.co'
 
         try:
-            suscription = Subscription.objects.get(pk=request.POST['plan_id'])
+            user_data = body['user']
+            cea = Cea.objects.get(pk=body['cea'])
+            crc = Crc.objects.get(pk=body['crc'])
+            transit = TransitDepartment.objects.get(pk=body['transit'])
+            crc_price = body['crc_price']
+            cea_price = body['cea_price']
+            transit_price = body['transit_price']
+            tramits = body['tramits']
+
+            city = City.objects.get(pk=user_data['city'])
+            state = city.state
+            try:
+                user = User.objects.get(username=user_data['document_id'])
+            except User.DoesNotExist:
+                birth_date = datetime.strptime(user_data['birth_date'], '%m-%d-%Y')
+                user = get_user_model()
+                user = user()
+                user.username = user_data['document_id']
+                user.email = user_data['email']
+                user.set_password(user_data['password'])
+                user.first_name = user_data['first_name']
+                user.last_name = user_data['last_name']
+                user.cellphone = user_data['cellphone']
+                user.user_type = User.CLIENTE
+                user.document_type = user_data['document_type']
+                user.document_id = user_data['document_id']
+                user.state = state
+                user.city = city
+                user.gender = user_data['gender']
+                user.birth_date = birth_date
+                user.backend = 'django.contrib.auth.backends.ModelBackend'
+                user.save()
+                Token.objects.create(user=user)
+
+            if (body['runt'] == 'si'):
+                runt = True
+            else:
+                runt = False
+            
+            total_price = int(crc_price) + int(cea_price) + int(transit_price)
+
+            request_obj = Request(
+                user=user,
+                cea=cea,
+                crc=crc,
+                transit=transit,
+                payment_type = body['payment_type'],
+                has_runt=runt,
+                total_price=total_price
+            )
+            request_obj.save()
+            
+            licence1 = tramits['licence_1']
+            licence2 = tramits['licence_2']
+
+            tramit1 = RequestTramit(
+                request=request_obj,
+                tramit_type=licence1['tramit'],
+                licence=Licence.objects.get(category=licence1['licence'])
+            )
+            tramit1.save()
+            if (licence2 != ''):
+                tramit2 = RequestTramit(
+                    request=request_obj,
+                    tramit_type=licence2['tramit'],
+                    licence=Licence.objects.get(category=licence2['licence'])
+                )
+                tramit2.save()
         except Exception as e:
+            print ("Expeption")
             print (e)
-        
-        recurrency = request.POST['recurrency']
 
-        if recurrency == 'month':
-            try:
-                currency = request.POST['cop_month_'+str(request.POST['plan_id'])]
-            except MultiValueDictKeyError:
-                currency = request.POST['usd_month_'+str(request.POST['plan_id'])]
-            
-            if currency == 'COP':
-                amount = suscription.cop_mo_price
-            else:
-                amount = suscription.usd_mo_price
-        else:
-            try:
-                currency = request.POST['cop_year_'+str(request.POST['plan_id'])]
-            except MultiValueDictKeyError:
-                currency = request.POST['usd_year_'+str(request.POST['plan_id'])]
-            
-            if currency == 'COP':
-                amount = suscription.cop_ye_price
-            else:
-                amount = suscription.usd_ye_price
-
-
-        
-        if suscription.staff_limit == 0:
-            staff = _("Ilimitado")
-        else:
-            staff = suscription.staff_limit
-        
-        if suscription.appointments_limit == 0:
-            appointments = _("Ilimitado")
-        else:
-            appointments = suscription.appointments_limit
-        
-
-        amount = int(amount)
-        referenceCode = 'RE_{}_{}'.format(request.user.staff_profile.pk, int(time.mktime(datetime.now().timetuple())))
-        responseUrl = '{}/es/payments/confirmation/'.format(host)
-        confirmationUrl = '{}/es/payments/confirmation/'.format(host)
-        signature = '{}~{}~{}~{}~{}'.format(apiKey, merchantId,\
-                    referenceCode, amount, currency)
-        signature = hashlib.md5(signature).hexdigest()
+        p_currency_code = 'COP'
+        p_amount = total_price
+        p_amount_base = 0
+        p_id_invoice = 'SO_{}_{}_{}'.format(request_obj.user.pk, request_obj.pk, int(time.mktime(datetime.now().timetuple())))
+        p_url_response = '{}/payments/confirmation/'.format(host)
+        p_url_confirmation = '{}/payments/confirmation/'.format(host)
+        p_confirm_method = 'POST'
+        p_signature = '{}^{}^{}^{}^{}'.format(p_cust_id_cliente, p_key, p_id_invoice, p_amount, p_currency_code)
+        p_signature = hashlib.md5(p_signature.encode('utf-8')).hexdigest()
 
         ctx = {
-            'name': suscription.name,
-            'recurrency': recurrency,
-            'appointments': appointments,
-            'staff': staff,
-            'report': suscription.has_enabled_reports,
-            'customers_bd': suscription.has_customers_bd,
-            'merchantId' : merchantId,
-            'description': description,
-            'referenceCode': referenceCode,
-            'amount' : amount,
-            'tax' : tax,
-            'taxReturnBase': taxReturnBase,
-            'currency' : currency,
-            'signature' : signature,
-            'test' : test,
-            'buyerEmail' : request.user.username,
-            'responseUrl' : responseUrl,
-            'accountId' : accountId,
-            'confirmationUrl' : confirmationUrl,
-            'url' : url,
+            'request_obj': request_obj,
+            'p_description': p_description,
+            'p_cust_id_cliente' : p_cust_id_cliente,
+            'p_key' : p_key,
+            'p_id_invoice': p_id_invoice,
+            'p_amount' : p_amount,
+            'p_tax' : p_tax,
+            'p_amount_base' : p_amount_base,
+            'p_email': request_obj.user.email,
+            'p_currency_code' : p_currency_code,
+            'p_signature' : p_signature,
+            'p_test_request' : p_test_request,
+            'p_url_response' : p_url_response,
+            'p_url_confirmation' : p_url_confirmation,
+            'p_confirm_method': p_confirm_method,
         }
 
         return render(
@@ -145,8 +162,13 @@ class Checkout(TemplateView):
             ctx
         )
 
-    @classmethod
-    @method_decorator(csrf_exempt)
+# class Checkout(TemplateView):
+#     """
+#     """
+
+#     template_name = 'payments/checkout.html'
+
+    @csrf_exempt
     def confirmation(self, request):
         if settings.DEBUG:
             apiKey = '4Vj8eK4rloUd272L48hsrarnUA'

@@ -120,7 +120,7 @@ class RequestAdmin(admin.ModelAdmin):
     inlines = [RequestTramitAdmin, LogRequestStatusAdmin, LogDocsStatusAdmin, ]
 
     def has_delete_permission(self, request, ob=None):
-        return False
+        return True
     
     def changelist_view(self, request, extra_context=None):
         """

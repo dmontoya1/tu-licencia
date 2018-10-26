@@ -5,13 +5,13 @@
 
 {% block content %}
 
-<div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 form-box">
-
-    
-    <form class="bg0 p-t-75 p-b-85 shoping-cart-form" method="POST">
+<div class="col-10 form-box">
+    <form class="bg0 p-t-75 p-b-85 shoping-cart-form" id="frm_botonePayco" name="frm_botonePayco" method="post" action="https://secure.payco.co/splitpayments.php">
         <div class="container">
             <div class="row">
-                <span class="request-title">Resumen de tu solicitud</span>
+                <div class="col-12">
+                    <span class="request-title">Resumen de tu solicitud</span>
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -111,23 +111,23 @@
                                 
                                 <div class="p-t-15">
                                     <div class="bor8 bg0 m-b-12">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="Departamento/Estado" required>
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="Departamento/Estado">
                                     </div>
     
                                     <div class="bor8 bg0 m-b-22">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="city" placeholder="Ciudad/Municipio" required>
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="city" placeholder="Ciudad/Municipio">
                                     </div>
     
                                     <div class="bor8 bg0 m-b-22">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="tel" name="telephone" placeholder="Teléfono" required>
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="tel" name="telephone" placeholder="Teléfono">
                                     </div>
     
                                     <div class="bor8 bg0 m-b-22">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="email" name="email" placeholder="Correo electrónico" required>
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="email" name="email" placeholder="Correo electrónico">
                                     </div>
     
                                     <div class="bor8 bg0 m-b-22">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="address" placeholder="Dirección" required>
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="address" placeholder="Dirección">
                                     </div>
                                     <input type="hidden" name="order" value="{{order.pk}}">
                                         
@@ -148,10 +148,30 @@
                                 </span>
                             </div>
                         </div>
-    
-                        <button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                            Enviar solicitud de compra
-                        </button>
+
+                         
+                        <input name="p_cust_id_cliente" type="hidden" value="{{p_cust_id_cliente}}"> 
+                        <input name="p_key" type="hidden" value="{{p_key}}"> 
+                        <input name="p_id_invoice" type="hidden" value="{{p_id_invoice}}"> 
+                        <input name="p_description" type="hidden" value="{{p_description}}">
+                        <input name="p_currency_code" type="hidden" value="{{p_currency_code}}"> 
+                        <input name="p_amount" id="p_amount" type="hidden" value="{{p_amount}}">
+                        <input name="p_tax" id="p_tax" type="hidden" value="{{p_tax}}"> 
+                        <input name="p_amount_base" id="p_amount_base" type="hidden" value="{{p_amount_base}}"> 
+                        <input name="p_test_request" type="hidden" value="{{p_test_request}}"> 
+                        <input name="p_url_response" type="hidden" value="{{p_url_response}}"> 
+                        <input name="p_url_confirmation" type="hidden" value="{{p_url_confirmation}}"> 
+                        <input name="p_confirm_method" type="hidden" value="{{p_confirm_method}}"> 
+                        <input name="p_signature" type="hidden" id="signature" value="{{p_signature}}"> 
+                        <input name="p_split_type" type="hidden" value="{{p_split_type}}"> 
+                        <input name="p_split_merchant_receiver" type="hidden" value="9695"> 
+                        <input name="p_split_primary_receiver" type="hidden" value="9695">
+                        <input name="p_split_primary_receiver_fee" type="hidden" value="5"> 
+                        <input name="p_split_receivers[0][id]" type="hidden" value="9695">
+                        <input name="p_split_receivers[0][fee]" type="hidden" value="2"> 
+                        <input name="p_signature_split" type="hidden" value="c0a4268c7bc06067d9d55bc5dc4f2aff"> 
+                        <input type="image" id="imagen" 
+                        src="https://369969691f476073508a-60bf0867add971908d4f26a64519c2aa.ssl.cf5.rackcdn.com/btns/btn1.png"> 
                     </div>
                 </div>
             </div>
@@ -161,37 +181,11 @@
 </div>
 
 
-
 {% endblock %}
 
 {% block extra_js %}
 
 	<script>
-		$('.shoping-cart-form').on('submit', function(ev){
-			ev.preventDefault()
-			data = $(this).serialize(),
-			axios.post('{% url "payments:checkout" %}', data)
-			.then(function (response) {
-				console.log(response);
-				swal({
-					title: "Felicitaciones",
-					text: response.data.detail,
-					icon: "success",
-				})
-				.then((willDelete) =>{
-					location.replace('{% url "webclient:stepper" %}')
-				})
-			})
-			.catch(function (error) {
-				console.log(error);
-				swal("Ha ocurrido un error", {
-					icon: "error",
-				});
-			});
-			
-			
-		})
-
 		$('.item-img').on('click', function(ev){
 			ev.preventDefault()
 			id = $(this).data('id')

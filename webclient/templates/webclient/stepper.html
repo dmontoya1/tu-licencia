@@ -7,7 +7,7 @@
 
 {% block content %}
 
-    <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 form-box">
+    <div class="col-10 form-box">
         <!-- <div class="wrap-icon-header flex-w flex-r-m m-r-15">
             <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" >
                 <img src="{% static 'images/cart.png' %}" alt="cart" >
@@ -757,15 +757,15 @@
                             <span>Como vas a pagar tu Licencia?</span>
                         </div>
                         <ul class="gender-choice">
-                            <li>
+                            <li class="online">
                                 <label for="cb1">
-                                    <img class="img-check" src="{% static 'images/NO.png' %}" /><br>
+                                    <img class="img-check" data-value="CO" name="online" src="{% static 'images/NO.png' %}" /><br>
                                     <p class="img-text">Pago online</p>
                                 </label>
                             </li>
-                            <li>
+                            <li class="credit">
                                 <label for="cb2">
-                                    <img class="img-check" src="{% static 'images/SI.png' %}" /><br>
+                                    <img class="img-check" data-value="CR" name="credit" src="{% static 'images/SI.png' %}" /><br>
                                     <p class="img-text">Sistecrédito</p>
                                 </label>
                             </li>
@@ -1175,6 +1175,7 @@
         var tramits = {'licence_1':'', 'licence_2':''}
         var tramit_type1 = ""
         var tramit_type2 = ""
+        var payment_type = ""
         
         function crc_filter(params){
             axios.get('/api/companies/crc', {
@@ -2010,10 +2011,48 @@
             }
         }) 
         
+        $('.online').on('click', function(e){
+            if($(this).attr('selected')){
+                payment_type = ""
+                $(this).removeAttr('selected')
+            }
+            else{
+                if ($('.credit').attr('selected')){
+                    $('.credit span.imgCheckbox0').removeClass('imgChked');
+                    $('.credit').removeAttr('selected')
+                }
+                $(this).attr('selected', true)
+                payment_type = 'CO'
+            }
+        })
+        $('.credit').on('click', function(e){
+            if($(this).attr('selected')){
+                payment_type = ""
+                $(this).removeAttr('selected')
+            }
+            else{
+                if ($('.online').attr('selected')){
+                    $('.online span.imgCheckbox0').removeClass('imgChked');
+                    $('.online').removeAttr('selected')
+                }
+                $(this).attr('selected', true)
+                payment_type = 'CR'
+            }
+        })
+        
         $('button#form-submit').on('click', function(e){
             e.preventDefault();
             submit = true
-            
+            if(payment_type == ""){
+                submit = false
+                swal({
+				title: 'Atención',
+				text: 'Selecciona tu medio de pago',
+				type: 'error',
+				showCancelButton: false,
+				confirmButtonText: 'Ok'
+                })
+            }
             if($('#pass1').val() != $('#pass2').val()){
                 submit = false
                 swal({
@@ -2084,7 +2123,7 @@
 				confirmButtonText: 'Ok'
                 })
             }
-            if($('#doc_type').val() == ""){
+            if($('#doc_type :selected').val().trim() === ""){
                 submit = false
                 swal({
 				title: 'Atención',
@@ -2094,6 +2133,7 @@
 				confirmButtonText: 'Ok'
                 })
             }
+            
             
             if (submit){
                 var lic = []
@@ -2106,7 +2146,7 @@
                     "email": $('#email').val(),
                     "password": $('#pass1').val(),
                     "gender": gender,
-                    "document_type": 'CC',
+                    "document_type": $('#doc_type :selected').val(),
                     "document_id": $('#doc_id').val(),
                     "cellphone": $('#phone_number').val(),
                     "city": $('#cities').val(),
@@ -2114,12 +2154,12 @@
                     "birth_date": birth_date
                 },
 
-                request = {
+                form_data = {
                     "user": user,
                     "cea": cea,
                     "crc": crc,
                     "transit": transit,
-                    "payment_type": "CO",
+                    'payment_type': payment_type,
                     "licences": lic,
                     "runt":runt,
                     "cea_price":cea_price,
@@ -2127,25 +2167,55 @@
                     "transit_price": transit_price,
                     "tramits": tramits
                 }
-                axios.post('/api/request/', request)
-                .then(function (response) {
-                    data = response.data;
-                    swal({
-                        title: 'Felicitaciones!',
-                        text: 'Tu solicitud se ha creado exitosamente. Mira tu baucher para ver los pasos que debes seguir',
-                        type: 'success',
-                        showCancelButton: false,
-                        confirmButtonText: 'Ver Baucher'
-                    }).then((result) => {
-                        if (result.value) {
-                            window.location.replace(`/baucher/${data.request}/request`);
-                        }
+                if (payment_type == "CR"){
+                    axios.post('/api/request/', form_data)
+                    .then(function (response) {
+                        data = response.data;
+                        swal({
+                            title: 'Felicitaciones!',
+                            text: 'Tu solicitud se ha creado exitosamente. Dirigete al punto de TuLicencia mas cercano para validar tu solicitud de crédito',
+                            type: 'success',
+                            showCancelButton: false,
+                            confirmButtonText: 'Ver Baucher'
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location.replace(`/baucher/${data.request}/request`);
+                            }
+                        })
                     })
-                })
-                .catch(function (error) {
-                    console.log("Error")
-                    console.log(error);
-                })
+                    .catch(function (error) {
+                        console.log("Error")
+                        console.log(error);
+                    })
+                }
+                else{
+                    function getCookie(name) {
+                        var cookieValue = null;
+                        if (document.cookie && document.cookie !== '') {
+                            var cookies = document.cookie.split(';');
+                            for (var i = 0; i < cookies.length; i++) {
+                                var cookie = jQuery.trim(cookies[i]);
+                                // Does this cookie string begin with the name we want?
+                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                    break;
+                                }
+                            }
+                        }
+                        return cookieValue;
+                    }
+                    var csrftoken = getCookie('csrftoken');
+                    axios.defaults.headers.common['X-CSRFToken'] = csrftoken
+                    axios.post('/payments/checkout/', form_data)
+                    .then(function (response) {
+                        data = response.data;
+                        console.log(data)
+                    })
+                    .catch(function (error) {
+                        console.log("Error")
+                        console.log(error);
+                    })
+                }
 
             }
             

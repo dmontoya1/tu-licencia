@@ -1,12 +1,4 @@
 
-@font-face {
-	font-family: 'Ebrima';
-	src: url('/static/assets/fonts/Ebrima.eot'); /* IE9 Compat Modes */
-	src: url('/static/assets/fonts/Ebrima.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-		 url('/static/assets/fonts/Ebrima.woff') format('woff'), /* Modern Browsers */
-		 url('/static/assets/fonts/Ebrima.ttf')  format('truetype'), /* Safari, Android, iOS */
-		 url('/static/assets/fonts/Ebrima.svg#svgFontName') format('svg'); /* Legacy iOS */
-}
 
 body {
 	font-family: 'Roboto', sans-serif;
@@ -239,7 +231,7 @@ ul.select-birth-2 label {
 }
 
 fieldset {
-	max-height: 410px;
+	max-height: 600px;
 	overflow-y: scroll;
 }
 
@@ -960,7 +952,7 @@ ul.recat-info li{
   }
   
   .table-shopping-cart td {
-	font-family: Poppins-Regular;
+	font-family: 'Roboto', sans-serif;
 	color: #555;
 	line-height: 1.6;
   }
