@@ -36,61 +36,70 @@ class Checkout(TemplateView):
     que se va a comprar
     """
 
+    template_name = 'payments/checkout.html'
+
     @csrf_exempt
     def post(self, request):
-        print (request.body)
-        body_unicode = request.body.decode('utf-8')
-        body = json.loads(body_unicode)
+        print (request.POST)
         p_tax = 0
         p_description = "Compra realizada desde TuLicencia"
-
+        p_split_type = '01'
+        
         if settings.DEBUG:
             p_test_request = True
             p_cust_id_cliente='24075'
             p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
+            p_split_merchant_receiver = '24075'
+            p_split_primary_receiver = '24075'
+            p_split_primary_receiver_fee = '500'
             host = 'http://tulicencia.apptitud.com.co'
         else:
             p_test_request = False
             p_cust_id_cliente='24075'
             p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
+            p_split_merchant_receiver = '24075'
+            p_split_primary_receiver = '24075'
+            p_split_primary_receiver_fee = '500'
             host = 'http://tulicencia.co'
 
         try:
-            user_data = body['user']
-            cea = Cea.objects.get(pk=body['cea'])
-            crc = Crc.objects.get(pk=body['crc'])
-            transit = TransitDepartment.objects.get(pk=body['transit'])
-            crc_price = body['crc_price']
-            cea_price = body['cea_price']
-            transit_price = body['transit_price']
-            tramits = body['tramits']
+            cea = Cea.objects.get(pk=request.POST['cea'])
+            crc = Crc.objects.get(pk=request.POST['crc'])
+            transit = TransitDepartment.objects.get(pk=request.POST['transit'])
+            crc_price = request.POST['crc_price']
+            cea_price = request.POST['cea_price']
+            transit_price = request.POST['transit_price']
+            licence_1 = request.POST['licence_1']
+            tramit_1 = request.POST['tramit_1']
+            licence_2 = request.POST['licence_2']
+            tramit_2 = request.POST['tramit_2']
 
-            city = City.objects.get(pk=user_data['city'])
+            city = City.objects.get(pk=request.POST['city'])
             state = city.state
             try:
-                user = User.objects.get(username=user_data['document_id'])
+                user = User.objects.get(username=request.POST['document_id'])
             except User.DoesNotExist:
-                birth_date = datetime.strptime(user_data['birth_date'], '%m-%d-%Y')
+                birth_date = datetime.strptime(request.POST['birth_date'], '%m-%d-%Y')
                 user = get_user_model()
                 user = user()
-                user.username = user_data['document_id']
-                user.email = user_data['email']
-                user.set_password(user_data['password'])
-                user.first_name = user_data['first_name']
-                user.last_name = user_data['last_name']
-                user.cellphone = user_data['cellphone']
+                user.username = request.POST['document_id']
+                user.email = request.POST['email']
+                user.set_password(request.POST['password1'])
+                user.first_name = request.POST['first_name']
+                user.last_name = request.POST['last_name']
+                user.cellphone = request.POST['phone_number']
                 user.user_type = User.CLIENTE
-                user.document_type = user_data['document_type']
-                user.document_id = user_data['document_id']
+                user.document_type = request.POST['doc_type']
+                user.document_id = request.POST['document_id']
                 user.state = state
                 user.city = city
-                user.gender = user_data['gender']
+                user.gender = request.POST['gender']
                 user.birth_date = birth_date
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 user.save()
                 Token.objects.create(user=user)
 
-            if (body['runt'] == 'si'):
+            if (request.POST['runt'] == 'si'):
                 runt = True
             else:
                 runt = False
@@ -102,41 +111,48 @@ class Checkout(TemplateView):
                 cea=cea,
                 crc=crc,
                 transit=transit,
-                payment_type = body['payment_type'],
+                payment_type = 'CO',
                 has_runt=runt,
                 total_price=total_price
             )
             request_obj.save()
-            
-            licence1 = tramits['licence_1']
-            licence2 = tramits['licence_2']
 
             tramit1 = RequestTramit(
                 request=request_obj,
-                tramit_type=licence1['tramit'],
-                licence=Licence.objects.get(category=licence1['licence'])
+                tramit_type=tramit_1,
+                licence=Licence.objects.get(category=licence_1)
             )
             tramit1.save()
-            if (licence2 != ''):
+            if (licence_2 != ''):
                 tramit2 = RequestTramit(
                     request=request_obj,
-                    tramit_type=licence2['tramit'],
-                    licence=Licence.objects.get(category=licence2['licence'])
+                    tramit_type=tramit_2,
+                    licence=Licence.objects.get(category=licence_2)
                 )
                 tramit2.save()
         except Exception as e:
-            print ("Expeption")
+            print ("Exception")
             print (e)
 
         p_currency_code = 'COP'
         p_amount = total_price
         p_amount_base = 0
+        p_signature_receivers = ''
+        p_split_receivers = []
         p_id_invoice = 'SO_{}_{}_{}'.format(request_obj.user.pk, request_obj.pk, int(time.mktime(datetime.now().timetuple())))
         p_url_response = '{}/payments/confirmation/'.format(host)
         p_url_confirmation = '{}/payments/confirmation/'.format(host)
         p_confirm_method = 'POST'
         p_signature = '{}^{}^{}^{}^{}'.format(p_cust_id_cliente, p_key, p_id_invoice, p_amount, p_currency_code)
         p_signature = hashlib.md5(p_signature.encode('utf-8')).hexdigest()
+        p_split_receivers.append({'id': '11736', 'fee': '500'})
+
+        for r in p_split_receivers:
+            p_signature_receivers += r['id'] + '^' + r['fee']
+
+        p_signature_split = '{}^{}^{}^{}^{}'.format(p_split_type, p_split_merchant_receiver, p_split_primary_receiver,
+                                             p_split_primary_receiver_fee, p_signature_receivers)
+        p_signature_split = hashlib.md5(p_signature_split.encode('utf-8')).hexdigest()
 
         ctx = {
             'request_obj': request_obj,
@@ -154,6 +170,13 @@ class Checkout(TemplateView):
             'p_url_response' : p_url_response,
             'p_url_confirmation' : p_url_confirmation,
             'p_confirm_method': p_confirm_method,
+            'p_split_type': p_split_type,
+            'p_split_merchant_receiver': p_split_merchant_receiver,
+            'p_split_primary_receiver': p_split_primary_receiver,
+            'p_split_primary_receiver_fee': p_split_primary_receiver_fee,
+            'p_split_receivers': p_split_receivers,
+            'p_signature_split': p_signature_split,
+
         }
 
         return render(
@@ -161,12 +184,6 @@ class Checkout(TemplateView):
             'payments/checkout.html',
             ctx
         )
-
-# class Checkout(TemplateView):
-#     """
-#     """
-
-#     template_name = 'payments/checkout.html'
 
     @csrf_exempt
     def confirmation(self, request):

@@ -92,8 +92,23 @@
                 </div>
             </div>
         </div>
-        <form role="form" action="" method="post" class="f1" id="licence-request-form">
+        <form role="form" action="/payments/checkout/" method="post" class="f1" id="licence-request-form">
+            {% csrf_token %}
 
+            <input type="hidden" name="birth_date" class="birthday-input" value="">
+            <input type="hidden" name="gender" class="gender-input" value="">
+            <input type="hidden" name="cea" class="cea-input" value="">
+            <input type="hidden" name="crc" class="crc-input" value="">
+            <input type="hidden" name="transit" class="transit-input" value="">
+            <input type="hidden" name="runt" class="runt-input" value="">
+            <input type="hidden" name="cea_price" class="cea-price-input" value="">
+            <input type="hidden" name="crc_price" class="crc-price-input" value="">
+            <input type="hidden" name="transit_price" class="transit-price-input" value="">
+            <input type="hidden" name="licence_1" class="licence-1-input" value="">
+            <input type="hidden" name="tramit_1" class="tramit-1-input" value="">
+            <input type="hidden" name="licence_2" class="licence-2-input" value="">
+            <input type="hidden" name="tramit_2" class="tramit-2-input" value="">
+            
             <span class="title">Ingresa tus datos para obtener la licencia</span>
             
             <div class="f1-steps row">
@@ -193,13 +208,13 @@
                                     <ul class="select-location">
                                         <li>
                                             <label for="states">Departamento</label><br>
-                                            <select class="custom-select location-select mb-3" id="states">
+                                            <select class="custom-select location-select mb-3" name="state" id="states">
                                                 
                                             </select>
                                         </li>
                                         <li>
                                             <label for="cities">Ciudad</label><br>
-                                            <select class="custom-select location-select mb-3" id="cities">
+                                            <select class="custom-select location-select mb-3" name="city" id="cities">
                                                 <option value="" disabled selected>Selecciona primero un departamento</option>
                                             </select>
                                         </li>
@@ -682,7 +697,7 @@
                                     <ul class="personal-data">
                                         <li>
                                             <label for="doc_type">Tipo de documento</label><br>
-                                            <select class="custom-select doc-type-select" id="doc_type" required>
+                                            <select class="custom-select doc-type-select" id="doc_type" name="doc_type" required>
                                                 <option selected disabled value="">Selecciona el tipo de documento</option>
                                                 <option value="CC">Cédula de Ciudadanía</option>
                                                 <option value="TI">Tarjeta de identidad</option>
@@ -922,9 +937,6 @@
         }
 
         function clearTramit(tramit){
-            console.log("Clear Tramit: " +tramit)
-            console.log("Tramits llega: ")
-            console.warn(tramits)
             var licence = ""
             if(tramit != 'SL' ){
                 $('.row-C2').addClass('d-none')
@@ -987,7 +999,6 @@
                     }
                     break;
                 case 'RN': 
-                    console.log("Tramit es RN")
                     if (tramit_type1 == tramit && tramit_type2 == ""){
                         clearLicences()
                     }
@@ -1002,11 +1013,9 @@
                     }
                     if ((tramits['licence_1']['tramit'] == tramit && tramits['licence_2']['tramit'] == tramit) ||
                         (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] == "")){
-                            console.log("solo RN")
                             clearLicences()
                     }
                     else{
-                        console.log("Elseeee")
                         if (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] != ""){
                             licence = tramits['licence_1']['licence']
                             tramits['licence_1'] = ""
@@ -1030,14 +1039,12 @@
                             bike = jQuery.inArray( licence, ['A1', 'A2'] )
                             car = jQuery.inArray( licence, ['B1', 'C1', 'C2', 'C3'] )
                             if (bike != -1){
-                                console.log("Licence Bike ")
                                 $('ul.bike-licences').addClass('d-none')
                                 $('li.bikelicence span.imgCheckbox0').removeClass('imgChked');
                                 $('li.carlicence').removeClass('disabled');
                             }
                             else{
                                 if (car != -1){
-                                    console.log("Licence CAR ")
                                     $('ul.car-licences').addClass('d-none')
                                     $('li.carlicence span.imgCheckbox0').removeClass('imgChked');
                                     $('li.bikelicence').removeClass('disabled');
@@ -1048,7 +1055,6 @@
                     }
                     break;
                 case 'RC': 
-                    console.log("Tramit es RC")
                     $('.bikelicence').removeClass('disabled')
                     $('.row-B1').removeClass('d-none')
                     if (tramit_type1 == tramit && tramit_type2 == ""){
@@ -1772,6 +1778,7 @@
                 addTramit($(this).data('name'))
             }
         })
+        
         // CARROS
         $('#toggleB1').on('click', function(e){
             if($(this).attr('selected')){
@@ -2040,7 +2047,7 @@
             }
         })
         
-        $('button#form-submit').on('click', function(e){
+        $('#licence-request-form').on('submit', function(e){
             e.preventDefault();
             submit = true
             if(payment_type == ""){
@@ -2189,32 +2196,24 @@
                     })
                 }
                 else{
-                    function getCookie(name) {
-                        var cookieValue = null;
-                        if (document.cookie && document.cookie !== '') {
-                            var cookies = document.cookie.split(';');
-                            for (var i = 0; i < cookies.length; i++) {
-                                var cookie = jQuery.trim(cookies[i]);
-                                // Does this cookie string begin with the name we want?
-                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                    break;
-                                }
-                            }
-                        }
-                        return cookieValue;
+                    $('.gender-input').val(gender)
+                    $('.birthday-input').val(birth_date)
+                    $('.runt-input').val(runt)
+                    $('.cea-input').val(cea)
+                    $('.crc-input').val(crc)
+                    $('.transit-input').val(transit)
+                    $('.cea-price-input').val(cea_price)
+                    $('.crc-price-input').val(crc_price)
+                    $('.transit-price-input').val(transit_price)
+                    $('.licence-1-input').val(tramits['licence_1']['licence'])
+                    $('.tramit-1-input').val(tramits['licence_1']['tramit'])
+                    if (tramits['licence_2'] != ''){
+                        $('.licence-2-input').val(tramits['licence_2']['licence'])
+                        $('.tramit-2-input').val(tramits['licence_2']['tramit'])
                     }
-                    var csrftoken = getCookie('csrftoken');
-                    axios.defaults.headers.common['X-CSRFToken'] = csrftoken
-                    axios.post('/payments/checkout/', form_data)
-                    .then(function (response) {
-                        data = response.data;
-                        console.log(data)
-                    })
-                    .catch(function (error) {
-                        console.log("Error")
-                        console.log(error);
-                    })
+
+                    $('#licence-request-form').off()
+                    $('#licence-request-form').submit()
                 }
 
             }
