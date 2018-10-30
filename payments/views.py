@@ -40,7 +40,6 @@ class Checkout(TemplateView):
 
     @csrf_exempt
     def post(self, request):
-        print (request.POST)
         p_tax = 0
         p_description = "Compra realizada desde TuLicencia"
         p_split_type = '01'
@@ -52,7 +51,7 @@ class Checkout(TemplateView):
             p_split_merchant_receiver = '24075'
             p_split_primary_receiver = '24075'
             p_split_primary_receiver_fee = '500'
-            host = 'http://tulicencia.apptitud.com.co'
+            host = 'http://cura.serveo.net'
         else:
             p_test_request = False
             p_cust_id_cliente='24075'
@@ -140,9 +139,11 @@ class Checkout(TemplateView):
         p_signature_receivers = ''
         p_split_receivers = []
         p_id_invoice = 'SO_{}_{}_{}'.format(request_obj.user.pk, request_obj.pk, int(time.mktime(datetime.now().timetuple())))
+        request_obj.id_invoice = p_id_invoice
+        request_obj.save()
         p_url_response = '{}/payments/confirmation/'.format(host)
         p_url_confirmation = '{}/payments/confirmation/'.format(host)
-        p_confirm_method = 'POST'
+        p_confirm_method = 'GET'
         p_signature = '{}^{}^{}^{}^{}'.format(p_cust_id_cliente, p_key, p_id_invoice, p_amount, p_currency_code)
         p_signature = hashlib.md5(p_signature.encode('utf-8')).hexdigest()
         p_split_receivers.append({'id': '11736', 'fee': '500'})
@@ -186,134 +187,103 @@ class Checkout(TemplateView):
         )
 
     @csrf_exempt
-    def confirmation(self, request):
+    def confirmation(self):
+        print (self.method)
         if settings.DEBUG:
-            apiKey = '4Vj8eK4rloUd272L48hsrarnUA'
+            p_cust_id_cliente='24075'
+            p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
         else:
             apiKey = 'IXltfYxCYPA2efIuyqj3L8k3uG'
         
-        if request.method == "POST":
-            print ("POST")
-            merchand_id = request.POST['merchant_id']
-            reference_sale = request.POST['reference_sale']
-            reference_pol = request.POST['reference_pol']
-            state_pol = request.POST['state_pol']
-            value  = request.POST['value']
-            currency = request.POST['currency']
-            sign = request.POST['sign']
-            date = request.POST['date']
+        if self.method == "POST":
+            x_cust_id_cliente = self.POST['x_cust_id_cliente']
+            x_id_invoice = self.POST['x_id_invoice']
+            x_currency_code = self.POST['x_currency_code']
+            x_franchise = self.POST['x_franchise']
+            x_transaction_date = self.POST['x_transaction_date']
+            x_amount  = self.POST['x_amount']
+            x_transaction_id = self.POST['x_transaction_id']
+            x_ref_payco = self.POST['x_ref_payco']
+            x_signature = self.POST['x_signature']
+            x_response = self.POST['x_response']
+            x_cod_response = self.POST['x_cod_response']
 
-            value_str = str(value)
+            signature = '{}^{}^{}^{}^{}^{}'.format(p_cust_id_cliente, p_key, x_ref_payco, x_transaction_id, x_amount,x_currency_code)
+            signature = hashlib.sha256(signature.encode('utf-8')).hexdigest()
 
-            value_antes, value_despues = value_str.split(".")
-            value_despues = list(value_despues)
-            if value_despues[1] == '0':
-                value= round(float(value),1)
-            signature = '{}~{}~{}~{}~{}~{}'.format(apiKey, merchand_id,reference_sale, value, currency,state_pol)
-            signature = hashlib.md5(signature).hexdigest()
+            print (x_signature)
+            print (signature)
 
-            user = reference_sale.split('_')
+            if signature == x_signature:
+                print ("Signs iguales")
+                request_obj = Request.objects.get(id_invoice=x_id_invoice)
 
-            if signature == sign:
-                user = Staff.objects.filter(pk=user[1])
-                invoice = Invoice.objects.filter(user=user, is_discharged=False).last()
-
-                #Aprobada
-                if state_pol == '4':
-                    invoice.payment_date = datetime.now()
-                    invoice.payu_reference_code = reference_pol
-                    invoice.payment_status = Invoice.APPROVED
-                    invoice.is_discharged = True
-                    invoice.save()
+                #Aceptada
+                if x_cod_response == '1':
+                    request_obj.payment_date = x_transaction_date
+                    request_obj.payment_status = x_response
+                    request_obj.request_status = Request.PAID
+                    request_obj.id_epayco_invoice = x_ref_payco
+                    request_obj.save()
                     return HttpResponse(status=200)
-                #Declinada
-                elif state_pol == '6':
-                    invoice.payment_date = datetime.now()
-                    invoice.payu_reference_code = reference_pol
-                    invoice.payment_status = Invoice.REJECTED
-                    invoice.is_discharged = False
-                    invoice.save()
-                    return HttpResponse(status=200)
-                #Error
-                elif state_pol == '104':
-                    invoice.payment_date = datetime.now()
-                    invoice.payu_reference_code = reference_pol
-                    invoice.payment_status = Invoice.CANCEL
-                    invoice.is_discharged = False
-                    invoice.save()
-                    return HttpResponse(status=200)
-                #Expirada
-                elif state_pol == '5':
-                    invoice.payment_date = datetime.now()
-                    invoice.payu_reference_code = reference_pol
-                    invoice.payment_status = Invoice.CANCEL
-                    invoice.is_discharged = False
-                    invoice.save()
+                #Rechazada
+                elif x_cod_response == '2':
+                    request_obj.payment_date = x_transaction_date
+                    request_obj.payment_status = x_response
+                    request_obj.id_epayco_invoice = x_ref_payco
+                    request_obj.save()
                     return HttpResponse(status=200)
                 #Pendiente
-                elif state_pol == '7':
-                    invoice.payment_date = datetime.now()
-                    invoice.payu_reference_code = reference_pol
-                    invoice.payment_status = Invoice.PENDING
-                    invoice.is_discharged = False
-                    invoice.save()
+                elif x_cod_response == '3':
+                    request_obj.payment_date = x_transaction_date
+                    request_obj.payment_status = x_response
+                    request_obj.id_epayco_invoice = x_ref_payco
+                    request_obj.save()
+                    return HttpResponse(status=200)
+                #Fallida
+                elif x_cod_response == '4':
+                    request_obj.payment_date = x_transaction_date
+                    request_obj.payment_status = x_response
+                    request_obj.id_epayco_invoice = x_ref_payco
+                    request_obj.save()
                     return HttpResponse(status=200)
                 #ninguno de los state_pol
                 else:
                     return HttpResponse(status=500)
             else:
+                print ("Sign diferentes")
                 return HttpResponse(status=500)
         
-        elif request.method == "GET":
-            merchand_id = request.GET.get('merchantId','')
-            referenceCode = request.GET.get('referenceCode','')
-            transactionState = request.GET.get('transactionState','')
-            value = request.GET.get('TX_VALUE','')
-            currency = request.GET.get('currency','')
-            signature_get = request.GET.get('signature','')
-            reference_pol = request.GET.get('reference_pol')
-            polPaymentMethodType = request.GET.get('polPaymentMethodType')
+        elif self.method == "GET":
+            x_cust_id_cliente = self.GET['x_cust_id_cliente']
+            x_id_invoice = self.GET['x_id_invoice']
+            x_description = self.GET['x_description']
+            x_currency_code = self.GET['x_currency_code']
+            x_franchise = self.GET['x_franchise']
+            x_transaction_date = self.GET['x_transaction_date']
+            x_amount  = self.GET['x_amount']
+            x_transaction_id = self.GET['x_transaction_id']
+            x_ref_payco = self.GET['x_ref_payco']
+            x_signature = self.GET['x_signature']
+            x_response = self.GET['x_response']
+            x_cod_response = self.GET['x_cod_response']
 
-            value_str = str(value)
+            signature = '{}^{}^{}^{}^{}^{}'.format(p_cust_id_cliente, p_key, x_ref_payco, x_transaction_id, x_amount,x_currency_code)
+            signature = hashlib.sha256(signature.encode('utf-8')).hexdigest()
 
-            value_antes, value_despues = value_str.split(".")
-
-            value_despues= list(value_despues)
-            
-            primer_parametro_despues = int(value_despues[0])
-            segundo_parametro_despues = int(value_despues[1])
-
-            if primer_parametro_despues % 2 == 0:
-                if segundo_parametro_despues == 5:
-                    value_1= value-0.1
-                    value = round(value_1,1)
-                else:
-                    value = round(float(value),1)
-            elif primer_parametro_despues % 2 != 0: 
-                if segundo_parametro_despues == 5:
-                    value_1= value+0.1
-                    value = round(float(value_1),1)
-                else:
-                    value = round(float(value),1)
-            
-            signature = '{}~{}~{}~{}~{}~{}'.format(apiKey, merchand_id,referenceCode, value, currency,transactionState)
-            signature = hashlib.md5(signature).hexdigest()
-
-           
-            if signature == signature_get:  
+        
+            if signature == x_signature:
+                request_obj = Request.objects.get(id_invoice=x_id_invoice)
 
                 return render(
-                    request,
+                    self,
                     'payments/payment-resumen.html',
                     {
-                        'merchand_id':merchand_id, 
-                        'referenceCode':referenceCode,
-                        'transactionState':transactionState,
-                        'value':value,
-                        'currency':currency,
-                        'id_compra':referenceCode,
-                        'reference_pol': reference_pol,
-                        'polPaymentMethodType': polPaymentMethodType,
+                        'fullname':request_obj.user.get_full_name(), 
+                        'x_description':x_description,
+                        'x_amount':x_amount,
+                        'x_transaction_date': x_transaction_date,
+                        'x_id_invoice': x_id_invoice
                     }
                     
                 ) 
