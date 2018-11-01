@@ -19,6 +19,7 @@ def sendEmail(ctx=None, email_to=None, subject=None, template='emails/email.html
 	if ctx != None and email_to != None:
 		body = loader.get_template(template).render(ctx)
 		message = EmailMessage(subject, body, settings.EMAIL_USER, [email_to])
+		print (message)
 		message.content_subtype = 'html'
 		message.send()
-
+		print ("Mensaje enviado")

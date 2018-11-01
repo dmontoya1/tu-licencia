@@ -46,7 +46,7 @@ class RequestCreate(APIView):
                 user.last_name = user_data['last_name']
                 user.cellphone = user_data['cellphone']
                 user.user_type = User.CLIENTE
-                user.document_type = User.CEDULA_CIUDADANIA
+                user.document_type = user_data['document_type']
                 user.document_id = user_data['document_id']
                 user.state = state
                 user.city = city

@@ -22,7 +22,8 @@ import requests
 
 
 from .models import Police, State, City, Sector
-from .serializers import PoliceSerializer, StateSerializer, CitySerializer, SectorSerializer
+from .serializers import PoliceSerializer, StateSerializer, CitySerializer, SectorSerializer,\
+                         ContactFormSerializer
 
 
 class TermsAndConditions(generics.ListAPIView):
@@ -81,3 +82,10 @@ class SectorList(generics.ListAPIView):
             queryset = queryset.filter(city=cityId).order_by('name')
         return queryset
 
+
+class ContactForm(generics.CreateAPIView):
+    """Vista para crear las peticiones que se envían en los formularios de contacto
+    """
+
+    permission_classes = (AllowAny,)
+    serializer_class = ContactFormSerializer

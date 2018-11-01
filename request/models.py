@@ -86,7 +86,6 @@ class Request(models.Model):
     total_price = models.IntegerField(
         "Precio total",
         default=0,
-        
     )
     cea = models.ForeignKey(
         Cea,
@@ -165,6 +164,26 @@ class Request(models.Model):
         "Tiene RUNT?",
         default=False
     )
+    payment_date = models.DateTimeField(
+        "Fecha de Pago de la solicitud",
+        auto_now_add=False,
+        blank=True, null=True
+    )
+    payment_status = models.CharField(
+        "Estado del pago",
+        max_length=100,
+        blank=True, null=True
+    )
+    id_invoice = models.CharField(
+        "Referencia de pago",
+        max_length=255,
+        blank=True, null=True
+    )
+    id_epayco_invoice = models.CharField(
+        "Referencia de pago de ePayco",
+        max_length=255,
+        blank=True, null=True
+    )
 
     def __init__(self, *args, **kwargs):
         super(Request, self).__init__(*args, **kwargs)
@@ -216,14 +235,6 @@ class Request(models.Model):
         except:
             pass
         super(Request, self).save(*args, **kwargs)
-
-
-    def get_crc_price(self):
-        if self.licences.all().count() == 1:
-            return self.crc.price
-        return self.crc.price_double
-
-    get_crc_price.short_description = "Precio del CRC"
 
 
 class RequestTramit(models.Model):

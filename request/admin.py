@@ -104,11 +104,11 @@ class RequestAdmin(admin.ModelAdmin):
 
     model = Request
     search_fields = ('cea__name', 'crc__name', 'transit__name', 'user__document_id', 'user__first_name',
-    'user__last_name', 'request_status', 'payment_type', 'request_date', 'cea_status', 'crc_status')
-    list_filter = ('cea', 'crc', 'transit', 'request_status', 'payment_type', 'docs_status',)
+    'user__last_name', 'request_status', 'payment_type', 'request_date', 'cea_status', 'crc_status', 'id_invoice', 'id_epayco_invoice')
+    list_filter = ('cea', 'crc', 'transit', 'request_status', 'payment_type', 'docs_status', )
     list_filter_companies = [RequestStatusFilter,]
 
-    readonly_fields = ('booking', 'user', 'get_crc_price', 'request_date')
+    readonly_fields = ('booking', 'user', 'request_date', 'id_invoice', 'payment_date', 'payment_status', 'id_epayco_invoice')
 
     class Media:
         js = (
@@ -120,7 +120,7 @@ class RequestAdmin(admin.ModelAdmin):
     inlines = [RequestTramitAdmin, LogRequestStatusAdmin, LogDocsStatusAdmin, ]
 
     def has_delete_permission(self, request, ob=None):
-        return False
+        return True
     
     def changelist_view(self, request, extra_context=None):
         """
@@ -145,9 +145,10 @@ class RequestAdmin(admin.ModelAdmin):
         (None,
          {'fields':
           ('user', 'payment_type', 'request_status', 'docs_status', 'credit_status', 'credit_request_code', 'booking', 'request_date')}),
-        (_('CRC'), {'fields': ('crc', 'crc_status',)}),
-        (_('CEA'), {'fields': ('cea', 'cea_status', )}),
-        (_('Transito'), {'fields': ('transit',)})
+        (('CRC'), {'fields': ('crc', 'crc_status',)}),
+        (('CEA'), {'fields': ('cea', 'cea_status', )}),
+        (('Transito'), {'fields': ('transit',)}),
+        (('Pago'), {'fields': ('id_invoice', 'payment_date', 'payment_status', 'id_epayco_invoice')}),
     )
     cea_fieldsets = (
         (None, {

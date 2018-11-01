@@ -274,7 +274,7 @@ jQuery(document).ready(function() {
 				licences: licence,
 				licences__licence__category__in: licence
 			}
-			loadVehicleSelect()
+			loadVehicleSelect(licence)
 			cea_filter(params)
     		parent_fieldset.fadeOut(400, function() {
     			// change icons

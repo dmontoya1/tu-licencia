@@ -28,10 +28,8 @@
     {% if change %}        
         <div class="submit-row">
             <p class="deletelink-box">
-                {% if show_delete_link and original %}
-                    {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
-                    <a href="{% add_preserved_filters delete_url %}" class="deletelink custom">Eliminar definitivamente</a>
-                {% endif %}
+                {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+                <a href="{% add_preserved_filters delete_url %}" class="deletelink custom">Eliminar definitivamente</a>
                 {% if original|is_softdeletion_instance %}
                     {% if request.user.is_superuser %}
                         {% if not original.deleted_at %}

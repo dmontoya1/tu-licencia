@@ -1,0 +1,88 @@
+{% extends 'webclient/base.html' %}
+
+{% load static %}
+{% load custom_range %}
+
+{% block extra_css %}
+    
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-10 form-box">
+        {% if messages  %}
+            {% for message in messages %}
+            <div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{message}}
+            </div>
+            {% endfor %}
+        {% endif %}
+        <form method="POST" id="login" class="form-horizontal">
+            {% csrf_token %}
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <label class="control-label">Documento de identidad</label>
+                </div>
+                <div class="col-xs-12">
+                    <input class="form-control" name="username" required placeholder="Ingresa tu número de documento de identidad" />
+                </div>
+            </div>
+            <br>
+
+            <div class="form-group">
+                <div class="col-xs-12">
+                    <label class="control-label">Contraseña</label>
+                </div>
+                <div class="col-xs-12">
+                    <input type="password" class="form-control" name="password" required placeholder="Ingresa tu contraseña"/>
+                </div>
+            </div>
+            <br>
+
+            <p class="text-right">
+                <a href="{% url 'webclient:forget_password' %}" class="forgot-pass" >¿Olvidaste tu contraseña?</a>
+            </p>
+
+            <div class="text-center">
+                <input type="submit" id="reg_submit" value="Iniciar Sesión"/>
+            </div>
+                        
+        </form>
+
+    </div>
+   
+{% endblock %}
+{% block extra_js %}
+    <script>
+        $("#login").on('submit', function(ev){
+            ev.preventDefault()
+            $.ajax({
+                data: new FormData($(this)[0]),
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: "POST",
+                headers: {'X-CSRFToken': '{{ csrf_token }}'},
+                url:"/api/users/login/",
+                success:function(data)
+                {
+                    if (data.length > 0){
+                        url = data['url']
+                        window.location.href = data
+                    }
+                },
+                error:function(data)
+                {
+                    data = data.responseJSON
+                    $.each(data, function(k, v)
+                    {   
+                        toastr.error(v)
+                        
+                    });
+                }
+            });
+        })
+
+    </script>
+{% endblock %}

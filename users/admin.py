@@ -30,7 +30,7 @@ class UserAdmin(django_user_admin):
         'username', 'document_id','first_name', 'last_name', 'user_type'
     )
     exclude = ('deleted_at',)
-    actions = None
+    # actions = None
     extra_list_display = ('username', 'document_id','first_name', 'last_name', 'user_type')
 
     # fieldsets = (
