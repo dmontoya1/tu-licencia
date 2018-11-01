@@ -46,7 +46,7 @@
                             </div>
                         </li>
     
-                        <li class="header-cart-item flex-w flex-t m-b-12 cart-crc">
+                        <li class="header-cart-item flex-w flex-t m-b-12 cart-crc" data-value="0">
                             <div class="header-cart-item-img-c">
                                 <img src="{% static 'images/3.png' %}" alt="IMG">
                             </div>
@@ -59,7 +59,7 @@
                             </div>
                         </li>
     
-                        <li class="header-cart-item flex-w flex-t m-b-12 cart-cea">
+                        <li class="header-cart-item flex-w flex-t m-b-12 cart-cea" data-value="0">
                             <div class="header-cart-item-img-c">
                                 <img src="{% static 'images/4.png' %}" alt="IMG">
                             </div>
@@ -71,7 +71,7 @@
 
                             </div>
                         </li>
-                        <li class="header-cart-item flex-w flex-t m-b-12 cart-transit">
+                        <li class="header-cart-item flex-w flex-t m-b-12 cart-transit" data-value="0">
                             <div class="header-cart-item-img-c">
                                 <img src="{% static 'images/5.png' %}" alt="IMG">
                             </div>
@@ -436,13 +436,19 @@
                                 <div class="col-12">
                                     <label class="filter-label" for="rating-crc">Calificación</label>
                                     <select class="rating-select location-filter" id="rating-crc">
-                                        <option selected disabled value="">Selecciona el rango</option>
-                                        <option value="0">Ver todos</option>
-                                        <option value="1">1 Estrella</option>
-                                        <option value="2">2 Estrellas</option>
-                                        <option value="3">3 Estrellas</option>
-                                        <option value="4">4 Estrellas</option>
-                                        <option value="5">5 Estrellas</option>
+                                        <option selected disabled value="">Selecciona una opción</option>
+                                        <option value="0">Eliminar filtro</option>
+                                        <option value="1">De menor a mayor calificación</option>
+                                        <option value="2">De mayor a menor calificación</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="filter-label" for="price-crc">Precio</label>
+                                    <select class="price-select location-filter" id="price-crc">
+                                        <option selected disabled value="">Selecciona una opción</option>
+                                        <option value="0">Eliminar filtro</option>
+                                        <option value="1">De menor a mayor precio</option>
+                                        <option value="2">De mayor a menor precio</option>
                                     </select>
                                 </div>
                                 <div class="col-12">
@@ -532,15 +538,21 @@
                                 <div class="col-12">
                                     <label class="filter-label" for="rating-cea">Calificación</label>
                                     <select class="rating-select location-filter" id="rating-cea">
-                                        <option selected disabled value="">Selecciona el rango</option>
-                                        <option value="0">Ver todos</option>
-                                        <option value="1">1 Estrella</option>
-                                        <option value="2">2 Estrellas</option>
-                                        <option value="3">3 Estrellas</option>
-                                        <option value="4">4 Estrellas</option>
-                                        <option value="5">5 Estrellas</option>
+                                        <option selected disabled value="">Selecciona una opción</option>
+                                        <option value="0">Eliminar filtro</option>
+                                        <option value="1">De menor a mayor calificación</option>
+                                        <option value="2">De mayor a menor calificación</option>
                                     </select>
                                 </div>
+                                <!-- <div class="col-12">
+                                    <label class="filter-label" for="price-cea">Precio</label>
+                                    <select class="price-select location-filter" id="price-cea">
+                                        <option selected disabled value="">Selecciona una opción</option>
+                                        <option value="0">Eliminar filtro</option>
+                                        <option value="1">De menor a mayor precio</option>
+                                        <option value="2">De mayor a menor precio</option>
+                                    </select>
+                                </div> -->
                                 <div class="col-12">
                                     <button type="button" class="btn btn-filter filter-cea">Filtrar</button>
                                 </div>
@@ -623,15 +635,21 @@
                                 <div class="col-12">
                                     <label class="filter-label" for="rating-transit">Calificación</label>
                                     <select class="rating-select location-filter" id="rating-transit">
-                                        <option selected disabled value="">Selecciona el rango</option>
-                                        <option value="0">Ver todos</option>
-                                        <option value="1">1 Estrella</option>
-                                        <option value="2">2 Estrellas</option>
-                                        <option value="3">3 Estrellas</option>
-                                        <option value="4">4 Estrellas</option>
-                                        <option value="5">5 Estrellas</option>
+                                        <option selected disabled value="">Selecciona una opción</option>
+                                        <option value="0">Eliminar filtro</option>
+                                        <option value="1">De menor a mayor calificación</option>
+                                        <option value="2">De mayor a menor calificación</option>
                                     </select>
                                 </div>
+                                <!-- <div class="col-12">
+                                    <label class="filter-label" for="price-transit">Precio</label>
+                                    <select class="price-select location-filter" id="price-transit">
+                                        <option selected disabled value="">Selecciona una opción</option>
+                                        <option value="0">Eliminar filtro</option>
+                                        <option value="1">De menor a mayor precio</option>
+                                        <option value="2">De mayor a menor precio</option>
+                                    </select>
+                                </div> -->
                                 <div class="col-12">
                                     <button type="button" class="btn btn-filter filter-transit">Filtrar</button>
                                 </div>
@@ -1133,8 +1151,15 @@
             loadCEASectorSelect(selected.val())
         })
 
-        function loadVehicleSelect(){
-            axios.get('/api/vehicles/vehicles/', )
+        function loadVehicleSelect(licences){
+            vehicle_params: {
+                
+            }
+            axios.get('/api/vehicles/vehicles/', {
+                params: {
+                    licences: licences
+                }
+            })
 			.then(function (response) {
 				data = response.data;
 				$('.vehicle-select').empty()
@@ -1254,29 +1279,54 @@
 					$('.add-cart-crc').on('click', function(){
                         crc = $(this).data('id')
                         crc_price = $(this).data('price')
-						$('li.cart-crc').empty()
-						$('li.cart-crc').append(
-							`
-								<div class="header-cart-item-img-c">
-									<img src="/static/images/3.png" alt="IMG">
-								</div>
-		
-								<div class="header-cart-item-txt p-t-8">
-									<a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-										Centro de Reconociento de conductores
-									</a>
-									<span class="header-cart-item-info">
-										${$(this).data('name')}
-									</span>
-									<span class="header-cart-item-info">
-										<strong>
-											$ ${$(this).data('price')}
-										</strong> 
-									</span>
-								</div>
-							`
-						)
-						toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+
+                        function addCrc(){
+                            $('li.cart-crc').empty()
+                            $('li.cart-crc').append(
+                                `
+                                    <div class="header-cart-item-img-c">
+                                        <img src="/static/images/3.png" alt="IMG">
+                                    </div>
+            
+                                    <div class="header-cart-item-txt p-t-8">
+                                        <a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                            Centro de Reconociento de conductores
+                                        </a>
+                                        <span class="header-cart-item-info">
+                                            ${$(this).data('name')}
+                                        </span>
+                                        <span class="header-cart-item-info">
+                                            <strong>
+                                                $ ${$(this).data('price')}
+                                            </strong> 
+                                        </span>
+                                    </div>
+                                `
+                            )
+                            $('li.cart-crc').data('value', crc)
+                            toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+                        }
+                        if ($('li.cart-crc').data('value') == '0')
+                        {
+                            addCrc();
+                        }
+                        else{
+                            swal({
+                                title: 'Momento',
+                                text: "Ya tienes un CRC en el carrito. Deseas agregar este y eliminar el anterior?",
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#162d40',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Si, agregar',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.value) {
+                                    addCrc();
+                                }
+                            })
+                        }
+						
 					})
 			
 					
@@ -1365,29 +1415,53 @@
 					$('.add-cart-cea').on('click', function(){
                         cea = $(this).data('id')
                         cea_price = $(this).data('price')
-						$('li.cart-cea').empty()
-						$('li.cart-cea').append(
-							`
-								<div class="header-cart-item-img-c">
-									<img src="/static/images/4.png" alt="IMG">
-								</div>
-		
-								<div class="header-cart-item-txt p-t-8">
-									<a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-									Centro de Enseñanza Automotriz
-									</a>
-									<span class="header-cart-item-info">
-										${$(this).data('name')}
-									</span>
-									<span class="header-cart-item-info">
-										<strong>
-											$ ${$(this).data('price')}
-										</strong> 
-									</span>
-								</div>
-							`
-						)
-						toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+                        function addCea(){
+                            $('li.cart-cea').empty()
+                            $('li.cart-cea').append(
+                                `
+                                    <div class="header-cart-item-img-c">
+                                        <img src="/static/images/4.png" alt="IMG">
+                                    </div>
+            
+                                    <div class="header-cart-item-txt p-t-8">
+                                        <a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                        Centro de Enseñanza Automotriz
+                                        </a>
+                                        <span class="header-cart-item-info">
+                                            ${$(this).data('name')}
+                                        </span>
+                                        <span class="header-cart-item-info">
+                                            <strong>
+                                                $ ${$(this).data('price')}
+                                            </strong> 
+                                        </span>
+                                    </div>
+                                `
+                            )
+                            $('li.cart-cea').data('value', cea)
+                            toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+                        }
+                        if ($('li.cart-cea').data('value') == '0')
+                        {
+                            addCea();
+                        }
+                        else{
+                            swal({
+                                title: 'Momento',
+                                text: "Ya tienes un CEA en el carrito. Deseas agregar este y eliminar el anterior?",
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#162d40',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Si, agregar',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.value) {
+                                    addCea();
+                                }
+                            })
+                        }
+						
 					})
 				}
 				else {
@@ -1474,29 +1548,52 @@
 					$('.add-cart-transit').on('click', function(){
                         transit = $(this).data('id')
                         transit_price = $(this).data('price')
-						$('li.cart-transit').empty()
-						$('li.cart-transit').append(
-							`
-								<div class="header-cart-item-img-c">
-									<img src="/static/images/5.png" alt="IMG">
-								</div>
-		
-								<div class="header-cart-item-txt p-t-8">
-									<a href="{% url 'webclient:transit-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-										Distrito de Tránsito
-									</a>
-									<span class="header-cart-item-info">
-										${$(this).data('name')}
-									</span>
-									<span class="header-cart-item-info">
-										<strong>
-											$ ${$(this).data('price')} 
-										</strong> 
-									</span>
-								</div>
-							`
-						)
-						toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+                        function addTransit(){
+                            $('li.cart-transit').empty()
+                            $('li.cart-transit').append(
+                                `
+                                    <div class="header-cart-item-img-c">
+                                        <img src="/static/images/5.png" alt="IMG">
+                                    </div>
+            
+                                    <div class="header-cart-item-txt p-t-8">
+                                        <a href="{% url 'webclient:transit-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
+                                            Distrito de Tránsito
+                                        </a>
+                                        <span class="header-cart-item-info">
+                                            ${$(this).data('name')}
+                                        </span>
+                                        <span class="header-cart-item-info">
+                                            <strong>
+                                                $ ${$(this).data('price')} 
+                                            </strong> 
+                                        </span>
+                                    </div>
+                                `
+                            )
+                            $('li.cart-transit').data('value', transit)
+                            toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+                        }
+                        if ($('li.cart-transit').data('value') == '0')
+                        {
+                            addTransit();
+                        }
+                        else{
+                            swal({
+                                title: 'Momento',
+                                text: "Ya tienes un Organismo de tránsito en el carrito. Deseas agregar este y eliminar el anterior?",
+                                type: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#162d40',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Si, agregar',
+                                reverseButtons: true
+                            }).then((result) => {
+                                if (result.value) {
+                                    addTransit();
+                                }
+                            })
+                        }
 					})
 				}
 				else {
@@ -1931,13 +2028,21 @@
             params_crc['sector'] = $(this).val()
         })
         $('#rating-crc').on('change', function(){
-            if ($(this).val() === 0){
-                delete params_crc['rating__gte']
+            if ($(this).val() === '0'){
+                delete params_crc['rating']
             }
             else{
-                params_crc['rating__gte'] = $(this).val()
+                params_crc['rating'] = $(this).val()
             }
         })
+        // $('#price-crc').on('change', function(){
+        //     if ($(this).val() === '0'){
+        //         delete params_crc['price']
+        //     }
+        //     else{
+        //         params_crc['price'] = $(this).val()
+        //     }
+        // })
         $('button.filter-crc').on('click', function(e){
             var licence = ""
             $.each(licences, function(i, v){
@@ -1961,13 +2066,21 @@
             params_cea['vehicles__vehicle__line'] = $(this).val()
         })
         $('#rating-cea').on('change', function(){
-            if ($(this).val() === 0){
-                delete params_cea['rating__gte']
+            if ($(this).val() === '0'){
+                delete params_cea['rating']
             }
-            else {
-                params_cea['rating__gte'] = $(this).val()
+            else{
+                params_cea['rating'] = $(this).val()
             }
         })
+        // $('#price-cea').on('change', function(){
+        //     if ($(this).val() === '0'){
+        //         delete params_cea['price']
+        //     }
+        //     else{
+        //         params_cea['price'] = $(this).val()
+        //     }
+        // })
         $('#sector-cea').on('change', function(e){
             params_cea['sector'] = $(this).val()
         })
@@ -1986,11 +2099,19 @@
         
         var params_transit = {}
         $('#rating-transit').on('change', function(){
-            if ($(this).val() === 0){
-                delete params_transit['rating__gte']
+            if ($(this).val() === '0'){
+                delete params_transit['rating']
             }
-            else {
-                params_transit['rating__gte'] = $(this).val()
+            else{
+                params_transit['rating'] = $(this).val()
+            }
+        })
+        $('#price-transit').on('change', function(){
+            if ($(this).val() === '0'){
+                delete params_transit['price']
+            }
+            else{
+                params_transit['price'] = $(this).val()
             }
         })
         $('button.filter-transit').on('click', function(e){
