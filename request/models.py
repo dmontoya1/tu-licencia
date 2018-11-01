@@ -86,7 +86,6 @@ class Request(models.Model):
     total_price = models.IntegerField(
         "Precio total",
         default=0,
-        
     )
     cea = models.ForeignKey(
         Cea,

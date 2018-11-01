@@ -11,4 +11,5 @@ urlpatterns = [
     path('request/', include('request.urls', namespace='request'), name='request'),
     path('vehicles/', include('vehicles.urls', namespace='vehicles'), name='vehicles'),
     path('companies/', include('companies.urls', namespace='companies'), name='companies'),
+    path('users/', include('users.urls', namespace='users'), name='users'),
 ]

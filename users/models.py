@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import uuid
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.contrib.sessions.models import Session
 from django.core.exceptions import ValidationError
@@ -131,3 +132,22 @@ class User(AbstractUser):
 
         self.deleted_at = None
         self.save()
+
+
+class UserToken(models.Model):
+    """Modelo para guardar los token de los usuarios para hacer la
+    función de recuperar contraseña
+    """
+
+    password_activation_token = models.CharField(
+        "Token recuperar contraseña",
+        max_length=200,
+        blank=True,
+        null=True
+    )
+    is_use_token = models.BooleanField("Recuperó la contraseña?", default=False)
+    user = models.ForeignKey(
+        get_user_model(), 
+        verbose_name='Usuario',
+        on_delete=models.CASCADE
+    )

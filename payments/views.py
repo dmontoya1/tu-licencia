@@ -62,7 +62,10 @@ class Checkout(TemplateView):
             host = 'http://tulicencia.co'
 
         try:
-            cea = Cea.objects.get(pk=request.POST['cea'])
+            try:
+                cea = Cea.objects.get(pk=request.POST['cea'])
+            except:
+                cea = None
             crc = Crc.objects.get(pk=request.POST['crc'])
             transit = TransitDepartment.objects.get(pk=request.POST['transit'])
             crc_price = request.POST['crc_price']
@@ -193,7 +196,8 @@ class Checkout(TemplateView):
             p_cust_id_cliente='24075'
             p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
         else:
-            apiKey = 'IXltfYxCYPA2efIuyqj3L8k3uG'
+            p_cust_id_cliente='24075'
+            p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
         
         if self.method == "POST":
             x_cust_id_cliente = self.POST['x_cust_id_cliente']
@@ -268,25 +272,20 @@ class Checkout(TemplateView):
             x_response = self.GET['x_response']
             x_cod_response = self.GET['x_cod_response']
 
-            signature = '{}^{}^{}^{}^{}^{}'.format(p_cust_id_cliente, p_key, x_ref_payco, x_transaction_id, x_amount,x_currency_code)
-            signature = hashlib.sha256(signature.encode('utf-8')).hexdigest()
+            request_obj = Request.objects.get(id_invoice=x_id_invoice)
 
-        
-            if signature == x_signature:
-                request_obj = Request.objects.get(id_invoice=x_id_invoice)
-
-                return render(
-                    self,
-                    'payments/payment-resumen.html',
-                    {
-                        'fullname':request_obj.user.get_full_name(), 
-                        'x_description':x_description,
-                        'x_amount':x_amount,
-                        'x_transaction_date': x_transaction_date,
-                        'x_id_invoice': x_id_invoice
-                    }
-                    
-                ) 
+            return render(
+                self,
+                'payments/payment-resumen.html',
+                {
+                    'fullname':request_obj.user.get_full_name(), 
+                    'x_description':x_description,
+                    'x_amount':x_amount,
+                    'x_transaction_date': x_transaction_date,
+                    'x_id_invoice': x_id_invoice
+                }
+                
+            ) 
         else:
             return HttpResponseNotAllowed("Método no permitido")
 

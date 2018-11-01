@@ -1,0 +1,75 @@
+{% extends 'webclient/base.html' %}
+
+{% load static %}
+{% load custom_range %}
+
+{% block extra_css %}
+    
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-10 form-box">
+        <form class="form-horizontal" id="contact-form">
+            <div class="form-group">
+              <label for="full_name">Nombre Completo</label>
+              <input type="text" class="form-control" name="full_name" id="full_name" aria-describedby="helpId" placeholder="Ingresa tu nombre completo" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Ingresa tu correo electrónico" required>
+            </div>
+            <div class="form-group">
+                <label for="contact_type">Selecciona un motivo</label>
+                <select class="form-control" id="contact_type" name="contact_type">
+                    <option selected disabled value="">Seleccione un motivo</option>
+                    <option value="PE">Petición</option>
+                    <option value="QU">Queja</option>
+                    <option value="PR">Pregunta</option>
+                    <option value="RE">Reclamo</option>
+                    <option value="SU">Sugerencia</option>
+                    <option value="FE">Felicitaciones</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message">Mensaje</label>
+                <textarea class="form-control" id="message" name="message" rows="2" placeholder="Ingresa tu mensaje">
+
+                </textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+   
+{% endblock %}
+{% block extra_js %}
+    <script>
+        $('#contact-form').on('submit', function(e){
+            e.preventDefault()
+            data = {
+                'full_name': $('#full_name').val(),
+                'email': $('#email').val(),
+                'contact_type': $('#contact_type :selected').val(),
+                'message': $('#message').val()
+            }
+            axios.post('/api/manager/contact-form/', data)
+            .then(function(response){
+                data = response.data
+                swal(
+                    'Mensaje enviado',
+                    'Tu mensaje ha sido enviado exitosamente. Gracias por contactarte con TuLicencia',
+                    'success'
+                ).then((result) => {
+                    if (result.value) {
+                        location.reload()
+                        }
+                    })
+            })
+            .catch(function(error){
+                console.log("Error")
+                console.log(error)
+            })
+        })
+
+    </script>
+{% endblock %}

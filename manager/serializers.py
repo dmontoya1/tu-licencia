@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Police, State, City, Sector
+from .models import Police, State, City, Sector, ContactForm
 
 
 class PoliceSerializer(serializers.ModelSerializer):
@@ -45,3 +45,11 @@ class SectorSerializer(serializers.ModelSerializer):
         model = Sector
         fields = ('id', 'name', 'city')
 
+
+class ContactFormSerializer(serializers.ModelSerializer):
+    """Serializador para el formulario de contacto
+    """
+
+    class Meta:
+        model = ContactForm
+        fields = ('id', 'full_name', 'email', 'contact_type', 'message')

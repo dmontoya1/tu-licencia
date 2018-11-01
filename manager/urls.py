@@ -11,4 +11,5 @@ urlpatterns = [
     path('states/', views.StateList.as_view(), name='states'),
     path('city/<int:stateId>/', views.CityList.as_view(), name='cities'),
     path('sector/<int:cityId>/', views.SectorList.as_view(), name='sectors'),
+    path('contact-form/', views.ContactForm.as_view(), name='contact-form'),
 ]
