@@ -2092,6 +2092,9 @@
             })
             params_cea['state'] = $('#states').val()
             params_cea['city'] = $('#cea-city').val()
+            params_crc['age']= age
+            params_crc['gender']= gender
+            params_crc['licences']= licence
             params_cea['licences__licence__category__in'] = licence
             cea_filter(params_cea)
 
@@ -2262,7 +2265,6 @@
                 })
             }
             
-            
             if (submit){
                 var lic = []
                 $.each(licences, function(i, v){
@@ -2295,7 +2297,10 @@
                     "transit_price": transit_price,
                     "tramits": tramits
                 }
+                
                 if (payment_type == "CR"){
+                    var csrftoken = Cookies.get('csrftoken');
+                    axios.defaults.headers.common['X-CSRFToken'] = csrftoken;
                     axios.post('/api/request/', form_data)
                     .then(function (response) {
                         data = response.data;

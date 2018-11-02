@@ -217,13 +217,13 @@ jQuery(document).ready(function() {
 			$.each(licences, function(i, v){
 				licence += (`${v},`)
 			})
-			var params = {
+			var params_crc = {
 				state: $('#states').val(),
 				age: age,
 				gender: gender,
 				licences: licence
 			}
-			crc_filter(params)
+			crc_filter(params_crc)
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
     			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
@@ -267,7 +267,7 @@ jQuery(document).ready(function() {
 				licence += (`${v},`)
 			})
 
-			var params = {
+			var params_cea = {
 				state: $('#states').val(),
 				age: age,
 				gender: gender,
@@ -275,7 +275,7 @@ jQuery(document).ready(function() {
 				licences__licence__category__in: licence
 			}
 			loadVehicleSelect(licence)
-			cea_filter(params)
+			cea_filter(params_cea)
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
     			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
