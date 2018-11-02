@@ -21,6 +21,5 @@ class VehicleList(generics.ListAPIView):
         licence_1 = Q(licences__category=params['licences'][0])
         if params['licences'][1] != '':
             licence_2 = Q(licences__category=params['licences'][1])
-        if licence_2:
             return Vehicle.objects.filter(licence_1 | licence_2 & Q(deleted_at=None))
         return Vehicle.objects.filter(licence_1 & Q(deleted_at=None))

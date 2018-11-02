@@ -2262,7 +2262,6 @@
                 })
             }
             
-            
             if (submit){
                 var lic = []
                 $.each(licences, function(i, v){
@@ -2295,7 +2294,10 @@
                     "transit_price": transit_price,
                     "tramits": tramits
                 }
+                
                 if (payment_type == "CR"){
+                    var csrftoken = Cookies.get('csrftoken');
+                    axios.defaults.headers.common['X-CSRFToken'] = csrftoken;
                     axios.post('/api/request/', form_data)
                     .then(function (response) {
                         data = response.data;
