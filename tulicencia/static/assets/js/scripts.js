@@ -217,13 +217,13 @@ jQuery(document).ready(function() {
 			$.each(licences, function(i, v){
 				licence += (`${v},`)
 			})
-			var params = {
+			var params_crc = {
 				state: $('#states').val(),
 				age: age,
 				gender: gender,
 				licences: licence
 			}
-			crc_filter(params)
+			crc_filter(params_crc)
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
     			current_active_step.removeClass('active').addClass('activated').next().addClass('active');

@@ -2092,6 +2092,9 @@
             })
             params_cea['state'] = $('#states').val()
             params_cea['city'] = $('#cea-city').val()
+            params_crc['age']= age
+            params_crc['gender']= gender
+            params_crc['licences']= licence
             params_cea['licences__licence__category__in'] = licence
             cea_filter(params_cea)
 
