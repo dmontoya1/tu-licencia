@@ -51,7 +51,7 @@ class Checkout(TemplateView):
             p_split_merchant_receiver = '24075'
             p_split_primary_receiver = '24075'
             p_split_primary_receiver_fee = '500'
-            host = 'http://cura.serveo.net'
+            host = 'http://tulicencia.apptitud.com.co'
         else:
             p_test_request = False
             p_cust_id_cliente='24075'
