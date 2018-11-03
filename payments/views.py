@@ -23,7 +23,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView, View, ListView
 
-
+from core.views import sendEmail
 from companies.models import Cea, Crc, TransitDepartment
 from licences.models import Licence
 from manager.models import State, City
@@ -229,6 +229,10 @@ class Checkout(TemplateView):
                     request_obj.request_status = Request.PAID
                     request_obj.id_epayco_invoice = x_ref_payco
                     request_obj.save()
+                    ctx = {
+                        'request':request
+                    }
+                    sendEmail(ctx, request_obj.user.email, 'Instrucciones TuLicencia', 'webclient/baucher.html')
                     return HttpResponse(status=200)
                 #Rechazada
                 elif x_cod_response == '2':
