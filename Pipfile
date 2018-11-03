@@ -37,9 +37,13 @@ MarkupSafe = "==1.0"
 Pillow = "==5.2.0"
 pipenv = "*"
 django-debug-toolbar = "*"
+"xhtml2pdf" = "*"
 
 [dev-packages]
 pylint = "<2.0.0"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
