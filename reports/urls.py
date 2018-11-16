@@ -14,7 +14,7 @@ urlpatterns = [
     path('services-api/', views.ServicesByCompanyApi.as_view(), name='services-api'),
     path('cea/', views.CeaServices.as_view(), name='cea'),
     path('cea-api/', views.CeaServicesApi.as_view(), name='cea-api'),
-    path('crc/', views.CeaServices.as_view(), name='crc'),
+    path('crc/', views.CrcServices.as_view(), name='crc'),
     path('crc-api/', views.CrcServicesApi.as_view(), name='crc-api'),
     
 ]
