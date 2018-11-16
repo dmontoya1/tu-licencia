@@ -92,7 +92,7 @@
                 'crc_status': $('#crc_status').val(),
             }
             axios.defaults.headers.common['X-CSRFToken'] = '{{csrf_token}}';
-            axios.post('/reports/cea-api/', params)
+            axios.post('/reports/crc-api/', params)
             .then(function(response){
                 data = response.data
                 $('.tbody').empty()
