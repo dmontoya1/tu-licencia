@@ -57,6 +57,12 @@
                                     <option disabled selected value="">Primero selecciona una ciudad</option>
                                 </select>
                             </div>
+                            <div class="form-group col-md-6">
+                                <label for="transit" class="float-left">Departamento de tránsito</label>
+                                <select name="transit" class="form-control" id="transit" required>
+                                    <option disabled selected value="">Primero selecciona una ciudad</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -175,6 +181,27 @@
             .catch(function (error) {
                 console.log(error);
             })
+
+            axios.get('/api/companies/transit-list', {
+                params: {
+                    city: $('#cities').val()
+                }
+            })
+            .then(function (response) {
+                data = response.data
+                $('#transit').empty()
+                $.each( data, function( k, v ) {
+                    $('#transit').append(
+                        `<option value=${v.id}>${v.name}</option>`
+                    )
+                });
+                $('#transit').prepend(
+                    `<option selected disabled>Selecciona un departamento de tránsito</option>`
+                )
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
         })
 
         $('.purchases').on('submit', function(ev) {
@@ -189,9 +216,9 @@
                 'end': $('.end-date').val(),
                 'cea': $('#cea').val(),
                 'crc': $('#crc').val(),
+                'transit': $('#transit').val(),
                 'city': $('#cities').val(),
                 'request_status': $('#request_status').val(),
-
             }
             axios.defaults.headers.common['X-CSRFToken'] = '{{csrf_token}}';
             axios.post('/reports/services-api/', params)

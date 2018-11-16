@@ -15,7 +15,7 @@ from django.views.generic import TemplateView
 
 from jet.dashboard.modules import DashboardModule
 
-from companies.models import Cea, Crc
+from companies.models import Cea, Crc, TransitDepartment
 from manager.models import State, City
 from request.models import Request, RequestTramit
 from request.serializers import RequestSerializer
@@ -258,10 +258,99 @@ class ServicesByCompanyApi(APIView):
                 crc__city=city,
             )
 
+            if (request.data['request_status']):
+                requests = requests.filter(request_status=request.data['request_status'])
 
             if(request.data['cea']):
                 cea = Cea.objects.get(pk=request.data['cea'])
                 requests = requests.filter(cea=cea)
+
+                for r in requests:
+                    if r.cea:
+                        tramits = []
+                        for t in r.related_tramits.all():
+                            tramits.append(
+                                {
+                                    'tramit': t.name()
+                                }
+                            )
+                        if r.payment_date:
+                            payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
+                        else:
+                            payment_date = "Sin pago"
+                        query.append(
+                            {
+                                'name': r.cea.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+            
+            elif(request.data['crc']):
+                crc = Crc.objects.get(pk=request.data['crc'])
+                requests = requests.filter(crc=crc)
+
+                for r in requests:
+                    if r.crc:
+                        tramits = []
+                        for t in r.related_tramits.all():
+                            tramits.append(
+                                {
+                                    'tramit': t.name()
+                                }
+                            )
+                        if r.payment_date:
+                            payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
+                        else:
+                            payment_date = "Sin pago"
+                        query.append(
+                            {
+                                'name': r.crc.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+
+            elif(request.data['transit']):
+                transit = TransitDepartment.objects.get(pk=request.data['transit'])
+                requests = requests.filter(transit=transit)
+
+                for r in requests:
+                    if r.transit:
+                        tramits = []
+                        for t in r.related_tramits.all():
+                            tramits.append(
+                                {
+                                    'tramit': t.name()
+                                }
+                            )
+                        if r.payment_date:
+                            payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
+                        else:
+                            payment_date = "Sin pago"
+                        query.append(
+                            {
+                                'name': r.transit.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+            else:
 
                 for r in requests:
                     tramits = []
@@ -288,67 +377,33 @@ class ServicesByCompanyApi(APIView):
                                 'booking': r.booking
                             }
                         )
+                    if r.crc:
+                        query.append(
+                            {
+                                'name': r.crc.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+                    if r.transit:
+                        query.append(
+                            {
+                                'name': r.transit.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
             
-            if(request.data['crc']):
-                crc = Crc.objects.get(pk=request.data['crc'])
-                requests = requests.filter(crc=crc)
-            
-            if (request.data['request_status']):
-                requests = requests.filter(request_status=request.data['request_status'])
-            
-            
-
-            for r in requests:
-                tramits = []
-                for t in r.related_tramits.all():
-                    tramits.append(
-                        {
-                            'tramit': t.name()
-                        }
-                    )
-                if r.payment_date:
-                    payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
-                else:
-                    payment_date = "Sin pago"
-                if r.cea:
-                    query.append(
-                        {
-                            'name': r.cea.name,
-                            'client_name': r.user.get_full_name(),
-                            'tramits': tramits,
-                            'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
-                            'payment_date': payment_date,
-                            'request_status': r.get_request_status_display(),
-                            'payment_type': r.get_payment_type_display(),
-                            'booking': r.booking
-                        }
-                    )
-                if r.crc:
-                    query.append(
-                        {
-                            'name': r.crc.name,
-                            'client_name': r.user.get_full_name(),
-                            'tramits': tramits,
-                            'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
-                            'payment_date': payment_date,
-                            'request_status': r.get_request_status_display(),
-                            'payment_type': r.get_payment_type_display(),
-                            'booking': r.booking
-                        }
-                    )
-                if r.transit:
-                    query.append(
-                        {
-                            'name': r.transit.name,
-                            'client_name': r.user.get_full_name(),
-                            'tramits': tramits,
-                            'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
-                            'payment_date': payment_date,
-                            'request_status': r.get_request_status_display(),
-                            'payment_type': r.get_payment_type_display(),
-                            'booking': r.booking
-                        }
-                    )
             
             return JsonResponse(query, safe=False)
 

@@ -9,7 +9,8 @@ from rest_framework.views import APIView
 from core.views import sendEmail
 from manager.models import City
 
-from .serializers import CeaSerializer, CrcSerializer, TransitSerializer, CeaDetailSerializer, CrcDetailSerializer
+from .serializers import (CeaSerializer, CrcSerializer, TransitSerializer, CeaDetailSerializer, 
+                          CrcDetailSerializer, TransitDetailSerializer)
 from .models import Crc, Cea, TransitDepartment
 from .utils import params_to_filter
 
@@ -146,6 +147,18 @@ class CrcCityList(generics.ListAPIView):
     def get_queryset(self):
         city = City.objects.get(id=self.request.GET.get('city')) 
         query = Crc.objects.filter(city=city).distinct()
+        return query
+
+
+class TransitCityList(generics.ListAPIView):
+    """
+    """
+
+    serializer_class = TransitDetailSerializer
+    
+    def get_queryset(self):
+        city = City.objects.get(id=self.request.GET.get('city')) 
+        query = TransitDepartment.objects.filter(city=city).distinct()
         return query
 
 
