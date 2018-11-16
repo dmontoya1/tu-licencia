@@ -306,8 +306,7 @@ class CeaServicesApi(APIView):
                 request_date__gte=start_date,
                 request_date__lte=end_date,
                 request_status=Request.PAID
-            ).encode('utf-8')
-            print (requests)
+            )
 
             if(request.data['cea_status']):
                 requests = requests.filter(cea_status=request.data['cea_status'])
