@@ -1,7 +1,9 @@
 
 input[type="text"], 
-input[type="password"], 
+input[type="password"],
+input[type="email"], 
 textarea, 
+select.form-control,
 textarea.form-control {
 	height: 44px;
     margin: 0;

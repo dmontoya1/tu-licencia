@@ -50,16 +50,18 @@ class PasswordResetView(APIView):
 
 	def get_object(self):
 		document_id = self.request.data.get('document_id')
-		print (document_id)
 		try:
 			user = get_user_model().objects.filter(document_id=document_id, user_type=get_user_model().CLIENTE).first()
 		except get_user_model().DoesNotExist:
-			return  Http404("El usuario con este documento no existe en la base de datos")
-		try:
-			obj = UserToken.objects.get(user=user)
-		except:
-			obj = UserToken.objects.create(user=user)
-		return obj
+			raise  Http404("El usuario con este documento no existe en la base de datos")
+		if user:
+			try:
+				obj = UserToken.objects.get(user=user)
+			except:
+				obj = UserToken.objects.create(user=user)
+			return obj
+		raise  Http404("El usuario con este documento no existe en la base de datos")
+
 
 	def post(self, request, *args, **kwargs):
 		user = self.get_object()
@@ -67,9 +69,6 @@ class PasswordResetView(APIView):
 		user.password_activation_token = token
 		user.is_use_token = False
 		user.save()
-		print (user)
-		print (user.user)
-		print (user.user.email)
 		url = 'http://{}{}?token={}'.format(request.get_host(), reverse('webclient:recover_password'), token)
 		ctx = {
 			"title": "Recuperar contraseña en TuLicencia",
