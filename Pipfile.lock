@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "55938b4c4c5c45120937b5c9e56294d997b4987fbef974b5781513fee08eaf67"
+            "sha256": "26b69b779bade73803b233bf807971607e41cfb0c0c9f34cfcf28ee9369ba51a"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -80,6 +80,14 @@
             "index": "pypi",
             "version": "==1.10.1"
         },
+        "django-xhtml2pdf": {
+            "hashes": [
+                "sha256:84595fd7f242efffc1682eaf6646f237cb4823cda14e81b9cd642f6c790edd4e",
+                "sha256:e91f4ea6033fb0eb9ae3869fe764df3c756c22897b526587aef008fb04d69871"
+            ],
+            "index": "pypi",
+            "version": "==0.0.4"
+        },
         "djangorestframework": {
             "hashes": [
                 "sha256:b6714c3e4b0f8d524f193c91ecf5f5450092c2145439ac2769711f7eba89a9d9",
@@ -87,6 +95,15 @@
             ],
             "index": "pypi",
             "version": "==3.8.2"
+        },
+        "feedparser": {
+            "hashes": [
+                "sha256:bd030652c2d08532c034c27fcd7c85868e7fa3cb2b17f230a44a6bbc92519bf9",
+                "sha256:cd2485472e41471632ed3029d44033ee420ad0b57111db95c240c9160a85831c",
+                "sha256:ce875495c90ebd74b179855449040003a1beb40cd13d5f037a0654251e260b02"
+            ],
+            "index": "pypi",
+            "version": "==5.2.1"
         },
         "google-api-python-client": {
             "hashes": [

@@ -10,6 +10,7 @@ SECRET_KEY = '83$2ezn(4gxga_9umz-@u#c7y6m^2m2_c(3i-&1k309k8dwdtr'
 
 # Aplication definitions
 DJANGO_APPS = [
+    'jet.dashboard',
     'jet',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -35,7 +36,7 @@ PROJECT_APPS = [
     'manager',
     'payments',
     'request',
-    # 'reports',
+    'reports',
     'users',
     'utils',
     'vehicles',

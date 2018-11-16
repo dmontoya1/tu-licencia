@@ -258,7 +258,8 @@ class RequestTramit(models.Model):
     request = models.ForeignKey(
         Request,
         verbose_name="Trámites",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name="related_tramits"
     )
     tramit_type = models.CharField(
         "Tipo de Trámite",
@@ -273,9 +274,11 @@ class RequestTramit(models.Model):
     )
 
     def __str__(self):
-        return "Tipo de trámite (%s => %s)" % (self.get_tramit_type_display(), self.licence.category)
-
+        return "%s - %s" % (self.get_tramit_type_display(), self.licence.category)
     
+    def name(self):
+        return "%s - %s" % (self.get_tramit_type_display(), self.licence.category)
+        
     class Meta:
         verbose_name = 'Tramite'
 

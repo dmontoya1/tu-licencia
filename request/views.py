@@ -71,7 +71,8 @@ class RequestCreate(APIView):
                 transit=transit,
                 payment_type = request.data['payment_type'],
                 has_runt=runt,
-                total_price=total_price
+                total_price=total_price,
+                credit_status=Request.PENDIENTE_APROBACION
             )
             request_obj.save()
             

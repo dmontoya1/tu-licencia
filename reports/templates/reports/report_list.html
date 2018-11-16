@@ -1,0 +1,26 @@
+{% load i18n %}
+
+<ul>
+    <li class="contrast">
+        <a href="/admin/reports/" title="Reportes">Reportes</a>
+    </li>
+        {% if request.user.is_superuser %}
+            <li>
+                <a href="{% url 'reports:purchases' %}" target="_blank">Compras realizadas</a>
+            </li>
+            <li>
+                <a href="{% url 'reports:credits' %}">Solicitudes de Créditos</a>
+            </li>
+            <li>
+                <a href="{% url 'reports:services' %}">Servicios adquiridos a cada proveedor</a>
+            </li>
+        {% elif request.user.user_type == 'CEA' %}
+            <li>
+                <a href="{% url 'reports:cea' %}">Servicios Adquiridos</a>
+            </li>
+        {% elif request.user.user_type == 'CRC' %}
+            <li>
+                <a href="{% url 'reports:crc' %}">Servicios Adquiridos</a>
+            </li>
+        {% endif %}
+</ul>
