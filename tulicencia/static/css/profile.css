@@ -1,0 +1,92 @@
+.mycontent-left {
+    border-right: 1px solid #fff;
+    padding-right: 30px;
+}
+
+.mycontent-right {
+    margin-right: 50px;
+    margin-left: 30px;
+}
+
+.mycontent-right .a-navbar {
+    color: #efbe21;;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-transform: none;
+}
+
+.a-navbar {
+    color: #fff;;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-transform: none;
+}
+
+a.a-navbar:hover, a.a-navbar:focus, a.a-navbar:active {
+    color: #999;
+}
+
+a.a-navbar:active {
+    color: #fff;
+}
+
+img.img-profile {
+    margin-left: 30px;
+}
+
+.row.profile-title {
+    height: 70px;
+    margin-top: 30px;
+    font-size: 2em;
+    font-weight: 500;
+    color: #162d3f;
+    text-align: left;
+}
+
+.row.profile-info {
+    border: 1px solid #999;
+    border-radius: 10px;
+}
+
+.row.profile-description {
+    background-color: #162d3f;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 25px 15px;
+    height: 140px;
+}
+
+span.description-email {
+    font-size: 1.2em;
+    color: #fff;
+    text-align: left;
+    display: block;
+    font-weight: 600;
+}
+
+button.btn.btn-edit {
+    background-color: transparent;
+    border: 2px solid #fff;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.row.profile-detail {
+    padding: 10px 10px;
+}
+
+span.detail-title {
+    display: block;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+span.detail-info {
+    display: block;
+    text-align: left;
+    color: #162d3f;
+    font-size: 0.8em;
+    font-weight: 600;
+}
