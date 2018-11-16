@@ -298,11 +298,8 @@ class CeaServicesApi(APIView):
     def post(self, request, format=None):
         try:
             start_date = request.data['start']
-            print (start_date)
             end_date = request.data['end']
-            print (end_date)
             cea = request.user.cea
-            print (cea)
 
             requests = Request.objects.filter(
                 cea=cea,
