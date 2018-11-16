@@ -6,8 +6,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.shortcuts import render
+from django.shortcuts import render, reverse
 
+from core.views import sendEmail, sendBaucherEmail
 from companies.models import Cea, Crc, TransitDepartment
 from licences.models import Licence
 from manager.models import State, City
@@ -70,7 +71,8 @@ class RequestCreate(APIView):
                 transit=transit,
                 payment_type = request.data['payment_type'],
                 has_runt=runt,
-                total_price=total_price
+                total_price=total_price,
+                credit_status=Request.PENDIENTE_APROBACION
             )
             request_obj.save()
             
@@ -90,6 +92,17 @@ class RequestCreate(APIView):
                     licence=Licence.objects.get(category=licence2['licence'])
                 )
                 tramit2.save()
+            # ctx = {
+            #     "title": "Instrucciones para sacar tu licencia",
+            #     "content": "Hola. a continuación están las instrucciones para que puedas sacar tu licencia",
+            #     "url": reverse('webclient:login'),
+            #     "action": "Ver mi perfil"
+            # }
+            # params = {
+            #     'request':request_obj
+            # }
+
+            # sendBaucherEmail(ctx, request_obj.user.email, 'Instrucciones TuLicencia', params=params)
 
             message = 'Se ha creado la solicitud con éxito'
             response = {'detail': message, 'request': request_obj.pk}

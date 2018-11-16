@@ -11,6 +11,11 @@ body {
 	/* overflow-y: hidden; */
 }
 
+.col-12.form-box {
+    flex: 0 0 95%;
+    max-width: 100%;
+}
+
 strong { font-weight: 500; }
 
 a, a:hover, a:focus {
@@ -54,9 +59,8 @@ img { max-width: 100%; }
 
 /***** Top menu *****/
 
-nav.navbar.navbar-light {
+nav.navbar.navbar-dark {
     background-color: #162d40;
-    height: 90px;
 }
 
 .navbar {
@@ -69,6 +73,35 @@ nav.navbar.navbar-light {
 ul.navbar-nav {
 	font-size: 16px;
 	color: #fff;
+}
+
+.mycontent-left {
+    border-right: 1px solid #fff;
+    padding-right: 30px;
+}
+
+.mycontent-right {
+    margin-right: 50px;
+    margin-left: 30px;
+}
+
+.a-navbar {
+    color: #fff;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+a.a-navbar:hover, a.a-navbar:focus, a.a-navbar:active {
+    color: #999;
+}
+
+a.a-navbar:active {
+    color: #fff;
+}
+
+img.img-profile {
+    margin-left: 30px;
 }
 
 .navbar-inverse ul.navbar-nav li { padding-top: 8px; padding-bottom: 8px; }

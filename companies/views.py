@@ -7,8 +7,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from core.views import sendEmail
+from manager.models import City
 
-from .serializers import CeaSerializer, CrcSerializer, TransitSerializer
+from .serializers import (CeaSerializer, CrcSerializer, TransitSerializer, CeaDetailSerializer, 
+                          CrcDetailSerializer, TransitDetailSerializer)
 from .models import Crc, Cea, TransitDepartment
 from .utils import params_to_filter
 
@@ -121,6 +123,42 @@ class CeaList(generics.ListAPIView):
                     query = query.order_by('-final_price')
         except Exception as e:
             print (e)
+        return query
+
+
+class CeaCityList(generics.ListAPIView):
+    """
+    """
+
+    serializer_class = CrcDetailSerializer
+    
+    def get_queryset(self):
+        city = City.objects.get(id=self.request.GET.get('city')) 
+        query = Cea.objects.filter(city=city).distinct()
+        return query
+
+
+class CrcCityList(generics.ListAPIView):
+    """
+    """
+
+    serializer_class = CrcDetailSerializer
+    
+    def get_queryset(self):
+        city = City.objects.get(id=self.request.GET.get('city')) 
+        query = Crc.objects.filter(city=city).distinct()
+        return query
+
+
+class TransitCityList(generics.ListAPIView):
+    """
+    """
+
+    serializer_class = TransitDetailSerializer
+    
+    def get_queryset(self):
+        city = City.objects.get(id=self.request.GET.get('city')) 
+        query = TransitDepartment.objects.filter(city=city).distinct()
         return query
 
 

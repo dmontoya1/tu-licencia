@@ -243,6 +243,12 @@ class DefaultIndexDashboard(Dashboard):
             order=0
         ))
 
+        self.children.append(modules.Reports(
+            'Reportes',
+            column=1,
+            order=0
+        ))
+
         # append a recent actions module
         self.children.append(modules.RecentActions(
             _('Recent Actions'),

@@ -409,6 +409,10 @@ class CeaVehicle(models.Model):
         max_length=4,
         help_text="2008"
     )
+    is_active = models.BooleanField(
+        "Esta activo?",
+        default=True
+    )
 
     def __str__(self):
         return "%s %s del cea %s" % (self.vehicle.brand, self.vehicle.line, self.cea)

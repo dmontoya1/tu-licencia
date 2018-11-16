@@ -1,0 +1,292 @@
+{% extends 'webclient/base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+{% endblock %}
+
+{% block content %}
+    <div class="col-10 form-box">
+        <div class="container-fluid mb-5" >
+            <div class="row justify-content-left">
+                <div class="col-sm-12 col-lg-7" style="background-color: #fff;">
+                    <h3 class="mt-5">Servicios adquiridos por los usuarios a cada proveedor</h3>
+                    <form class="purchases">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="state" class="float-left">Departamento</label>
+                                <select name="state" class="form-control" id="states" required>
+                                    <option disabled selected value="">Seleccione un departamento</option>
+                                    {% for state in states %}
+                                        <option value="{{state.pk}}">{{state.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="cities" class="float-left">Ciudad</label>
+                                <select name="city" class="form-control" id="cities" required>
+                                    <option disabled selected value="">Seleccione primero un departamento</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="dates" class="float-left">Fecha inicio</label>
+                                <input type="date" class="input-sm form-control start-date" name="start" required/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="dates" class="float-left">Fecha de fin</label>
+                                <input type="date" class="input-sm form-control end-date" name="end" required/>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="cea" class="float-left">CEA</label>
+                                <select name="cea" class="form-control" id="cea">
+                                    <option disabled selected value="">Primero selecciona una ciudad</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="crc" class="float-left">CRC</label>
+                                <select name="crc" class="form-control" id="crc" required>
+                                    <option disabled selected value="">Primero selecciona una ciudad</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="transit" class="float-left">Departamento de tránsito</label>
+                                <select name="transit" class="form-control" id="transit" required>
+                                    <option disabled selected value="">Primero selecciona una ciudad</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="request_status" class="float-left">Estado del servicio</label>
+                            <select class="form-control" id="request_status" name="request_status">
+                                <option value="" selected disabled>Selecciona un estado</option>
+                                <option value="PEN">Pendiente</option>
+                                <option value="PAI">Pagado</option>
+                                <option value="ICRC">En exámen CRC</option>
+                                <option value="ICEA">En exámen CEA</option>
+                                <option value="FNS">Finalizado</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary float-right mb-4">Generar Reporte</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="table" hidden>
+            <table id="table_id" class="display">
+                <thead class="thead">
+                    <tr>
+                        <th>Proveedor</th>
+                        <th>Usuario</th>
+                        <th>Trámites</th>
+                        <th>Fecha de Solicitud</th>
+                        <th>Estado de la solicitud</th>
+                        <th>Número de reserva</th>
+                        <th>Fecha de pago</th>
+                        <th>Tipo de Pago</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody">
+                    <tr>
+                        <td>Row 1 Data 1</td>
+                        <td>Row 1 Data 2</td>
+                        <td>Row 1 Data 2</td>
+                        <td>Row 1 Data 2</td>
+                        <td>Row 1 Data 2</td>
+                        <td>Row 1 Data 2</td>
+                        <td>Row 1 Data 2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <script>
+
+        $('#states').on('change', function(){
+            axios.get(`/api/manager/city/${$(this).val()}`)
+            .then(function (response) {
+                data = response.data
+                $('#cities').empty()
+                $.each( data, function( k, v ) {
+                    $('#cities').append(
+                        `<option value=${v.id}>${v.name}</option>`
+                    )
+                });
+                $('#cities').prepend(
+                    `<option selected disabled>Selecciona una ciudad</option>`
+                )
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        })
+
+        $('#cities').on('change', function(){
+            axios.get('/api/companies/cea-list', {
+                params: {
+                    city: $('#cities').val()
+                }
+            })
+            .then(function (response) {
+                data = response.data
+                $('#cea').empty()
+                $.each( data, function( k, v ) {
+                    $('#cea').append(
+                        `<option value=${v.id}>${v.name}</option>`
+                    )
+                });
+                $('#cea').prepend(
+                    `<option selected disabled>Selecciona un CEA</option>`
+                )
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+
+            axios.get('/api/companies/crc-list', {
+                params: {
+                    city: $('#cities').val()
+                }
+            })
+            .then(function (response) {
+                data = response.data
+                $('#crc').empty()
+                $.each( data, function( k, v ) {
+                    $('#crc').append(
+                        `<option value=${v.id}>${v.name}</option>`
+                    )
+                });
+                $('#crc').prepend(
+                    `<option selected disabled>Selecciona un CRC</option>`
+                )
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+
+            axios.get('/api/companies/transit-list', {
+                params: {
+                    city: $('#cities').val()
+                }
+            })
+            .then(function (response) {
+                data = response.data
+                $('#transit').empty()
+                $.each( data, function( k, v ) {
+                    $('#transit').append(
+                        `<option value=${v.id}>${v.name}</option>`
+                    )
+                });
+                $('#transit').prepend(
+                    `<option selected disabled>Selecciona un departamento de tránsito</option>`
+                )
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        })
+
+        $('.purchases').on('submit', function(ev) {
+            ev.preventDefault()
+            var table = $('#table_id')
+            if ($('.table').hasClass('full')){
+                table.DataTable().destroy()
+                $('.table').removeClass('full')
+            }
+            params = {
+                'start': $('.start-date').val(),
+                'end': $('.end-date').val(),
+                'cea': $('#cea').val(),
+                'crc': $('#crc').val(),
+                'transit': $('#transit').val(),
+                'city': $('#cities').val(),
+                'request_status': $('#request_status').val(),
+            }
+            axios.defaults.headers.common['X-CSRFToken'] = '{{csrf_token}}';
+            axios.post('/reports/services-api/', params)
+            .then(function(response){
+                data = response.data
+                $('.tbody').empty()
+                $.each(data, function( k, v ) {
+                    var str = ''
+                    if (v.tramits.length > 1){
+                        str = `<li>${v.tramits[1].tramit}</li>`
+                    }
+                   
+                    $('.tbody').append(
+                        `
+                        <tr>
+                            <td>${v.name}</td>
+                            <td>${v.client_name}</td>
+                            <td>
+                                <ul>
+                                    <li>${v.tramits[0].tramit}</li>
+                                    ${str}
+                                </ul>
+                            </td>
+                            <td>${v.request_date}</td>
+                            <td>${v.request_status}</td>
+                            <td>${v.booking}</td>
+                            <td>${v.payment_date}</td>
+                            <td>${v.payment_type}</td>
+                        </tr>
+                        `
+                    )
+                });
+                
+               table.DataTable({
+                    language: {
+                        "sProcessing":     "Procesando...",
+                        "sLengthMenu":     "Mostrar _MENU_ registros",
+                        "sZeroRecords":    "No se encontraron resultados",
+                        "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix":    "",
+                        "sSearch":         "Buscar:",
+                        "sUrl":            "",
+                        "sInfoThousands":  ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst":    "Primero",
+                            "sLast":     "Último",
+                            "sNext":     "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    }
+                });
+                $('.table').addClass('full')
+                $('.table').removeAttr('hidden')
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        })
+    
+    
+    </script>
+{% endblock %}

@@ -25,10 +25,10 @@
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
+        [if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        <![endif]
 
         <!-- Favicon and touch icons -->
         <link rel="shortcut icon" href="{% static 'assets/ico/favicon.png' %}">
@@ -41,10 +41,36 @@
 
         <!-- Top menu -->
         {% block nav %}
-            <nav class="navbar navbar-light">
-                <a class="navbar-brand" href="#">
-                <img src="https://getbootstrap.com/docs/4.1/assets/brand/bootstrap-solid.svg" width="30" height="30" alt="">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <a class="navbar-brand" href="/">
+                    <img src="{% static 'images/logo.png' %}" width="100" height="60" alt="logo">
                 </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                  
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                    </ul>
+                    <div class="form-inline my-2 my-lg-0">
+                        <ul class="navbar-nav">
+                            <li class="span6">
+                                <div class="mycontent-left">
+                                   <a class="a-navbar" href="{% url 'webclient:contact-form' %}">Contacto</a> 
+                                </div>
+                            </li>
+                            <li class="span6">
+                                <div class="mycontent-right">
+                                   <a class="a-navbar" href="{% url 'webclient:login' %}">
+                                       Iniciar Sesion
+                                       <img class="img-profile" src="{% static 'images/login.png' %}" width="25" height="25" alt="logo">
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
             </nav>
         {% endblock %}
 
@@ -68,7 +94,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="{% static 'assets/js/jquery.backstretch.min.js' %}"></script>
-        <!-- <script src="{% static 'assets/js/retina-1.1.0.min.js' %}"></script> -->
+        <script src="{% static 'js/jquery.steps.min.js' %}"></script>
         <script src="{% static 'assets/js/scripts.js' %}"></script>
         <script src="{% static 'assets/js/jquery.imgcheckbox.js' %}"></script>
         <script src="{% static 'js/main.js' %}"></script>

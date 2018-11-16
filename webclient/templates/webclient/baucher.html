@@ -11,7 +11,90 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/baucher.css' %}">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            color: #333;
+            line-height: 20px;
+            text-align: left;   
+        }
+
+        .container {
+            border: 3px solid #bbb;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .tiquet-number {
+            font-weight: 500
+        }
+
+        .client-name span.title {
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .client-name span.name {
+            color: #999;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+
+        .item-title {
+            background-color: #ddd;
+            padding: 10px 50px 10px 60px;
+            margin-left: -30px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            display: inline-block;
+            width: 160px;
+        }
+
+        .item-info {
+            font-weight: 400;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .company-name {
+            color: #999;
+            margin-top: 37px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            margin-left: 30px;
+        }
+
+        span.item-description-title {
+            display: inline-block;
+            margin-bottom: 15px;
+            padding-top: 10px;
+            font-weight: 500;
+        }
+
+        .item-description-title span.day-schedule {
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        span.item-detail {
+            color: #999;
+            line-height: 25px;
+        }
+
+        .item-title.transport {
+            width: 302px !important;
+        }
+
+        p.tulicencia-info {
+            font-size: 1.1em;
+            color: #999;
+            font-weight: 500;
+        }
+    </style>
   </head>
   <body>
 
@@ -93,7 +176,7 @@
                     </div>
                 {% else %}
                     <p class="item-info">
-                        Indicaste que ya aún no estas incrito en el RUNT, por lo que debes dirigirte a la oficina del organismo de transporte y realizar allí la inscripción, 
+                        Indicaste que aún no estas incrito en el RUNT, por lo que debes dirigirte a la oficina del organismo de transporte y realizar allí la inscripción, 
                         este proceso tiene un valor de 13.900, los cuales deberá pagar en la oficina:
                     </p>
                     <p class="company-name">{{request.transit.name}}</p>

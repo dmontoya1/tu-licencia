@@ -177,3 +177,23 @@ class TransitSerializer(serializers.ModelSerializer):
         model = TransitDepartment
         fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'runt_price', 'rating', 'schedule')
 
+
+class CeaDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Cea
+        fields = ('id', 'name', 'nit')
+
+
+class CrcDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Crc
+        fields = ('id', 'name', 'nit')
+
+
+class TransitDetailSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = TransitDepartment
+        fields = ('id', 'name', 'nit')

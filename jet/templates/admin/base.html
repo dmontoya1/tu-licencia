@@ -20,13 +20,15 @@
 {% jet_get_date_format as date_format %}
 {% jet_get_time_format as time_format %}
 {% jet_get_datetime_format as datetime_format %}
-
 <script type="text/javascript" charset="utf-8">
     var DATE_FORMAT = "{{ date_format }}";
     var TIME_FORMAT = "{{ time_format }}";
     var DATETIME_FORMAT = "{{ datetime_format }}";
 </script>
+
 <script type="text/javascript" src="{% url 'jet:jsi18n' %}"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="{% static "jet/js/build/jquery.init.js" as url %}{{ url|jet_append_version }}"></script>
 <script src="{% static "jet/js/build/bundle.min.js" as url %}{{ url|jet_append_version }}"></script>
 
 {% jet_static_translation_urls as translation_urls %}

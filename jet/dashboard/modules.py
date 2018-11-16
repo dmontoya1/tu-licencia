@@ -607,3 +607,8 @@ class Feed(DashboardModule):
                 'warning': True,
             })
 
+
+class Reports(DashboardModule):
+
+    title = 'Reportes'
+    template = 'reports/report_list.html'
