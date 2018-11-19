@@ -8,6 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.generic.base import TemplateView, View
+from django.views.generic.detail import DetailView
 
 from companies.models import TuLicencia
 from request.models import Request
@@ -75,6 +76,28 @@ class Profile(TemplateView):
     """
 
     template_name = 'webclient/profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(Profile, self).get_context_data(**kwargs)
+        requests = Request.objects.filter(user=self.request.user)
+        context['requests'] = requests
+        return context
+
+
+class RequestDetail(DetailView):
+    """Detalle de una solicitud
+    """
+
+    model = Request
+    template_name='webclient/request_detail.html'
+
+
+class ProfileDetail(DetailView):
+    """Detalle de mi perfil
+    """
+
+    model = get_user_model()
+    template_name='webclient/edit_profile.html'
 
 
 class ForgetPassword(TemplateView):

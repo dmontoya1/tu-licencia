@@ -1,162 +1,80 @@
-{% extends 'webclient/base.html' %}
+{% extends 'webclient/profile_base.html' %}
 
 {% load static %}
 {% load custom_range %}
 
-{% block extra_css %}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    
-{% endblock %}
-
-{% block nav %}
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="/">
-            <img src="{% static 'images/logo.png' %}" width="100" height="60" alt="logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-            
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-            </ul>
-            <div class="form-inline my-2 my-lg-0">
-                <ul class="navbar-nav">
-                    <li class="span6">
-                        <div class="mycontent-left">
-                            <a class="a-navbar" href="{% url 'webclient:contact-form' %}">Contacto</a> 
-                        </div>
-                    </li>
-                    <li class="span6">
-                        <div class="mycontent-right">
-                            <a class="a-navbar" href="{% url 'webclient:profile' %}">
-                                {{request.user.email}}
-                                <img class="img-profile" src="{% static 'images/login.png' %}" width="25" height="25" alt="logo">
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-
-            </div>
-        </div>
-    </nav>
-{% endblock %}
-
-{% block content %}
-
-    <div class="col-12 form-box">
-        <div class="container">
-            <div class="row profile-title">
-                <div class="col-12">
-                   <span>
-                        Mi Perfil
-                   </span>
-                </div>
-            </div>
-            <div class="row profile-info align-items-center">
-                <div class="col-12">
-                    <div class="row profile-description">
-                        <div class="col-3 align-self-center">
-                            <img src="{% static 'images/07.png' %}" alt="user-img" width="100" height="100">
-                        </div>
-                        <div class="col-7 align-self-center">
-                            <span class="description-email">
-                                {{request.user.email}}  
-                                <i class="fas fa-check-circle"></i>
-                            </span>
-                        </div>
-                        <div class="col-2 align-self-center">
-                            <button class="btn btn-edit">Editar</button>
-                        </div>
-                    </div>
-                    <div class="row profile-detail align-items-center">
-                        <div class="col-md-4">
-                            <div class="row">
-                                <div class="col-4 align-self-center">
-                                    <img src="{% static 'images/08.png' %}" alt="" width="50" height="50">
-                                </div>
-                                <div class="col-8 align-self-center">
-                                    <span class="detail-title">Datos personales</span>
-                                    <span class="detail-info">{{request.user.get_full_name}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 align-self-center">
-                            <div class="row">
-                                <div class="col-4 align-self-center">
-                                    <img src="{% static 'images/08.png' %}" alt="" width="50" height="50">
-                                </div>
-                                <div class="col-8 align-self-center">
-                                    <span class="detail-title">Datos personales</span>
-                                    <span class="detail-info">{{request.user.get_full_name}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 align-self-center">
-                            <div class="row">
-                                <div class="col-4 align-self-center">
-                                    <img src="{% static 'images/08.png' %}" alt="" width="50" height="50">
-                                </div>
-                                <div class="col-8 align-self-center">
-                                    <span class="detail-title">Datos personales</span>
-                                    <span class="detail-info">{{request.user.get_full_name}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2 align-self-center">
-                            <div class="row">
-                                <div class="col-4 align-self-center">
-                                    <img src="{% static 'images/08.png' %}" alt="" width="50" height="50">
-                                </div>
-                                <div class="col-8 align-self-center">
-                                    <span class="detail-title">Contrasean</span>
-                                    <span class="detail-info">{{request.user.get_full_name}}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+{% block container %}
+    <div class="row row-details">
+        <div class="col-12">
+            <span class="services-title">Mis Solicitudes</span>
+            <table class="table_id">
+                <thead>
+                    <tr>
+                        <th scope="col"># Reserva</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Tramites</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in requests %}
+                        <tr>
+                            <th scope="row">{{r.booking}}</th>
+                            <td>{{r.request_date}}</td>
+                            <td>
+                                <ul style="list-style-type: none;">
+                                    {% for t in r.related_tramits.all %}
+                                        <li>
+                                            <li>{{t}}</li>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>{{r.get_request_status_display}}</td>
+                            <td>
+                                <a href="{% url 'webclient:request-detail' pk=r.pk %}">
+                                    <i class="fas fa-eye" style="font-size: 1.5em"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
-   
 {% endblock %}
-{% block extra_js %}
+   
+{% block js_extra %}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
     <script>
+        var table = $('.table_id')
+        table.DataTable({
+            language: {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "Primero",
+                    "sLast":     "Último",
+                    "sNext":     "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
 
     </script>
 {% endblock %}

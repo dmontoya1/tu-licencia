@@ -1,0 +1,247 @@
+{% extends 'webclient/base.html' %}
+
+{% load static %}
+{% load custom_range %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    
+{% endblock %}
+
+{% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'images/logo.png' %}" width="100" height="60" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav">
+                    <li class="span6">
+                        <div class="mycontent-left">
+                            <a class="a-navbar" href="{% url 'webclient:contact-form' %}">Contacto</a> 
+                        </div>
+                    </li>
+                    <li class="span6">
+                        <div class="mycontent-right">
+                            <a class="a-navbar" href="{% url 'webclient:profile' %}">
+                                {{request.user.email}}
+                                <img class="img-profile" src="{% static 'images/12.png' %}" width="25" height="25" alt="logo">
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-12 form-box">
+        <div class="container">
+            <div class="row profile-title">
+                <div class="col-12">
+                   <span>
+                        Mi Perfil
+                   </span>
+                </div>
+            </div>
+            <div class="row profile-info align-items-center">
+                <div class="col-12">
+                    <div class="row profile-description">
+                        <div class="col-2 align-self-center">
+                            <img src="{% static 'images/07.png' %}" alt="user-img" width="100" height="100">
+                        </div>
+                        <div class="col-8 align-self-center">
+                            <span class="description-email">
+                                {{request.user.email}}  
+                                <i class="fas fa-check-circle"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row justify-content-between">
+                <div class="col-lg-8 col-data-profile mt-4">
+                    <span class="services-title">
+                        <img src="{% static 'images/08.png' %}" alt="" width="40" height="40">
+                        <span class="detail-title-profile">Datos personales</span>
+                    </span>
+                    <div class="row">
+                        <div class="col-12">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-6 mt-3">
+                                        <label for="first_name">Nombres</label>
+                                        <input 
+                                            type="text" 
+                                            class="form-control" 
+                                            placeholder="Como figura en el documento de identidad" 
+                                            id="first_name" 
+                                            name='first_name'
+                                            value={{request.user.first_name|default:''}}
+                                            required
+                                        >
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <label for="last_name">Apellidos</label>
+                                        <input 
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="Como figura en el documento de identidad" 
+                                            id="last_name"
+                                            name='last_name'
+                                            value={{request.user.last_name|default:''}}
+                                            required
+                                        >
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mt-3">
+                                        <label for="document_type">Tipo de documento</label>
+                                        <select class="form-control" id="document_type" name="document_type" required>
+                                            <option disable value="">Selecciona tu documento</option>
+                                            <option value="CC" {%if request.user.document_type == 'CC'%}selected{%endif%}>Cédula de Ciudadanía</option>
+                                            <option value="CE" {%if request.user.document_type == 'CE'%}selected{%endif%}>Cédula Extrajera</option>
+                                            <option value="TI" {%if request.user.document_type == 'TI'%}selected{%endif%}>Tarjeta de identidad</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <label for="document_number">Numero de documento</label>
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Escribe el numero de tu documento"
+                                        id="document_number"
+                                        name='document_number'
+                                        value={{request.user.document_id|default:''}}
+                                        required
+                                    >
+                                    </div>
+                                </div>
+                                <button type="submit" class="save-data">Guardar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-data-profile mt-4">
+                    <span class="services-title">
+                        <img src="{% static 'images/09.png' %}" alt="" width="40" height="40">
+                        <span class="detail-title-profile">Teléfonos</span>
+                    </span>
+                    <div class="row">
+                        <div class="col-12">
+                            <form>
+                                <div class="row">
+                                    <div class="col-sm-12 col mt-3">
+                                        <label for="cellphone">Telefono celular</label>
+                                        <input 
+                                            type="text"
+                                            class="form-control"
+                                            id="cellphone"
+                                            placeholder="(+57)"
+                                            name="cellphone"
+                                            value={{request.user.cellphone|default:''}}
+                                            required
+                                        >
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col mt-3">
+                                        <label for="phone_number">Telefono fijo</label>
+                                        <input 
+                                            type="text"
+                                            class="form-control"
+                                            id="phone_number"
+                                            placeholder="(+57)"
+                                            name="phone_number"
+                                            value={{request.user.phone_number|default:''}}
+                                        >
+                                    </div>
+                                </div>
+                                <button type="submit" class="save-data">Guardar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-data-profile mt-4">
+                    <span class="services-title">
+                        <img src="{% static 'images/10.png' %}" alt="" width="40" height="40">
+                        <span class="detail-title-profile">Correo electrónico</span>
+                    </span>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <form>
+                                <div class="row">
+                                    <div class="col-10">
+                                        <label for="email">Correo electrónico</label>
+                                        <input 
+                                            type="text"
+                                            class="form-control"
+                                            id="email"
+                                            placeholder="(+57)"
+                                            name="email"
+                                            value={{request.user.email|default:''}}
+                                            readonly
+                                        >
+                                    </div>
+                                    <div class="col-2 align-self-end">
+                                        <a href="#"><i class="fas fa-pen"></i></a>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-data-profile mt-4">
+                    <span class="services-title">
+                        <img src="{% static 'images/11.png' %}" alt="" width="40" height="40">
+                        <span class="detail-title-profile">Contraseña</span>
+                    </span>
+                    <div class="row">
+                        <div class="col-12 mb-3">
+                            <form>
+                                <div class="row">
+                                    <div class="col-10">
+                                        <label for="password">Contraseña</label>
+                                        <input 
+                                            type="text"
+                                            class="form-control"
+                                            id="password"
+                                            placeholder="(+57)"
+                                            name="password"
+                                            value='**********'
+                                            readonly
+                                        >
+                                    </div>
+                                    <div class="col-2 align-self-end">
+                                        <a href="#"><i class="fas fa-pen"></i></a>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+   
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <script>
+    
+
+    </script>
+{% endblock %}
