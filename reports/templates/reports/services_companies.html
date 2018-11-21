@@ -157,7 +157,9 @@
                     )
                 });
                 $('#cea').prepend(
-                    `<option selected disabled>Selecciona un CEA</option>`
+                    `<option selected disabled>Selecciona un CEA</option>
+                    <option value=''>Eliminar filtro</option>
+                    `
                 )
             })
             .catch(function (error) {
@@ -178,7 +180,9 @@
                     )
                 });
                 $('#crc').prepend(
-                    `<option selected disabled>Selecciona un CRC</option>`
+                    `<option selected disabled>Selecciona un CRC</option>
+                    <option value=''>Eliminar filtro</option>
+                    `
                 )
             })
             .catch(function (error) {
@@ -199,7 +203,9 @@
                     )
                 });
                 $('#transit').prepend(
-                    `<option selected disabled>Selecciona un departamento de tránsito</option>`
+                    `<option selected disabled>Selecciona un departamento de tránsito</option>
+                    <option value=''>Eliminar filtro</option>
+                    `
                 )
             })
             .catch(function (error) {
@@ -220,7 +226,7 @@
                 'cea': $('#cea').val(),
                 'crc': $('#crc').val(),
                 'transit': $('#transit').val(),
-                'city': $('#cities').val(),
+                'state': $('#states').val(),
                 'request_status': $('#request_status').val(),
             }
             axios.defaults.headers.common['X-CSRFToken'] = '{{csrf_token}}';

@@ -122,20 +122,22 @@ class ServicesByCompanyApi(APIView):
         try:
             start_date = request.data['start']
             end_date = request.data['end']
-            city = request.data['city']
+            state = request.data['state']
+            cea = request.data['cea']
+            crc = request.data['crc']
+            transit = request.data['transit']
 
             query = []
 
             requests = Request.objects.filter(
                 request_date__gte=start_date,
                 request_date__lte=end_date,
-                crc__city=city,
+                state=state,
             )
-
             if (request.data['request_status']):
                 requests = requests.filter(request_status=request.data['request_status'])
 
-            if(request.data['cea']):
+            if(cea and not crc and not transit):
                 cea = Cea.objects.get(pk=request.data['cea'])
                 requests = requests.filter(cea=cea)
 
@@ -164,8 +166,7 @@ class ServicesByCompanyApi(APIView):
                                 'booking': r.booking
                             }
                         )
-            
-            elif(request.data['crc']):
+            elif(crc and not transit and not cea):
                 crc = Crc.objects.get(pk=request.data['crc'])
                 requests = requests.filter(crc=crc)
 
@@ -194,8 +195,7 @@ class ServicesByCompanyApi(APIView):
                                 'booking': r.booking
                             }
                         )
-
-            elif(request.data['transit']):
+            elif(transit and not cea and not crc):
                 transit = TransitDepartment.objects.get(pk=request.data['transit'])
                 requests = requests.filter(transit=transit)
 
@@ -224,8 +224,300 @@ class ServicesByCompanyApi(APIView):
                                 'booking': r.booking
                             }
                         )
-            else:
+            elif(cea and crc and not transit):
+                cea = Cea.objects.get(pk=cea)
+                crc = Crc.objects.get(pk=crc)
+                requests_cea = requests.filter(cea=cea)
+                requests_crc = requests.filter(crc=crc)
 
+                for r in requests_cea:
+                    tramits = []
+                    for t in r.related_tramits.all():
+                        tramits.append(
+                            {
+                                'tramit': t.name()
+                            }
+                        )
+                    if r.payment_date:
+                        payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
+                    else:
+                        payment_date = "Sin pago"
+                    if r.cea:
+                        query.append(
+                            {
+                                'name': r.cea.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+                for r in requests_crc:
+                    tramits = []
+                    for t in r.related_tramits.all():
+                        tramits.append(
+                            {
+                                'tramit': t.name()
+                            }
+                        )
+                    if r.payment_date:
+                        payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
+                    else:
+                        payment_date = "Sin pago"
+                    if r.crc:
+                        query.append(
+                            {
+                                'name': r.crc.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+            elif(cea and transit and not crc):
+                cea = Cea.objects.get(pk=cea)
+                transit = TransitDepartment.objects.get(pk=transit)
+                requests_cea = requests.filter(cea=cea)
+                requests_transit = requests.filter(transit=transit)
+
+                for r in requests_cea:
+                    tramits = []
+                    for t in r.related_tramits.all():
+                        tramits.append(
+                            {
+                                'tramit': t.name()
+                            }
+                        )
+                    if r.payment_date:
+                        payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
+                    else:
+                        payment_date = "Sin pago"
+                    if r.cea:
+                        query.append(
+                            {
+                                'name': r.cea.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+                for r in requests_transit:
+                    tramits = []
+                    for t in r.related_tramits.all():
+                        tramits.append(
+                            {
+                                'tramit': t.name()
+                            }
+                        )
+                    if r.payment_date:
+                        payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
+                    else:
+                        payment_date = "Sin pago"
+                    if r.cea:
+                        query.append(
+                            {
+                                'name': r.cea.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+                    if r.transit:
+                        query.append(
+                            {
+                                'name': r.transit.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+            elif(crc and transit and not cea):
+                crc = Crc.objects.get(pk=crc)
+                transit = TransitDepartment.objects.get(pk=transit)
+                requests_crc = requests.filter(crc=crc)
+                requests_transit = requests.filter(transit=transit)
+
+                for r in requests_crc:
+                    tramits = []
+                    for t in r.related_tramits.all():
+                        tramits.append(
+                            {
+                                'tramit': t.name()
+                            }
+                        )
+                    if r.payment_date:
+                        payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
+                    else:
+                        payment_date = "Sin pago"
+                    if r.crc:
+                        query.append(
+                            {
+                                'name': r.crc.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+            
+                for r in requests_transit:
+                    tramits = []
+                    for t in r.related_tramits.all():
+                        tramits.append(
+                            {
+                                'tramit': t.name()
+                            }
+                        )
+                    if r.payment_date:
+                        payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
+                    else:
+                        payment_date = "Sin pago"
+                    if r.cea:
+                        query.append(
+                            {
+                                'name': r.cea.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+                    if r.transit:
+                        query.append(
+                            {
+                                'name': r.transit.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+            elif(crc and transit and cea):
+                cea = Cea.objects.get(pk=cea)
+                crc = Crc.objects.get(pk=crc)
+                transit = TransitDepartment.objects.get(pk=transit)
+                requests_cea = requests.filter(cea=cea)
+                requests_crc = requests.filter(crc=crc)
+                requests_transit = requests.filter(transit=transit)
+
+                for r in requests_cea:
+                    tramits = []
+                    for t in r.related_tramits.all():
+                        tramits.append(
+                            {
+                                'tramit': t.name()
+                            }
+                        )
+                    if r.payment_date:
+                        payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
+                    else:
+                        payment_date = "Sin pago"
+                    if r.cea:
+                        query.append(
+                            {
+                                'name': r.cea.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+                for r in requests_crc:
+                    tramits = []
+                    for t in r.related_tramits.all():
+                        tramits.append(
+                            {
+                                'tramit': t.name()
+                            }
+                        )
+                    if r.payment_date:
+                        payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
+                    else:
+                        payment_date = "Sin pago"
+                    if r.crc:
+                        query.append(
+                            {
+                                'name': r.crc.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+                for r in requests_transit:
+                    tramits = []
+                    for t in r.related_tramits.all():
+                        tramits.append(
+                            {
+                                'tramit': t.name()
+                            }
+                        )
+                    if r.payment_date:
+                        payment_date = r.payment_date.strftime("%d %B, %y - %I:%M %p")
+                    else:
+                        payment_date = "Sin pago"
+                    if r.cea:
+                        query.append(
+                            {
+                                'name': r.cea.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+                    if r.transit:
+                        query.append(
+                            {
+                                'name': r.transit.name,
+                                'client_name': r.user.get_full_name(),
+                                'tramits': tramits,
+                                'request_date': r.request_date.strftime("%d %B, %y - %I:%M %p"),
+                                'payment_date': payment_date,
+                                'request_status': r.get_request_status_display(),
+                                'payment_type': r.get_payment_type_display(),
+                                'booking': r.booking
+                            }
+                        )
+            
+            else:
+                print ('last else')
                 for r in requests:
                     tramits = []
                     for t in r.related_tramits.all():
