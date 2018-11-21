@@ -30,10 +30,18 @@
                     </li>
                     <li class="span6">
                         <div class="mycontent-right">
-                            <a class="a-navbar" href="{% url 'webclient:profile' %}">
-                                {{request.user.email}}
-                                <img class="img-profile" src="{% static 'images/login.png' %}" width="25" height="25" alt="logo">
-                            </a>
+                                <div class="dropdown show">
+                                    <a class="a-navbar dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        {{request.user.email}}
+                                        <img class="img-profile" src="{% static 'images/12.png' %}" width="25" height="25" alt="logo">
+                                    </a>
+                                    
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="{% url 'webclient:profile' %}">Mi Perfil</a>
+                                        <a class="dropdown-item" href="{% url 'webclient:logout' %}">Cerrar Sesión</a>
+                                    </div>
+                                </div>
+                                
                         </div>
                     </li>
                 </ul>
