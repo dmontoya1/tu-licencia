@@ -27,12 +27,12 @@
                         </span>
     
                         <div class="wrap-input100 validate-input" data-validate = "El nombre es requerido">
-                            <input class="input100" type="text" name="contact-form" placeholder="Nombre completo">
+                            <input class="input100" type="text" name="full_name" id="full_name" placeholder="Nombre completo">
                             <span class="focus-input100"></span>
                         </div>
 
                         <div class="wrap-input100 validate-input" data-validate = "El correo es requerido: ejemplo@correo.com">
-                            <input class="input100" type="email" name="email" placeholder="Correo electrónico">
+                            <input class="input100" type="email" name="email" id="email" placeholder="Correo electrónico">
                             <span class="focus-input100"></span>
                         </div>
 
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="wrap-input100 validate-input" data-validate = "Debes ingresar un mensaje">
-                            <textarea class="input100 form-control" type="textarea" name="message" rows="2" placeholder="Ingresa tu mensaje"></textarea>
+                            <textarea class="input100 form-control" type="textarea" id="message" name="message" rows="2" placeholder="Ingresa tu mensaje"></textarea>
                             <span class="focus-input100"></span>
                         </div>
                         
@@ -149,7 +149,14 @@
                     'contact_type': $('#contact_type :selected').val(),
                     'message': $('#message').val()
                 }
-                axios.post('/api/manager/contact-form/', data)
+                axios.defaults.headers.common['X-CSRFToken'] = '{{csrf_token}}';
+                console.log(data)
+                axios.post('/api/manager/contact-form/', {
+                    'full_name': $('#full_name').val(),
+                    'email': $('#email').val(),
+                    'contact_type': $('#contact_type :selected').val(),
+                    'message': $('#message').val()
+                })
                 .then(function(response){
                     data = response.data
                     swal(
