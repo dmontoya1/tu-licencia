@@ -82,20 +82,20 @@
 
                 {% else %}
                     <div class="col-sm-6 col-md-4">
-                        <span class="title">Estado pago</span>
-                        <span class="description">{{object.get_payment_status_display}}</span>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
-                        <span class="title">Fecha del pago</span>
-                        <span class="description">{{object.payment_date}}</span>
-                    </div>
-                    <div class="col-sm-6 col-md-4">
                         <span class="title">Referencia de pago TuLicencia</span>
                         <span class="description">{{object.id_invoice}}</span>
                     </div>
                     <div class="col-sm-6 col-md-4">
+                        <span class="title">Estado pago</span>
+                        <span class="description">{{object.payment_status|default:'Pendiente pago'}}</span>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <span class="title">Fecha del pago</span>
+                        <span class="description">{{object.payment_date|default:'Pendiente pago'}}</span>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
                         <span class="title">Referencia de pago ePayco</span>
-                        <span class="description">{{object.id_epayco_invoice}}</span>
+                        <span class="description">{{object.id_epayco_invoice|default:'Pendiente pago'}}</span>
                     </div>
                 {% endif %}
                 <div class="col-sm-6 col-md-4 align-self-end">
