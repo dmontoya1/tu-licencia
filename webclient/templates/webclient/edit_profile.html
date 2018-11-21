@@ -77,8 +77,9 @@
                     </span>
                     <div class="row">
                         <div class="col-12">
-                            <form>
+                            <form id="personal-data">
                                 <div class="row">
+                                    <input type="hidden" name="user_id" id="user_id" value="{{request.user.id}}">
                                     <div class="col-md-6 mt-3">
                                         <label for="first_name">Nombres</label>
                                         <input 
@@ -115,13 +116,13 @@
                                         </select>
                                     </div>
                                     <div class="col-md-6 mt-3">
-                                        <label for="document_number">Numero de documento</label>
+                                        <label for="document_id">Numero de documento</label>
                                         <input
                                         type="text"
                                         class="form-control"
                                         placeholder="Escribe el numero de tu documento"
-                                        id="document_number"
-                                        name='document_number'
+                                        id="document_id"
+                                        name='document_id'
                                         value={{request.user.document_id|default:''}}
                                         required
                                     >
@@ -139,7 +140,7 @@
                     </span>
                     <div class="row">
                         <div class="col-12">
-                            <form>
+                            <form id="phone-contact">
                                 <div class="row">
                                     <div class="col-sm-12 col mt-3">
                                         <label for="cellphone">Telefono celular</label>
@@ -194,7 +195,9 @@
                                         >
                                     </div>
                                     <div class="col-2 align-self-end">
-                                        <a href="#"><i class="fas fa-pen"></i></a>
+                                        <a data-toggle="modal" data-target="#changeEmail">
+                                            <i class="fas fa-pen"></i>
+                                        </a>
                                     </div>
                                 </div>
                                 
@@ -224,7 +227,9 @@
                                         >
                                     </div>
                                     <div class="col-2 align-self-end">
-                                        <a href="#"><i class="fas fa-pen"></i></a>
+                                            <a data-toggle="modal" data-target="#changePassword">
+                                                <i class="fas fa-pen"></i>
+                                            </a>
                                     </div>
                                 </div>
                                 
@@ -234,6 +239,133 @@
                 </div>
 
             </div>
+
+
+            <!-- Modales -->
+
+            <!-- Model editar correo -->
+            <div class="modal fade" id="changeEmail" tabindex="-1" role="dialog" aria-labelledby="changeEmailLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="container">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <span class="services-title" style="text-align:center;">
+                                            <img src="{% static 'images/10.png' %}" alt="" width="40" height="40">
+                                            <span class="detail-title-profile">Editar Correo electrónico</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form id="update-email">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <label for="old_email">Correo electrónico anterior</label>
+                                                    <input 
+                                                        type="email"
+                                                        class="form-control mb-3"
+                                                        id="old_email"
+                                                        name="old_email"
+                                                    >
+                                                    <label for="new_email">Correo electrónico nuevo</label>
+                                                    <input 
+                                                        type="email"
+                                                        class="form-control mb-3"
+                                                        id="new_email"
+                                                        name="email"
+                                                        
+                                                    >
+                                                    <label for="new_email2">Repetir Correo electrónico</label>
+                                                    <input 
+                                                        type="email"
+                                                        class="form-control mb-3"
+                                                        id="new_email2"
+                                                        name="email2"
+                                                        
+                                                    >
+                                                </div>
+                                                
+                                            </div>
+                                            <button type="submit" class="btn btn-change-email mt-3 mb-4">Guardar</button>
+                                            <button type="button" class="btn btn-cancel mt-3 mb-4" data-dismiss="modal">Cancelar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                      </div>
+                </div>
+            </div>
+
+            <!-- Model editar password -->
+            <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="changePasswordLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <div class="container">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <span class="services-title" style="text-align:center;">
+                                            <img src="{% static 'images/11.png' %}" alt="" width="40" height="40">
+                                            <span class="detail-title-profile">Editar Contraseña</span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <form id="update-password">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <input type="hidden" name="document_id" value="{{request.user.document_id}}">
+                                                    <label for="old_password">Contraseña actual</label>
+                                                    <input 
+                                                        type="password"
+                                                        class="form-control mb-3"
+                                                        id="old_password"
+                                                        name="old_password"
+                                                    >
+                                                    <label for="new_password">Ingresa tu nueva Contraseña</label>
+                                                    <input 
+                                                        type="password"
+                                                        class="form-control mb-3"
+                                                        id="new_password"
+                                                        name="password"
+                                                        
+                                                    >
+                                                    <label for="new_password2">Repetir Contraseña</label>
+                                                    <input 
+                                                        type="password"
+                                                        class="form-control mb-3"
+                                                        id="new_password2"
+                                                        name="password2"
+                                                        
+                                                    >
+                                                </div>
+                                                
+                                            </div>
+                                            <button type="submit" class="btn btn-change-email mt-3 mb-4">Guardar</button>
+                                            <button type="button" class="btn btn-cancel mt-3 mb-4" data-dismiss="modal">Cancelar</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        </div>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
    
@@ -241,7 +373,152 @@
 {% block extra_js %}
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
     <script>
-    
+        $(document).ready(function(ev){
+            axios.get(`/api/users/profile/`)
+            .then(function(response){
+                data = response.data
+                $('#first_name').val(data.first_name),
+                $('#last_name').val(data.last_name),
+                $('#document_id').val(data.document_id),
+                $('#document_type :selected').val(data.document_type)
+                $('#cellphone').val(data.cellphone),
+                $('#phone_number').val(data.phone_number)
+            })
+            .catch(function(error){
+                console.log("Error")
+                console.log(error)
+            })
+        })
+        $('#personal-data').on('submit', function(ev){
+            ev.preventDefault()
+            axios.defaults.headers.common['X-CSRFToken'] = '{{csrf_token}}';
+            axios.patch(`/api/users/profile/`, {
+                'first_name': $('#first_name').val(),
+                'last_name': $('#last_name').val(),
+                "document_type": $('#document_type :selected').val(),
+                'document_id': $('#document_id').val(),
+            })
+            .then(function(response){
+                data = response.data
+                $('#first_name').val(data.first_name),
+                $('#last_name').val(data.last_name),
+                $('#document_id').val(data.document_id),
+                $('#document_type :selected').val(data.document_type)
+                toastr["success"]('Los datos personales se han actualizado exitosamente')
+            })
+            .catch(function(error){
+                console.log("Error")
+                console.log(error)
+            })
+        })
+        $('#phone-contact').on('submit', function(ev){
+            ev.preventDefault()
+            axios.defaults.headers.common['X-CSRFToken'] = '{{csrf_token}}';
+            axios.patch(`/api/users/profile/`, {
+                'cellphone': $('#cellphone').val(),
+                'phone_number': $('#phone_number').val(),
+            })
+            .then(function(response){
+                data = response.data
+                $('#cellphone').val(data.cellphone),
+                $('#phone_number').val(data.phone_number),
+                toastr["success"]('Los datos de contacto se han actualizado exitosamente')
+            })
+            .catch(function(error){
+                console.log("Error")
+                console.log(error)
+            })
+        })
+        
+        $('#update-email').on('submit', function(ev){
+            ev.preventDefault()
+            
+            form = $(this)
+            submitButton = form.find('#button-send-email').eq(0)
+            submitButton.addClass('disabled')
+            submitButton.attr('disabled', true)
+            $.ajax({
+                data: $(this).serialize(),
+                method: "PATCH",
+                headers: ({'Api-Key': '514419708fab4f7323a9b559eb64cbfae0342845'}),
+                url:"{% url 'api:users:change_email' %}",
+                success:function(data)
+                {
+                    toastr.success("Se han guardado tus datos de manera exitosa")
+                    setTimeout(function(){
+                        $('#modal_edit_email').modal('toggle')
+                        location.reload()
+
+                    }, 1000);
+                },
+                error:function(data)
+                {
+                    data = data.responseJSON
+                    $.each(data, function(k, v)
+                    {
+                        toastr.error(v)
+                    });
+                    submitButton.removeClass('disabled')
+                    submitButton.attr('disabled', false)
+                }
+            });
+
+        })
+
+        $('#update-password').on('submit', function(ev){
+            ev.preventDefault()
+            form = $(this)
+            submitButton = form.find('#button-send-password').eq(0)
+            submitButton.addClass('disabled')
+            submitButton.attr('disabled', true)
+            $.ajax({
+                data: $(this).serialize(),
+                type: "PATCH",
+                headers: ({'X-CSRFToken': '{{ csrf_token }}'},
+                            {'Api-Key': '514419708fab4f7323a9b559eb64cbfae0342845'}),
+                url:"{% url 'api:users:change_password' %}",
+                success:function(data)
+                {
+                    toastr.success("Tu contraseña se ha cambiado")
+                    setTimeout(function(){
+                        $('#modal_edit_password').modal('toggle')
+                        location.reload()
+
+                    }, 1500);
+
+
+                },
+                error:function(data)
+                {
+                    data = data.responseJSON
+                    $.each(data, function(k, v)
+                    {
+                        toastr.options = {
+                            "closeButton": false,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": true,
+                            "onclick": null,
+                            "showDuration": "1000",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                        toastr.error(v)
+                    });
+                    submitButton.removeClass('disabled')
+                    submitButton.attr('disabled', false)
+                }
+            });
+
+        })
+        
 
     </script>
 {% endblock %}

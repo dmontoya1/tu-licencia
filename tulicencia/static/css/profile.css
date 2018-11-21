@@ -227,3 +227,30 @@ button.save-data {
     background-color: #fff;
     opacity: 1;
 }
+
+.btn.btn-change-email {
+    background: #162d3f;
+    float: left;
+    color: #fff;
+    font-weight: 400;
+}
+
+.btn.btn-cancel {
+    color: #666;
+    background: transparent;
+    float: left;
+    margin-left: 20px;
+    font-weight: 400;
+}
+
+span.rated-service {
+    font-size: 1.1em;
+    color: #22d0dc;
+    float: right;
+    margin-right: 20px;
+}
+
+a.rated-service {
+    font-size: 1.1em;
+    color: #22d0dc;
+}

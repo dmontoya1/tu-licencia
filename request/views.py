@@ -36,6 +36,7 @@ class RequestCreate(APIView):
             state = city.state
             try:
                 user = User.objects.get(username=user_data['document_id'])
+                token, created = Token.objects.get_or_create(user=user)
             except User.DoesNotExist:
                 birth_date = datetime.strptime(user_data['birth_date'], '%m-%d-%Y')
                 user = get_user_model()
@@ -55,7 +56,7 @@ class RequestCreate(APIView):
                 user.birth_date = birth_date
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
                 user.save()
-                Token.objects.create(user=user)
+                token = Token.objects.create(user=user)
 
             if (request.data['runt'] == 'si'):
                 runt = True
