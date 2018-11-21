@@ -21,7 +21,7 @@ from rest_framework.response import Response
 import requests
 
 
-from .models import Police, State, City, Sector
+from .models import Police, State, City, Sector, ContactForm
 from .serializers import PoliceSerializer, StateSerializer, CitySerializer, SectorSerializer,\
                          ContactFormSerializer
 
@@ -83,9 +83,11 @@ class SectorList(generics.ListAPIView):
         return queryset
 
 
-class ContactForm(generics.CreateAPIView):
+class ContactFormView(generics.CreateAPIView):
     """Vista para crear las peticiones que se envían en los formularios de contacto
     """
 
     permission_classes = (AllowAny,)
     serializer_class = ContactFormSerializer
+    queryset = ContactForm.objects.all()
+
