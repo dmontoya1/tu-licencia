@@ -4,10 +4,12 @@ from __future__ import unicode_literals
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.generic.base import TemplateView, View
+from django.views.generic.detail import DetailView
 
 from companies.models import TuLicencia
 from request.models import Request
@@ -70,11 +72,39 @@ class Login(TemplateView):
     template_name = 'webclient/login.html'
 
 
-class Profile(TemplateView):
+class Profile(LoginRequiredMixin, TemplateView):
     """Vista para el perfil
     """
 
     template_name = 'webclient/profile.html'
+    login_url = '/login'
+    redirect_field_name = 'redirect_to'
+
+    def get_context_data(self, **kwargs):
+        context = super(Profile, self).get_context_data(**kwargs)
+        requests = Request.objects.filter(user=self.request.user)
+        context['requests'] = requests
+        return context
+
+
+class RequestDetail(LoginRequiredMixin, DetailView):
+    """Detalle de una solicitud
+    """
+
+    model = Request
+    template_name='webclient/request_detail.html'
+    login_url = '/login'
+    redirect_field_name = 'redirect_to'
+
+
+class ProfileDetail(LoginRequiredMixin, DetailView):
+    """Detalle de mi perfil
+    """
+
+    model = get_user_model()
+    template_name='webclient/edit_profile.html'
+    login_url = '/login'
+    redirect_field_name = 'redirect_to'
 
 
 class ForgetPassword(TemplateView):

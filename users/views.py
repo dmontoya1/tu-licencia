@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import uuid
 
 from rest_framework import generics, status
+from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -16,10 +17,10 @@ from django.http import HttpResponse, HttpResponseRedirect, JsonResponse, Http40
 from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.views.generic import TemplateView, View, ListView
 
-
+from api.helpers import CsrfExemptSessionAuthentication
 from core.views import sendEmail
 from .models import UserToken
-from .serializers import UserSerializer, UserCustomSerializer
+from .serializers import UserSerializer, UserCustomSerializer, UserEmailSerializer, ChangePasswordSerializer
 
 
 class Login(View):
@@ -83,3 +84,47 @@ class PasswordResetView(APIView):
 			},
 			status=status.HTTP_200_OK
 		)
+
+
+class ProfileUpdate(generics.RetrieveUpdateAPIView):
+	"""Api para actualizar los datos del perfil de usuario
+	"""
+
+	serializer_class = UserSerializer
+	model = get_user_model()
+	queryset = get_user_model().objects.all()
+
+	def get_object(self):
+		return self.request.user
+
+
+class UserChangeEmail(generics.UpdateAPIView):
+	"""Api para actualizar el email de un usuario
+	"""
+
+	authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+	serializer_class = UserEmailSerializer
+	queryset = get_user_model().objects.all()
+
+
+	def get_object(self):
+		email = self.request.data.get('old_email')
+		user = get_user_model().objects.get(email=email)
+		try:
+			obj = get_user_model().objects.get(pk=user.pk)
+		except:
+			raise ValidationError('No existe un usuario con correo')
+		return obj
+
+
+class UserChangePassword(generics.UpdateAPIView):
+	"""Api para actualizar el email de un usuario
+	"""
+
+	authentication_classes = (CsrfExemptSessionAuthentication, BasicAuthentication)
+	serializer_class = ChangePasswordSerializer
+	queryset = get_user_model().objects.all()
+
+
+	def get_object(self):
+		return self.request.user

@@ -1,0 +1,115 @@
+{% extends 'webclient/profile_base.html' %}
+
+{% load static %}
+{% load custom_range %}
+
+
+{% block container %}
+
+    <div class="row row-details">
+        <div class="col-12">
+            <div class="row row-title-details">
+                <div class="col-3">
+                    <span class="services-title">Detalle de solicitud</span>
+                </div>
+                <div class="col-6">
+                    <a href="{% url 'webclient:baucher-detail' pk=object.pk %}" target="_blank" class="btn btn-baucher">Ver Baucher</a>
+                </div>
+                <div class="col-3">
+                    <a href="{% url 'webclient:profile' %}" class="btn btn-back"><img src="{% static 'images/Volver.png' %}" alt=""> Regresar</a>
+                </div>
+
+            </div>
+            <div class="row request-data align-items-center">
+                <div class="col-sm-6 col-md-4">
+                    <span class="title">Nº Reserva</span>
+                    <span class="description">{{object.booking}}</span>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <span class="title">Fecha de la solicitud</span>
+                    <span class="description">{{object.request_date}}</span>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <span class="title">Estado de la solicitud</span>
+                    <span class="description">
+                        {{object.get_request_status_display}}
+                    </span>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <span class="title">
+                        CRC
+                            
+                            <span class="rated-service">
+                               <a href="#" class="rated-service rate-crc">Calificar servicio</a>
+                            </span>
+                        
+                    </span>
+                    <span class="description">
+                        {{object.crc}}
+                    </span>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <span class="title">
+                        CEA
+                        <span class="rated-service">
+                            <a href="#" class="rated-service rate-cea">Calificar servicio</a>
+                        </span>
+                    </span>
+                    <span class="description">{{object.cea}}</span>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <span class="title">
+                        Organismo de tránsito
+                        <span class="rated-service">
+                            <a href="#" class="rated-service rate-transit">Calificar servicio</a>
+                        </span>
+                    </span>
+                    <span class="description">{{object.transit}}</span>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <span class="title">Tipo de pago</span>
+                    <span class="description">{{object.get_payment_type_display}}</span>
+                </div>
+                {% if object.payment_type == 'CR' %}
+                    <div class="col-sm-6 col-md-4">
+                        <span class="title">Estado del crédito</span>
+                        <span class="description">{{object.get_credit_status_display}}</span>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <span class="title">Codigo solicitud del crédito</span>
+                        <span class="description">{{object.credit_request_code|default:'Sin codigo '}}</span>
+                    </div>
+
+                {% else %}
+                    <div class="col-sm-6 col-md-4">
+                        <span class="title">Estado pago</span>
+                        <span class="description">{{object.get_payment_status_display}}</span>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <span class="title">Fecha del pago</span>
+                        <span class="description">{{object.payment_date}}</span>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <span class="title">Referencia de pago TuLicencia</span>
+                        <span class="description">{{object.id_invoice}}</span>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <span class="title">Referencia de pago ePayco</span>
+                        <span class="description">{{object.id_epayco_invoice}}</span>
+                    </div>
+                {% endif %}
+                <div class="col-sm-6 col-md-4 align-self-end">
+                    <a href="#" class="btn btn-cancel">Solicitar Cancelación del servicio</a>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+   
+{% endblock %}
+{% block js_extra %}
+    <script>
+
+    </script>
+{% endblock %}

@@ -1,0 +1,256 @@
+body{
+    background-color: #fff !important
+}
+
+
+.mycontent-left {
+    border-right: 1px solid #fff;
+    padding-right: 30px;
+}
+
+.mycontent-right {
+    margin-right: 50px;
+    margin-left: 30px;
+}
+
+.mycontent-right .a-navbar {
+    color: #efbe21;;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-transform: none;
+}
+
+.a-navbar {
+    color: #fff;;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-transform: none;
+}
+
+a.a-navbar:hover, a.a-navbar:focus, a.a-navbar:active {
+    color: #999;
+}
+
+a.a-navbar:active {
+    color: #fff;
+}
+
+img.img-profile {
+    margin-left: 30px;
+}
+
+.row.profile-title {
+    height: 70px;
+    margin-top: 30px;
+    font-size: 2em;
+    font-weight: 500;
+    color: #162d3f;
+    text-align: left;
+}
+
+.row.profile-info {
+    border: 1px solid #999;
+    border-radius: 10px;
+}
+
+.row.profile-description {
+    background-color: #162d3f;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 25px 15px;
+    height: 140px;
+}
+
+span.description-email {
+    font-size: 0.9em;
+    color: #fff;
+    text-align: left;
+    display: block;
+    font-weight: 600;
+    margin-left: -30px;
+}
+
+.btn.btn-edit {
+    background-color: transparent;
+    border: 2px solid #fff;
+    font-size: 1em;
+    font-weight: 600;
+    color: #fff;
+    padding: 6px 30px;
+    float: right;
+}
+
+.row.profile-detail {
+    padding: 10px 10px;
+}
+
+span.detail-title {
+    display: block;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+span.detail-title-profile {
+    text-align: left;
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+span.detail-info {
+    display: block;
+    text-align: left;
+    color: #162d3f;
+    font-size: 0.8em;
+    font-weight: 600;
+}
+
+.row.row-details {
+    border: 1px solid #999999;
+    margin-top: 30px;
+    border-radius: 10px;
+    padding: 25px 20px;
+}
+
+.row.row-details-profile {
+    margin-top: 30px;
+    border-radius: 10px;
+}
+
+@media (min-width: 992px) { 
+    .col-lg-8.col-data-profile.mt-4 {
+        flex: 0 0 64%;
+    }
+
+    .col-lg-6.col-data-profile.mt-4 {
+        flex: 0 0 48.6%;
+    }
+ }
+
+.table_id {
+    width: 100%;
+}
+
+span.services-title {
+    display: block;
+    text-align: left;
+    font-size: 1.3em;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #162d3f;
+}
+
+.row.row-title-details {
+    border-bottom: 2px solid #ddd;
+}
+
+a.btn.btn-baucher {
+    float: left;
+    color: #fff;
+    background-color: #162d3f;
+    font-size: 0.9em;
+    padding: 6px 15px;
+}
+
+a.btn.btn-back {
+    color: #162d3f;
+    background: #ffca24;
+    font-weight: 500;
+    float: right;
+}
+
+.request-data span.title {
+    display: block;
+    color: #162d3f;
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.request-data span.description {
+    width: 95%;
+    display: block;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    margin-top: 5px;
+    text-align: left;
+    padding-left: 16px;
+    color: #162d3f;
+    font-size: 1em;
+    font-weight: 300;
+}
+
+a.btn.btn-cancel {
+    background: #162d3f;
+    color: #fff;
+    font-size: 0.8em;
+    float: right;
+    margin-right: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.col-data-profile {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+label {
+    text-align: left;
+    display: block;
+    color: #162d3f;
+    font-weight: 500;
+    font-size: 0.9em;
+}
+
+input[type="text"], input[type="password"], input[type="email"], textarea, select.form-control, textarea.form-control {
+    border: 2px solid #ddd;
+    border-radius: 7px;
+    color: #444;
+}
+
+button.save-data {
+    margin-top: 25px;
+    float: left;
+    margin-bottom: 10px;
+    background: #ffca24;
+    border: 2px solid #ffca24;
+    color: #162d3f;
+    padding: 5px 25px;
+    border-radius: 5px;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #fff;
+    opacity: 1;
+}
+
+.btn.btn-change-email {
+    background: #162d3f;
+    float: left;
+    color: #fff;
+    font-weight: 400;
+}
+
+.btn.btn-cancel {
+    color: #666;
+    background: transparent;
+    float: left;
+    margin-left: 20px;
+    font-weight: 400;
+}
+
+span.rated-service {
+    font-size: 1.1em;
+    color: #22d0dc;
+    float: right;
+    margin-right: 20px;
+}
+
+a.rated-service {
+    font-size: 1.1em;
+    color: #22d0dc;
+}
