@@ -35,7 +35,7 @@ class Login(View):
             url = reverse('webclient:profile')
             login(request, user)
         else:
-            response = {'error': 'Correo y/o contraseña incorrectas.'}
+            response = {'error': 'El número de documento no se encuentra registrado.'}
             return JsonResponse(response, status=400)
 
         return JsonResponse(url, safe=False)
