@@ -7,7 +7,7 @@ from django.db import models
 from django.db.models import Avg
 
 from licences.models import Licence
-from manager.models import State, City, CompaniesAdminPrices, Sector
+from manager.models import State, City, CompaniesAdminPrices, Sector, TransitDepartmentPrices
 from utils.models import SoftDeletionModelMixin
 from vehicles.models import Vehicle
 from .utils import get_upload_to
@@ -274,10 +274,6 @@ class TransitDepartment(SoftDeletionModelMixin):
         blank=True,
         null=True
     )
-    runt_price = models.CharField(
-        "Precio del RUNT",
-        max_length=255
-    )
     rating = models.FloatField(
         "Calificación Promedio",
         default=0
@@ -286,6 +282,26 @@ class TransitDepartment(SoftDeletionModelMixin):
         "Horarios de atención",
         help_text="Ejm: De lunes a viernes de 8:00 am a 6:00 pm"
     )
+    prices = models.ForeignKey(
+        TransitDepartmentPrices, 
+        verbose_name='Precios organismo de transito',
+        blank=True, null=True,
+        on_delete=models.SET_NULL
+    )
+
+    def get_runt(self):
+        return '$ %s' % (self.prices.runt)
+    
+    def get_printing(self):
+        return '$ %s' % (self.prices.printing)
+
+    def get_other_values(self):
+        return '$ %s' % (self.prices.other)
+
+
+    get_runt.short_description = "RUNT"
+    get_printing.short_description = "Impresion"
+    get_other_values.short_description = "Otros valores"
 
     def __str__(self):
         return self.name
@@ -421,37 +437,6 @@ class CeaVehicle(models.Model):
     class Meta:
         verbose_name = "Vehículo del CEA"
         verbose_name = "Vehículos del CEA"
-
-
-class TransitLicence(models.Model):
-    """Guarda los precios de las licencias de los departamentos
-    de tránsito
-    """
-
-    transit = models.ForeignKey(
-        TransitDepartment,
-        verbose_name="Oficina de Tránsito",
-        on_delete=models.CASCADE,
-        related_name='related_licences'
-    )
-    licence = models.ForeignKey(
-        Licence,
-        on_delete=models.CASCADE,
-        verbose_name="Licencias",
-        help_text="Selecciona la licencia"
-    )
-    price = models.CharField(
-        "Precio",
-        max_length=255,
-        help_text="Precio de la licencia nueva")
-
-    def __str__(self):
-        return "Licencia %s de %s" % (self.licence, self.transit)
-
-
-    class Meta:
-        verbose_name = "Precio de licencia de tránsito"
-        verbose_name_plural = "Precios de licencias de tránsito"
 
 
 class CeaRating(models.Model):
