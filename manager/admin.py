@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 from django.contrib import messages
 from django.db.models import Q
-from .models import State, City, Police, CompaniesAdminPrices, Sector, ContactForm
+from .models import State, City, Police, CompaniesAdminPrices, Sector, ContactForm, TransitDepartmentPrices
 
 from utils.admin import SoftDeletionModelAdminMixin
 
@@ -105,3 +105,11 @@ class ContactFormAdmin(admin.ModelAdmin):
 
     readonly_fields = ('full_name', 'email', 'contact_type', 'message', 'date')
 
+
+@admin.register(TransitDepartmentPrices)
+class TransitDepartmentPricesAdmin(admin.ModelAdmin):
+    """Adminsitra los precios para los organismos de transito
+    """
+
+    model = TransitDepartmentPrices
+    list_display = ('name', 'runt', 'printing', 'other')

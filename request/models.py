@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from manager.models import State
 from companies.models import Cea, Crc, TransitDepartment
 from licences.models import Licence, AgeRange, AnsvRanges
 
@@ -74,7 +75,13 @@ class Request(models.Model):
         (PENDIENTE_APROBACION, 'Pendiente de aprobación'),
         (NO_APLICA, 'No aplica')
     )
-    
+
+    state = models.ForeignKey(
+        State,
+        verbose_name='Departamento',
+        on_delete=models.SET_NULL,
+        blank=True, null=True
+    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name="Cliente",

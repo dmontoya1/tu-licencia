@@ -9,7 +9,7 @@ from users.models import User
 from utils.admin import SoftDeletionModelAdminMixin
 from .models import (
     Cea, Crc, TransitDepartment, CeaLicence, CeaVehicle,
-    TuLicencia, TransitLicence, CeaRating, CrcRating, TransitRating)
+    TuLicencia, CeaRating, CrcRating, TransitRating)
 
 
 
@@ -36,13 +36,6 @@ class CeaVehicleAdmin(admin.StackedInline):
     """
     model = CeaVehicle
     extra = 1
-
-
-class TransitLicenceAdmin(admin.StackedInline):
-    """
-    """
-    model = TransitLicence
-    extra = 0
 
 
 class CrcRatingAdmin(admin.StackedInline):
@@ -201,7 +194,8 @@ class TransitDepartmentAdmin(SoftDeletionModelAdminMixin):
 
     model = TransitDepartment
     extra_list_display = ('nit', 'name', 'cellphone')
-    inlines = [TransitLicenceAdmin, TransitRatingAdmin]
+    inlines = [TransitRatingAdmin]
+    readonly_fields = ('get_runt', 'get_printing', 'get_other_values')
 
     class Media:
         js = (

@@ -144,7 +144,7 @@ class RequestAdmin(admin.ModelAdmin):
     fieldsets = (
         (None,
          {'fields':
-          ('user', 'payment_type', 'request_status', 'docs_status', 'credit_status', 'credit_request_code', 'booking', 'request_date')}),
+          ('user', 'payment_type', 'request_status', 'docs_status', 'credit_status', 'credit_request_code', 'booking', 'request_date', 'state')}),
         (('CRC'), {'fields': ('crc', 'crc_status',)}),
         (('CEA'), {'fields': ('cea', 'cea_status', )}),
         (('Transito'), {'fields': ('transit',)}),

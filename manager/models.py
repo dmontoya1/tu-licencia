@@ -168,6 +168,38 @@ class CompaniesAdminPrices(models.Model):
         verbose_name_plural = "Administración Recaudos"
 
 
+class TransitDepartmentPrices(models.Model):
+    """Modelo para guardar los valores de
+    Runt, impresion y otros valores para el organismo de transito
+    """
+
+    runt = models.IntegerField(
+        "Precio RUNT",
+    )
+    printing = models.IntegerField(
+        "Precio impresion",
+    )
+    other = models.IntegerField(
+        "Otros valores",
+    )
+    name = models.CharField(
+        'Nombre',
+        max_length=255,
+    )
+
+
+    def __str__(self):
+        return "%s" % (self.name)
+    
+
+    class Meta:
+        verbose_name = "Adminsitración Recaudo Organismo de transito"
+        verbose_name_plural = "Administración Recaudos Organismos de transito"
+
+
+
+
+
 class ContactForm(models.Model):
     """Modelo para administrar los preguntas frecuentes
     """
