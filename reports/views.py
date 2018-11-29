@@ -285,10 +285,17 @@ class ServicesByCompanyApi(APIView):
                         )
                 for r in requests_crc:
                     tramits = []
-                    for t in r.related_tramits.all():
+                    if r.related_tramits.all().count() > 0: 
+                        for t in r.related_tramits.all():
+                            tramits.append(
+                                {
+                                    'tramit': t.name()
+                                }
+                            )
+                    else:
                         tramits.append(
                             {
-                                'tramit': t.name()
+                                'tramit': 'Sin trámites'
                             }
                         )
                     if r.payment_date:
@@ -348,10 +355,17 @@ class ServicesByCompanyApi(APIView):
                         )
                 for r in requests_transit:
                     tramits = []
-                    for t in r.related_tramits.all():
+                    if r.related_tramits.all().count() > 0: 
+                        for t in r.related_tramits.all():
+                            tramits.append(
+                                {
+                                    'tramit': t.name()
+                                }
+                            )
+                    else:
                         tramits.append(
                             {
-                                'tramit': t.name()
+                                'tramit': 'Sin trámites'
                             }
                         )
                     if r.payment_date:
@@ -425,10 +439,17 @@ class ServicesByCompanyApi(APIView):
             
                 for r in requests_transit:
                     tramits = []
-                    for t in r.related_tramits.all():
+                    if r.related_tramits.all().count() > 0: 
+                        for t in r.related_tramits.all():
+                            tramits.append(
+                                {
+                                    'tramit': t.name()
+                                }
+                            )
+                    else:
                         tramits.append(
                             {
-                                'tramit': t.name()
+                                'tramit': 'Sin trámites'
                             }
                         )
                     if r.payment_date:
@@ -503,10 +524,17 @@ class ServicesByCompanyApi(APIView):
                         )
                 for r in requests_crc:
                     tramits = []
-                    for t in r.related_tramits.all():
+                    if r.related_tramits.all().count() > 0: 
+                        for t in r.related_tramits.all():
+                            tramits.append(
+                                {
+                                    'tramit': t.name()
+                                }
+                            )
+                    else:
                         tramits.append(
                             {
-                                'tramit': t.name()
+                                'tramit': 'Sin trámites'
                             }
                         )
                     if r.payment_date:
@@ -528,10 +556,17 @@ class ServicesByCompanyApi(APIView):
                         )
                 for r in requests_transit:
                     tramits = []
-                    for t in r.related_tramits.all():
+                    if r.related_tramits.all().count() > 0: 
+                        for t in r.related_tramits.all():
+                            tramits.append(
+                                {
+                                    'tramit': t.name()
+                                }
+                            )
+                    else:
                         tramits.append(
                             {
-                                'tramit': t.name()
+                                'tramit': 'Sin trámites'
                             }
                         )
                     if r.payment_date:
