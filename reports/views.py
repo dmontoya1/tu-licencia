@@ -120,7 +120,6 @@ class ServicesByCompanyApi(APIView):
 
     def post(self, request, format=None):
         try:
-            print ('POSTTTT')
             start_date = request.data['start']
             end_date = request.data['end']
             state = request.data['state']
@@ -135,7 +134,6 @@ class ServicesByCompanyApi(APIView):
                 request_date__lte=end_date,
                 state=state,
             )
-            print (requests)
             if (request.data['request_status']):
                 requests = requests.filter(request_status=request.data['request_status'])
 
@@ -520,7 +518,6 @@ class ServicesByCompanyApi(APIView):
             
             else:
                 print ('last else')
-                print (requests)
                 for r in requests:
                     tramits = []
                     for t in r.related_tramits.all():
@@ -571,10 +568,7 @@ class ServicesByCompanyApi(APIView):
                                 'payment_type': r.get_payment_type_display(),
                                 'booking': r.booking
                             }
-                        )
-            print ('Final')
-            print (query)
-            
+                        )   
             
             return JsonResponse(query, safe=False)
 
