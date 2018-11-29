@@ -120,6 +120,7 @@ class ServicesByCompanyApi(APIView):
 
     def post(self, request, format=None):
         try:
+            print ('POSTTTT')
             start_date = request.data['start']
             end_date = request.data['end']
             state = request.data['state']
