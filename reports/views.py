@@ -518,6 +518,7 @@ class ServicesByCompanyApi(APIView):
             
             else:
                 print ('last else')
+                print (requests)
                 for r in requests:
                     tramits = []
                     for t in r.related_tramits.all():
@@ -569,6 +570,8 @@ class ServicesByCompanyApi(APIView):
                                 'booking': r.booking
                             }
                         )
+            print ('Final')
+            print (query)
             
             
             return JsonResponse(query, safe=False)
