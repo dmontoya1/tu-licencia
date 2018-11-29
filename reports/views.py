@@ -134,6 +134,7 @@ class ServicesByCompanyApi(APIView):
                 request_date__lte=end_date,
                 state=state,
             )
+            print (requests)
             if (request.data['request_status']):
                 requests = requests.filter(request_status=request.data['request_status'])
 
