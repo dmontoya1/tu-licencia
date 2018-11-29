@@ -569,14 +569,14 @@ class ServicesByCompanyApi(APIView):
                 print ('last else')
                 for r in requests:
                     tramits = []
-                    try: 
+                    if r.related_tramits.all().count() > 0: 
                         for t in r.related_tramits.all():
                             tramits.append(
                                 {
                                     'tramit': t.name()
                                 }
                             )
-                    except:
+                    else:
                         tramits.append(
                             {
                                 'tramit': 'Sin trámites'
