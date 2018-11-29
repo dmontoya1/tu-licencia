@@ -144,14 +144,14 @@ class ServicesByCompanyApi(APIView):
                 for r in requests:
                     if r.cea:
                         tramits = []
-                        try: 
+                        if r.related_tramits.all().count() > 0: 
                             for t in r.related_tramits.all():
                                 tramits.append(
                                     {
                                         'tramit': t.name()
                                     }
                                 )
-                        except:
+                        else:
                             tramits.append(
                                 {
                                     'tramit': 'Sin trámites'
@@ -180,14 +180,14 @@ class ServicesByCompanyApi(APIView):
                 for r in requests:
                     if r.crc:
                         tramits = []
-                        try: 
+                        if r.related_tramits.all().count() > 0: 
                             for t in r.related_tramits.all():
                                 tramits.append(
                                     {
                                         'tramit': t.name()
                                     }
                                 )
-                        except:
+                        else:
                             tramits.append(
                                 {
                                     'tramit': 'Sin trámites'
@@ -216,14 +216,14 @@ class ServicesByCompanyApi(APIView):
                 for r in requests:
                     if r.transit:
                         tramits = []
-                        try: 
+                        if r.related_tramits.all().count() > 0: 
                             for t in r.related_tramits.all():
                                 tramits.append(
                                     {
                                         'tramit': t.name()
                                     }
                                 )
-                        except:
+                        else:
                             tramits.append(
                                 {
                                     'tramit': 'Sin trámites'
@@ -253,14 +253,14 @@ class ServicesByCompanyApi(APIView):
 
                 for r in requests_cea:
                     tramits = []
-                    try: 
+                    if r.related_tramits.all().count() > 0: 
                         for t in r.related_tramits.all():
                             tramits.append(
                                 {
                                     'tramit': t.name()
                                 }
                             )
-                    except:
+                    else:
                         tramits.append(
                             {
                                 'tramit': 'Sin trámites'
@@ -316,14 +316,14 @@ class ServicesByCompanyApi(APIView):
 
                 for r in requests_cea:
                     tramits = []
-                    try: 
+                    if r.related_tramits.all().count() > 0: 
                         for t in r.related_tramits.all():
                             tramits.append(
                                 {
                                     'tramit': t.name()
                                 }
                             )
-                    except:
+                    else:
                         tramits.append(
                             {
                                 'tramit': 'Sin trámites'
@@ -392,14 +392,14 @@ class ServicesByCompanyApi(APIView):
 
                 for r in requests_crc:
                     tramits = []
-                    try: 
+                    if r.related_tramits.all().count() > 0: 
                         for t in r.related_tramits.all():
                             tramits.append(
                                 {
                                     'tramit': t.name()
                                 }
                             )
-                    except:
+                    else:
                         tramits.append(
                             {
                                 'tramit': 'Sin trámites'
@@ -471,14 +471,14 @@ class ServicesByCompanyApi(APIView):
 
                 for r in requests_cea:
                     tramits = []
-                    try: 
+                    if r.related_tramits.all().count() > 0: 
                         for t in r.related_tramits.all():
                             tramits.append(
                                 {
                                     'tramit': t.name()
                                 }
                             )
-                    except:
+                    else:
                         tramits.append(
                             {
                                 'tramit': 'Sin trámites'
