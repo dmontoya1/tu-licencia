@@ -235,7 +235,7 @@
                 data = response.data
                 $('.tbody').empty()
                 $.each(data, function( k, v ) {
-                    console.log(data)
+                    console.log(v.tramits)
                     var str = ''
                     if (v.tramits.length > 1){
                         str = `<li>${v.tramits[1].tramit}</li>`
