@@ -19,6 +19,7 @@ class Request(models.Model):
 
     PENDING = "PEN"
     PAID = "PAI"
+    CANCEL = 'CAN'
     EN_CRC = "ICRC"
     EN_CEA = 'ICEA'
     FINISH = 'FNS'
@@ -48,6 +49,7 @@ class Request(models.Model):
     REQUEST_STATUS = (
         (PENDING, 'Pendiente'),
         (PAID, 'Pagado'),
+        (CANCEL, 'En solicitud de cancelación'),
         (EN_CRC, 'En exámen CRC'),
         (EN_CEA, 'En curso CEA'),
         (FINISH, 'Finalizado')

@@ -238,9 +238,13 @@ button.save-data {
 .btn.btn-cancel {
     color: #666;
     background: transparent;
-    float: left;
+    float: right;
     margin-left: 20px;
     font-weight: 400;
+}
+.btn.btn-cancel:hover, 
+.btn.btn-cancel:focus {
+    color: #999;
 }
 
 span.rated-service {
