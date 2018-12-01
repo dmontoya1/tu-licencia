@@ -116,7 +116,7 @@ class UserChangeEmail(generics.UpdateAPIView):
 			if (email != obj.email):
 				raise ValidationError('Tu correo anterior es inválido')
 		except:
-			raise ValidationError('El correo ingresado es inválido')
+			raise ValidationError('El correo ingresado es inválidoo ya se encuentra registrado')
 		return obj
 
 
