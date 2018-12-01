@@ -110,13 +110,10 @@ class UserChangeEmail(generics.UpdateAPIView):
 
 	def get_object(self):
 		pk = self.request.data.get('pk')
-		email = self.request.data.get('email')
 		try:
 			obj = get_user_model().objects.get(pk=pk)
-			if (email != obj.email):
-				raise ValidationError('Tu correo anterior es inválido')
 		except:
-			raise ValidationError('El correo ingresado es inválidoo ya se encuentra registrado')
+			raise ValidationError('El usuario no se encuentra registrado')
 		return obj
 
 

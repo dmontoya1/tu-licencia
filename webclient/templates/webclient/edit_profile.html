@@ -445,31 +445,39 @@
             submitButton = form.find('#button-send-email').eq(0)
             submitButton.addClass('disabled')
             submitButton.attr('disabled', true)
-            $.ajax({
-                data: $(this).serialize(),
-                method: "PATCH",
-                headers: ({'Api-Key': '83cfa0bb1870f10ab7b5f1fc05a007463f4250e1'}),
-                url:"{% url 'api:users:change_email' %}",
-                success:function(data)
-                {
-                    toastr.success("Se han guardado tus datos de manera exitosa")
-                    setTimeout(function(){
-                        $('#modal_edit_email').modal('toggle')
-                        location.reload()
-
-                    }, 1000);
-                },
-                error:function(data)
-                {
-                    data = data.responseJSON
-                    $.each(data, function(k, v)
+            if ($('#old_email').val() != '{{request.user.email}}'){
+                toastr.error('Tu correo anterior es incorrecto')
+            }
+            else if ($('#new_email').val() != $('#new_email2').val()){
+                toastr.error('Las contraseñas no coinciden')
+            }
+            else{
+                $.ajax({
+                    data: $(this).serialize(),
+                    method: "PATCH",
+                    headers: ({'Api-Key': '514419708fab4f7323a9b559eb64cbfae0342845'}),
+                    url:"{% url 'api:users:change_email' %}",
+                    success:function(data)
                     {
-                        toastr.error(v)
-                    });
-                    submitButton.removeClass('disabled')
-                    submitButton.attr('disabled', false)
-                }
-            });
+                        toastr.success("Se han guardado tus datos de manera exitosa")
+                        setTimeout(function(){
+                            $('#modal_edit_email').modal('toggle')
+                            location.reload()
+    
+                        }, 1000);
+                    },
+                    error:function(data)
+                    {
+                        data = data.responseJSON
+                        $.each(data, function(k, v)
+                        {
+                            toastr.error(v)
+                        });
+                        submitButton.removeClass('disabled')
+                        submitButton.attr('disabled', false)
+                    }
+                });
+            }
 
         })
 
@@ -483,7 +491,7 @@
                 data: $(this).serialize(),
                 type: "PATCH",
                 headers: ({'X-CSRFToken': '{{ csrf_token }}'},
-                            {'Api-Key': '83cfa0bb1870f10ab7b5f1fc05a007463f4250e1'}),
+                            {'Api-Key': '514419708fab4f7323a9b559eb64cbfae0342845'}),
                 url:"{% url 'api:users:change_password' %}",
                 success:function(data)
                 {
