@@ -115,7 +115,8 @@ class UserChangeEmail(generics.UpdateAPIView):
 			obj = get_user_model().objects.get(pk=pk)
 			if (email != obj.email):
 				raise ValidationError('Tu correo anterior es inválido')
-		except:
+		except Exception as e:
+			print (e)
 			raise ValidationError('No existe un usuario con correo')
 		return obj
 
