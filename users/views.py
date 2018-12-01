@@ -6,6 +6,7 @@ import uuid
 from rest_framework import generics, status
 from rest_framework.authentication import TokenAuthentication, SessionAuthentication, BasicAuthentication
 from rest_framework.authtoken.models import Token
+from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -109,7 +110,9 @@ class UserChangeEmail(generics.UpdateAPIView):
 
 	def get_object(self):
 		email = self.request.data.get('old_email')
+		print (email)
 		user = get_user_model().objects.get(email=email)
+		print (user)
 		try:
 			obj = get_user_model().objects.get(pk=user.pk)
 		except:
