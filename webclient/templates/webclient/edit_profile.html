@@ -272,6 +272,7 @@
                                         <form id="update-email">
                                             <div class="row">
                                                 <div class="col-12">
+                                                    <input type="hidden" name="pk" value="{{request.user.pk}}">
                                                     <label for="old_email">Correo electrónico anterior</label>
                                                     <input 
                                                         type="email"

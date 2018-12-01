@@ -109,12 +109,9 @@ class UserChangeEmail(generics.UpdateAPIView):
 
 
 	def get_object(self):
-		email = self.request.data.get('old_email')
-		print (email)
-		user = get_user_model().objects.get(email=email)
-		print (user)
+		pk = self.request.data.get('pk')
 		try:
-			obj = get_user_model().objects.get(pk=user.pk)
+			obj = get_user_model().objects.get(pk=pk)
 		except:
 			raise ValidationError('No existe un usuario con correo')
 		return obj
