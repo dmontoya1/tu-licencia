@@ -55,51 +55,7 @@ jQuery(document).ready(function() {
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
 		
-		if ($('#cities').val() == "" || $('#cities').val() == null){
-			next_step = false;
-			swal({
-				title: 'Atención',
-				text: 'Para continuar debes seleccionar tu ubicación (Departamento y ciudad)',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-			})
-		}
-
-		if (age == ""){
-			next_step = false;
-			swal({
-				title: 'Atención',
-				text: 'Para continuar debes seleccionar tu fecha de nacimiento',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-			}).then((result) => {
-				if (result.value) {
-					$('html, body, #licence-request-form').animate({
-						scrollTop: $('#birthdate-select').offset().top
-					}, 1000);
-				}
-			})
-		}
-
-		if (gender == ""){
-			next_step = false;			
-			swal({
-				title: 'Atención',
-				text: 'Para continuar debes seleccionar tu género',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-			}).then((result) => {
-				if (result.value) {
-					scroll_to_class( $('.choice-gender'), 20 );
-				}
-			})
-
-		}
     	if( next_step ) {
-			console.log(age)
 			if (age == 18){
 				swal({
 					title: 'Atención',
@@ -146,22 +102,6 @@ jQuery(document).ready(function() {
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
 
-		if (runt == ""){
-			next_step = false;
-			swal({
-				title: 'Atención',
-				text: 'Para continuar debes seleccionar si estas inscrito en el RUNT',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-			}).then((result) => {
-				if (result.value) {
-					$('html, body, #licence-request-form').animate({
-						scrollTop: $('#birthdate-select').offset().top
-					}, 1000);
-				}
-			})
-		}
 		if (car){
 			if (!('car' in licences)){
 				next_step = false;			
@@ -254,12 +194,6 @@ jQuery(document).ready(function() {
 				type: 'error',
 				showCancelButton: false,
 				confirmButtonText: 'Ok'
-			}).then((result) => {
-				if (result.value) {
-					$('html, body, #licence-request-form').animate({
-						scrollTop: $('#birthdate-select').offset().top
-					}, 1000);
-				}
 			})
 		}
     	if( next_step ) {

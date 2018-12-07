@@ -1,0 +1,86 @@
+        <div class="title">
+                    <span>Lista de CRC (Centro de Reconocimiento de Conductores) disponibles en tu Ciudad</span>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-around">
+                        <div class="col-sm-12 col-lg-3 filters mb-4">
+                            <div class="row title-filter">
+                                <span>Filtrar por</span>
+                            </div>
+                            <div class="row filter">
+                                <div class="col-12">
+                                    <label class="filter-label" for="cities-crc">Ciudad</label>
+                                    <select class="city-select location-filter" id="cities-crc">
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="filter-label" for="sector-crc">Sector</label>
+                                    <select class="sector-select location-filter" id="sector-crc">
+                                        <option selected disabled value="">Selecciona primero una ciudad</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <label class="filter-label" for="rating-crc">Calificación</label>
+                                    <select class="rating-select location-filter" id="rating-crc">
+                                        <option selected disabled value="">Selecciona una opción</option>
+                                        <option value="0">Eliminar filtro</option>
+                                        <option value="1">De menor a mayor calificación</option>
+                                        <option value="2">De mayor a menor calificación</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="filter-label" for="price-crc">Precio</label>
+                                    <select class="price-select location-filter" id="price-crc">
+                                        <option selected disabled value="">Selecciona una opción</option>
+                                        <option value="0">Eliminar filtro</option>
+                                        <option value="1">De menor a mayor precio</option>
+                                        <option value="2">De mayor a menor precio</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-filter filter-crc">Filtrar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-9">
+                            <div class="row justify-content-around companies-list crc-list">
+                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
+                                    <div class="row">
+                                        <div class="col-12 logo-company">
+                                            <img src="{% static 'logos/simetric.png' %}" width="70" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <div class="col-12 company-name">
+                                            <span>Simetric</span>
+                                        </div>
+                                        <div class="col-12 company-location mt-3">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 sector">
+                                                    <span>
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 company-rating mt-3">
+                                            <span>Rating</span>
+                                        </div>
+                                        <div class="col-12 company-button mt-3">
+                                            <button type="button" class="see-detail btn-crc">
+                                                Ver detalle
+                                            </button>
+                                            <button type="button" class="add-to-cart add-cart-crc">
+                                                Añadir al carrito
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>

@@ -25,6 +25,8 @@ img.company-logo {
 .image-crc {
     border: 2px solid #ddd;
     border-radius: 10px;
+    margin: 0 -20px;
+    height: 250px;
 }
 
 .info-crc {
@@ -40,6 +42,17 @@ img.company-logo {
     padding-bottom: 7px;
     margin-bottom: 20px;
     border-bottom: 2px solid #ddd;
+}
+
+button#select-crc {
+    width: 114%;
+    color: #fff;
+    font-weight: 600;
+    border-color: #162d3f;
+    background: #162d3f;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 0 -18px;
 }
 
 .item {

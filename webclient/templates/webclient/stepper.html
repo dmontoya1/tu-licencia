@@ -4,94 +4,15 @@
 {% load custom_range %}
 {% load humanize %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal-company.css' %}">
+{% endblock %}
 
 {% block content %}
 
     <div class="col-12 form-box">
-        <!-- <div class="wrap-icon-header flex-w flex-r-m m-r-15">
-            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart" >
-                <img src="{% static 'images/cart.png' %}" alt="cart" >
-            </div>
-        </div> -->
 
-        <div class="wrap-header-cart js-panel-cart">
-            <div class="s-full js-hide-cart"></div>
-    
-            <div class="header-cart flex-col-l p-l-65 p-r-25">
-                <div class="header-cart-title flex-w flex-sb-m p-b-8">
-                    <span class="mtext-103 cl2">
-                        Carrito de compras
-                    </span>
-    
-                    <div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
-                        <i class="fa fa-times"></i>
-                    </div>
-                </div>
-                
-                <div class="header-cart-content flex-w js-pscroll">
-                    <ul class="header-cart-wrapitem w-full">
-                        <li class="header-cart-item flex-w flex-t m-b-12 cart-licences">
-                            <div class="header-cart-item-img-c">
-                                <img src="{% static 'images/2.png' %}" alt="IMG">
-                            </div>
-    
-                            <div class="header-cart-item-txt p-t-8">
-                                <span class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                    Licencia
-                                </a>
-    
-                                <span class="header-cart-item-info">
-                                   <span class="licences-list">A2 - C1</span>
-                                </span>
-                            </div>
-                        </li>
-    
-                        <li class="header-cart-item flex-w flex-t m-b-12 cart-crc" data-value="0">
-                            <div class="header-cart-item-img-c">
-                                <img src="{% static 'images/3.png' %}" alt="IMG">
-                            </div>
-    
-                            <div class="header-cart-item-txt p-t-8">
-                                <span class="header-cart-item-info">
-                                    Selecciona el Centro de reconocimento de tu preferencia
-                                </span>
-    
-                            </div>
-                        </li>
-    
-                        <li class="header-cart-item flex-w flex-t m-b-12 cart-cea" data-value="0">
-                            <div class="header-cart-item-img-c">
-                                <img src="{% static 'images/4.png' %}" alt="IMG">
-                            </div>
-    
-                            <div class="header-cart-item-txt p-t-8">
-                                <span class="header-cart-item-info">
-                                    Selecciona el Centro de Enseñanza de tu preferencia
-                                </span>
-
-                            </div>
-                        </li>
-                        <li class="header-cart-item flex-w flex-t m-b-12 cart-transit" data-value="0">
-                            <div class="header-cart-item-img-c">
-                                <img src="{% static 'images/5.png' %}" alt="IMG">
-                            </div>
-    
-                            <div class="header-cart-item-txt p-t-8">
-                                <span class="header-cart-item-info">
-                                    Selecciona el distrito de transporte de tu preferencia
-                                </span>
-                            </div>
-                        </li>
-                    </ul>
-                    
-                    <div class="w-full">
-                        <div class="header-cart-total w-full p-tb-40">
-                            Total: $ <span class="total-price-cart">955.000</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <form role="form" action="/payments/checkout/" method="post" class="f1" id="licence-request-form">
             {% csrf_token %}
 
@@ -108,9 +29,7 @@
             <input type="hidden" name="tramit_1" class="tramit-1-input" value="">
             <input type="hidden" name="licence_2" class="licence-2-input" value="">
             <input type="hidden" name="tramit_2" class="tramit-2-input" value="">
-            
-            <span class="title">Ingresa tus datos para obtener la licencia</span>
-            
+             
             <div class="f1-steps row">
                 <div class="f1-progress">
                     <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="6" style="width: 16.66%;"></div>
@@ -143,105 +62,104 @@
             
             <!-- Datos iniciales -->
             <fieldset>
-                <div class="form-group choice-gender">
-                    <div class="title">
-                        <span>Selecciona tu género</span>
-                    </div>
-                    <ul class="gender-choice">
-                        <li class="male">
-                            <label for="cb1">
-                                <img class="img-check gender" data-value="M" name="men" src="{% static 'images/icon-men.png' %}" /><br>
-                                <p class="img-text">Hombre</p>
-                            </label>
-                        </li>
-                        <li class="female">
-                            <label for="cb2">
-                                <img class="img-check gender" data-value="F" name="women" src="{% static 'images/icon-women.png' %}" /><br>
-                                <p class="img-text">Mujer</p>
-                            </label>
-                        </li>
-                    </ul>
-                </div>
-                <div class="form-group" id="birthdate-select">
-                    <div class="title">
-                        <span>Fecha de nacimiento</span>
-                    </div>
-                    <ul class="select-birth">
-                        <li>
-                            <label for="day">DD</label>
-                            <select class="custom-select birth-select custom-select-lg mb-3" id="day">
-                                <option value="" disabled selected>DD</option>
-                                {% for value in 1|range:32 %}
-                                    <option value="{{ value }}">{{ value }}</option>
-                                {% endfor %}
-                            </select>
-                        </li>
-                        <li>
-                            <label for="month">MM</label>
-                            <select class="custom-select birth-select custom-select-lg mb-3" id="month">
-                                <option value="" disabled selected>MM</option>
-                                {% for value in 1|range:13 %}
-                                    <option value="{{ value }}">{{ value }}</option>
-                                {% endfor %}
-                            </select>
-                        </li>
-                        <li>
-                            <label for="year">AAAA</label>
-                            <select class="custom-select birth-select custom-select-lg mb-3" id="year">
-                                <option value="" disabled selected>AAAA</option>
-                                {% for value in 1920|range:2003 %}
-                                    <option value="{{ value }}">{{ value }}</option>
-                                {% endfor %}
-                            </select>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="form-group">
-                    <div class="location">
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-10">
-                                    <div class="title">
-                                        <span>Seleccionar ubicación</span>
-                                    </div>
-                                    <ul class="select-location">
-                                        <li>
-                                            <label for="states">Departamento</label><br>
-                                            <select class="custom-select location-select mb-3" name="state" id="states">
-                                                
-                                            </select>
-                                        </li>
-                                        <li>
-                                            <label for="cities">Ciudad</label><br>
-                                            <select class="custom-select location-select mb-3" name="city" id="cities">
-                                                <option value="" disabled selected>Selecciona primero un departamento</option>
-                                            </select>
-                                        </li>
-                                    </ul>
+                <section>
+                    <div class="element element--location">
+                        <div class="row">
+                            <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+                                <h3 class="title text-center mt-5">Seleccionar ubicación</h3>
+                                <p class="text text-center pb-5 mb-0">Indícanos en qué departamento vas a solicitar la licencia de conducción</p>
+                                <div class="form-group pt-5">
+                                    <label for="states">Departamento</label>
+                                    <div class="select-box">
+                                        <select class="form-control form-control-lg" name="state" id="states">
+                                            <option selected>Seleccionar departamento</option>
+                                        </select>
+                                    </div>                  
                                 </div>
+                                <p class="text-center">
+                                    <button type="button" class="btn-brand btn-second continue-location">
+                                        Continuar
+                                    </button>
+                                </p>
                             </div>
                         </div>
-                        
                     </div>
-                </div>
-                <div class="container mb-4">
-                    <div class="row justify-content-center">
-                        <div class="col-4">
-                            <div class="g-recaptcha" data-sitekey="6LfhwHAUAAAAACJTEgtNR5HJAmE4zsf3KxifbVu2"></div>
+                    <div class="element element--gender d-none">
+                        <div class="row">
+                            <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+                                <h3 class="title text-center mt-5">Selecciona tu genero  
+                                    <div class="tooltip-brand">
+                                        <img src="{% static 'assets/img/duda.svg' %}"  width="25" alt="">
+                                        <span class="tooltiptext shadow-sm">El precio de la licencia de conducción se calcula de acuerdo a tu edad y género</span>
+                                    </div>
+                                </h3>
+                          
+                                <p class="text text-center pb-5 mb-0">Selecciona tu género acorde a la información de tu documento de identidad</p>
+                                <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
+                                    <div class="pl-3 pr-3">
+                                        <div class="choose male">
+                                            <img src="{% static 'assets/img/man.svg' %}" alt="">
+                                            <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                        </div>
+                                        <p class="choose-text text-center mt-3">Hombre</p>
+                                    </div>
+                                    <div class="pl-3 pr-3"> 
+                                        <div class="choose female">
+                                            <img src="{% static 'assets/img/woman.svg' %}" alt="">
+                                            <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                        </div>
+                                        <p class="choose-text text-center mt-3">Mujer</p>
+                                    </div>
+                                </div>
+                                <p class="text-center">
+                                    <button type="button" class="btn-brand back-gender">
+                                        <i class="material-icons">keyboard_backspace</i>
+                                        Volver
+                                    </button>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="f1-buttons">
-                    <button type="button" class="btn btn-next btn-step-1">
-                        Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next">
-                    </button>
-                </div>
+                    <div class="element element--birth-date d-none">
+                        <div class="row">
+                            <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+                                <h3 class="title text-center mt-5">Fecha de nacimiento</h3>
+                                <p class="text text-center pb-5 mb-0">Coloca tu fecha de nacimiento acorde a la información de tu documento de identidad.</p>
+                                <div class="row pt-5 pb-5 mb-3">
+                                    <div class="col-12 col-md-3 offset-md-1">
+                                        <div class="form-group text-center">
+                                            <label for="day">DD</label>
+                                            <input class="form-control form-control-lg" type="number" min="1" max="31" required placeholder="DD" id="day">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-3">
+                                        <div class="form-group text-center">
+                                            <label for="month">MM</label>
+                                            <input class="form-control form-control-lg" type="number" min="1" max="12" required placeholder="MM" id="month">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-4">
+                                        <div class="form-group text-center">
+                                            <label for="year">AAAA</label> 
+                                            <input class="form-control form-control-lg" type="number" min="1900" max="2018" required placeholder="AAAA" id="year">
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-center pt-5">
+                                    <button type="button" class="btn-brand btn-small back-birth-date ml-1 mr-1"><i class="material-icons">keyboard_backspace</i>Volver</button>
+                                    <button type="button" class="btn-brand btn-second btn-small ml-1 mr-1 continue-birth-date">Continuar</button>
+                                </p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" d-none class="btn-step-1"></button>
+                </section>
             </fieldset>
 
             <!-- Selección de tipo de Trámite -->
             <fieldset>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <ul class="gender-choice">
                         <li class="mr-sm-4 have-licence">
                             <label for="licence-1">
@@ -331,7 +249,7 @@
                     <ul class="car-licences d-none">
                         <li>
                             <div class="container">
-                                <div class="row justify-content-center row-B1">
+                                <div class="row justify-content-center toggleB1">
                                     <div class="col-12 col-md-3 licences-category">
                                         <input id="toggleB1" type="checkbox" data-name="B1" name="B1">
                                         <label for="toggleB1">B1</label>
@@ -349,7 +267,7 @@
                                         <p>(Automóviles, motocarros, camperos, camionetas y <br>microbuses de servicio público y particular.)</p>
                                     </div>
                                 </div>
-                                <div class="row row-C2 d-none">
+                                <div class="row toggleC1 d-none">
                                     <div class="col-12 col-md-3 licences-category">
                                         <input id="toggleC2" type="checkbox" data-name="C2" name="C2">
                                         <label for="toggleC2">C2</label>
@@ -398,107 +316,419 @@
                             Este procedimiento tiene un valor de $13.900
                         </span>
                     </div>
-                </div>
-            
+                </div> -->
                 
-                <div class="f1-buttons">
-                    <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
-                    <button type="button" class="btn btn-next btn-step-2">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
-                </div>
+                <!--Tipo de tramite -->
+                <section>
+                    <div class="element element--tramit-type animated fadeInRight">
+                        <div class="row">
+                            <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+                                <p class="text text-center mt-5 pb-5 mb-0">Indícanos cuál es tu estado actual, ¿Es tu primer licencia o ya tienes una licencia actualmente?.</p>
+                                <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
+                                    <div class="pl-3 pr-3">
+                                        <div class="choose" id="licence-1">
+                                            <img src="{% static 'assets/img/firt.svg' %}" alt="">
+                                            <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                        </div>
+                                        <p class="choose-text text-center mt-3">Mi primer licencia </p>
+                                    </div>
+                                    <div class="pl-3 pr-3"> 
+                                        <div class="choose" id="licence-2">
+                                            <img src="{% static 'assets/img/renovate.svg' %}" alt="">
+                                            <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                        </div>
+                                        <p class="choose-text text-center mt-3">Ya tengo licencia</p>
+                                    </div>
+                                </div>
+                                <p class="text-center"><button type="button" class="btn-brand back-tramit-type btn-previus"><i class="material-icons">keyboard_backspace</i>Volver</button></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="element element--second-licence d-none animated fadeInRight">
+                        <div class="row">
+                            <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+                            <h3 class="title text-center mt-5">¿Qué tipo de trámite desea realizar?</h3>
+                            <p class="text text-center pb-5 mb-0">Como ya eres un conductor experto podrás hacer hasta dos nuevos trámites.</p>
+                            
+                            <div class="row">
+                                <div class="col-12 col-lg-10 offset-lg-1">
+                                    <ul class="content-option pt-2 pb-4 tramit-choice">
+                                        <li class="option option-SL">
+                                            <input id="toggle1" type="checkbox" name="initial" value="SL">
+                                            <label for="toggle1">Aprender a conducir un nuevo vehículo</label>
+                                        </li>
+                                        <li class="option option-RN">
+                                            <input id="toggle3" type="checkbox" name="renew" value="RN">
+                                            <label for="toggle3">Renovar/refrendar mi actual licencia</label>
+                                        </li>
+                                        <li class="option option-RC">
+                                            <input id="toggle2" type="checkbox" name="recat" value="RC">
+                                            <label for="toggle2">Subir la categoría de mi actual licencia</label>
+                                        </li>
+                                        <li class="option option-DU">
+                                            <input id="toggle4" type="checkbox" name="dupl" value="DU">
+                                            <label for="toggle4">Solicitar duplicado de mi actual licencia.</label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <p class="text-center">
+                                <button class="btn-brand back-second-licence" type="button">
+                                    <i class="material-icons">keyboard_backspace</i>
+                                    Volver
+                                </button>
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="element element--vehicle-type d-none animated fadeInRight">
+                        <div class="row">
+                            <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+                            <h3 class="title text-center mt-5">¿Para qué tipo de vehículo?</h3>
+                            <p class="text text-center pb-5 mb-0">En caso de que necesites ambas licencias, puedes seleccionar los dos tipos de vehículo.</p>
+                            <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
+                                <div class="pl-3 pr-3">
+                                    <div class="choose" id="car-licence">
+                                        <img src="{% static 'assets/img/carro.svg' %}" alt="">
+                                        <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                    </div>
+                                    <p class="choose-text text-center mt-3">Auto</p>
+                                </div>
+                                <div class="pl-3 pr-3"> 
+                                    <div class="choose" id="bike-licence">
+                                        <img src="{% static 'assets/img/moto.svg' %}" alt="">
+                                        <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                    </div>
+                                    <p class="choose-text text-center mt-3">Moto</p>
+                                </div>
+                            </div>
+                            <p class="text-center">
+                                <button type="button" class="btn-brand btn-small ml-1 mr-1 back-vehicle-type"><i class="material-icons">keyboard_backspace</i>Volver</button>
+                                <button type="button" class="btn-brand btn-second btn-small ml-1 mr-1 continue-vehicle-type">Continuar</button>
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="element element--licence-type d-none animated fadeInRight">
+                        <div class="row">
+                            <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
+                                <h3 class="title text-center mt-5">Selecciona la clase de licencia que necesitas</h3>
+                                <p class="text text-center pb-5 mb-0"><strong>Nota: </strong>Las licencias para Automóvil categoría 3ra y 4ta (son actualmente conocidas como B1, C1) y para Motocicleta categoría 1ra y 2da (son actualmente conocidas como A1, A2)</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-xl-10 offset-xl-1">
+                                <h5 class="title-second pb-5 title-car d-none">
+                                    <img src="{% static 'assets/img/carro.svg' %}" width="50" alt="">
+                                    <span class="pl-5">Licencias para Automóviles</span>
+                                </h5>
+                                <div class="row pb-5 mb-4">
+                                    <div class="col-12 col-md-6 toggleB1 d-none">
+                                        <div class="d-flex flex-row">
+                                            <div class="pr-4">
+                                                <label class="check-pass check-B1">
+                                                    <span>B1</span>
+                                                    <input type="checkbox" id="toggleB1" data-name="B1" name="B1">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <p class="text align-self-center mb-0">Automóviles, motocarros, camperos, camionetas y microbuses de servicio particular.</p>       
+                                        </div>          
+                                    </div>
+                                    <div class="col-12 col-md-6 toggleC1 d-none">
+                                        <div class="d-flex flex-row ">
+                                            <div class="pr-4">
+                                                <label class="check-pass check-C1">
+                                                    <span>C1</span>
+                                                    <input type="checkbox" id="toggleC1" data-name="C1" name="C1">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <p class="text align-self-center mb-0">Automóviles, motocarros, camperos, camionetas y microbuses de servicio público y particular.</p>                   
+                                        </div>          
+                                    </div>
+                                    <div class="col-12 col-md-6 toggleC2 d-none">
+                                        <div class="d-flex flex-row">
+                                            <div class="pr-4">
+                                                <label class="check-pass check-C2">
+                                                    <span>C2</span>
+                                                    <input type="checkbox" id="toggleC2" data-name="C2" name="C2">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <p class="text align-self-center mb-0">Automóviles, motocarros, camperos, camionetas y microbuses de servicio particular.</p>       
+                                        </div>          
+                                    </div>
+                                    <div class="col-12 col-md-6 toggleC3 d-none">
+                                        <div class="d-flex flex-row ">
+                                            <div class="pr-4">
+                                                <label class="check-pass check-C3">
+                                                    <span>C3</span>
+                                                    <input type="checkbox" id="toggleC3" data-name="C3" name="C3">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <p class="text align-self-center mb-0">Automóviles, motocarros, camperos, camionetas y microbuses de servicio público y particular.</p>                   
+                                        </div>          
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-xl-10 offset-xl-1">
+                                <h5 class="title-second title-bike pb-5 d-none">
+                                    <img src="{% static 'assets/img/moto.svg' %}" width="50" alt="">
+                                    <span class="pl-5">Licencias para Moticicletas</span>
+                                </h5>
+                                <div class="row pb-5 mb-4">
+                                    <div class="col-12 col-md-6 toggleA1 d-none">
+                                        <div class="d-flex flex-row">
+                                            <div class="pr-4">
+                                                <label class="check-pass check-A1">
+                                                    <span>A1</span>
+                                                    <input type="checkbox" id="toggleA1" data-name="A1" name="A1">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <p class="text align-self-center mb-0">Cilindraje igual o menor a 125 c.c. de servicio particular)</p>                   
+                                        </div>          
+                                    </div>
+                                    <div class="col-12 col-md-6 toggleA2 d-none">
+                                        <div class="d-flex flex-row align-self-center">
+                                            <div class="pr-4">
+                                                <label class="check-pass check-A2">
+                                                    <span>A2</span>
+                                                    <input type="checkbox" id="toggleA2" data-name="A2" name="A2">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <p class="text align-self-center mb-0">Para cualquier tipo de motocicleta de servicio particular.</p>                   
+                                        </div>          
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-center">
+                            <button type="button" class="btn-brand btn-small ml-1 mr-1 back-licence-type"><i class="material-icons">keyboard_backspace</i>Volver</button>
+                            <button type="button" class="btn-brand btn-second btn-small ml-1 mr-1 continue-licence-type">Continuar</button>
+                        </p>
+                    </div>
+                    <div class="element element--aditional-tramit d-none animated fadeInRight">
+                        <div class="row">
+                            <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+                            <h3 class="title text-center mt-5 pb-5">¿Desea realizar un tramite adicional? </h3>
+                            <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
+                                <div class="pl-3 pr-3">
+                                <div class="choose">
+                                    <img src="{% static 'assets/img/si.svg' %}" alt="">
+                                    <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                </div>
+                                <p class="choose-text text-center mt-3">Si</p>
+                                </div>
+                                <div class="pl-3 pr-3"> 
+                                <div class="choose">
+                                    <img src="{% static 'assets/img/no.svg' %}" alt="">
+                                    <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                </div>
+                                <p class="choose-text text-center mt-3">No</p>
+                                </div>
+                            </div>
+                            <p class="text-center">
+                                <button class="btn-brand"><i class="material-icons">keyboard_backspace</i>Volver</button>
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="element element--have-runt d-none animated fadeInRight">
+                        <div class="row">
+                            <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
+                            <h3 class="title text-center mt-5">¿Estas inscrito en el RUNT?</h3>
+                            <p class="text text-center pb-5 mb-0">si no está seguro puede verificar haciendo clic 
+                                <a href="https://www.runt.com.co/consultaCiudadana/#/consultaPersona" target="_blank" class="btn-link ml-3">Aquí</a></p>
+                            <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
+                                <div class="pl-3 pr-3">
+                                    <div class="choose si-runt">
+                                        <img src="{% static 'assets/img/si.svg' %}" alt="">
+                                        <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                    </div>
+                                    <p class="choose-text text-center mt-3">Si</p>
+                                </div>
+                                <div class="pl-3 pr-3"> 
+                                    <div class="choose no-runt">
+                                        <img src="{% static 'assets/img/no.svg' %}" alt="">
+                                        <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                    </div>
+                                    <p class="choose-text text-center mt-3">No</p>
+                                </div>
+                            </div>
+                            <p class="text-center">
+                                <button type="button" class="btn-brand back-have-runt">
+                                    <i class="material-icons">keyboard_backspace</i>
+                                    Volver
+                                </button>
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="element element--runt d-none animated fadeInRight">
+                        <div class="row pt-5">
+                            <div class="col-12 col-lg-10 offset-lg-1">
+                            <div class="content-info-rut mb-5 animated bounceIn">
+                                <img src="{% static 'assets/img/signo.svg' %}" class="icon-signo" alt="">
+                                <p class="mb-0">Al final del proceso te indicaremos el proceso de inscripción al <span>RUNT</span> que tendrás deberás hacerlo personalmente en cualquier Instituto de Tránsito o SIM de tu ciudad.</p>
+                            </div>
+                            <p class="text-center pt-5">
+                                <button type="button" class="btn-brand btn-small ml-1 mr-1 back-runt">
+                                    <i class="material-icons">keyboard_backspace</i>
+                                    Volver
+                                </button>
+                                <button type="button" class="btn-brand btn-second btn-small ml-1 mr-1 continue-runt">
+                                    Continuar
+                                </button>
+                            </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <button type="button" hidden class="btn btn-next btn-step-2">Siguiente</button>
             </fieldset>
             
             <!-- Selección CRC -->
             <fieldset>
-                <div class="title">
-                    <span>Lista de CRC (Centro de Reconocimiento de Conductores) disponibles en tu Ciudad</span>
-                </div>
-                <div class="container">
-                    <div class="row justify-content-around">
-                        <div class="col-sm-12 col-lg-3 filters mb-4">
-                            <div class="row title-filter">
-                                <span>Filtrar por</span>
-                            </div>
-                            <div class="row filter">
-                                <div class="col-12">
-                                    <label class="filter-label" for="cities-crc">Ciudad</label>
-                                    <select class="city-select location-filter" id="cities-crc">
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <label class="filter-label" for="sector-crc">Sector</label>
-                                    <select class="sector-select location-filter" id="sector-crc">
-                                        <option selected disabled value="">Selecciona primero una ciudad</option>
-                                    </select>
-                                </div>
-                                <!-- <div class="col-12">
-                                    <input type="text" name="price" id="price-crc" placeholder="Precio">
-                                </div> -->
-                                <div class="col-12">
-                                    <label class="filter-label" for="rating-crc">Calificación</label>
-                                    <select class="rating-select location-filter" id="rating-crc">
-                                        <option selected disabled value="">Selecciona una opción</option>
-                                        <option value="0">Eliminar filtro</option>
-                                        <option value="1">De menor a mayor calificación</option>
-                                        <option value="2">De mayor a menor calificación</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <label class="filter-label" for="price-crc">Precio</label>
-                                    <select class="price-select location-filter" id="price-crc">
-                                        <option selected disabled value="">Selecciona una opción</option>
-                                        <option value="0">Eliminar filtro</option>
-                                        <option value="1">De menor a mayor precio</option>
-                                        <option value="2">De mayor a menor precio</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <button type="button" class="btn btn-filter filter-crc">Filtrar</button>
-                                </div>
-                            </div>
+                
+                <section>
+                    <div class="element element--seventeen">
+                        <p class="text text-center pt-5  pb-4 mb-0"> Como primer paso selecciona el Centro de reconocimiento de conductores (CRC) donde vas a realizar tu examen médico, requisito necesario y obligatorio para adquirir la licencia de conducción.</p>
+                        <span class="title-brand d-block pb-2">Filtrar por:</span>
+            
+                        <div class="form-inline filters">
+                            <label class="sr-only" for="name"></label>
+                            <input type="text" class="form-control input-inline mb-2 mr-sm-2" id="name" placeholder="Nombre">
+                            
+                            <label class="sr-only" for="cities-crc">Ciudad</label>
+                            <select class="form-control city-select input-inline mb-2 mr-sm-2" id="cities-crc">
+                               
+                            </select>
+                  
+                            <label class="sr-only" for="sector-crc">Sector</label>
+                            <select class="form-control sector-select input-inline mb-2 mr-sm-2" id="sector-crc">
+                                <option selected disabled value="">Selecciona primero una ciudad</option>
+                            </select>
+                  
+                            <label class="sr-only" for="rating-crc">Calificación</label>
+                            <select class="form-control rating-select input-inline mb-2 mr-sm-2" id="rating-crc">
+                                <option selected disabled value="">Selecciona una opción</option>
+                                <option value="0">Eliminar filtro</option>
+                                <option value="1">De menor a mayor calificación</option>
+                                <option value="2">De mayor a menor calificación</option>
+                            </select>
+                
+                            <label class="sr-only" for="price-crc">Precio</label>
+                            <select class="form-control price-select input-inline mb-2 mr-sm-2" id="price-crc">
+                                <option selected disabled value="">Selecciona una opción</option>
+                                <option value="0">Eliminar filtro</option>
+                                <option value="1">De menor a mayor precio</option>
+                                <option value="2">De mayor a menor precio</option>
+                            </select>
+
+                            <button type="button" class="btn-filter mb-2 filter-crc">FILTRAR</button>
                         </div>
-                        <div class="col-sm-12 col-lg-9">
-                            <div class="row justify-content-around companies-list crc-list">
-                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-                                    <div class="row">
-                                        <div class="col-12 logo-company">
-                                            <img src="{% static 'logos/simetric.png' %}" width="70" alt="Logo Company">
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-12 company-name">
-                                            <span>Simetric</span>
-                                        </div>
-                                        <div class="col-12 company-location mt-3">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                        <div class="row mb-5">
+                            <div class="col-12 col-lg-9">
+                                <div class="results rounded">
+                                    <div class="form-row crc-list">
+                                        <div class="col-12 col-xl-6">
+                                            <div class="d-flex flex-row content-result rounded mb-2">
+                                                <div class="thumbnail mr-2 mb-4">
+                                                    <div class="img" style="background-image: url(/static/assets/img/img-result.png);"></div>
+                                                    <div class="qualification">
+                                                        <span class="subtitle d-block">Calificación</span>
+                                                        <p class="text"><span class="weigh-5">4.5 </span><i class="material-icons">grade</i> (200)</p>                            
+                                                    </div>
                                                 </div>
-                                                <div class="col-8 sector">
-                                                    <span>
-                                                        Pereira, Risaralda
-                                                    </span>
+                                                <div class="result-body">
+                                                    <h4 class="text-small"><span>Simetric</span> - Centro Integral de Reconocimiento</h4>
+                                                    <div class="d-flex flex-row">
+                                                        <div class="price  pr-2">
+                                                            <span class="subtitle d-block">Una lincencia</span>
+                                                            <p class="weigh-5">$150.000</p>
+                                                            <span class="subtitle d-block">Dos lincencia</span>
+                                                            <p class="weigh-5">$150.000</p>
+                                                        </div>
+                                                        <div class="schedule pl-2 pr-2">
+                                                            <span class="subtitle d-block pb-3">Horarios</span>
+                                                            <div class="d-flex flex-row d-normal">
+                                                                <div class="pr-2">
+                                                                <span class="subtitle d-block">Luneas a viernes:</span>
+                                                                <p class="text mb-1">08:00 AM - 12:00 PM <br/>
+                                                                    02:00 PM - 06:00 PM</p>
+                                                                </div>
+                                                                <div class="saturday">
+                                                                <span class="subtitle d-block">Sábado:</span>
+                                                                <p class="text mb-0">08:00 AM - 12:00 PM </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <span class="subtitle d-block">Descripción:</span>
+                                                    <p class="p-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 company-rating mt-3">
-                                            <span>Rating</span>
-                                        </div>
-                                        <div class="col-12 company-button mt-3">
-                                            <button type="button" class="see-detail btn-crc">
-                                                Ver detalle
-                                            </button>
-                                            <button type="button" class="add-to-cart add-cart-crc">
-                                                Añadir al carrito
-                                            </button>
-                                        </div>
                                     </div>
+                                </div>                
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <div class="content-summary">
+                                    <div class="header-summary"> <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
+                                        <ul class="list-summary">
+                                            <li class="d-flex flex-row">
+                                                <div class="media w-100">
+                                                    <img class="align-self-top mr-2" src="{% static 'assets/img/img-check.svg' %}" width="35">
+                                                    <div class="media-body">
+                                                    <h6 class="mt-0 mb-0 text-small">CRC</h6>
+                                                    <p class="mb-0 text-small">$150.000</p>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
+                                            </li>
+                                            <li class="d-flex flex-row">
+                                                <div class="media w-100">
+                                                    <img class="align-self-top mr-2" src="{% static 'assets/img/volante.svg' %}" width="35">
+                                                    <div class="media-body">
+                                                    <h6 class="mt-0 mb-0 text-small">CRC</h6>
+                                                    <p class="mb-0 text-small">$150.000</p>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
+                                            </li>
+                                            <li class="d-flex flex-row">
+                                                <div class="media w-100">
+                                                    <img class="align-self-top mr-2" src="{% static 'assets/img/gorro.svg' %}" width="35">
+                                                    <div class="media-body">
+                                                    <h6 class="mt-0 mb-0 text-small">ORGANISMO DE TRANSITO</h6>
+                                                    <p class="mb-0 text-small">$150.000</p>
+                                                    </div>
+                                                </div>
+                                                <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
+                                            </li>
+                                        </ul>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span>$500.000</span></p>
                                 </div>
+                                <p class="text-center pt-3">
+                                    <button type="button" class="btn-block btn-brand back-crc">
+                                        <i class="material-icons">keyboard_backspace</i>Volver
+                                    </button>
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
+                
                 <div class="f1-buttons">
-                    <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
                     <button type="button" class="btn btn-next btn-step-3">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
                 </div>
             </fieldset>
@@ -814,1552 +1044,148 @@
         </form>
     </div>
 
+
+    <!-- Modal detalle compania -->
+
+    <div class="modal fade" id="companyDetailModal" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 form-box">
+                        <div class="detail-crc">
+                            <h3 class="crc-big-title">Detalle</h3>
+                            <div class="row crc-info justify-content-around mb-4">
+                                <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
+                                    <div class="image-crc">
+                                        <img class="company-logo mx-auto d-block mt-4 img-fluid" src="{% static 'logos/simetric.png' %}" alt="Logo Company">
+                                    </div>
+                                    <div class="select-button mt-3">
+                                        <button type="button" class="btn-select add-cart-crc" id="select-crc" data-id="1" data-price='' >Seleccionar</button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-c-8 info-crc mb-4">
+                                    <div class="row crc-title">
+                                        <div class="col-12">
+                                            <span>Simetric- Centro integral de reconocimiento</span>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row details">
+                                        <div class="col-12 col-lg-6">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 item">
+                                                    <span class="item-title">
+                                                        Dirección: <br>
+                                                    </span>
+                                                    <span class="item-detail">
+                                                        Calle 40 # 13-30
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/ciudad/res/mipmap-mdpi/Ciudad.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 item">
+                                                    <span class="item-title">
+                                                        Sector <br>
+                                                    </span>
+                                                    <span class="item-detail">
+                                                        Pereira, Risaralda
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/horario/res/mipmap-mdpi/horario.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 item">
+                                                    <span class="item-title">
+                                                        Horario <br>
+                                                        Lunes a Viernes <br>
+                                                    </span>
+                                                    <span class="item-detail">
+                                                        08:00 AM - 12:00 PM <br>
+                                                        02:00 PM - 06:00 PM
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 item">
+                                                    <span class="item-title">
+                                                        Teléfono <br>
+                                                    </span>
+                                                    <span>
+                                                        3178883333
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                </div>
+                                                <div class="col-8 item">
+                                                    <span class="item-title">
+                                                        Calificación <br>
+                                                    </span>
+                                                    <span class="item-detail">
+                                                        stars
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-lg-6">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/precio/res/mipmap-mdpi/precio.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 item">
+                                                    <span class="item-title">
+                                                        Precios <br>
+                                                    </span>
+                                                    <span class="item-detail">
+                                                        $ 56.000 - Una Licencia
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row map">
+                                <div class="col-12">
+                                    <div style="width: 100%">
+                                        <iframe 
+                                            width="100%"
+                                            height="400"
+                                            src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;coord=4.8142912, -75.6946451&amp;q=Plaza%20de%20Bolivar+(Pereira%20Colombia)&amp;ie=UTF8&amp;t=&amp;z=16&amp;iwloc=B&amp;output=embed"
+                                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                                        </iframe>
+                                    </div>
+                                    <br />
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 {% block extra_js %}
-    <script>
-
-        $(".img-check").imgCheckbox({ 
-            "styles": {
-                "span.imgCheckbox.imgChked img": {
-                    // This property will overwrite the default grayscaling, we need to add it back in
-                    "filter": "blur(5px) grayscale(50%)",
-
-                    // This is just css: remember compatibility
-                    "-webkit-filter": "blur(5px) grayscale(50%)",
-
-                    // Let's change the amount of scaling from the default of "0.8"
-                    "transform": "scale(0.9)"
-                }
-            }
-        });
-
-        function loadStatesSelect(){
-            $.ajax({
-                type: "GET",
-                url:"{% url 'api:manager:states' %}",
-                success:function(data)
-                {   
-                    $('select#states').empty()
-                    $(data).each(function(i, v){
-                        $('select#states').append(
-                            `<option value="${v.id}">${v.name}</option>`
-                        )
-                    })
-                    $('select#states').prepend(
-                        `<option value="" selected disabled>Seleccione un Departamento</option>`
-                    )
-                },
-            });
-                
-        }
-
-        function loadCitiesSelect(state_id){
-            $.ajax({
-                type: "GET",
-                url:"/api/manager/city/"+state_id+"/",
-                success:function(data)
-                {   
-                    $('select#cities').empty()
-                    $(data).each(function(i, v){
-                        $('select#cities').append(
-                            `<option value="${v.id}">${v.name}</option>`
-                        )
-                    })
-                    $('select#cities').prepend(
-                        `<option value="" disabled selected>Seleccione una ciudad</option>`
-                    )
-
-                    $('select.city-select').empty()
-                    $(data).each(function(i, v){
-                        $('select.city-select').append(
-                            `<option value="${v.id}">${v.name}</option>`
-                        )
-                    })
-                    $('select.city-select').prepend(
-                        `<option value="" disabled selected>Filtro por ciudad</option>`
-                    )
-                },
-            });
-                
-        }
-        
-        function loadCRCSectorSelect(cityId){
-            $.ajax({
-                type: "GET",
-                url:"/api/manager/sector/"+cityId+"/",
-                success:function(data)
-                {   
-                    $('select#sector-crc').empty()
-                    $(data).each(function(i, v){
-                        $('select#sector-crc').append(
-                            `<option value="${v.id}">${v.name}</option>`
-                        )
-                    })
-                    $('select#sector-crc').prepend(
-                        `<option value="" selected disabled>Seleccione un sector</option>`
-                    )
-                },
-            });
-                
-        }
-        
-        function loadCEASectorSelect(cityId){
-            $.ajax({
-                type: "GET",
-                url:"/api/manager/sector/"+cityId+"/",
-                success:function(data)
-                {   
-                    $('select#sector-cea').empty()
-                    $(data).each(function(i, v){
-                        $('select#sector-cea').append(
-                            `<option value="${v.id}">${v.name}</option>`
-                        )
-                    })
-                    $('select#sector-cea').prepend(
-                        `<option value="" selected disabled>Seleccione un sector</option>`
-                    )
-                },
-            });
-                
-        }
-
-        loadStatesSelect();
-
-        function clearLicences(){
-            console.log("Clear Licence")
-            $('#toggleA1')[0].checked = false;
-            $('#toggleA2')[0].checked = false;
-            $('#toggleB1')[0].checked = false;
-            $('#toggleC1')[0].checked = false;
-            $('#toggleC2')[0].checked = false;
-            $('#toggleC3')[0].checked = false;
-            $('#toggle1')[0].checked = false;
-            $('#toggle2')[0].checked = false;
-            $('#toggle3')[0].checked = false;
-            $('#toggle4')[0].checked = false;
-            licences = {}
-            bike = false
-            car = false
-            tramit_type1 = ""
-            tramit_type2 = ""
-            tramits['licence_1'] = ""
-            tramits['licence_2'] = ""
-            $('.licence-vehicle').addClass('d-none')
-            $('ul.bike-licences').addClass('d-none')
-            $('li.bikelicence span.imgCheckbox0').removeClass('imgChked');
-            $('li.bikelicence').removeClass('disabled');
-            $('ul.car-licences').addClass('d-none')
-            $('li.carlicence span.imgCheckbox0').removeClass('imgChked');
-            $('li.carlicence').removeClass('disabled');
-
-        }
-
-        function clearTramit(tramit){
-            var licence = ""
-            if(tramit != 'SL' ){
-                $('.row-C2').addClass('d-none')
-                $('.row-C3').addClass('d-none')
-            }
-            switch (tramit) { 
-                case 'SL': 
-                    if (tramit_type1 == tramit && tramit_type2 == ""){
-                        tramit_type1 = ""
-                    }
-                    else{
-                        if (tramit_type1 == tramit){
-                            tramit_type1 = tramit_type2
-                            tramit_type2 = ""
-                        }
-                        else{
-                            tramit_type2 = ""
-                        }
-                    }
-                    if (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] == ""){
-                        licence = tramits['licence_1']['licence']
-                        tramits['licence_1'] = ""
-                        tramit_type1 = ""
-                        $('.licence-vehicle').toggleClass('d-none')
-                    }
-                    else {
-                        if (tramits['licence_1']['tramit'] == tramit){
-                            licence = tramits['licence_1']['licence']
-                            tramits['licence_1'] = tramits['licence_2']
-                            tramits['licence_2'] = ""
-                        }
-                        else {
-                            if (tramits['licence_2']['tramit'] == tramit){
-                                licence = tramits['licence_2']['licence']
-                                tramits['licence_2'] = ""
-                            }
-                        }
-                    }
-                    if (licence != ""){
-                        bike = jQuery.inArray( licence, ['A1', 'A2'] )
-                        car = jQuery.inArray( licence, ['B1', 'C1', 'C2', 'C3'] )
-                        if (bike != -1){
-                            console.log("Licence Bike ")
-                            $('ul.bike-licences').addClass('d-none')
-                            $('li.bikelicence span.imgCheckbox0').removeClass('imgChked');
-                            $('li.carlicence').removeClass('disabled');
-                        }
-                        else{
-                            if (car != -1){
-                                console.log("Licence CAR ")
-                                $('ul.car-licences').addClass('d-none')
-                                $('li.carlicence span.imgCheckbox0').removeClass('imgChked');
-                                $('li.bikelicence').removeClass('disabled');
-                            }
-                        }
-                        $('#toggle'+licence)[0].checked = false;
-                    }
-                    else{
-                        $('.licence-vehicle').addClass('d-none')
-                    }
-                    break;
-                case 'RN': 
-                    if (tramit_type1 == tramit && tramit_type2 == ""){
-                        clearLicences()
-                    }
-                    else{
-                        if (tramit_type1 == tramit){
-                            tramit_type1 = tramit_type2
-                            tramit_type2 = ""
-                        }
-                        else{
-                            tramit_type2 = ""
-                        }
-                    }
-                    if ((tramits['licence_1']['tramit'] == tramit && tramits['licence_2']['tramit'] == tramit) ||
-                        (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] == "")){
-                            clearLicences()
-                    }
-                    else{
-                        if (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] != ""){
-                            licence = tramits['licence_1']['licence']
-                            tramits['licence_1'] = ""
-                            tramit_type1 = ""
-                            $('.licence-vehicle').toggleClass('d-none')
-                        }
-                        else {
-                            if (tramits['licence_1']['tramit'] == tramit){
-                                licence = tramits['licence_1']['licence']
-                                tramits['licence_1'] = tramits['licence_2']
-                                tramits['licence_2'] = ""
-                            }
-                            else {
-                                if (tramits['licence_2']['tramit'] == tramit){
-                                    licence = tramits['licence_2']['licence']
-                                    tramits['licence_2'] = ""
-                                }
-                            }
-                        }
-                        if (licence != ""){
-                            bike = jQuery.inArray( licence, ['A1', 'A2'] )
-                            car = jQuery.inArray( licence, ['B1', 'C1', 'C2', 'C3'] )
-                            if (bike != -1){
-                                $('ul.bike-licences').addClass('d-none')
-                                $('li.bikelicence span.imgCheckbox0').removeClass('imgChked');
-                                $('li.carlicence').removeClass('disabled');
-                            }
-                            else{
-                                if (car != -1){
-                                    $('ul.car-licences').addClass('d-none')
-                                    $('li.carlicence span.imgCheckbox0').removeClass('imgChked');
-                                    $('li.bikelicence').removeClass('disabled');
-                                }
-                            }
-                            $('#toggle'+licence)[0].checked = false;
-                        }
-                    }
-                    break;
-                case 'RC': 
-                    $('.bikelicence').removeClass('disabled')
-                    $('.row-B1').removeClass('d-none')
-                    if (tramit_type1 == tramit && tramit_type2 == ""){
-                        clearLicences()
-                    }
-                    else{
-                        if (tramit_type1 == tramit){
-                            tramit_type1 = tramit_type2
-                            tramit_type2 = ""
-                        }
-                        else{
-                            tramit_type2 = ""
-                        }
-                    }
-                    if ((tramits['licence_1']['tramit'] == tramit && tramits['licence_2']['tramit'] == tramit) ||
-                        (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] == "")){
-                            console.log("solo RC")
-                            clearLicences()
-                    }
-                    else{
-                        console.log("Elseeee")
-                        if (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] != ""){
-                            licence = tramits['licence_1']['licence']
-                            tramits['licence_1'] = ""
-                            tramit_type1 = ""
-                            $('.licence-vehicle').toggleClass('d-none')
-                        }
-                        else {
-                            if (tramits['licence_1']['tramit'] == tramit){
-                                licence = tramits['licence_1']['licence']
-                                tramits['licence_1'] = tramits['licence_2']
-                                tramits['licence_2'] = ""
-                            }
-                            else {
-                                if (tramits['licence_2']['tramit'] == tramit){
-                                    licence = tramits['licence_2']['licence']
-                                    tramits['licence_2'] = ""
-                                }
-                            }
-                        }
-                        if (licence != ""){
-                            bike = jQuery.inArray( licence, ['A1', 'A2'] )
-                            car = jQuery.inArray( licence, ['B1', 'C1', 'C2', 'C3'] )
-                            if (bike != -1){
-                                console.log("Licence Bike ")
-                                $('ul.bike-licences').addClass('d-none')
-                                $('li.bikelicence span.imgCheckbox0').removeClass('imgChked');
-                                $('li.carlicence').removeClass('disabled');
-                            }
-                            else{
-                                if (car != -1){
-                                    console.log("Licence CAR ")
-                                    $('ul.car-licences').addClass('d-none')
-                                    $('li.carlicence span.imgCheckbox0').removeClass('imgChked');
-                                    $('li.bikelicence').removeClass('disabled');
-                                }
-                            }
-                            $('#toggle'+licence)[0].checked = false;
-                        }
-                    }
-                    break;
-                default:
-                    console.log('Default');
-            }
-            console.log("Tramits sale: ")
-            console.warn(tramits)
-        }
-
-        $('select#cities-crc').on('change', function(){
-            selected = $(this)
-            loadCRCSectorSelect(selected.val())
-        })
-
-        $('select#cea-city').on('change', function(){
-            selected = $(this)
-            loadCEASectorSelect(selected.val())
-        })
-
-        function loadVehicleSelect(licences){
-            vehicle_params: {
-                
-            }
-            axios.get('/api/vehicles/vehicles/', {
-                params: {
-                    licences: licences
-                }
-            })
-			.then(function (response) {
-				data = response.data;
-				$('.vehicle-select').empty()
-				if (data.length > 0){
-					$.each(data, function(i, v){
-						$('.vehicle-select').append(
-							`
-								<option value="${v.line}">${v.brand.name} - ${v.line}</option>
-							`
-						)
-					})
-                    $('.vehicle-select').append(
-                        `
-                            <option value="" disabled selected>Filtro vehículos</option>
-                        `
-                    )
-				}
-				else {
-					$('.vehicle-select').empty()
-					$('.vehicle-select').append(
-						'<option value="" disabled> No hay vehículos disponibles</option>'
-					)
-				}
-			})
-			.catch(function (error) {
-				console.log(error);
-			})
-        }
-
-        var gender = ""
-        var birth_date = ""
-        var age = ""
-        var tramit = ""
-        var licences = {}
-        var bike = false
-        var car = false
-        var runt = ""
-        var crc = ""
-        var cea = ""
-        var transit = ""
-        var cea_price = ""
-        var crc_price = ""
-        var transit_price = ""
-        var tramits = {'licence_1':'', 'licence_2':''}
-        var tramit_type1 = ""
-        var tramit_type2 = ""
-        var payment_type = ""
-        
-        function crc_filter(params){
-            axios.get('/api/companies/crc', {
-				params: params
-            })
-            .then(function (response) {
-				data = response.data;
-				if (data.length > 0){
-                    const starTotal = 5;
-					$('.crc-list').empty()
-					$.each(data, function(i, v){
-						if(v.logo == null){
-							logo = '/static/logos/simetric.png'
-						}
-						else{
-							logo = v.logo
-						}
-						$('.crc-list').append(
-							`
-								<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-									<div class="row">
-										<div class="col-12 logo-company">			
-											<img 
-												src="${logo}" 
-											width="70" alt="Logo Company">
-										</div>
-									</div>
-									<div class="row mt-2">
-										<div class="col-12 company-name">
-											<span>${v.name}</span>
-										</div>
-										<div class="col-12 company-location mt-3">
-											<div class="row">
-												<div class="col-3 img-location">
-													<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-												</div>
-												<div class="col-8 sector">
-													<span>
-														${v.city.name}, ${v.city.state.name}
-													</span>
-												</div>
-											</div>
-										</div>
-										<div class="col-12 crc-${v.id}-rating mt-3">
-											<div class="stars-outer">
-                                                <div class="stars-inner"></div>
-                                            </div>
-										</div>
-										<div class="col-12 company-button mt-3">
-											<button type="button" class="see-detail btn-crc">
-												Ver detalle
-											</button>
-											<button 
-												type="button" 
-												class="add-to-cart add-cart-crc"
-												data-id="${v.id}" 
-												data-name="${v.name}"
-												data-price=${v.final_price}>
-												Añadir al carrito
-											</button>
-										</div>
-									</div>
-								</div>
-							`
-                        )
-                        const starPercentage = (v.rating / starTotal) * 100;
-                        const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-                        $(`.crc-${v.id}-rating .stars-outer .stars-inner`).width(starPercentageRounded);
-					})
-					$('.add-cart-crc').on('click', function(){
-                        crc = $(this).data('id')
-                        crc_price = $(this).data('price')
-
-                        function addCrc(){
-                            $('li.cart-crc').empty()
-                            $('li.cart-crc').append(
-                                `
-                                    <div class="header-cart-item-img-c">
-                                        <img src="/static/images/3.png" alt="IMG">
-                                    </div>
-            
-                                    <div class="header-cart-item-txt p-t-8">
-                                        <a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                            Centro de Reconociento de conductores
-                                        </a>
-                                        <span class="header-cart-item-info">
-                                            ${$(this).data('name')}
-                                        </span>
-                                        <span class="header-cart-item-info">
-                                            <strong>
-                                                $ ${$(this).data('price')}
-                                            </strong> 
-                                        </span>
-                                    </div>
-                                `
-                            )
-                            $('li.cart-crc').data('value', crc)
-                            toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
-                        }
-                        if ($('li.cart-crc').data('value') == '0')
-                        {
-                            addCrc();
-                        }
-                        else{
-                            swal({
-                                title: 'Momento',
-                                text: "Ya tienes un CRC en el carrito. Deseas agregar este y eliminar el anterior?",
-                                type: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#162d40',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Si, agregar',
-                                reverseButtons: true
-                            }).then((result) => {
-                                if (result.value) {
-                                    addCrc();
-                                }
-                            })
-                        }
-						
-					})
-			
-					
-				}
-				else {
-					$('.crc-list').empty()
-					$('.crc-list').append(
-						'<h3 style="padding:25px;">No se han encontrado Centros de recomocimientos de conductores en tu localidad. '+
-						'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
-					)
-				}
-			})
-			.catch(function (error) {
-				console.log(error);
-			})
-        }
-        
-        function cea_filter(params){
-            axios.get('/api/companies/cea', {
-				params : params
-			})
-			.then(function (response) {
-				data = response.data;
-				if (data.length > 0){
-                    const starTotal = 5;
-					$('.cea-list').empty()
-					$.each(data, function(i, v){
-						if(v.logo == null){
-							logo = '/static/logos/academia1.png'
-						}
-						else{
-							logo = v.logo
-						}
-						$('.cea-list').append(
-							`
-								<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-									<div class="row">
-										<div class="col-12 logo-company">			
-											<img 
-												src="${logo}" 
-											width="70" alt="Logo Company">
-										</div>
-									</div>
-									<div class="row mt-2">
-										<div class="col-12 company-name">
-											<span>${v.name}</span>
-										</div>
-										<div class="col-12 company-location mt-3">
-											<div class="row">
-												<div class="col-3 img-location">
-													<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-												</div>
-												<div class="col-8 sector">
-													<span>
-														${v.city.name}, ${v.city.state.name}
-													</span>
-												</div>
-											</div>
-										</div>
-										<div class="col-12 cea-${v.id}-rating mt-3">
-											<div class="stars-outer">
-                                                <div class="stars-inner"></div>
-                                            </div>
-										</div>
-										<div class="col-12 company-button mt-3">
-											<button type="button" class="see-detail btn-crc">
-												Ver detalle
-											</button>
-											<button 
-												type="button" 
-												class="add-to-cart add-cart-cea"
-												data-id="${v.id}" 
-												data-name="${v.name}"
-												data-price=${v.final_price}>
-												Añadir al carrito
-											</button>
-										</div>
-									</div>
-								</div>
-							`
-                        )
-                        const starPercentage = (v.rating / starTotal) * 100;
-                        const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-                        $(`.cea-${v.id}-rating .stars-outer .stars-inner`).width(starPercentageRounded);
-					})
-					$('.add-cart-cea').on('click', function(){
-                        cea = $(this).data('id')
-                        cea_price = $(this).data('price')
-                        function addCea(){
-                            $('li.cart-cea').empty()
-                            $('li.cart-cea').append(
-                                `
-                                    <div class="header-cart-item-img-c">
-                                        <img src="/static/images/4.png" alt="IMG">
-                                    </div>
-            
-                                    <div class="header-cart-item-txt p-t-8">
-                                        <a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                        Centro de Enseñanza Automotriz
-                                        </a>
-                                        <span class="header-cart-item-info">
-                                            ${$(this).data('name')}
-                                        </span>
-                                        <span class="header-cart-item-info">
-                                            <strong>
-                                                $ ${$(this).data('price')}
-                                            </strong> 
-                                        </span>
-                                    </div>
-                                `
-                            )
-                            $('li.cart-cea').data('value', cea)
-                            toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
-                        }
-                        if ($('li.cart-cea').data('value') == '0')
-                        {
-                            addCea();
-                        }
-                        else{
-                            swal({
-                                title: 'Momento',
-                                text: "Ya tienes un CEA en el carrito. Deseas agregar este y eliminar el anterior?",
-                                type: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#162d40',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Si, agregar',
-                                reverseButtons: true
-                            }).then((result) => {
-                                if (result.value) {
-                                    addCea();
-                                }
-                            })
-                        }
-						
-					})
-				}
-				else {
-					$('.cea-list').empty()
-					$('.cea-list').append(
-						'<h3 style="padding:25px;">No se han encontrado Centros de enseñanza en tu localidad. '+
-						'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
-					)
-				}
-			})
-			.catch(function (error) {
-				console.log(error);
-			})
-        }
-
-        function transit_filter(params){
-            axios.get('/api/companies/transit', {
-				params: params
-			})
-			.then(function (response) {
-				data = response.data;
-				$('.transit-list').empty()
-				if (data.length > 0){
-                    const starTotal = 5;
-					$.each(data, function(i, v){
-						if(v.logo == null){
-							logo = '/static/logos/movilidad.png'
-						}
-						else{
-							logo = v.logo
-						}
-						$('.transit-list').append(
-							`
-								<div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-									<div class="row">
-										<div class="col-12 logo-company">			
-											<img 
-												src="${logo}"
-											width="70" alt="Logo Company">
-										</div>
-									</div>
-									<div class="row mt-2">
-										<div class="col-12 company-name">
-											<span>${v.name}</span>
-										</div>
-										<div class="col-12 company-location mt-3">
-											<div class="row">
-												<div class="col-3 img-location">
-													<img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-												</div>
-												<div class="col-8 sector">
-													<span>
-														${v.city.name}, ${v.city.state.name}
-													</span>
-												</div>
-											</div>
-										</div>
-										<div class="col-12 transit-${v.id}-rating mt-3">
-											<div class="stars-outer">
-                                                <div class="stars-inner"></div>
-                                            </div>
-										</div>
-										<div class="col-12 company-button mt-3">
-											<button type="button" class="see-detail btn-crc">
-												Ver detalle
-											</button>
-											<button 
-												type="button" 
-												class="add-to-cart add-cart-transit"
-												data-id="${v.id}" 
-												data-name="${v.name}"
-												data-price=${v.runt_price}>
-												Añadir al carrito
-											</button>
-										</div>
-									</div>
-								</div>
-							`
-                        )
-                        const starPercentage = (v.rating / starTotal) * 100;
-                        const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-                        $(`.transit-${v.id}-rating .stars-outer .stars-inner`).width(starPercentageRounded);
-					})
-					$('.add-cart-transit').on('click', function(){
-                        transit = $(this).data('id')
-                        transit_price = $(this).data('price')
-                        function addTransit(){
-                            $('li.cart-transit').empty()
-                            $('li.cart-transit').append(
-                                `
-                                    <div class="header-cart-item-img-c">
-                                        <img src="/static/images/5.png" alt="IMG">
-                                    </div>
-            
-                                    <div class="header-cart-item-txt p-t-8">
-                                        <a href="{% url 'webclient:transit-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                            Distrito de Tránsito
-                                        </a>
-                                        <span class="header-cart-item-info">
-                                            ${$(this).data('name')}
-                                        </span>
-                                        <span class="header-cart-item-info">
-                                            <strong>
-                                                $ ${$(this).data('price')} 
-                                            </strong> 
-                                        </span>
-                                    </div>
-                                `
-                            )
-                            $('li.cart-transit').data('value', transit)
-                            toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
-                        }
-                        if ($('li.cart-transit').data('value') == '0')
-                        {
-                            addTransit();
-                        }
-                        else{
-                            swal({
-                                title: 'Momento',
-                                text: "Ya tienes un Organismo de tránsito en el carrito. Deseas agregar este y eliminar el anterior?",
-                                type: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#162d40',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Si, agregar',
-                                reverseButtons: true
-                            }).then((result) => {
-                                if (result.value) {
-                                    addTransit();
-                                }
-                            })
-                        }
-					})
-				}
-				else {
-					$('.transit-list').empty()
-					$('.transit-list').append(
-						'<h3 style="padding:25px;">No se han encontrado organismos de tránsito en tu localidad. '+
-						'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
-					)
-				}
-			})
-			.catch(function (error) {
-				console.log(error);
-			})
-        }
-
-        $('#day').on('change', function(e){
-            $('#day-1').find(`option[value="${$(this).val()}"]`).attr('selected', true)
-        })
-        $('#month').on('change', function(e){
-            $('#month-1').find(`option[value="${$(this).val()}"]`).attr('selected', true)
-        })
-        $('#year').on('change', function(e){
-            $('#year-1').find(`option[value="${$(this).val()}"]`).attr('selected', true)
-            birth_date = `${$('#month').val()}-${$('#day').val()}-${$(this).val()}`
-            dob = new Date(birth_date);
-            var today = new Date();
-            age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-        })
-        
-        function get_age(){
-            swal({
-				title: 'Atención',
-				text: 'Si cambias tu fecha de nacimiento, los precios mostrados de los servicios pueden cambiar',
-				type: 'warning',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-			})
-            birth_date = `${$('#month-1').val()}-${$('#day-1').val()}-${$('#year-1').val()}`
-            dob = new Date(birth_date);
-            var today = new Date();
-            age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-        }
-
-        $('#day-1').on('change', function(e){
-            get_age()
-        })
-        $('#month-1').on('change', function(e){
-            get_age()
-        })
-        $('#year-1').on('change', function(e){
-            get_age()
-        })
-
-        $('.male').on('click', function(e){
-            if($(this).attr('selected')){
-                gender = ""
-                $(this).removeAttr('selected')
-            }
-            else{
-                if ($('.female').attr('selected')){
-                    $('.female span.imgCheckbox0').removeClass('imgChked');
-                    $('.female').removeAttr('selected')
-                }
-                $(this).attr('selected', true)
-                gender = 'M'
-            }
-        })
-        $('.female').on('click', function(e){
-            if($(this).attr('selected')){
-                gender = ""
-                $(this).removeAttr('selected')
-            }
-            else{
-                if ($('.male').attr('selected')){
-                    $('.male span.imgCheckbox0').removeClass('imgChked');
-                    $('.male').removeAttr('selected')
-                }
-                $(this).attr('selected', true)
-                gender = 'F'
-            }
-        })
-        
-        $('#licence-1').on('click', function(ev){
-            clearLicences()
-            if($(this).attr('selected')){
-                $(this).removeAttr('selected')
-                $('.have-licences').toggleClass('d-none')
-            }
-            else{
-                if ($('#licence-2').attr('selected')){
-                    $('li.no-licence span.imgCheckbox0').removeClass('imgChked');
-                    $('#licence-2').removeAttr('selected')
-                    $('.licence-vehicle').addClass('d-none')
-                    tramit_type1 = ""
-                }
-                $(this).attr('selected', true)
-                $('.have-licences').toggleClass('d-none')
-            }
-        })
-        $('#licence-2').on('click', function(ev){
-            clearLicences()
-            if($(this).attr('selected')){
-                $(this).removeAttr('selected')
-                tramit_type1 = ""
-            }
-            else{
-                if ($('#licence-1').attr('selected')){
-                    $('li.have-licence span.imgCheckbox0').removeClass('imgChked');
-                    $('#licence-1').removeAttr('selected')
-                }
-                $(this).attr('selected', true)
-                $('.have-licences').addClass('d-none')
-                $('.licence-vehicle').removeClass('d-none')
-                tramit_type1 = "FL"
-            }
-        })
-
-        $('.have-licences input').on('click', function(ev){
-            if ($(this).is(':checked')){
-                if($(this).val() != 'SL' ){
-                    $('.row-C2').removeClass('d-none')
-                    $('.row-C3').removeClass('d-none')
-                }
-                if($(this).val() == 'RC' ){
-                    if (!($('bikelicence').hasClass('disabled'))){
-                        $('.bikelicence').addClass('disabled')
-                    }
-                    $('.row-B1').addClass('d-none')
-                    swal({
-                        title: 'Atención',
-                        type: 'info',
-                        html:
-                            'Solo puedes recategorizar licencias de carros, de la siguiente manera: ' +
-                            '<ul class="recat-info"> ' +
-                                '<li>De B1 a C1</li>'+
-                                '<li>De C1 a C2</li>'+
-                                '<li>De C2 a C3</li>'+
-                            '</ul>' +
-                            'Debes seleccionar la licencia a la cual quieres recategorizar',
-                        showCancelButton: false,
-                        confirmButtonText: 'Ok'
-                    })
-                }
-                
-                if (tramit_type1 == ""){
-                    tramit_type1 = $(this).val()
-                    $('.licence-vehicle').toggleClass('d-none')
-                }
-                else{
-                    if (jQuery.isEmptyObject(licences)){
-                        $(this)[0].checked = false;
-                        swal({
-                            title: 'Atención',
-                            text: 'Primero selecciona la licencia para tu primer categoría',
-                            type: 'error',
-                            showCancelButton: false,
-                            confirmButtonText: 'Ok'
-                        })
-                    }
-                    else{
-                        if ('bike' in licences){
-                            $('.bike-licences').toggleClass('d-none')
-                            $('.bikelicence').toggleClass('disabled')
-                            if ($('.carlicence').hasClass('disabled')){
-                                $('.carlicence').removeClass('disabled')
-                            }
-                        }
-                        else{
-                            $('.car-licences').toggleClass('d-none')
-                            $('.carlicence').toggleClass('disabled')
-                            if(!($(this).val() == 'RC' )){
-                                $('.bikelicence').toggleClass('disabled')
-                            }
-                        }
-                        tramit_type2 = $(this).val()
-                    }
-                    
-                }
-            }
-            else {
-                clearTramit($(this).val())
-            }
-        })
-
-        $('#bike-licence').on('click', function(ev){
-            if(tramit_type1 == 'SL'){
-                if ($('.carlicence').hasClass('disabled'))
-                {
-                    $('.carlicence').removeClass('disabled')
-                }
-                else {
-                    $('.carlicence').addClass('disabled')
-                }
-            }
-            $('.bike-licences').toggleClass('d-none')
-            bike = !bike;
-            if (!(bike)){
-                if ('bike' in licences){
-                    delete licences['bike']
-                }
-            }
-        })
-        $('#car-licence').on('click', function(ev){
-            if(tramit_type1 == 'SL'){
-                $('.bikelicence').toggleClass('disabled')
-            }
-            $('.car-licences').toggleClass('d-none')
-            car = !car;
-            if (!(car)){
-                if ('car' in licences){
-                    delete licences['car']
-                }
-            }
-        })
-
-        function addTramit(licence){
-            if (tramit_type1 != '' && tramit_type2 == ''){
-                if (tramits['licence_1'] == ''){
-                    tramits['licence_1'] = {'tramit': tramit_type1, 'licence':licence}
-                }
-                else{
-                    tramits['licence_2'] = {'tramit': tramit_type1, 'licence':licence}
-                }
-            }
-            else{
-                if (tramits['licence_1'] == ''){
-                    tramits['licence_1'] = {'tramit': tramit_type2, 'licence':licence}
-                }
-                else{
-                    tramits['licence_2'] = {'tramit': tramit_type2, 'licence':licence}
-                }
-            }
-            console.log(tramits)
-        }
-
-        function deleteTramit(licence){
-            if(tramits['licence_1']['licence'] == licence){
-                tramits['licence_1'] = tramits['licence_2']
-                tramits['licence_2'] = ''
-            }
-            if(tramits['licence_2']['licence'] == licence){
-                tramits['licence_2'] = ''
-            }
-            console.log(tramits)
-        }
-        
-        // MOTOS
-        $('#toggleA1').on('click', function(e){
-            if($(this).attr('selected')){
-                delete licences['bike']
-                deleteTramit($(this).data('name'))
-                $(this).removeAttr('selected')
-            }
-            else{
-                if ($('#toggleA2').attr('selected')){
-                    $('#toggleA2').removeAttr('selected')
-                    $('#toggleA2')[0].checked = false;
-                    deleteTramit($('#toggleA2').data('name'))
-                }
-                $(this).attr('selected', true)
-                licences['bike'] = $(this).data('name')
-                addTramit($(this).data('name'))
-            }
-        })
-        $('#toggleA2').on('click', function(e){
-            if($(this).attr('selected')){
-                delete licences['bike']
-                deleteTramit($(this).data('name'))
-                $(this).removeAttr('selected')
-            }
-            else{
-                if ($('#toggleA1').attr('selected')){
-                    $('#toggleA1').removeAttr('selected')
-                    $('#toggleA1')[0].checked = false;
-                    deleteTramit($('#toggleA1').data('name'))
-                }
-                $(this).attr('selected', true)
-                licences['bike'] = $(this).data('name')
-                addTramit($(this).data('name'))
-            }
-        })
-        
-        // CARROS
-        $('#toggleB1').on('click', function(e){
-            if($(this).attr('selected')){
-                delete licences['car']
-                deleteTramit($(this).data('name'))
-                $(this).removeAttr('selected')
-            }
-            else{
-                if ($('#toggleC1').attr('selected')){
-                    $('#toggleC1').removeAttr('selected')
-                    $('#toggleC1')[0].checked = false;
-                    deleteTramit($('#toggleC1').data('name'))
-                }
-                if ($('#toggleC2').attr('selected')){
-                    $('#toggleC2').removeAttr('selected')
-                    $('#toggleC2')[0].checked = false;
-                    deleteTramit($('#toggleC2').data('name'))
-                }
-                if ($('#toggleC3').attr('selected')){
-                    $('#toggleC3').removeAttr('selected')
-                    $('#toggleC3')[0].checked = false;
-                    deleteTramit($('#toggleC3').data('name'))
-                }
-                $(this).attr('selected', true)
-                licences['car'] = $(this).data('name')
-                addTramit($(this).data('name'))
-            }
-        })
-        $('#toggleC1').on('click', function(e){
-            if($(this).attr('selected')){
-                delete licences['car']
-                deleteTramit($(this).data('name'))
-                $(this).removeAttr('selected')
-            }
-            else{
-                if ($('#toggleB1').attr('selected')){
-                    $('#toggleB1').removeAttr('selected')
-                    $('#toggleB1')[0].checked = false;
-                    deleteTramit($('#toggleB1').data('name'))
-                }
-                if ($('#toggleC2').attr('selected')){
-                    $('#toggleC2').removeAttr('selected')
-                    $('#toggleC2')[0].checked = false;
-                    deleteTramit($('#toggleC2').data('name'))
-                }
-                if ($('#toggleC3').attr('selected')){
-                    $('#toggleC3').removeAttr('selected')
-                    $('#toggleC3')[0].checked = false;
-                    deleteTramit($('#toggleC3').data('name'))
-                }
-                $(this).attr('selected', true)
-                licences['car'] = $(this).data('name')
-                addTramit($(this).data('name'))
-            }
-        })
-        $('#toggleC2').on('click', function(e){
-            if($(this).attr('selected')){
-                delete licences['car']
-                deleteTramit($(this).data('name'))
-                $(this).removeAttr('selected')
-            }
-            else{
-                if ($('#toggleB1').attr('selected')){
-                    $('#toggleB1').removeAttr('selected')
-                    $('#toggleB1')[0].checked = false;
-                    deleteTramit($('#toggleB1').data('name'))
-                }
-                if ($('#toggleC1').attr('selected')){
-                    $('#toggleC1').removeAttr('selected')
-                    $('#toggleC1')[0].checked = false;
-                    deleteTramit($('#toggleC1').data('name'))
-                }
-                if ($('#toggleC3').attr('selected')){
-                    $('#toggleC3').removeAttr('selected')
-                    $('#toggleC3')[0].checked = false;
-                    deleteTramit($('#toggleC3').data('name'))
-                }
-                $(this).attr('selected', true)
-                licences['car'] = $(this).data('name')
-                addTramit($(this).data('name'))
-            }
-        })
-        $('#toggleC3').on('click', function(e){
-            if($(this).attr('selected')){
-                delete licences['car']
-                deleteTramit($(this).data('name'))
-                $(this).removeAttr('selected')
-            }
-            else{
-                if ($('#toggleB1').attr('selected')){
-                    $('#toggleB1').removeAttr('selected')
-                    $('#toggleB1')[0].checked = false;
-                    deleteTramit($('#toggleB1').data('name'))
-                }
-                if ($('#toggleC1').attr('selected')){
-                    $('#toggleC1').removeAttr('selected')
-                    $('#toggleC1')[0].checked = false;
-                    deleteTramit($('#toggleC1').data('name'))
-                }
-                if ($('#toggleC2').attr('selected')){
-                    $('#toggleC2').removeAttr('selected')
-                    $('#toggleC2')[0].checked = false;
-                    deleteTramit($('#toggleC2').data('name'))
-                }
-                $(this).attr('selected', true)
-                licences['car'] = $(this).data('name')
-                addTramit($(this).data('name'))
-            }
-        })
-
-        $('.si-runt').on('click', function(e){
-            if($(this).attr('selected')){
-                runt = ""
-                $(this).removeAttr('selected')
-            }
-            else{
-                if ($('.no-runt').attr('selected')){
-                    $('.no-runt span.imgCheckbox0').removeClass('imgChked');
-                    $('.no-runt').removeAttr('selected')
-                    $('.runt-info').addClass('d-none')
-                }
-                $(this).attr('selected', true)
-                runt = 'si'
-            }
-        })
-        $('.no-runt').on('click', function(e){
-            if($(this).attr('selected')){
-                runt = ""
-                $(this).removeAttr('selected')
-                $('.runt-info').addClass('d-none')
-            }
-            else{
-                if ($('.si-runt').attr('selected')){
-                    $('.si-runt span.imgCheckbox0').removeClass('imgChked');
-                    $('.si-runt').removeAttr('selected')
-                }
-                $(this).attr('selected', true)
-                $('.runt-info').removeClass('d-none')
-                runt = 'no'
-            }
-        })
-
-        $('select#states').on('change', function(){
-            selected = $(this)
-            loadCitiesSelect(selected.val())
-        })
-
-        var params_crc = {}
-        $('#sector-crc').on('change', function(e){
-            params_crc['sector'] = $(this).val()
-        })
-        $('#rating-crc').on('change', function(){
-            if ($(this).val() === '0'){
-                delete params_crc['rating']
-            }
-            else{
-                params_crc['rating'] = $(this).val()
-            }
-        })
-        // $('#price-crc').on('change', function(){
-        //     if ($(this).val() === '0'){
-        //         delete params_crc['price']
-        //     }
-        //     else{
-        //         params_crc['price'] = $(this).val()
-        //     }
-        // })
-        $('button.filter-crc').on('click', function(e){
-            var licence = ""
-            $.each(licences, function(i, v){
-				licence += (`${v},`)
-            })
-            params_crc['state']= $('#states').val()
-            params_crc['city']= $('#cities-crc').val()
-            params_crc['age']= age
-            params_crc['gender']= gender
-            params_crc['licences']= licence
-            crc_filter(params_crc)
-        })
-
-        var licence = ""
-        $.each(licences, function(i, v){
-            licence += (`${v},`)
-        })
-        
-        var params_cea = {}
-        $('#vehicle-cea').on('change', function(e){
-            params_cea['vehicles__vehicle__line'] = $(this).val()
-        })
-        $('#rating-cea').on('change', function(){
-            if ($(this).val() === '0'){
-                delete params_cea['rating']
-            }
-            else{
-                params_cea['rating'] = $(this).val()
-            }
-        })
-        // $('#price-cea').on('change', function(){
-        //     if ($(this).val() === '0'){
-        //         delete params_cea['price']
-        //     }
-        //     else{
-        //         params_cea['price'] = $(this).val()
-        //     }
-        // })
-        $('#sector-cea').on('change', function(e){
-            params_cea['sector'] = $(this).val()
-        })
-
-        $('button.filter-cea').on('click', function(e){
-            var licence = ""
-            $.each(licences, function(i, v){
-                licence += (`${v},`)
-            })
-            params_cea['state'] = $('#states').val()
-            params_cea['city'] = $('#cea-city').val()
-            params_cea['age']= age
-            params_cea['gender']= gender
-            params_cea['licences']= licence
-            params_cea['licences__licence__category__in'] = licence
-            cea_filter(params_cea)
-
-        })
-        
-        var params_transit = {}
-        $('#rating-transit').on('change', function(){
-            if ($(this).val() === '0'){
-                delete params_transit['rating']
-            }
-            else{
-                params_transit['rating'] = $(this).val()
-            }
-        })
-        $('#price-transit').on('change', function(){
-            if ($(this).val() === '0'){
-                delete params_transit['price']
-            }
-            else{
-                params_transit['price'] = $(this).val()
-            }
-        })
-        $('button.filter-transit').on('click', function(e){
-            params_transit['state'] = $('#states').val(),
-            params_transit['city'] = $('#transit-city').val(),
-            transit_filter(params_transit)
-        })
-        
-        $('.btn-crc').on('click', function(ev){
-            window.open("{% url 'webclient:crc-detail' %}", "_blank");
-        })
-        $('.btn-cea').on('click', function(ev){
-            window.open("{% url 'webclient:cea-detail' %}", "_blank");
-        })
-        $('.btn-licence').on('click', function(ev){
-            window.open("{% url 'webclient:transit-detail' %}", "_blank");
-        })
-        
-        $('.no-licence').on('click', function(e){
-            if (tramit == ""){
-                tramit = "first_licence"
-            }
-            else {
-                tramit = ""
-            }
-        }) 
-        
-        $('.online').on('click', function(e){
-            if($(this).attr('selected')){
-                payment_type = ""
-                $(this).removeAttr('selected')
-            }
-            else{
-                if ($('.credit').attr('selected')){
-                    $('.credit span.imgCheckbox0').removeClass('imgChked');
-                    $('.credit').removeAttr('selected')
-                }
-                $(this).attr('selected', true)
-                payment_type = 'CO'
-            }
-        })
-        $('.credit').on('click', function(e){
-            if($(this).attr('selected')){
-                payment_type = ""
-                $(this).removeAttr('selected')
-            }
-            else{
-                if ($('.online').attr('selected')){
-                    $('.online span.imgCheckbox0').removeClass('imgChked');
-                    $('.online').removeAttr('selected')
-                }
-                $(this).attr('selected', true)
-                payment_type = 'CR'
-            }
-        })
-        
-        $('#licence-request-form').on('submit', function(e){
-            e.preventDefault();
-            submit = true
-            if(payment_type == ""){
-                submit = false
-                swal({
-				title: 'Atención',
-				text: 'Selecciona tu medio de pago',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-                })
-            }
-            if($('#pass1').val() != $('#pass2').val()){
-                submit = false
-                swal({
-                    title: 'Atención',
-                    text: 'Tus contraseñas no coinciden',
-                    type: 'error',
-                    showCancelButton: false,
-                    confirmButtonText: 'Ok'
-                })
-            }
-            if($('#pass1').val() == ""){
-                submit = false
-                swal({
-                    title: 'Atención',
-                    text: 'Ingresa tu contraseña',
-                    type: 'error',
-                    showCancelButton: false,
-                    confirmButtonText: 'Ok'
-                })
-            }
-            if($('#email').val() == ""){
-                submit = false
-                swal({
-				title: 'Atención',
-				text: 'Ingresa tu email',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-                })
-            }
-            if($('#phone_number').val() == ""){
-                submit = false
-                swal({
-				title: 'Atención',
-				text: 'Ingresa tu número de celular',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-                })
-            }
-            if($('#last_name').val() == ""){
-                submit = false
-                swal({
-				title: 'Atención',
-				text: 'Ingresa tus apellidos',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-                })
-            }
-            if($('#first_name').val() == ""){
-                submit = false
-                swal({
-				title: 'Atención',
-				text: 'Ingresa tus nombres',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-                })
-            }
-            if($('#doc_id').val() == ""){
-                submit = false
-                swal({
-				title: 'Atención',
-				text: 'Ingresa el de número de documento de identidad',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-                })
-            }
-            if($('#doc_type :selected').val().trim() === ""){
-                submit = false
-                swal({
-				title: 'Atención',
-				text: 'Ingresa el tipo de documento de identidad',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-                })
-            }
-            
-            if (submit){
-                var lic = []
-                $.each(licences, function(i, v){
-                    lic.push(v)
-                })
-                user = {
-                    "first_name": $('#first_name').val(),
-                    "last_name": $('#last_name').val(),
-                    "email": $('#email').val(),
-                    "password": $('#pass1').val(),
-                    "gender": gender,
-                    "document_type": $('#doc_type :selected').val(),
-                    "document_id": $('#doc_id').val(),
-                    "cellphone": $('#phone_number').val(),
-                    "city": $('#cities').val(),
-                    "state": $('#states').val(),
-                    "birth_date": birth_date
-                },
-
-                form_data = {
-                    "user": user,
-                    "cea": cea,
-                    "crc": crc,
-                    "transit": transit,
-                    'payment_type': payment_type,
-                    "licences": lic,
-                    "runt":runt,
-                    "cea_price":cea_price,
-                    "crc_price": crc_price,
-                    "transit_price": transit_price,
-                    "tramits": tramits
-                }
-                
-                if (payment_type == "CR"){
-                    function getCookie(name) {
-                        var cookieValue = null;
-                        if (document.cookie && document.cookie !== '') {
-                            var cookies = document.cookie.split(';');
-                            for (var i = 0; i < cookies.length; i++) {
-                                var cookie = jQuery.trim(cookies[i]);
-                                // Does this cookie string begin with the name we want?
-                                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                                    break;
-                                }
-                            }
-                        }
-                        return cookieValue;
-                    }
-                    var csrftoken = getCookie('csrftoken');
-                    axios.defaults.headers.common['X-CSRFToken'] = csrftoken;
-                    axios.post('/api/request/', form_data)
-                    .then(function (response) {
-                        data = response.data;
-                        swal({
-                            title: 'Felicitaciones!',
-                            text: 'Tu solicitud se ha creado exitosamente. Dirigete al punto de TuLicencia mas cercano para validar tu solicitud de crédito',
-                            type: 'success',
-                            showCancelButton: false,
-                            confirmButtonText: 'Ver Baucher'
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location.replace(`/baucher/${data.request}/request`);
-                            }
-                        })
-                    })
-                    .catch(function (error) {
-                        console.log("Error")
-                        console.log(error);
-                    })
-                }
-                else{
-                    $('.gender-input').val(gender)
-                    $('.birthday-input').val(birth_date)
-                    $('.runt-input').val(runt)
-                    $('.cea-input').val(cea)
-                    $('.crc-input').val(crc)
-                    $('.transit-input').val(transit)
-                    $('.cea-price-input').val(cea_price)
-                    $('.crc-price-input').val(crc_price)
-                    $('.transit-price-input').val(transit_price)
-                    $('.licence-1-input').val(tramits['licence_1']['licence'])
-                    $('.tramit-1-input').val(tramits['licence_1']['tramit'])
-                    if (tramits['licence_2'] != ''){
-                        $('.licence-2-input').val(tramits['licence_2']['licence'])
-                        $('.tramit-2-input').val(tramits['licence_2']['tramit'])
-                    }
-
-                    $('#licence-request-form').off()
-                    $('#licence-request-form').submit()
-                }
-
-            }
-            
-        })
-
-    </script>
+   <script src="{% static 'js/stepper.js' %}"></script>
 {% endblock %}
