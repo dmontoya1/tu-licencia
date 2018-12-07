@@ -44,7 +44,7 @@ img.company-logo {
     border-bottom: 2px solid #ddd;
 }
 
-button#select-crc {
+button.btn-select {
     width: 114%;
     color: #fff;
     font-weight: 600;
@@ -53,6 +53,7 @@ button#select-crc {
     padding: 15px;
     border-radius: 10px;
     margin: 0 -18px;
+    cursor: pointer;
 }
 
 .item {

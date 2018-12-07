@@ -407,7 +407,6 @@ function crc_filter(params){
         console.log(response.data)
         data = response.data;
         if (data.length > 0){
-            const starTotal = 5;
             $('.crc-list').empty()
             $.each(data, function(i, v){
                 if(v.logo == null){
@@ -419,7 +418,7 @@ function crc_filter(params){
                 $('.crc-list').append(
                     `
                         <div class="col-12 col-xl-6">
-                            <button type="button" class="company-detail" data-id="${v.id}" data-company="crc" data-toggle="modal" data-target="#companyDetailModal">
+                            <button type="button" class="company-detail" data-id="${v.id}" data-company="crc" data-toggle="modal" data-target="#companyDetailModal-${v.id}">
                                 <div class="d-flex flex-row content-result rounded mb-2">
                                     <div class="thumbnail mr-2 mb-4">
                                         
@@ -456,42 +455,174 @@ function crc_filter(params){
                                 </div>
                             </a>
                         </div>
+
+                        <div class="modal fade" id="companyDetailModal-${v.id}" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 form-box">
+                                            <div class="detail-crc">
+                                                <h3 class="crc-big-title">Detalle</h3>
+                                                <div class="row crc-info justify-content-around mb-4">
+                                                    <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
+                                                        <div class="image-crc">
+                                                            <img class="company-logo mx-auto d-block mt-4 img-fluid" src="${logo}" alt="Logo Company">
+                                                        </div>
+                                                        <div class="select-button mt-3">
+                                                            <button type="button" class="btn-select add-cart-crc" data-id="${v.id}" data-name='${v.name}' data-price='${v.final_price}' >Seleccionar</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-c-8 info-crc mb-4">
+                                                        <div class="row crc-title">
+                                                            <div class="col-12">
+                                                                <span>${v.name}</span>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <div class="row details">
+                                                            <div class="col-12 col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Dirección: <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            ${v.address}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="/static/icons/ciudad/res/mipmap-mdpi/Ciudad.png" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Sector: ${v.sector.name} <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            ${v.city.name}, ${v.city.state.name}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="/static/icons/horario/res/mipmap-mdpi/horario.png" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Horario <br>
+                                                                            Lunes a Viernes <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            08:00 AM - 12:00 PM <br>
+                                                                            02:00 PM - 06:00 PM
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="/static/icons/telefono/res/mipmap-mdpi/telefono.png" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Teléfono <br>
+                                                                        </span>
+                                                                        <span>
+                                                                            ${v.cellphone}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Calificación <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="/static/icons/precio/res/mipmap-mdpi/precio.png" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Precios <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            $ ${v.final_price}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row map">
+                                                    <div class="col-12">
+                                                        <div style="width: 100%">
+                                                            <iframe 
+                                                                width="100%"
+                                                                height="400"
+                                                                src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;coord=4.8142912, -75.6946451&amp;q=Plaza%20de%20Bolivar+(Pereira%20Colombia)&amp;ie=UTF8&amp;t=&amp;z=16&amp;iwloc=B&amp;output=embed"
+                                                                frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                                                            </iframe>
+                                                        </div>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         
                     `
                 )
-                const starPercentage = (v.rating / starTotal) * 100;
-                const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-                $(`.crc-${v.id}-rating .stars-outer .stars-inner`).width(starPercentageRounded);
             })
             $('.add-cart-crc').on('click', function(){
                 crc = $(this).data('id')
+                crc_name = $(this).data('name')
                 crc_price = $(this).data('price')
 
                 function addCrc(){
                     $('li.cart-crc').empty()
                     $('li.cart-crc').append(
                         `
-                            <div class="header-cart-item-img-c">
-                                <img src="/static/images/3.png" alt="IMG">
+                            <div class="media w-100">
+                                <img class="align-self-top mr-2" src="/static/assets/img/img-check.svg" width="35">
+                                <div class="media-body">
+                                    <h6 class="mt-0 mb-0 text-small">CRC</h6>
+                                    <p class="mb-0 text-small">${cea_name}</p>
+                                    <p class="mb-0 text-small">$${cea_price}</p>
+                                </div>
                             </div>
-    
-                            <div class="header-cart-item-txt p-t-8">
-                                <a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                    Centro de Reconociento de conductores
-                                </a>
-                                <span class="header-cart-item-info">
-                                    ${$(this).data('name')}
-                                </span>
-                                <span class="header-cart-item-info">
-                                    <strong>
-                                        $ ${$(this).data('price')}
-                                    </strong> 
-                                </span>
-                            </div>
+                            <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
                         `
                     )
                     $('li.cart-crc').data('value', crc)
-                    toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+                    toastr["success"](`Se ha añadido ${crc_name} al carrito de compras`)
+                    setTimeout(function(){ 
+                        $('.modal').modal('hide')
+                        $('.btn-step-3').trigger('click')
+                    }, 2000);
                 }
                 if ($('li.cart-crc').data('value') == '0')
                 {
@@ -515,18 +646,12 @@ function crc_filter(params){
                 }
                 
             })
-            
-            $('.company-detail').on('click', function(e){
-
-            })
-    
-            
         }
         else {
             $('.crc-list').empty()
             $('.crc-list').append(
-                '<h3 style="padding:25px;">No se han encontrado Centros de recomocimientos de conductores en tu localidad. '+
-                'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
+                '<h3 style="padding:25px;">No se han encontrado Centros de reconocimientos de conductores en tu localidad. '+
+                'Intenta nuevamente con un nuevo departamento o ciudad</h3>'
             )
         }
     })
@@ -542,95 +667,317 @@ function cea_filter(params){
     .then(function (response) {
         data = response.data;
         if (data.length > 0){
-            const starTotal = 5;
             $('.cea-list').empty()
             $.each(data, function(i, v){
                 if(v.logo == null){
-                    logo = '/static/logos/academia1.png'
+                    logo = '/static/images/logo1.png'
                 }
                 else{
                     logo = v.logo
                 }
                 $('.cea-list').append(
                     `
-                        <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-                            <div class="row">
-                                <div class="col-12 logo-company">			
-                                    <img 
-                                        src="${logo}" 
-                                    width="70" alt="Logo Company">
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-12 company-name">
-                                    <span>${v.name}</span>
-                                </div>
-                                <div class="col-12 company-location mt-3">
-                                    <div class="row">
-                                        <div class="col-3 img-location">
-                                            <img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-                                        </div>
-                                        <div class="col-8 sector">
-                                            <span>
-                                                ${v.city.name}, ${v.city.state.name}
-                                            </span>
+                        <div class="col-12 col-xl-6">
+                            <button type="button" class="company-detail" data-id="${v.id}" data-company="cea" data-toggle="modal" data-target="#companyDetailModal-${v.id}">
+                                <div class="d-flex flex-row content-result rounded mb-2">
+                                    <div class="thumbnail mr-2 mb-4">
+                                        
+                                        <img src="${logo}" width="90" height="90" alt="Logo Company">
+                                        <div class="qualification">
+                                            <span class="subtitle d-block">Calificación</span>
+                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-12 cea-${v.id}-rating mt-3">
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
+                                    <div class="result-body">
+                                        <h4 class="text-small"><span>${v.name}</span></h4>
+                                        <div class="d-flex flex-row">
+                                            <div class="price  pr-2">
+                                                <span class="subtitle d-block">Precio</span>
+                                                <p class="weigh-5">$${v.final_price}</p>
+                                            </div>
+                                            <div class="schedule pl-2 pr-2">
+                                                <span class="subtitle d-block pb-3">Horarios</span>
+                                                <div class="d-flex flex-row d-normal">
+                                                    <div class="pr-2">
+                                                        <span class="subtitle d-block">Luneas a viernes:</span>
+                                                        <p class="text mb-1">08:00 AM - 12:00 PM y 2:00 PM - 6:00 PM</p>
+                                                    </div>
+                                                    <div class="saturday">
+                                                        <span class="subtitle d-block">Sábado:</span>
+                                                        <p class="text mb-0">08:00 AM - 12:00 PM </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span class="subtitle d-block">Descripción:</span>
+                                        <p class="p-text">Lorem ipsum dolor sit amet </p>
                                     </div>
                                 </div>
-                                <div class="col-12 company-button mt-3">
-                                    <button type="button" class="see-detail btn-crc">
-                                        Ver detalle
-                                    </button>
-                                    <button 
-                                        type="button" 
-                                        class="add-to-cart add-cart-cea"
-                                        data-id="${v.id}" 
-                                        data-name="${v.name}"
-                                        data-price=${v.final_price}>
-                                        Añadir al carrito
-                                    </button>
+                            </a>
+                        </div>
+
+                        <div class="modal fade" id="companyDetailModal-${v.id}" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 form-box">
+                                            <div class="detail-crc">
+                                                <h3 class="crc-big-title">Detalle</h3>
+                                                <div class="row crc-info justify-content-around mb-4">
+                                                    <div class="col-sm-12 col-md-c-4 image-crc justify-content-center mb-4">
+                                                        <div class="image-crc">
+                                                            <img class="company-logo mx-auto d-block mt-4 img-fluid" src="${logo}" alt="Logo Company">
+                                                        </div>
+                                                        <div class="select-button mt-3">
+                                                            <button type="button" class="btn-select add-cart-cea" data-id="${v.id}" data-name='${v.name}' data-price='${v.final_price}' >Seleccionar</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-c-8 info-crc mb-4">
+                                                        <div class="row crc-title">
+                                                            <div class="col-12">
+                                                                <span>${v.name}</span>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <div class="row details">
+                                                            <div class="col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Dirección: <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                        ${v.address}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="{% static 'icons/ciudad/res/mipmap-mdpi/ciudad.png' %}" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Sector ${v.sector.name}<br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            ${v.city.name}, ${v.city.state.name}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="{% static 'icons/horario/res/mipmap-mdpi/horario.png' %}" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Horario <br>
+                                                                            Lunes a Viernes <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            08:00 AM - 12:00 PM <br>
+                                                                            02:00 PM - 06:00 PM
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Teléfono <br>
+                                                                        </span>
+                                                                        <span>
+                                                                            ${v.cellphone}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Calificación <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="{% static 'icons/precio/res/mipmap-mdpi/precio.png' %}" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Precio <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            $ ${v.final_price}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row vehicles">
+                                                    <div class="col-3 col-sm-2 col-md-1 img-location mt-3">
+                                                        <img src="{% static 'icons/vehiculos/res/mipmap-mdpi/vehiculos .png' %}" width="30" height="30">
+                                                    </div>
+                                                    <div class="col-8 item mt-3">
+                                                        <span class="item-title">
+                                                            Vehículos: <br>
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="row justify-content-around mb-4 vehicle-list">
+                                                            <!-- <div class="col-1 img-location mt-3">
+                                                            </div> -->
+                                                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
+                                                                <div class="card">
+                                                                    <div class="card-img">
+                                                                        <img class="card-img-top" src="{% static 'vehicles/bike1.png' %}" alt="Card image cap">
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <p class="card-text">Honda pop 100</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
+                                                                <div class="card">
+                                                                    <div class="card-img">
+                                                                        <img class="card-img-top" src="{% static 'vehicles/car1.png' %}" alt="Card image cap">
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <p class="card-text">Chevrolet cruze</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
+                                                                <div class="card">
+                                                                    <div class="card-img">
+                                                                        <img class="card-img-top" src="{% static 'vehicles/car2.png' %}" alt="Card image cap">
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <p class="card-text">Chevrolet Onix</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
+                                                                <div class="card">
+                                                                    <div class="card-img">
+                                                                        <img class="card-img-top" src="{% static 'vehicles/van1.png' %}" alt="Card image cap">
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <p class="card-text">Chevrolet Van</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
+                                                                <div class="card">
+                                                                    <div class="card-img">
+                                                                        <img class="card-img-top" src="{% static 'vehicles/bus1.png' %}" alt="Card image cap">
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <p class="card-text">Bus</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
+                                                                <div class="card">
+                                                                    <div class="card-img">
+                                                                        <img class="card-img-top" src="{% static 'vehicles/car2.png' %}" alt="Card image cap">
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <p class="card-text">Chevrolet Onix</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <!-- <div class="col-2 vehicle-detail">
+                                                                <div class="card">
+                                                                    <div class="card-img">
+                                                                        <img class="card-img-top" src="{% static 'vehicles/van1.png' %}" alt="Card image cap">
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <p class="card-text">Chevrolet Van</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-2 vehicle-detail">
+                                                                <div class="card">
+                                                                    <div class="card-img">
+                                                                        <img class="card-img-top" src="{% static 'vehicles/bus1.png' %}" alt="Card image cap">
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <p class="card-text">Bus</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div> -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row map">
+                                                    <div class="col-12">
+                                                        <div style="width: 100%">
+                                                            <iframe 
+                                                                width="100%"
+                                                                height="400"
+                                                                src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;coord=4.8142912, -75.6946451&amp;q=Plaza%20de%20Bolivar+(Pereira%20Colombia)&amp;ie=UTF8&amp;t=&amp;z=16&amp;iwloc=B&amp;output=embed"
+                                                                frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                                                            </iframe>
+                                                        </div>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     `
                 )
-                const starPercentage = (v.rating / starTotal) * 100;
-                const starPercentageRounded = `${(Math.round(starPercentage / 10) * 10)}%`;
-                $(`.cea-${v.id}-rating .stars-outer .stars-inner`).width(starPercentageRounded);
             })
             $('.add-cart-cea').on('click', function(){
                 cea = $(this).data('id')
+                cea_name = $(this).data('name')
                 cea_price = $(this).data('price')
                 function addCea(){
                     $('li.cart-cea').empty()
                     $('li.cart-cea').append(
                         `
-                            <div class="header-cart-item-img-c">
-                                <img src="/static/images/4.png" alt="IMG">
+                            <div class="media w-100">
+                            <img class="align-self-top mr-2" src="/static/assets/img/volante.svg.svg" width="35">
+                            <div class="media-body">
+                                <h6 class="mt-0 mb-0 text-small">CEA</h6>
+                                <p class="mb-0 text-small">${crc_name}</p>
+                                <p class="mb-0 text-small">$${crc_price}</p>
                             </div>
-    
-                            <div class="header-cart-item-txt p-t-8">
-                                <a href="{% url 'webclient:crc-detail' %}" target="_blank" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                Centro de Enseñanza Automotriz
-                                </a>
-                                <span class="header-cart-item-info">
-                                    ${$(this).data('name')}
-                                </span>
-                                <span class="header-cart-item-info">
-                                    <strong>
-                                        $ ${$(this).data('price')}
-                                    </strong> 
-                                </span>
-                            </div>
+                        </div>
+                        <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
                         `
                     )
                     $('li.cart-cea').data('value', cea)
                     toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
+                    setTimeout(function(){ 
+                        $('.modal').modal('hide')
+                        $('.btn-step-4').trigger('click')
+                    }, 2000);
                 }
                 if ($('li.cart-cea').data('value') == '0')
                 {

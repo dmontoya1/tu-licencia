@@ -606,7 +606,7 @@
             
                         <div class="form-inline filters">
                             <label class="sr-only" for="name"></label>
-                            <input type="text" class="form-control input-inline mb-2 mr-sm-2" id="name" placeholder="Nombre">
+                            <input type="text" class="form-control input-inline mb-2 mr-sm-2" id="name-crc" placeholder="Nombre">
                             
                             <label class="sr-only" for="cities-crc">Ciudad</label>
                             <select class="form-control city-select input-inline mb-2 mr-sm-2" id="cities-crc">
@@ -626,13 +626,13 @@
                                 <option value="2">De mayor a menor calificación</option>
                             </select>
                 
-                            <label class="sr-only" for="price-crc">Precio</label>
+                            <!-- <label class="sr-only" for="price-crc">Precio</label>
                             <select class="form-control price-select input-inline mb-2 mr-sm-2" id="price-crc">
                                 <option selected disabled value="">Selecciona una opción</option>
                                 <option value="0">Eliminar filtro</option>
                                 <option value="1">De menor a mayor precio</option>
                                 <option value="2">De mayor a menor precio</option>
-                            </select>
+                            </select> -->
 
                             <button type="button" class="btn-filter mb-2 filter-crc">FILTRAR</button>
                         </div>
@@ -685,35 +685,11 @@
                                 <div class="content-summary">
                                     <div class="header-summary"> <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
                                         <ul class="list-summary">
-                                            <li class="d-flex flex-row">
-                                                <div class="media w-100">
-                                                    <img class="align-self-top mr-2" src="{% static 'assets/img/img-check.svg' %}" width="35">
-                                                    <div class="media-body">
-                                                    <h6 class="mt-0 mb-0 text-small">CRC</h6>
-                                                    <p class="mb-0 text-small">$150.000</p>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
+                                            <li class="d-flex flex-row cart-crc" data-value="0">
                                             </li>
-                                            <li class="d-flex flex-row">
-                                                <div class="media w-100">
-                                                    <img class="align-self-top mr-2" src="{% static 'assets/img/volante.svg' %}" width="35">
-                                                    <div class="media-body">
-                                                    <h6 class="mt-0 mb-0 text-small">CRC</h6>
-                                                    <p class="mb-0 text-small">$150.000</p>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
+                                            <li class="d-flex flex-row cart-cea" data-value="0">
                                             </li>
-                                            <li class="d-flex flex-row">
-                                                <div class="media w-100">
-                                                    <img class="align-self-top mr-2" src="{% static 'assets/img/gorro.svg' %}" width="35">
-                                                    <div class="media-body">
-                                                    <h6 class="mt-0 mb-0 text-small">ORGANISMO DE TRANSITO</h6>
-                                                    <p class="mb-0 text-small">$150.000</p>
-                                                    </div>
-                                                </div>
-                                                <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
+                                            <li class="d-flex flex-row cart-transit" data-value="0">
                                             </li>
                                         </ul>
                                     <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span>$500.000</span></p>
@@ -729,109 +705,125 @@
                 </section>
                 
                 <div class="f1-buttons">
-                    <button type="button" class="btn btn-next btn-step-3">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
+                    <button type="button" hidden class="btn btn-next btn-step-3">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
                 </div>
             </fieldset>
             
             <!-- Selección CEA -->
             <fieldset>
-                <div class="title">
-                    <span>Lista de CEA (Centro de Enseñanza Automovilísticos) disponibles en tu Ciudad</span>
-                </div>
-                <div class="container">
-                    <div class="row justify-content-around">
-                        <div class="col-sm-12 col-lg-3 filters mb-4">
-                            <div class="row title-filter">
-                                <span>Filtrar por</span>
-                            </div>
-                            <div class="row filter">
-                                <div class="col-12">
-                                    <label class="filter-label" for="cea-city">Vehículo</label>
-                                    <select class="vehicle-select location-filter" id="vehicle-cea">
-                                        <option value="" disabled selected>Filtro de vehículo</option>
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                    <label class="filter-label" for="cea-city">Ciudad</label>
-                                    <select class="city-select location-filter" id="cea-city">
-                                    </select>
-                                </div>
-                                <div class="col-12">
-                                        <label class="filter-label" for="sector-crc">Sector</label>
-                                        <select class="sector-select location-filter" id="sector-cea">
-                                            <option selected disabled value="">Selecciona primero una ciudad</option>
-                                        </select>
-                                </div>
-                                <!-- <div class="col-12">
-                                    <input type="text" name="price" id="price-cea" placeholder="Precio">
-                                </div> -->
-                                <div class="col-12">
-                                    <label class="filter-label" for="rating-cea">Calificación</label>
-                                    <select class="rating-select location-filter" id="rating-cea">
-                                        <option selected disabled value="">Selecciona una opción</option>
-                                        <option value="0">Eliminar filtro</option>
-                                        <option value="1">De menor a mayor calificación</option>
-                                        <option value="2">De mayor a menor calificación</option>
-                                    </select>
-                                </div>
-                                <!-- <div class="col-12">
-                                    <label class="filter-label" for="price-cea">Precio</label>
-                                    <select class="price-select location-filter" id="price-cea">
-                                        <option selected disabled value="">Selecciona una opción</option>
-                                        <option value="0">Eliminar filtro</option>
-                                        <option value="1">De menor a mayor precio</option>
-                                        <option value="2">De mayor a menor precio</option>
-                                    </select>
-                                </div> -->
-                                <div class="col-12">
-                                    <button type="button" class="btn btn-filter filter-cea">Filtrar</button>
-                                </div>
-                            </div>
+                <section>
+                    <div class="element element--seventeen">
+                        <p class="text text-center pt-5  pb-4 mb-0"> Como segundo paso selecciona el Centro Enseñanza automovilístico (CEA) donde te inscribirás en un curso de conducción, requisito necesario y obligatorio para adquirir la licencia de conducción
+
+                                (las pruebas de conducción y exoneraciones de curso no están permitidos).</p>
+                        <span class="title-brand d-block pb-2">Filtrar por:</span>
+            
+                        <div class="form-inline filters">
+                            <label class="sr-only" for="name"></label>
+                            <input type="text" class="form-control input-inline mb-2 mr-sm-2" id="name-cea" placeholder="Nombre">
+                            
+                            <label class="sr-only" for="cea-city">Ciudad</label>
+                            <select class="form-control city-select input-inline mb-2 mr-sm-2" id="cea-city">
+                                
+                            </select>
+
+                            <label class="sr-only" for="vehicle-cea">Vehículo</label>
+                            <select class="form-control vehicle-select input-inline mb-2 mr-sm-2" id="vehicle-cea">
+                                <option value="" disabled selected>Filtro de vehículo</option>
+                            </select>
+                    
+                            <label class="sr-only" for="sector-cea">Sector</label>
+                            <select class="form-control sector-select input-inline mb-2 mr-sm-2" id="sector-cea">
+                                <option selected disabled value="">Selecciona primero una ciudad</option>
+                            </select>
+                    
+                            <label class="sr-only" for="rating-cea">Calificación</label>
+                            <select class="form-control rating-select input-inline mb-2 mr-sm-2" id="rating-cea">
+                                <option selected disabled value="">Selecciona una opción</option>
+                                <option value="0">Eliminar filtro</option>
+                                <option value="1">De menor a mayor calificación</option>
+                                <option value="2">De mayor a menor calificación</option>
+                            </select>
+                
+                            <!-- <label class="sr-only" for="price-cea">Precio</label>
+                            <select class="form-control price-select input-inline mb-2 mr-sm-2" id="price-cea">
+                                <option selected disabled value="">Selecciona una opción</option>
+                                <option value="0">Eliminar filtro</option>
+                                <option value="1">De menor a mayor precio</option>
+                                <option value="2">De mayor a menor precio</option>
+                            </select> -->
+
+                            <button type="button" class="btn-filter mb-2 filter-cea">FILTRAR</button>
                         </div>
-                        <div class="col-sm-12 col-lg-9">
-                            <div class="row justify-content-around companies-list cea-list">
-                                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-                                    <div class="row">
-                                        <div class="col-12 logo-company">
-                                            <img src="{% static 'logos/academia1.png' %}" width="70" alt="Logo Company">
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-12 company-name">
-                                            <span>Academia Colombiana de Automovilismo</span>
-                                        </div>
-                                        <div class="col-12 company-location mt-3">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                        <div class="row mb-5">
+                            <div class="col-12 col-lg-9">
+                                <div class="results rounded">
+                                    <div class="form-row cea-list">
+                                        <div class="col-12 col-xl-6">
+                                            <div class="d-flex flex-row content-result rounded mb-2">
+                                                <div class="thumbnail mr-2 mb-4">
+                                                    <div class="img" style="background-image: url(/static/assets/img/img-result.png);"></div>
+                                                    <div class="qualification">
+                                                        <span class="subtitle d-block">Calificación</span>
+                                                        <p class="text"><span class="weigh-5">4.5 </span><i class="material-icons">grade</i> (200)</p>                            
+                                                    </div>
                                                 </div>
-                                                <div class="col-8 sector">
-                                                    <span>
-                                                        Pereira, Risaralda
-                                                    </span>
+                                                <div class="result-body">
+                                                    <h4 class="text-small"><span>Simetric</span> - Centro Integral de Reconocimiento</h4>
+                                                    <div class="d-flex flex-row">
+                                                        <div class="price  pr-2">
+                                                            <span class="subtitle d-block">Una lincencia</span>
+                                                            <p class="weigh-5">$150.000</p>
+                                                            <span class="subtitle d-block">Dos lincencia</span>
+                                                            <p class="weigh-5">$150.000</p>
+                                                        </div>
+                                                        <div class="schedule pl-2 pr-2">
+                                                            <span class="subtitle d-block pb-3">Horarios</span>
+                                                            <div class="d-flex flex-row d-normal">
+                                                                <div class="pr-2">
+                                                                <span class="subtitle d-block">Luneas a viernes:</span>
+                                                                <p class="text mb-1">08:00 AM - 12:00 PM <br/>
+                                                                    02:00 PM - 06:00 PM</p>
+                                                                </div>
+                                                                <div class="saturday">
+                                                                <span class="subtitle d-block">Sábado:</span>
+                                                                <p class="text mb-0">08:00 AM - 12:00 PM </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <span class="subtitle d-block">Descripción:</span>
+                                                    <p class="p-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-12 company-rating mt-3">
-                                            <span>Rating</span>
-                                        </div>
-                                        <div class="col-12 company-button mt-3">
-                                            <button type="button" class="see-detail btn-cea">
-                                                Ver detalle
-                                            </button>
-                                            <button type="button" class="add-to-cart">
-                                                Añadir al carrito
-                                            </button>
-                                        </div>
                                     </div>
+                                </div>                
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <div class="content-summary">
+                                    <div class="header-summary"> <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
+                                        <ul class="list-summary">
+                                            <li class="d-flex flex-row cart-crc" data-value="0">
+                                            </li>
+                                            <li class="d-flex flex-row cart-cea" data-value="0">
+                                            </li>
+                                            <li class="d-flex flex-row cart-transit" data-value="0">
+                                            </li>
+                                        </ul>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span>$500.000</span></p>
                                 </div>
+                                <p class="text-center pt-3">
+                                    <button type="button" class="btn-block btn-brand back-crc">
+                                        <i class="material-icons">keyboard_backspace</i>Volver
+                                    </button>
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
                 <div class="f1-buttons">
-                    <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
-                    <button type="button" class="btn btn-next btn-step-4">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
+                    <button type="button" hidden class="btn btn-next btn-step-4">Siguiente </button>
                 </div>
             </fieldset>
             
@@ -1042,147 +1034,6 @@
             </fieldset>
         
         </form>
-    </div>
-
-
-    <!-- Modal detalle compania -->
-
-    <div class="modal fade" id="companyDetailModal" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <div class="col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1 form-box">
-                        <div class="detail-crc">
-                            <h3 class="crc-big-title">Detalle</h3>
-                            <div class="row crc-info justify-content-around mb-4">
-                                <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
-                                    <div class="image-crc">
-                                        <img class="company-logo mx-auto d-block mt-4 img-fluid" src="{% static 'logos/simetric.png' %}" alt="Logo Company">
-                                    </div>
-                                    <div class="select-button mt-3">
-                                        <button type="button" class="btn-select add-cart-crc" id="select-crc" data-id="1" data-price='' >Seleccionar</button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-c-8 info-crc mb-4">
-                                    <div class="row crc-title">
-                                        <div class="col-12">
-                                            <span>Simetric- Centro integral de reconocimiento</span>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="row details">
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Dirección: <br>
-                                                    </span>
-                                                    <span class="item-detail">
-                                                        Calle 40 # 13-30
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/ciudad/res/mipmap-mdpi/Ciudad.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Sector <br>
-                                                    </span>
-                                                    <span class="item-detail">
-                                                        Pereira, Risaralda
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/horario/res/mipmap-mdpi/horario.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Horario <br>
-                                                        Lunes a Viernes <br>
-                                                    </span>
-                                                    <span class="item-detail">
-                                                        08:00 AM - 12:00 PM <br>
-                                                        02:00 PM - 06:00 PM
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Teléfono <br>
-                                                    </span>
-                                                    <span>
-                                                        3178883333
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Calificación <br>
-                                                    </span>
-                                                    <span class="item-detail">
-                                                        stars
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/precio/res/mipmap-mdpi/precio.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Precios <br>
-                                                    </span>
-                                                    <span class="item-detail">
-                                                        $ 56.000 - Una Licencia
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row map">
-                                <div class="col-12">
-                                    <div style="width: 100%">
-                                        <iframe 
-                                            width="100%"
-                                            height="400"
-                                            src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;coord=4.8142912, -75.6946451&amp;q=Plaza%20de%20Bolivar+(Pereira%20Colombia)&amp;ie=UTF8&amp;t=&amp;z=16&amp;iwloc=B&amp;output=embed"
-                                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-                                        </iframe>
-                                    </div>
-                                    <br />
-                                </div>
-                            </div>
-                        </div>    
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
 {% endblock %}
