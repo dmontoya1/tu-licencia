@@ -281,8 +281,6 @@ class ReportView(TemplateView):
 
     @csrf_exempt
     def post(self, request, *args, **kwargs):
-        print (request)
-        print (request.POST)
         report = request.POST['report']
         return self.generate_xlsx_report(request.POST, report)
 
