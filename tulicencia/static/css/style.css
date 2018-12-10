@@ -794,4 +794,11 @@ ul.tramit-choice input {
 	visibility: visible;
 	opacity: 1;
 }
-  
+
+button.btn.btn-export {
+    float: right;
+    margin-bottom: 20px;
+    background-color: #162d3f;
+    color: #fff;
+    font-weight: 600;
+}

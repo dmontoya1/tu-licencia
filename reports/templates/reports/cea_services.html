@@ -5,17 +5,41 @@
 
 {% block extra_css %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 {% endblock %}
 
 {% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'images/logo.png' %}" width="100" height="60" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav">
+                    <li class="span6">
+                        <div class="mycontent-left">
+                            <a class="a-navbar" href="{% url 'webclient:contact-form' %}">Contacto</a> 
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
 {% endblock %}
 
 {% block content %}
     <div class="col-10 form-box">
         <div class="container-fluid mb-5" >
             <div class="row justify-content-left">
-                <div class="col-sm-12 col-lg-7" style="background-color: #fff;">
-                    <h3 class="mt-5">Compras realizadas por los usuarios</h3>
+                <div class="col-12 mt-4 p-3" style="background-color: #fff;">
+                    <h3 class="mt-2">Compras realizadas por los usuarios</h3>
                     <form class="purchases">
                         {% csrf_token %}
 
@@ -46,6 +70,14 @@
             </div>
         </div>
         <div class="table" hidden>
+            <form action="/reports/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="report" value="cea" />
+                <input type="hidden" id="start-xls" name="start" value="" />
+                <input type="hidden" id="end-xls" name="end" value="" />
+                <input type="hidden" id="cea_status-xls" name="cea_status" value="" />
+                <button type="submit" class="btn btn-export" >Exportar a Excel</button>
+            </form>
             <table id="table_id" class="display">
                 <thead class="thead">
                     <tr>
@@ -81,6 +113,18 @@
 {% block extra_js %}
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
     <script>
+
+        $('.start-date').on('change', function(e){
+            $('#start-xls').val($(this).val())
+        })
+
+        $('.end-date').on('change', function(e){
+            $('#end-xls').val($(this).val())
+        })
+
+        $('#cea_status').on('change', function(e){
+            $('#cea_status-xls').val($(this).val())
+        })
 
         $('.purchases').on('submit', function(ev) {
             ev.preventDefault()

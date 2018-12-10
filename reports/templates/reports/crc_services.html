@@ -8,14 +8,37 @@
 {% endblock %}
 
 {% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'images/logo.png' %}" width="100" height="60" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav">
+                    <li class="span6">
+                        <div class="mycontent-left">
+                            <a class="a-navbar" href="{% url 'webclient:contact-form' %}">Contacto</a> 
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
 {% endblock %}
 
 {% block content %}
-    <div class="col-10 form-box">
+    <div class="col-12 form-box">
         <div class="container-fluid mb-5" >
             <div class="row justify-content-left">
-                <div class="col-sm-12 col-lg-7" style="background-color: #fff;">
-                    <h3 class="mt-5">Compras realizadas por los usuarios</h3>
+                <div class="col-12 mt-4 p-3" style="background-color: #fff;">>
+                    <h3 class="mt-2">Compras realizadas por los usuarios</h3>
                     <form class="purchases">
                         {% csrf_token %}
 

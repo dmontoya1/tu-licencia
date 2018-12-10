@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import datetime
 import json
+import xlwt
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -11,6 +12,7 @@ from rest_framework.views import APIView
 from django.db.models import Avg, Count, Min, Sum, F
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
 from jet.dashboard.modules import DashboardModule
@@ -24,6 +26,265 @@ from request.serializers import RequestSerializer
 
 class ReportView(TemplateView):
     template_name = 'reports/reports.html'
+
+    def generate_xlsx_report(self, request, report):
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename="reporte.xls"'
+        
+        wb = xlwt.Workbook(encoding='utf-8')
+        row_num = 0
+        font_style = xlwt.XFStyle()
+        font_style.font.bold = True
+
+        if report == "purchases":
+            start_date = request['start']
+            end_date = request['end']
+            city = request['city']
+
+            if city:
+                requests = Request.objects.filter(
+                    request_date__gte=start_date,
+                    request_date__lte=end_date,
+                    crc__city=city
+                )
+            
+            else:
+                requests = Request.objects.filter(
+                    request_date__gte=start_date,
+                    request_date__lte=end_date,
+                )
+            if(request['tramit']):
+                requests = requests.filter(related_tramits__tramit_type=request['tramit'])
+
+            records = requests.values_list(
+                'user__first_name',
+                'user__last_name',
+                'user__document_id',
+                'cea__name',
+                'crc__name',
+                'transit__name',
+                'related_tramits',
+                'request_date',
+            )
+
+            ws = wb.add_sheet(str('Compras'))
+
+            columns = [
+                'Nombres',
+                'Apellidos',
+                'Documento',
+                'CEA',
+                'CRC',
+                'Organismo de transito',
+                'tramites',
+                'Fecha de Solicitud',
+            ]
+
+        elif report == "credits": 
+            start_date = request['start']
+            end_date = request['end']
+            city = request['city']
+
+            if city:
+                requests = Request.objects.filter(
+                    request_date__gte=start_date,
+                    request_date__lte=end_date,
+                    crc__city=city,
+                    payment_type=Request.CREDITO
+                )
+            else:
+                requests = Request.objects.filter(
+                    request_date__gte=start_date,
+                    request_date__lte=end_date,
+                    payment_type=Request.CREDITO
+                )
+
+            if(request['tramit']):
+                requests = requests.filter(related_tramits__tramit_type=request['tramit'])
+            
+            if(request['credit_status']):
+                requests = requests.filter(credit_status=request['credit_status'])
+
+            records = requests.values_list(
+                'user__first_name',
+                'user__last_name',
+                'user__document_id',
+                'booking',
+                'cea__name',
+                'crc__name',
+                'transit__name',
+                'related_tramits',
+                'request_date',
+                'credit_status'
+            )
+
+            ws = wb.add_sheet(str('Creditos'))
+
+            columns = [
+                'Nombres',
+                'Apellidos',
+                'Documento',
+                'No Reserva',
+                'CEA',
+                'CRC',
+                'Organismo de transito',
+                'tramites',
+                'Fecha de Solicitud',
+                'Estado del credito'
+            ]
+
+        elif report == "companies": 
+            start_date = request['start']
+            end_date = request['end']
+            state = request['state']
+            cea = request['cea']
+            crc = request['crc']
+            transit = request['transit']
+
+            query = []
+
+            if state and state != '0':
+                requests = Request.objects.filter(
+                    request_date__gte=start_date,
+                    request_date__lte=end_date,
+                    state=state,
+                )
+            else:
+                requests = Request.objects.filter(
+                    request_date__gte=start_date,
+                    request_date__lte=end_date,
+                )
+
+            if (request['request_status']):
+                requests = requests.filter(request_status=request['request_status'])
+
+            records = requests.values_list(
+                'user__first_name',
+                'user__last_name',
+                'user__document_id',
+                'booking',
+                'cea__name',
+                'crc__name',
+                'transit__name',
+                'related_tramits',
+                'request_date',
+                'credit_status'
+            )
+
+            ws = wb.add_sheet(str('Creditos'))
+
+            columns = [
+                'Nombres',
+                'Apellidos',
+                'Documento',
+                'No Reserva',
+                'CEA',
+                'CRC',
+                'Organismo de transito',
+                'tramites',
+                'Fecha de Solicitud',
+                'Estado del credito'
+            ]
+
+        elif report == 'cea':
+            start_date = request['start']
+            end_date = request['end']
+            cea = request.user.cea
+
+            requests = Request.objects.filter(
+                cea=cea,
+                request_date__gte=start_date,
+                request_date__lte=end_date,
+                request_status=Request.PAID
+            )
+
+            if(request['cea_status']):
+                requests = requests.filter(cea_status=request['cea_status'])
+
+            records = requests.values_list(
+                'user__first_name',
+                'user__last_name',
+                'user__document_id',
+                'booking',
+                'related_tramits',
+                'request_date',
+                'payment_type',
+                'payment_date'
+            )
+
+            ws = wb.add_sheet(str('Servicios Cea'))
+
+            columns = [
+                'Nombres',
+                'Apellidos',
+                'Documento',
+                'No Reserva',
+                'Tramites',
+                'Fecha de Solicitud',
+                'Tipo de pago',
+                'Fecha del pago'
+            ]
+
+
+        elif report == 'crc':
+            start_date = request['start']
+            end_date = request['end']
+            crc = request.user.crc
+
+            requests = Request.objects.filter(
+                crc=crc,
+                request_date__gte=start_date,
+                request_date__lte=end_date,
+                request_status=Request.PAID
+            )
+
+            if(request['crc_status']):
+                requests = requests.filter(crc_status=request['crc_status'])
+
+            records = requests.values_list(
+                'user__first_name',
+                'user__last_name',
+                'user__document_id',
+                'booking',
+                'related_tramits',
+                'request_date',
+                'payment_type',
+                'payment_date'
+            )
+
+            ws = wb.add_sheet(str('Servicios Cea'))
+
+            columns = [
+                'Nombres',
+                'Apellidos',
+                'Documento',
+                'No Reserva',
+                'Tramites',
+                'Fecha de Solicitud',
+                'Tipo de pago',
+                'Fecha del pago'
+            ]
+
+        for col_num in range(len(columns)):
+            ws.write(row_num, col_num, columns[col_num], font_style)
+
+        font_style = xlwt.XFStyle()
+
+        for row in records:
+            row_num += 1
+            for col_num in range(len(row)):
+                ws.write(row_num, col_num, row[col_num], font_style)
+
+        wb.save(response)
+
+        return response
+
+    @csrf_exempt
+    def post(self, request, *args, **kwargs):
+        print (request)
+        print (request.POST)
+        report = request.POST['report']
+        return self.generate_xlsx_report(request.POST, report)
 
 
 class Purchases(TemplateView):
@@ -46,12 +307,17 @@ class PurchaseApi(APIView):
             end_date = request.data['end']
             city = request.data['city']
 
-            requests = Request.objects.filter(
-                request_date__gte=start_date,
-                request_date__lte=end_date,
-                crc__city=city
-            )
-
+            if city:
+                requests = Request.objects.filter(
+                    request_date__gte=start_date,
+                    request_date__lte=end_date,
+                    crc__city=city
+                )
+            else:
+                requests = Request.objects.filter(
+                    request_date__gte=start_date,
+                    request_date__lte=end_date,
+                )
             if(request.data['tramit']):
                 requests = requests.filter(related_tramits__tramit_type=request.data['tramit'])
             
@@ -83,12 +349,19 @@ class CreditsApi(APIView):
             end_date = request.data['end']
             city = request.data['city']
 
-            requests = Request.objects.filter(
-                request_date__gte=start_date,
-                request_date__lte=end_date,
-                crc__city=city,
-                payment_type=Request.CREDITO
-            )
+            if city:
+                requests = Request.objects.filter(
+                    request_date__gte=start_date,
+                    request_date__lte=end_date,
+                    crc__city=city,
+                    payment_type=Request.CREDITO
+                )
+            else:
+                requests = Request.objects.filter(
+                    request_date__gte=start_date,
+                    request_date__lte=end_date,
+                    payment_type=Request.CREDITO
+                )
 
             if(request.data['tramit']):
                 requests = requests.filter(related_tramits__tramit_type=request.data['tramit'])
@@ -129,11 +402,18 @@ class ServicesByCompanyApi(APIView):
 
             query = []
 
-            requests = Request.objects.filter(
-                request_date__gte=start_date,
-                request_date__lte=end_date,
-                state=state,
-            )
+            if state and state != '0':
+                requests = Request.objects.filter(
+                    request_date__gte=start_date,
+                    request_date__lte=end_date,
+                    state=state,
+                )
+            else:
+                requests = Request.objects.filter(
+                    request_date__gte=start_date,
+                    request_date__lte=end_date,
+                )
+
             if (request.data['request_status']):
                 requests = requests.filter(request_status=request.data['request_status'])
 
@@ -601,7 +881,6 @@ class ServicesByCompanyApi(APIView):
                         )
             
             else:
-                print ('last else')
                 for r in requests:
                     tramits = []
                     if r.related_tramits.all().count() > 0: 

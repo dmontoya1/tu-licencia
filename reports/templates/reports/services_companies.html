@@ -8,59 +8,80 @@
 {% endblock %}
 
 {% block nav %}
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'images/logo.png' %}" width="100" height="60" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <div class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav">
+                    <li class="span6">
+                        <div class="mycontent-left">
+                            <a class="a-navbar" href="{% url 'webclient:contact-form' %}">Contacto</a> 
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
 {% endblock %}
 
 {% block content %}
-    <div class="col-10 form-box">
+    <div class="col-12 form-box">
         <div class="container-fluid mb-5" >
             <div class="row justify-content-left">
-                <div class="col-sm-12 col-lg-7" style="background-color: #fff;">
-                    <h3 class="mt-5">Servicios adquiridos por los usuarios a cada proveedor</h3>
+                <div class="col-12 mt-4 p-3" style="background-color: #fff;">
+                    <h3 class="mt-2">Servicios adquiridos por los usuarios a cada proveedor</h3>
                     <form class="purchases">
                         {% csrf_token %}
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-3">
                                 <label for="state" class="float-left">Departamento</label>
                                 <select name="state" class="form-control" id="states" required>
                                     <option disabled selected value="">Seleccione un departamento</option>
+                                    <option value="0">Todos los departamentos</option>
                                     {% for state in states %}
                                         <option value="{{state.pk}}">{{state.name}}</option>
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-3">
                                 <label for="cities" class="float-left">Ciudad</label>
-                                <select name="city" class="form-control" id="cities" required>
+                                <select name="city" class="form-control" id="cities">
                                     <option disabled selected value="">Seleccione primero un departamento</option>
                                 </select>
                             </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-3">
                                 <label for="dates" class="float-left">Fecha inicio</label>
                                 <input type="date" class="input-sm form-control start-date" name="start" required/>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-3">
                                 <label for="dates" class="float-left">Fecha de fin</label>
                                 <input type="date" class="input-sm form-control end-date" name="end" required/>
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="cea" class="float-left">CEA</label>
                                 <select name="cea" class="form-control" id="cea">
                                     <option disabled selected value="">Primero selecciona una ciudad</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="crc" class="float-left">CRC</label>
                                 <select name="crc" class="form-control" id="crc" required>
                                     <option disabled selected value="">Primero selecciona una ciudad</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-4">
                                 <label for="transit" class="float-left">Departamento de tránsito</label>
                                 <select name="transit" class="form-control" id="transit" required>
                                     <option disabled selected value="">Primero selecciona una ciudad</option>
@@ -86,6 +107,18 @@
             </div>
         </div>
         <div class="table" hidden>
+            <form action="/reports/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="report" value="companies" />
+                <input type="hidden" id="state-xls" name="state" value="" />
+                <input type="hidden" id="start-xls" name="start" value="" />
+                <input type="hidden" id="end-xls" name="end" value="" />
+                <input type="hidden" id="request_status-xls" name="request_status" value="" />
+                <input type="hidden" id="cea-xls" name="cea" value="" />
+                <input type="hidden" id="crc-xls" name="crc" value="" />
+                <input type="hidden" id="transit-xls" name="transit" value="" />
+                <button type="submit" class="btn btn-export" >Exportar a Excel</button>
+            </form>
             <table id="table_id" class="display">
                 <thead class="thead">
                     <tr>
@@ -124,24 +157,50 @@
     <script>
 
         $('#states').on('change', function(){
-            axios.get(`/api/manager/city/${$(this).val()}`)
-            .then(function (response) {
-                data = response.data
-                $('#cities').empty()
-                $.each( data, function( k, v ) {
-                    $('#cities').append(
-                        `<option value=${v.id}>${v.name}</option>`
+            if ($(this).val() != 0){
+                axios.get(`/api/manager/city/${$(this).val()}`)
+                .then(function (response) {
+                    data = response.data
+                    $('#cities').empty()
+                    $.each( data, function( k, v ) {
+                        $('#cities').append(
+                            `<option value=${v.id}>${v.name}</option>`
+                        )
+                    });
+                    $('#cities').prepend(
+                        `<option selected disabled>Selecciona una ciudad</option>`
                     )
-                });
-                $('#cities').prepend(
-                    `<option selected disabled>Selecciona una ciudad</option>`
-                )
-            })
-            .catch(function (error) {
-                console.log(error);
-            })
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            }
+            $('#state-xls').val($('#states').val())
         })
 
+        $('.start-date').on('change', function(e){
+            $('#start-xls').val($(this).val())
+        })
+
+        $('.end-date').on('change', function(e){
+            $('#end-xls').val($(this).val())
+        })
+
+        $('#tramit').on('change', function(e){
+            $('#tramit-xls').val($(this).val())
+        })
+        
+        $('#cea').on('change', function(e){
+            $('#cea-xls').val($(this).val())
+        })
+
+        $('#crc').on('change', function(e){
+            $('#crc-xls').val($(this).val())
+        })
+
+        $('#request_status').on('change', function(e){
+            $('#request_status-xls').val($(this).val())
+        })
         $('#cities').on('change', function(){
             axios.get('/api/companies/cea-list', {
                 params: {

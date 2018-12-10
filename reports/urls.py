@@ -6,6 +6,7 @@ from . import views
 
 app_name = 'reports'
 urlpatterns = [
+    path('', views.ReportView.as_view(), name="reports"),
     path('purchase/', views.Purchases.as_view(), name='purchases'),
     path('purchases/', views.PurchaseApi.as_view(), name='purchase-api'),
     path('credit/', views.Credits.as_view(), name='credits'),
