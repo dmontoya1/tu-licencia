@@ -9,7 +9,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from django.db.models import Avg, Count, Min, Sum, F
+from django.db.models import Avg, Count, Min, Sum, F, Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -317,7 +317,10 @@ class PurchaseApi(APIView):
                     request_date__lte=end_date,
                 )
             if(request.data['tramit']):
-                requests = requests.filter(related_tramits__tramit_type=request.data['tramit'])
+                if request.data['tramit'] == 'LI':
+                    requests = requests.filter(Q(related_tramits__tramit_type='PL') | Q(related_tramits__tramit_type='SL'))
+                else:
+                    requests = requests.filter(related_tramits__tramit_type=request.data['tramit'])
             
             serializer = RequestSerializer(requests, many=True)
             return Response(serializer.data)
@@ -362,7 +365,10 @@ class CreditsApi(APIView):
                 )
 
             if(request.data['tramit']):
-                requests = requests.filter(related_tramits__tramit_type=request.data['tramit'])
+                if request.data['tramit'] == 'LI':
+                    requests = requests.filter(Q(related_tramits__tramit_type='PL') | Q(related_tramits__tramit_type='SL'))
+                else:
+                    requests = requests.filter(related_tramits__tramit_type=request.data['tramit'])
             
             if(request.data['credit_status']):
                 requests = requests.filter(credit_status=request.data['credit_status'])

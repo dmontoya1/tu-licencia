@@ -69,6 +69,14 @@
             </div>
         </div>
         <div class="table" hidden>
+            <form action="/reports/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="report" value="cea" />
+                <input type="hidden" id="start-xls" name="start" value="" />
+                <input type="hidden" id="end-xls" name="end" value="" />
+                <input type="hidden" id="crc_status-xls" name="crc_status" value="" />
+                <button type="submit" class="btn btn-export" >Exportar a Excel</button>
+            </form>
             <table id="table_id" class="display">
                 <thead class="thead">
                     <tr>
@@ -104,6 +112,18 @@
 {% block extra_js %}
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
     <script>
+
+        $('.start-date').on('change', function(e){
+            $('#start-xls').val($(this).val())
+        })
+
+        $('.end-date').on('change', function(e){
+            $('#end-xls').val($(this).val())
+        })
+
+        $('#crc_status').on('change', function(e){
+            $('#crc_status-xls').val($(this).val())
+        })
 
         $('.purchases').on('submit', function(ev) {
             ev.preventDefault()
