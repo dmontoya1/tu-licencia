@@ -52,13 +52,14 @@
 
 {% block content %}
 
-    <div class="col-12 form-box">
+    <div class="col-12 form-box mb-4">
         <div class="container">
             <div class="row profile-title">
                 <div class="col-12">
                    <span>
                         Mi Perfil
                    </span>
+                    <a href="{% url 'webclient:profile' %}" class="btn btn-back"><img src="{% static 'images/Volver.png' %}" alt=""> Regresar</a>
                 </div>
             </div>
             <div class="row profile-info align-items-center">
@@ -115,11 +116,16 @@
                                 <div class="row">
                                     <div class="col-md-6 mt-3">
                                         <label for="document_type">Tipo de documento</label>
-                                        <select class="form-control" id="document_type" name="document_type" required>
-                                            <option disable value="">Selecciona tu documento</option>
-                                            <option value="CC" {%if request.user.document_type == 'CC'%}selected{%endif%}>Cédula de Ciudadanía</option>
-                                            <option value="CE" {%if request.user.document_type == 'CE'%}selected{%endif%}>Cédula Extrajera</option>
-                                            <option value="TI" {%if request.user.document_type == 'TI'%}selected{%endif%}>Tarjeta de identidad</option>
+                                        <select class="form-control" id="document_type" name="document_type" required aria-readonly="true">
+                                            <option disable value="request.user.document_type">
+                                                {%if request.user.document_type == 'CC'%}
+                                                    Cédula de Ciudadanía
+                                                {%elif request.user.document_type == 'CE'%}
+                                                    Cédula Extrajera
+                                                {%else%}
+                                                    Tarjeta de identidad
+                                                {%endif%}
+                                            </option>
                                         </select>
                                     </div>
                                     <div class="col-md-6 mt-3">
@@ -132,6 +138,7 @@
                                         name='document_id'
                                         value={{request.user.document_id|default:''}}
                                         required
+                                        readonly
                                     >
                                     </div>
                                 </div>

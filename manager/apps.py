@@ -8,3 +8,6 @@ class ManagerConfig(AppConfig):
     name = 'manager'
     verbose_name = 'Administrador'
     icon = '<i class="material-icons">build</i>'
+
+    def ready(self):
+        import manager.signals
