@@ -184,13 +184,18 @@ class TransitSerializer(serializers.ModelSerializer):
     city = CitySerializer(many=False, read_only=True)
     count_rating = serializers.SerializerMethodField()
     sector = SectorSerializer(many=False, read_only=True)
+    final_price = serializers.SerializerMethodField()
+
+    def get_final_price(self, obj):
+        return obj.prices.runt + obj.prices.printing + obj.prices.other
+
 
     def get_count_rating(self, obj):
         return TransitRating.objects.filter(transit=obj).count()
 
     class Meta:
         model = TransitDepartment
-        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'runt_price', 'rating', 'schedule', 'count_rating')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'final_price', 'rating', 'schedule', 'count_rating')
 
 
 class CeaDetailSerializer(serializers.ModelSerializer):
