@@ -197,9 +197,6 @@ class TransitDepartmentPrices(models.Model):
         verbose_name_plural = "Administración Recaudos Organismos de transito"
 
 
-
-
-
 class ContactForm(models.Model):
     """Modelo para administrar los preguntas frecuentes
     """

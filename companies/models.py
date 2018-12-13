@@ -159,9 +159,8 @@ class Crc(SoftDeletionModelMixin):
     sector = models.ForeignKey(
         Sector,
         verbose_name="Sector",
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True
+        default=1,
+        on_delete=models.SET_DEFAULT,
     )
     email = models.CharField(
         "Correo Electrónico",

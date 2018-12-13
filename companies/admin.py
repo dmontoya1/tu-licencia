@@ -129,14 +129,14 @@ class CrcAdmin(SoftDeletionModelAdminMixin):
     extra_list_display = ('nit', 'name', 'manager', 'cellphone')
     inlines = [CrcRatingAdmin, RequestAdmin]
 
-    manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo', 'rating', 'schedule')
+    manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo', 'rating')
     readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo')
     search_fields = ('name', 'nit', 'manager__document_id', 'rating',)
     list_filter = ('state', 'city', )
 
     fieldsets = (
         (None, {
-            'fields': ('name', 'nit', 'manager', 'phone', 'cellphone', 'email', 'logo', 'rating')
+            'fields': ('name', 'nit', 'manager', 'phone', 'cellphone', 'email', 'logo', 'schedule', 'rating')
         }),
         ('Datos de ubicación', {
             'fields': ('state', 'city', 'sector', 'address'),

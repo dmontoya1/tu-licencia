@@ -2,7 +2,7 @@
 from rest_framework import serializers
 
 from manager.models import CompaniesAdminPrices
-from manager.serializers import StateSerializer, CitySerializer
+from manager.serializers import StateSerializer, CitySerializer, SectorSerializer
 from licences.models import AnsvRanges, AgeRange, Licence
 from licences.serializers import LicenceSerializer
 from vehicles.serializers import VehicleSerializer
@@ -14,6 +14,8 @@ class CrcSerializer(serializers.ModelSerializer):
     """
     final_price = serializers.SerializerMethodField()
     city = CitySerializer(many=False, read_only=True)
+    sector = SectorSerializer(many=False, read_only=True)
+    count_rating = serializers.SerializerMethodField()
 
     def get_final_price(self, obj):
         request = self.context.get("request")
@@ -62,9 +64,12 @@ class CrcSerializer(serializers.ModelSerializer):
                 ansv = ansv2
         return exam_val + collection.pin_sicov + collection.recaudo + ansv.price
 
+    def get_count_rating(self, obj):
+        return CrcRating.objects.filter(crc=obj).count()
+
     class Meta:
         model = Crc
-        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'final_price', 'rating', 'schedule')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'final_price', 'rating', 'schedule', 'count_rating')
 
 
 class CeaVehicleSerializer(serializers.ModelSerializer):
@@ -96,7 +101,9 @@ class CeaSerializer(serializers.ModelSerializer):
     licences = CeaLicenceSerializer(many=True, read_only=True)
     vehicles = CeaVehicleSerializer(many=True, read_only=True)
     city = CitySerializer(many=False, read_only=True)
+    sector = SectorSerializer(many=False, read_only=True)
     final_price = serializers.SerializerMethodField()
+    count_rating = serializers.SerializerMethodField()
 
     def get_final_price(self, obj):
         request = self.context.get("request")
@@ -162,9 +169,12 @@ class CeaSerializer(serializers.ModelSerializer):
         
         return final_price
 
+    def get_count_rating(self, obj):
+        return CeaRating.objects.filter(cea=obj).count()
+
     class Meta:
         model = Cea
-        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'licences', 'vehicles', 'rating', 'schedule', 'final_price')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'licences', 'vehicles', 'rating', 'schedule', 'final_price', 'count_rating')
 
 
 class TransitSerializer(serializers.ModelSerializer):
@@ -172,10 +182,20 @@ class TransitSerializer(serializers.ModelSerializer):
     """
 
     city = CitySerializer(many=False, read_only=True)
+    count_rating = serializers.SerializerMethodField()
+    sector = SectorSerializer(many=False, read_only=True)
+    final_price = serializers.SerializerMethodField()
+
+    def get_final_price(self, obj):
+        return obj.prices.runt + obj.prices.printing + obj.prices.other
+
+
+    def get_count_rating(self, obj):
+        return TransitRating.objects.filter(transit=obj).count()
 
     class Meta:
         model = TransitDepartment
-        fields = ('id', 'name', 'nit', 'state', 'city', 'address', 'phone', 'cellphone', 'logo', 'runt_price', 'rating', 'schedule')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'final_price', 'rating', 'schedule', 'count_rating')
 
 
 class CeaDetailSerializer(serializers.ModelSerializer):

@@ -5,6 +5,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from django.conf import settings
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.shortcuts import render, reverse
 
@@ -171,3 +172,28 @@ class CEAPendingRequestList(generics.ListAPIView):
         requests = Request.objects.filter(cea=cea, cea_status=Request.HAS_NOT_STARTER)
         return requests
 
+
+class CancelRequest(APIView):
+    """Api para hacer la solicitud de cancelacion de
+    la solicitud de un usuario
+    """
+
+    def post(self, request):
+        pk = self.request.data.get('pk')
+        request_obj = Request.objects.get(pk=pk)
+
+        request_obj.request_status = Request.CANCEL
+        request_obj.save()
+
+        url = 'http://{}/admin/request/request/{}/change/'.format(request.get_host(), request_obj.pk)
+
+        ctx = {
+            'title': 'Solicitud de cancelacion de servicio',
+            'content': 'El usuario {} con correo {} ha solicitado la cancelacion de su servicio. Para verlo has click en el siguiente botón'.format(request_obj.user.get_full_name(), request_obj.user.email),
+            'url': url,
+            'action': 'Ver solicitud'
+        }
+
+        sendEmail(ctx, settings.EMAIL_ADMIN, 'Solicitud cancelación servicio')
+
+        return Response("Cancelación realizada con éxito", status.HTTP_200_OK)

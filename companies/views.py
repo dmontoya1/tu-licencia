@@ -224,9 +224,9 @@ class DisableCrcRequest(APIView):
             crc = Crc.objects.get(nit=nit)
             url = 'http://{}/admin/companies/crc/{}/change/'.format(request.get_host(), crc.pk)
             ctx = {
-            'title': 'Solicitud de inactivación CRC',
-            'content': 'El CRC {} ha solicitado inactivar su companía. Para verlo has click en el siguiente botón'.format(crc.name),
-            'url': url 
+                'title': 'Solicitud de inactivación CRC',
+                'content': 'El CRC {} ha solicitado inactivar su companía. Para verlo has click en el siguiente botón'.format(crc.name),
+                'url': url 
             }
 
             sendEmail(ctx, settings.EMAIL_ADMIN, 'Solicitud Inhabilitación')

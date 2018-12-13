@@ -173,5 +173,8 @@
 {% endblock %}
 {% block extra_js %}
     {% block js_extra %}
+        <script>
+            axios.defaults.headers.common['Api-Key'] = '514419708fab4f7323a9b559eb64cbfae0342845';
+        </script>
     {% endblock %}
 {% endblock %}
