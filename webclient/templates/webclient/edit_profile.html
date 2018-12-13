@@ -462,7 +462,7 @@
                 $.ajax({
                     data: $(this).serialize(),
                     method: "PATCH",
-                    headers: ({'Api-Key': '514419708fab4f7323a9b559eb64cbfae0342845'}),
+                    headers: ({'Api-Key': 'e98f0150a142eb04c4abf3f297adb965c3d8ff18'}),
                     url:"{% url 'api:users:change_email' %}",
                     success:function(data)
                     {
@@ -498,7 +498,7 @@
                 data: $(this).serialize(),
                 type: "PATCH",
                 headers: ({'X-CSRFToken': '{{ csrf_token }}'},
-                            {'Api-Key': '514419708fab4f7323a9b559eb64cbfae0342845'}),
+                            {'Api-Key': 'e98f0150a142eb04c4abf3f297adb965c3d8ff18'}),
                 url:"{% url 'api:users:change_password' %}",
                 success:function(data)
                 {
