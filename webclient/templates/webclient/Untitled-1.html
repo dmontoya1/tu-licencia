@@ -1,98 +1,101 @@
-<div class="row justify-content-around">
-        <div class="col-sm-12 col-lg-3 filters mb-4">
-            <div class="row title-filter">
-                <span>Filtrar por</span>
-            </div>
-            <div class="row filter">
-                <div class="col-12">
-                    <label class="filter-label" for="cea-city">Vehículo</label>
-                    <select class="vehicle-select location-filter" id="vehicle-cea">
-                        <option value="" disabled selected>Filtro de vehículo</option>
-                    </select>
-                </div>
-                <div class="col-12">
-                    <label class="filter-label" for="cea-city">Ciudad</label>
-                    <select class="city-select location-filter" id="cea-city">
-                    </select>
-                </div>
-                <div class="col-12">
-                        <label class="filter-label" for="sector-crc">Sector</label>
-                        <select class="sector-select location-filter" id="sector-cea">
-                            <option selected disabled value="">Selecciona primero una ciudad</option>
-                        </select>
-                </div>
-                <!-- <div class="col-12">
-                    <input type="text" name="price" id="price-cea" placeholder="Precio">
-                </div> -->
-                <div class="col-12">
-                    <label class="filter-label" for="rating-cea">Calificación</label>
-                    <select class="rating-select location-filter" id="rating-cea">
-                        <option selected disabled value="">Selecciona una opción</option>
-                        <option value="0">Eliminar filtro</option>
-                        <option value="1">De menor a mayor calificación</option>
-                        <option value="2">De mayor a menor calificación</option>
-                    </select>
-                </div>
-                <!-- <div class="col-12">
-                    <label class="filter-label" for="price-cea">Precio</label>
-                    <select class="price-select location-filter" id="price-cea">
-                        <option selected disabled value="">Selecciona una opción</option>
-                        <option value="0">Eliminar filtro</option>
-                        <option value="1">De menor a mayor precio</option>
-                        <option value="2">De mayor a menor precio</option>
-                    </select>
-                </div> -->
-                <div class="col-12">
-                    <button type="button" class="btn btn-filter filter-cea">Filtrar</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-12 col-lg-9">
-            <div class="row justify-content-around companies-list cea-list">
-                <div class="col-sm-12 col-md-6 col-lg-c-3 company-detail">
-                    <div class="row">
-                        <div class="col-12 logo-company">
-                            <img src="{% static 'logos/academia1.png' %}" width="70" alt="Logo Company">
-                        </div>
-                    </div>
-                    <div class="row mt-2">
-                        <div class="col-12 company-name">
-                            <span>Academia Colombiana de Automovilismo</span>
-                        </div>
-                        <div class="col-12 company-location mt-3">
-                            <div class="row">
-                                <div class="col-3 img-location">
-                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
-                                </div>
-                                <div class="col-8 sector">
-                                    <span>
-                                        Pereira, Risaralda
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 company-rating mt-3">
-                            <span>Rating</span>
-                        </div>
-                        <div class="col-12 company-button mt-3">
-                            <button type="button" class="see-detail btn-cea">
-                                Ver detalle
-                            </button>
-                            <button type="button" class="add-to-cart">
-                                Añadir al carrito
-                            </button>
-                        </div>
-                    </div>
+<div class="title">
+    <span>Datos personales</span>
+</div>
+<div class="form-group">
+    <div class="location">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-10">
+                    <ul class="personal-data">
+                        <li>
+                            <label for="doc_type">Tipo de documento</label><br>
+                            <select class="custom-select doc-type-select" id="doc_type" name="doc_type" required>
+                                <option selected disabled value="">Selecciona el tipo de documento</option>
+                                <option value="CC">Cédula de Ciudadanía</option>
+                                <option value="TI">Tarjeta de identidad</option>
+                                <option value="CE">Cédula de extranjería</option>
+                            </select>
+                        </li>
+                        <li>
+                            <label for="doc_id">Número de documento</label><br>
+                            <input type="text" name="document_id" id="doc_id" placeholder="Número de documento" required>
+                        </li>
+                        <li>
+                            <label for="first_name">Nombre</label><br>
+                            <input type="text" name="first_name" id="first_name" placeholder="Nombre" required>
+                        </li>
+                        <li>
+                            <label for="last_name">Apellido</label><br>
+                            <input type="text" name="last_name" id="last_name" placeholder="Apellido" required>
+                        </li>
+                    </ul>
+                    
+                    <ul class="select-birth-2">
+                        <label>Fecha de nacimiento</label><br>
+                        <li>
+                            <label for="day">DD</label>
+                            <select class="custom-select birth-2-select custom-select-lg mb-3" id="day-1" required>
+                                {% for value in 1|range:32 %}
+                                    <option value="{{ value }}">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                        <li>
+                            <label for="month">MM</label>
+                            <select class="custom-select birth-2-select custom-select-lg mb-3" id="month-1" required>
+                                {% for value in 1|range:13 %}
+                                    <option value="{{ value }}">{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </li>
+                        <li>
+                            <label for="year">AAAA</label>
+                            <select class="custom-select birth-2-select custom-select-lg mb-3" id="year-1" required>
+                                {% for value in 1920|range:2003 %}
+                                    <option value="{{value}}">{{value}}</option>                                                    
+                                {% endfor %}
+                            </select>
+                        </li>
+                    </ul>
+                    <ul class="personal-data">
+                        <li>
+                            <label for="phone_number">Teléfono Celular</label><br>
+                            <input type="text" name="phone_number" id="phone_number" placeholder="Teléfono Celular" required>
+                        </li>
+                        <li>
+                            <label for="email">Correo Electrónico</label><br>
+                            <input type="email" name="email" id="email" placeholder="Correo Electrónico" required>
+                        </li>
+                        <li>
+                            <label for="pass1">Contraseña</label><br>
+                            <input type="password" name="password1" id="pass1" placeholder="Contraseña" required>
+                        </li>
+                        <li>
+                            <label for="pass2">Repetir Contraseña</label><br>
+                            <input type="password" name="password2" id="pass2" placeholder="Repetir Contraseña" required>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
-
-    <button 
-        type="button" 
-        class="add-to-cart add-cart-cea"
-        data-id="${v.id}" 
-        data-name="${v.name}"
-        data-price=${v.final_price}>
-        Añadir al carrito
-    </button>
+    <div class="form-group">
+        <div class="title">
+            <span>Como vas a pagar tu Licencia?</span>
+        </div>
+        <ul class="gender-choice">
+            <li class="online">
+                <label for="cb1">
+                    <img class="img-check" data-value="CO" name="online" src="{% static 'images/NO.png' %}" /><br>
+                    <p class="img-text">Pago online</p>
+                </label>
+            </li>
+            <li class="credit">
+                <label for="cb2">
+                    <img class="img-check" data-value="CR" name="credit" src="{% static 'images/SI.png' %}" /><br>
+                    <p class="img-text">Sistecrédito</p>
+                </label>
+            </li>
+        </ul>
+    </div>
+</div>

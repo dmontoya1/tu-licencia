@@ -610,8 +610,8 @@ function crc_filter(params){
                                 <img class="align-self-top mr-2" src="/static/assets/img/img-check.svg" width="35">
                                 <div class="media-body">
                                     <h6 class="mt-0 mb-0 text-small">CRC</h6>
-                                    <p class="mb-0 text-small">${cea_name}</p>
-                                    <p class="mb-0 text-small">$${cea_price}</p>
+                                    <p class="mb-0 text-small">${crc_name}</p>
+                                    <p class="mb-0 text-small">$${crc_price}</p>
                                 </div>
                             </div>
                             <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
@@ -724,7 +724,7 @@ function cea_filter(params){
                                             <div class="detail-crc">
                                                 <h3 class="crc-big-title">Detalle</h3>
                                                 <div class="row crc-info justify-content-around mb-4">
-                                                    <div class="col-sm-12 col-md-c-4 image-crc justify-content-center mb-4">
+                                                    <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
                                                         <div class="image-crc">
                                                             <img class="company-logo mx-auto d-block mt-4 img-fluid" src="${logo}" alt="Logo Company">
                                                         </div>
@@ -965,8 +965,8 @@ function cea_filter(params){
                             <img class="align-self-top mr-2" src="/static/assets/img/volante.svg.svg" width="35">
                             <div class="media-body">
                                 <h6 class="mt-0 mb-0 text-small">CEA</h6>
-                                <p class="mb-0 text-small">${crc_name}</p>
-                                <p class="mb-0 text-small">$${crc_price}</p>
+                                <p class="mb-0 text-small">${cea_name}</p>
+                                <p class="mb-0 text-small">$${cea_price}</p>
                             </div>
                         </div>
                         <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
