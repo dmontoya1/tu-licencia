@@ -11,7 +11,7 @@
 
 {% block content %}
 
-    <!-- <div class="col-12 form-box"> -->
+    <div class="col-12 form-box">
 
         <form role="form" action="/payments/checkout/" method="post" class="f1" id="licence-request-form">
             {% csrf_token %}
@@ -160,7 +160,20 @@
             <!-- Selección de tipo de Trámite -->
             <fieldset>
                 <!-- <div class="form-group">
-                    
+                    <ul class="gender-choice">
+                        <li class="mr-sm-4 have-licence">
+                            <label for="licence-1">
+                                <img class="img-check" name="have-licence" src="{% static 'images/licence-yes.png' %}" id="licence-1"/><br>
+                                <p class="img-text">Ya tienes Licencia?</p>
+                            </label>
+                        </li>
+                        <li class="no-licence">
+                            <label for="licence-2">
+                                <img class="img-check" name="no-licence" src="{% static 'images/licence-no.png' %}" id="licence-2"/><br>
+                                <p class="img-text">Es tu primera licencia?</p>
+                            </label>
+                        </li>
+                        </ul>
                 </div>
                 <div class="form-group have-licences d-none">
                     <div class="title">
@@ -276,7 +289,33 @@
                         </li>
                     </ul>
                 </div>
-            
+                <div class="form-group runt">
+                    <div class="title">
+                        <span>¿Tienes RUNT?</span>
+                        <p>Si no está seguro puede verificar haciendo clic <a href="https://www.runt.com.co/consultaCiudadana/#/consultaPersona" target="_blank" rel="noopener noreferrer">AQUI</a></p>
+                    </div>
+                    <ul class="licence-vehicle-choice">
+                        <li class="si-runt">
+                            <label for="cb2">
+                                <img class="img-check" name="si-runt" src="{% static 'images/SI.png' %}" /><br>
+                                <p class="img-text">Si</p>
+                            </label>
+                        </li>
+                        <li class="mr-sm-4 no-runt">
+                            <label for="cb1">
+                                <img class="img-check" name="no-runt" src="{% static 'images/NO.png' %}" id="no-runt"/><br>
+                                <p class="img-text">No</p>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class="form-group runt-info d-none">
+                    <div class="title">
+                        <span>
+                            Al final te daremos las indicaciones para inscribirte en el RUNT.
+                            Este procedimiento tiene un valor de $13.900
+                        </span>
+                    </div>
                 </div> -->
                 
                 <!--Tipo de tramite -->
@@ -417,7 +456,7 @@
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
-                                            <p class="text align-self-center mb-0">Automóviles, motocarros, camperos, camionetas y microbuses de servicio particular.</p>       
+                                            <p class="text align-self-center mb-0">Camiones rígidos, buses y busetas de servicio público y particular.​</p>       
                                         </div>          
                                     </div>
                                     <div class="col-12 col-md-6 toggleC3 d-none">
@@ -429,7 +468,7 @@
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
-                                            <p class="text align-self-center mb-0">Automóviles, motocarros, camperos, camionetas y microbuses de servicio público y particular.</p>                   
+                                            <p class="text align-self-center mb-0">Vehículos articulados de servicio público y particular (tractomulas).</p>                   
                                         </div>          
                                     </div>
                                 </div>
@@ -536,7 +575,7 @@
                     <div class="element element--runt d-none animated fadeInRight">
                         <div class="row pt-5">
                             <div class="col-12 col-lg-10 offset-lg-1">
-                            <div class="content-info-rut mb-5 animated bounceIn">
+                            <div class="content-info-rut mb-5 ">
                                 <img src="{% static 'assets/img/signo.svg' %}" class="icon-signo" alt="">
                                 <p class="mb-0">Al final del proceso te indicaremos el proceso de inscripción al <span>RUNT</span> que tendrás deberás hacerlo personalmente en cualquier Instituto de Tránsito o SIM de tu ciudad.</p>
                             </div>
@@ -644,7 +683,8 @@
                             </div>
                             <div class="col-12 col-lg-3">
                                 <div class="content-summary">
-                                    <div class="header-summary"> <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
+                                    <div class="header-summary"> 
+                                        <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
                                         <ul class="list-summary">
                                             <li class="d-flex flex-row cart-crc" data-value="0">
                                             </li>
@@ -790,112 +830,112 @@
             
             <!-- Selección Tránsito -->
             <fieldset>
-                    <section>
-                        <div class="element element--seventeen animated fadeInRight">
-                            <p class="text text-center pt-5  pb-4 mb-0"> Como tercer y último paso selecciona el Instituto de tránsito o SIM de tu ciudad donde deseas reclamar tu licencia conducción (deberás ir personalmente).</p>
-                            <span class="title-brand d-block pb-2">Filtrar por:</span>
+                <section>
+                    <div class="element element--seventeen animated fadeInRight">
+                        <p class="text text-center pt-5  pb-4 mb-0"> Como tercer y último paso selecciona el Instituto de tránsito o SIM de tu ciudad donde deseas reclamar tu licencia conducción (deberás ir personalmente).</p>
+                        <span class="title-brand d-block pb-2">Filtrar por:</span>
+            
+                        <div class="form-inline filters">
+                            <label class="sr-only" for="name"></label>
+                            <input type="text" class="form-control input-inline mb-2 mr-sm-2" id="name-transit" placeholder="Nombre">
+                            
+                            <label class="sr-only" for="transit-city">Ciudad</label>
+                            <select class="form-control city-select input-inline mb-2 mr-sm-2" id="transit-city">
+                               
+                            </select>
+                  
+                            <label class="sr-only" for="sector-transit">Sector</label>
+                            <select class="form-control sector-select input-inline mb-2 mr-sm-2" id="sector-transit">
+                                <option selected disabled value="">Selecciona primero una ciudad</option>
+                            </select>
+                  
+                            <label class="sr-only" for="rating-transit">Calificación</label>
+                            <select class="form-control rating-select input-inline mb-2 mr-sm-2" id="rating-transit">
+                                <option selected disabled value="">Selecciona una opción</option>
+                                <option value="0">Eliminar filtro</option>
+                                <option value="1">De menor a mayor calificación</option>
+                                <option value="2">De mayor a menor calificación</option>
+                            </select>
                 
-                            <div class="form-inline filters">
-                                <label class="sr-only" for="name"></label>
-                                <input type="text" class="form-control input-inline mb-2 mr-sm-2" id="name-transit" placeholder="Nombre">
-                                
-                                <label class="sr-only" for="transit-city">Ciudad</label>
-                                <select class="form-control city-select input-inline mb-2 mr-sm-2" id="transit-city">
-                                   
-                                </select>
-                      
-                                <label class="sr-only" for="sector-transit">Sector</label>
-                                <select class="form-control sector-select input-inline mb-2 mr-sm-2" id="sector-transit">
-                                    <option selected disabled value="">Selecciona primero una ciudad</option>
-                                </select>
-                      
-                                <label class="sr-only" for="rating-transit">Calificación</label>
-                                <select class="form-control rating-select input-inline mb-2 mr-sm-2" id="rating-transit">
-                                    <option selected disabled value="">Selecciona una opción</option>
-                                    <option value="0">Eliminar filtro</option>
-                                    <option value="1">De menor a mayor calificación</option>
-                                    <option value="2">De mayor a menor calificación</option>
-                                </select>
-                    
-                                <!-- <label class="sr-only" for="price-transit">Precio</label>
-                                <select class="form-control price-select input-inline mb-2 mr-sm-2" id="price-crc">
-                                    <option selected disabled value="">Selecciona una opción</option>
-                                    <option value="0">Eliminar filtro</option>
-                                    <option value="1">De menor a mayor precio</option>
-                                    <option value="2">De mayor a menor precio</option>
-                                </select> -->
-    
-                                <button type="button" class="btn-filter mb-2 filter-transit">FILTRAR</button>
-                            </div>
-                            <div class="row mb-5">
-                                <div class="col-12 col-lg-9">
-                                    <div class="results rounded">
-                                        <div class="form-row transit-list">
-                                            <div class="col-12 col-xl-6">
-                                                <div class="d-flex flex-row content-result rounded mb-2">
-                                                    <div class="thumbnail mr-2 mb-4">
-                                                        <div class="img" style="background-image: url(/static/assets/img/img-result.png);"></div>
-                                                        <div class="qualification">
-                                                            <span class="subtitle d-block">Calificación</span>
-                                                            <p class="text"><span class="weigh-5">4.5 </span><i class="material-icons">grade</i> (200)</p>                            
-                                                        </div>
+                            <!-- <label class="sr-only" for="price-transit">Precio</label>
+                            <select class="form-control price-select input-inline mb-2 mr-sm-2" id="price-crc">
+                                <option selected disabled value="">Selecciona una opción</option>
+                                <option value="0">Eliminar filtro</option>
+                                <option value="1">De menor a mayor precio</option>
+                                <option value="2">De mayor a menor precio</option>
+                            </select> -->
+
+                            <button type="button" class="btn-filter mb-2 filter-transit">FILTRAR</button>
+                        </div>
+                        <div class="row mb-5">
+                            <div class="col-12 col-lg-9">
+                                <div class="results rounded">
+                                    <div class="form-row transit-list">
+                                        <div class="col-12 col-xl-6">
+                                            <div class="d-flex flex-row content-result rounded mb-2">
+                                                <div class="thumbnail mr-2 mb-4">
+                                                    <div class="img" style="background-image: url(/static/assets/img/img-result.png);"></div>
+                                                    <div class="qualification">
+                                                        <span class="subtitle d-block">Calificación</span>
+                                                        <p class="text"><span class="weigh-5">4.5 </span><i class="material-icons">grade</i> (200)</p>                            
                                                     </div>
-                                                    <div class="result-body">
-                                                        <h4 class="text-small"><span>Simetric</span> - Centro Integral de Reconocimiento</h4>
-                                                        <div class="d-flex flex-row">
-                                                            <div class="price  pr-2">
-                                                                <span class="subtitle d-block">Una licencia</span>
-                                                                <p class="weigh-5">$150.000</p>
-                                                            </div>
-                                                            <div class="schedule pl-2 pr-2">
-                                                                <span class="subtitle d-block pb-3">Horarios</span>
-                                                                <div class="d-flex flex-row d-normal">
-                                                                    <div class="pr-2">
-                                                                    <span class="subtitle d-block">Luneas a viernes:</span>
-                                                                    <p class="text mb-1">08:00 AM - 12:00 PM <br/>
-                                                                        02:00 PM - 06:00 PM</p>
-                                                                    </div>
-                                                                    <div class="saturday">
-                                                                    <span class="subtitle d-block">Sábado:</span>
-                                                                    <p class="text mb-0">08:00 AM - 12:00 PM </p>
-                                                                    </div>
+                                                </div>
+                                                <div class="result-body">
+                                                    <h4 class="text-small"><span>Simetric</span> - Centro Integral de Reconocimiento</h4>
+                                                    <div class="d-flex flex-row">
+                                                        <div class="price  pr-2">
+                                                            <span class="subtitle d-block">Una licencia</span>
+                                                            <p class="weigh-5">$150.000</p>
+                                                        </div>
+                                                        <div class="schedule pl-2 pr-2">
+                                                            <span class="subtitle d-block pb-3">Horarios</span>
+                                                            <div class="d-flex flex-row d-normal">
+                                                                <div class="pr-2">
+                                                                <span class="subtitle d-block">Luneas a viernes:</span>
+                                                                <p class="text mb-1">08:00 AM - 12:00 PM <br/>
+                                                                    02:00 PM - 06:00 PM</p>
+                                                                </div>
+                                                                <div class="saturday">
+                                                                <span class="subtitle d-block">Sábado:</span>
+                                                                <p class="text mb-0">08:00 AM - 12:00 PM </p>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <span class="subtitle d-block">Descripción:</span>
-                                                        <p class="p-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation </p>
                                                     </div>
+                                                    <span class="subtitle d-block">Descripción:</span>
+                                                    <p class="p-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation </p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>                
-                                </div>
-                                <div class="col-12 col-lg-3">
-                                    <div class="content-summary">
-                                        <div class="header-summary"> <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
-                                            <ul class="list-summary">
-                                                <li class="d-flex flex-row cart-crc" data-value="0">
-                                                </li>
-                                                <li class="d-flex flex-row cart-cea" data-value="0">
-                                                </li>
-                                                <li class="d-flex flex-row cart-transit" data-value="0">
-                                                </li>
-                                            </ul>
-                                        <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span>$500.000</span></p>
                                     </div>
-                                    <p class="text-center pt-3">
-                                        <button type="button" class="btn-block btn-brand back-crc">
-                                            <i class="material-icons">keyboard_backspace</i>Volver
-                                        </button>
-                                    </p>
+                                </div>                
+                            </div>
+                            <div class="col-12 col-lg-3">
+                                <div class="content-summary">
+                                    <div class="header-summary"> <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
+                                        <ul class="list-summary">
+                                            <li class="d-flex flex-row cart-crc" data-value="0">
+                                            </li>
+                                            <li class="d-flex flex-row cart-cea" data-value="0">
+                                            </li>
+                                            <li class="d-flex flex-row cart-transit" data-value="0">
+                                            </li>
+                                        </ul>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span>$500.000</span></p>
                                 </div>
+                                <p class="text-center pt-3">
+                                    <button type="button" class="btn-block btn-brand back-crc">
+                                        <i class="material-icons">keyboard_backspace</i>Volver
+                                    </button>
+                                </p>
                             </div>
                         </div>
-                    </section>
-                    <div class="f1-buttons">
-                        <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
-                        <button type="button" class="btn btn-next btn-step-5">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
                     </div>
+                </section>
+                <div class="f1-buttons">
+                    <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
+                    <button type="button" class="btn btn-next btn-step-5">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
+                </div>
             </fieldset>
 
             <!-- Datos finales -->
@@ -993,7 +1033,7 @@
                             </div>
                         </div>
                         <p class="text-center mt-5">
-                            <button type="button" class="btn-brand btn-small ml-1 mr-1 btn-previous"><i class="material-icons">keyboard_backspace</i>Volver</button>
+                            <button type="button" class="btn-brand btn-small ml-1 mr-1 back-personal-data"><i class="material-icons">keyboard_backspace</i>Volver</button>
                             <button type="button" class="btn-brand btn-second btn-small ml-1 mr-1 continue-personal-data">Continuar</button>
                         </p>
                     </div>
@@ -1013,7 +1053,7 @@
                                     </div>
                                     {% if request.user.is_anonymous %}
                                         <div class="col-12 col-lg-6 border-brand pt-3">
-                                            <p class="text small">La contraseña es para crear un perfil en tulicencia.co donde podrás llevar el estado del proceso.</p>
+                                            <p class="text small">La contraseña es para crear un perfil en tulicenci.co donde podrá llevar el estado del proceso.</p>
                                             <div class="form-group">
                                                 <label for="">Contraseña*</label>
                                                 <input type="password" class="form-control form-control-lg" name="password1" id="pass1" placeholder="Contraseña" required>
@@ -1028,7 +1068,7 @@
                                 {% if request.user.is_anonymous %}
                                     <div class="alert-check d-flex flex-row mb-3">
                                         <label class="check-politic pr-5">
-                                            <input type="checkbox" class="checkbox-terms">
+                                            <input type="checkbox" checked="">
                                             <span class="checkmark"></span>
                                         </label>
                                         <p class="mb-0 pl-2">Al continuar acepta los <a href="#">TÉRMINOS Y CONDICIONES</a> y la <a href="#">POLÍTICA DE TRATAMIENTO DE DATOS</a> de <strong>TULICENCIA.CO</strong></p>
@@ -1070,14 +1110,14 @@
                                 <p class="text text-center pb-5 mb-0">Para reclamar tu licencia en el Instituto de Tránsito/SIM seleccionado, deberás presentar una documentación y papelería que nosotros prepararemos por ti, selecciona el método por el cual deseas recibir la documentación:</p>
                                 <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
                                     <div class="pl-3 pr-3">
-                                        <div class="choose send">
+                                        <div class="choose  choose--selected">
                                             <img src="{% static 'assets/img/truck.svg' %}" alt="">
                                             <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
                                         </div>
                                         <p class="choose-text text-center mt-3">Entrega por envió</p>
                                     </div>
                                     <div class="pl-3 pr-3"> 
-                                        <div class="choose pick-up">
+                                        <div class="choose">
                                             <img src="{% static 'assets/img/locate.svg' %}" alt="" style="height: 60px;">
                                             <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
                                         </div>
@@ -1101,11 +1141,7 @@
                                     </ul>
                                     <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span>$500.000</span></p>
                                 </div>
-                                <p class="text-center pt-3">
-                                    <button class="btn-block btn-brand back-paper-data" type="button">
-                                        <i class="material-icons">keyboard_backspace</i>Volver
-                                    </button>
-                                </p>
+                                <p class="text-center pt-3"><button class="btn-block btn-brand"><i class="material-icons">keyboard_backspace</i>Volver</button></p>
                             </div>
                         </div>
                     </div>
@@ -1115,14 +1151,14 @@
                                 <h3 class="title text-center pb-5">Elegir medio de pago</h3>
                                 <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
                                     <div class="pl-3 pr-3">
-                                        <div class="choose online">
+                                        <div class="choose choose--selected">
                                             <img src="{% static 'assets/img/pc.svg' %}" alt="">
                                             <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
                                         </div>
                                         <p class="choose-text text-center mt-3">Pagar Online</p>
                                     </div>
                                     <div class="pl-3 pr-3"> 
-                                        <div class="choose credit">
+                                        <div class="choose">
                                             <img src="{% static 'assets/img/pay.svg' %}" alt="" style="height: 70px;">
                                             <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
                                         </div>
@@ -1155,7 +1191,7 @@
             </fieldset>
         
         </form>
-    <!-- </div> -->
+    </div>
 
 {% endblock %}
 {% block extra_js %}
