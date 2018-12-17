@@ -41,6 +41,7 @@ django-debug-toolbar = "*"
 "django-xhtml2pdf" = "*"
 feedparser = "*"
 xlwt = "*"
+raven = "*"
 
 [dev-packages]
 pylint = "<2.0.0"
