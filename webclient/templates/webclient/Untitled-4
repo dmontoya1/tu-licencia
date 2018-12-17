@@ -397,7 +397,6 @@ var transit_price = ""
 var tramits = {'licence_1':'', 'licence_2':''}
 var tramit_type1 = ""
 var tramit_type2 = ""
-var paper = ""
 var payment_type = ""
 
 function crc_filter(params){
@@ -419,7 +418,7 @@ function crc_filter(params){
                 $('.crc-list').append(
                     `
                         <div class="col-12 col-xl-6">
-                            <button type="button" class="company-detail" data-id="${v.id}" data-company="crc" data-toggle="modal" data-target=".crcDetailModal-${v.id}">
+                            <button type="button" class="company-detail" data-id="${v.id}" data-company="crc" data-toggle="modal" data-target="#companyDetailModal-${v.id}">
                                 <div class="d-flex flex-row content-result rounded mb-2">
                                     <div class="thumbnail mr-2 mb-4">
                                         
@@ -454,10 +453,10 @@ function crc_filter(params){
                                         <p class="p-text">Lorem ipsum dolor sit amet </p>
                                     </div>
                                 </div>
-                            </a>
+                            </button>
                         </div>
 
-                        <div class="modal fade crcDetailModal-${v.id}" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
+                        <div class="modal fade" id="companyDetailModal-${v.id}" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
@@ -467,7 +466,7 @@ function crc_filter(params){
                                                 <div class="row crc-info justify-content-around mb-4">
                                                     <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
                                                         <div class="image-crc">
-                                                            <img class="company-logo mx-auto d-block mt-4 img-fluid" width=200 height=200 src="${logo}" alt="Logo Company">
+                                                            <img class="company-logo mx-auto d-block mt-4 img-fluid" src="${logo}" alt="Logo Company">
                                                         </div>
                                                         <div class="select-button mt-3">
                                                             <button type="button" class="btn-select add-cart-crc" data-id="${v.id}" data-name='${v.name}' data-price='${v.final_price}' >Seleccionar</button>
@@ -499,7 +498,7 @@ function crc_filter(params){
                                                             <div class="col-12 col-lg-6">
                                                                 <div class="row">
                                                                     <div class="col-3 img-location">
-                                                                        <img src="/static/icons/ciudad/res/mipmap-mdpi/ciudad.png" width="30" height="30">
+                                                                        <img src="/static/icons/ciudad/res/mipmap-mdpi/Ciudad.png" width="30" height="30">
                                                                     </div>
                                                                     <div class="col-8 item">
                                                                         <span class="item-title">
@@ -581,11 +580,7 @@ function crc_filter(params){
                                                             <iframe 
                                                                 width="100%"
                                                                 height="400"
-                                                                src="https://www.google.com/maps/embed/v1/directions
-                                                                ?key=AIzaSyBVpHZAXJYLpgCIuXAvb4HZSo0cT4wklIY
-                                                                &origin=Pereira+Risaralda+Colombia
-                                                                &destination=${v.address}+Pereira+Risaralda+Colombia
-                                                                &avoid=tolls|highways&output=embed"
+                                                                src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;coord=4.8142912, -75.6946451&amp;q=Plaza%20de%20Bolivar+(Pereira%20Colombia)&amp;ie=UTF8&amp;t=&amp;z=16&amp;iwloc=B&amp;output=embed"
                                                                 frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
                                                             </iframe>
                                                         </div>
@@ -683,7 +678,7 @@ function cea_filter(params){
                 $('.cea-list').append(
                     `
                         <div class="col-12 col-xl-6">
-                            <button type="button" class="company-detail" data-id="${v.id}" data-company="cea" data-toggle="modal" data-target=".ceaDetailModal-${v.id}">
+                            <button type="button" class="company-detail" data-id="${v.id}" data-company="cea" data-toggle="modal" data-target="#companyDetailModal-${v.id}">
                                 <div class="d-flex flex-row content-result rounded mb-2">
                                     <div class="thumbnail mr-2 mb-4">
                                         
@@ -718,10 +713,10 @@ function cea_filter(params){
                                         <p class="p-text">Lorem ipsum dolor sit amet </p>
                                     </div>
                                 </div>
-                            </a>
+                            </button>
                         </div>
 
-                        <div class="modal fade ceaDetailModal-${v.id}" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
+                        <div class="modal fade" id="companyDetailModal-${v.id}" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                 <div class="modal-content">
                                     <div class="modal-body">
@@ -729,9 +724,9 @@ function cea_filter(params){
                                             <div class="detail-crc">
                                                 <h3 class="crc-big-title">Detalle</h3>
                                                 <div class="row crc-info justify-content-around mb-4">
-                                                    <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
+                                                    <div class="col-sm-12 col-md-c-4 image-crc justify-content-center mb-4">
                                                         <div class="image-crc">
-                                                            <img class="company-logo mx-auto d-block mt-4 img-fluid" width=200 height=200 src="${logo}" alt="Logo Company">
+                                                            <img class="company-logo mx-auto d-block mt-4 img-fluid" src="${logo}" alt="Logo Company">
                                                         </div>
                                                         <div class="select-button mt-3">
                                                             <button type="button" class="btn-select add-cart-cea" data-id="${v.id}" data-name='${v.name}' data-price='${v.final_price}' >Seleccionar</button>
@@ -763,7 +758,7 @@ function cea_filter(params){
                                                             <div class="col-lg-6">
                                                                 <div class="row">
                                                                     <div class="col-3 img-location">
-                                                                        <img src="/static/icons/ciudad/res/mipmap-mdpi/ciudad.png" width="30" height="30">
+                                                                        <img src="/static/icons/ciudad/res/mipmap-mdpi/Ciudad.png" width="30" height="30">
                                                                     </div>
                                                                     <div class="col-8 item">
                                                                         <span class="item-title">
@@ -941,11 +936,7 @@ function cea_filter(params){
                                                             <iframe 
                                                                 width="100%"
                                                                 height="400"
-                                                                src="https://www.google.com/maps/embed/v1/directions
-                                                                ?key=AIzaSyBVpHZAXJYLpgCIuXAvb4HZSo0cT4wklIY
-                                                                &origin=Oslo+Norway
-                                                                &destination=Telemark+Norway
-                                                                &avoid=tolls|highways"
+                                                                src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;coord=4.8142912, -75.6946451&amp;q=Plaza%20de%20Bolivar+(Pereira%20Colombia)&amp;ie=UTF8&amp;t=&amp;z=16&amp;iwloc=B&amp;output=embed"
                                                                 frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
                                                             </iframe>
                                                         </div>
@@ -971,7 +962,7 @@ function cea_filter(params){
                     $('li.cart-cea').append(
                         `
                             <div class="media w-100">
-                            <img class="align-self-top mr-2" src="/static/assets/img/volante.svg" width="35">
+                            <img class="align-self-top mr-2" src="/static/assets/img/volante.svg.svg" width="35">
                             <div class="media-body">
                                 <h6 class="mt-0 mb-0 text-small">CEA</h6>
                                 <p class="mb-0 text-small">${cea_name}</p>
@@ -1043,7 +1034,7 @@ function transit_filter(params){
                 $('.transit-list').append(
                     `
                     <div class="col-12 col-xl-6">
-                    <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" data-toggle="modal" data-target=".transitDetailModal-${v.id}">
+                    <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" data-toggle="modal" data-target="#companyDetailModal-${v.id}">
                         <div class="d-flex flex-row content-result rounded mb-2">
                             <div class="thumbnail mr-2 mb-4">
                                 
@@ -1081,7 +1072,7 @@ function transit_filter(params){
                     </button>
                 </div>
 
-                <div class="modal fade transitDetailModal-${v.id}" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
+                <div class="modal fade" id="companyDetailModal-${v.id}" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
@@ -1123,7 +1114,7 @@ function transit_filter(params){
                                                     <div class="col-12 col-lg-6">
                                                         <div class="row">
                                                             <div class="col-3 img-location">
-                                                                <img src="/static/icons/ciudad/res/mipmap-mdpi/ciudad.png" width="30" height="30">
+                                                                <img src="/static/icons/ciudad/res/mipmap-mdpi/Ciudad.png" width="30" height="30">
                                                             </div>
                                                             <div class="col-8 item">
                                                                 <span class="item-title">
@@ -1233,7 +1224,7 @@ function transit_filter(params){
                             <div class="media w-100">
                                 <img class="align-self-top mr-2" src="/static/assets/img/img-check.svg" width="35">
                                 <div class="media-body">
-                                    <h6 class="mt-0 mb-0 text-small">Organismo de transito</h6>
+                                    <h6 class="mt-0 mb-0 text-small">CRC</h6>
                                     <p class="mb-0 text-small">${transit_name}</p>
                                     <p class="mb-0 text-small">$${transit_price}</p>
                                 </div>
@@ -1298,8 +1289,6 @@ $('.continue-location').on('click', function(){
         $('.element--gender').addClass('animated fadeInRight')
         $('.element--gender').removeClass('d-none')
     }
-    
-
 })
 
 $('.back-gender').on('click', function(){
@@ -1345,18 +1334,13 @@ $('.continue-birth-date').click(() => {
         toastr["error"]("Ingresa tu fecha de nacimiento para continuar")
     }
     else {
-
         birth_date = `${$('#month').val()}-${$('#day').val()}-${$('#year').val()}`
         dob = new Date(birth_date);
         var today = new Date();
         age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-        $('#day-1').val($('#day').val())
-        $('#month-1').val($('#month').val())
-        $('#year-1').val($('#year').val())
-        $('.btn-step-1').trigger('click')
-        
-    }
 
+        $('.btn-step-1').trigger('click')
+    }
 })
 
 
@@ -1426,12 +1410,7 @@ $('#licence-2').on('click', function(ev){
 
 $('.back-vehicle-type').on('click', function(){
     $('.element--vehicle-type').addClass('d-none')
-    if(tramit_type1 == 'FL'){
-        $('.element--tramit-type').removeClass('d-none')
-    }
-    else{
-        $('.element--second-licence').removeClass('d-none')
-    }
+    $('.element--tramit-type').removeClass('d-none')
 })
 
 $('.back-second-licence').on('click', function(){
@@ -1440,11 +1419,8 @@ $('.back-second-licence').on('click', function(){
 })
 
 $('.element--second-licence input').on('click', function(ev){
-    console.log('click')
     console.log(($(this).val()))
-    if (!($('.option-' + tramit_type1).hasClass('option--selected'))){
-        console.log('entro al if')
-        $('.option-' + tramit_type1).addClass('option--selected')
+    if ($(this).is(':checked')){
         if($(this).val() != 'SL' ){
             $('.toggleC2').removeClass('d-none')
             $('.toggleC3').removeClass('d-none')
@@ -1471,11 +1447,9 @@ $('.element--second-licence input').on('click', function(ev){
         }
         
         if (tramit_type1 == ""){
-            console.log("No hay tramite")
             tramit_type1 = $(this).val()
             $('.option-' + tramit_type1).addClass('option--selected');
-            $('.element--second-licence').addClass('d-none');
-            $('.element--vehicle-type').removeClass('d-none');
+            $('.licence-vehicle').toggleClass('d-none')
         }
         else{
             if (jQuery.isEmptyObject(licences)){
@@ -1504,16 +1478,11 @@ $('.element--second-licence input').on('click', function(ev){
                     }
                 }
                 tramit_type2 = $(this).val()
-                $('.option-' + tramit_type1).addClass('option--selected');
-                $('.element--second-licence').addClass('d-none')
-                $('.element--vehicle-type').removeClass('d-none')
             }
             
         }
     }
     else {
-        console.log('else')
-        $('.option-' + $(this).val()).removeClass('option--selected');
         clearTramit($(this).val())
     }
 })
@@ -1608,82 +1577,6 @@ $('.back-have-runt').on('click', function(){
         $('.element--aditional-tramit').removeClass('d-none')
     }
 })
-
-$('.continue-personal-data').on('click', function(){
-    if($('#first_name').val() === null || 
-    $('#last_name').val() === null ||
-    $('#doc_type').val() === null ||
-    $('#document_id').val() === null ||
-    $('#day-1').val() === null ||
-    $('#month-1').val() === null ||
-    $('#year-1').val() === null ||
-    $('#cellphone').val() === null){
-        toastr["error"]("Debes llenar todos los campos")
-    }
-    else{
-        $('.element--personal-data').addClass('d-none')
-        $('.element--auth-data').removeClass('d-none')
-    }
-})
-
-$('.back-auth-data').on('click', function(){
-    $('.element--auth-data').addClass('d-none')
-    $('.element--personal-data').removeClass('d-none')
-})
-
-$('.continue-auth-data').on('click', function(){
-    if(!($('.checkbox-terms').is(":checked"))){
-        toastr["error"]("Debes aceptar los terminos y condiciones para continuar")
-    }
-    if($('#phone_number').val() === null || 
-        $('#email').val() === null){
-        toastr["error"]("Debes llenar todos los campos")
-    }
-    else if ($('#pass1').val() != null) {
-        if ($('#pass1').val() != $('#pass2').val()){
-            toastr["error"]("Las contraseñas no coinciden")
-        }
-        else{
-            $('.element--auth-data').addClass('d-none')
-            $('.element--paper-data').removeClass('d-none')
-        }
-    }
-    else{
-        $('.element--auth-data').addClass('d-none')
-        $('.element--paper-data').removeClass('d-none')
-    }
-})
-
-$('.send').on('click', function(e){
-    
-    if ($('.pick-up').hasClass('choose--selected')){
-        $('.pick-up').removeClass('choose--selected')
-    }
-    $(this).addClass('choose--selected')
-    paper = 'send'
-    
-    $('.element--paper-data').addClass('d-none')
-    $('.element--payment').removeClass('d-none')
-
-})
-$('.pick-up').on('click', function(e){
-    
-    if ($('.send').hasClass('choose--selected')){
-        $('.send').removeClass('choose--selected')
-    }
-    $(this).addClass('choose--selected')
-    paper = 'pick-up'
-    
-    $('.element--paper-data').addClass('d-none')
-    $('.element--payment').removeClass('d-none')
-})
-
-$('.back-paper-data').on('click', function(){
-    $('.element--paper-data').addClass('d-none')
-    $('.element--auth-data').removeClass('d-none')
-})
-
-
 
 
 function addTramit(licence){
@@ -2041,28 +1934,30 @@ $('.no-licence').on('click', function(e){
 }) 
 
 $('.online').on('click', function(e){
-    if($(this).hasClass('choose--selected')){
+    if($(this).attr('selected')){
         payment_type = ""
-        $(this).removeClass('choose--selected')
+        $(this).removeAttr('selected')
     }
     else{
-        if ($('.credit').hasClass('choose--selected')){
-            $('.credit').removeClass('choose--selected')
+        if ($('.credit').attr('selected')){
+            $('.credit span.imgCheckbox0').removeClass('imgChked');
+            $('.credit').removeAttr('selected')
         }
-        $(this).addClass('choose--selected')
+        $(this).attr('selected', true)
         payment_type = 'CO'
     }
 })
 $('.credit').on('click', function(e){
-    if($(this).hasClass('choose--selected')){
+    if($(this).attr('selected')){
         payment_type = ""
-        $(this).removeClass('choose--selected')
+        $(this).removeAttr('selected')
     }
     else{
-        if ($('.online').hasClass('choose--selected')){
-            $('.online').removeClass('choose--selected')
+        if ($('.online').attr('selected')){
+            $('.online span.imgCheckbox0').removeClass('imgChked');
+            $('.online').removeAttr('selected')
         }
-        $(this).addClass('choose--selected')
+        $(this).attr('selected', true)
         payment_type = 'CR'
     }
 })
@@ -2080,6 +1975,87 @@ $('#licence-request-form').on('submit', function(e){
         confirmButtonText: 'Ok'
         })
     }
+    if($('#pass1').val() != $('#pass2').val()){
+        submit = false
+        swal({
+            title: 'Atención',
+            text: 'Tus contraseñas no coinciden',
+            type: 'error',
+            showCancelButton: false,
+            confirmButtonText: 'Ok'
+        })
+    }
+    if($('#pass1').val() == ""){
+        submit = false
+        swal({
+            title: 'Atención',
+            text: 'Ingresa tu contraseña',
+            type: 'error',
+            showCancelButton: false,
+            confirmButtonText: 'Ok'
+        })
+    }
+    if($('#email').val() == ""){
+        submit = false
+        swal({
+        title: 'Atención',
+        text: 'Ingresa tu email',
+        type: 'error',
+        showCancelButton: false,
+        confirmButtonText: 'Ok'
+        })
+    }
+    if($('#phone_number').val() == ""){
+        submit = false
+        swal({
+        title: 'Atención',
+        text: 'Ingresa tu número de celular',
+        type: 'error',
+        showCancelButton: false,
+        confirmButtonText: 'Ok'
+        })
+    }
+    if($('#last_name').val() == ""){
+        submit = false
+        swal({
+        title: 'Atención',
+        text: 'Ingresa tus apellidos',
+        type: 'error',
+        showCancelButton: false,
+        confirmButtonText: 'Ok'
+        })
+    }
+    if($('#first_name').val() == ""){
+        submit = false
+        swal({
+        title: 'Atención',
+        text: 'Ingresa tus nombres',
+        type: 'error',
+        showCancelButton: false,
+        confirmButtonText: 'Ok'
+        })
+    }
+    if($('#doc_id').val() == ""){
+        submit = false
+        swal({
+        title: 'Atención',
+        text: 'Ingresa el de número de documento de identidad',
+        type: 'error',
+        showCancelButton: false,
+        confirmButtonText: 'Ok'
+        })
+    }
+    if($('#doc_type :selected').val().trim() === ""){
+        submit = false
+        swal({
+        title: 'Atención',
+        text: 'Ingresa el tipo de documento de identidad',
+        type: 'error',
+        showCancelButton: false,
+        confirmButtonText: 'Ok'
+        })
+    }
+    
     if (submit){
         var lic = []
         $.each(licences, function(i, v){
@@ -2139,10 +2115,10 @@ $('#licence-request-form').on('submit', function(e){
                     text: 'Tu solicitud se ha creado exitosamente. Dirigete al punto de TuLicencia mas cercano para validar tu solicitud de crédito',
                     type: 'success',
                     showCancelButton: false,
-                    confirmButtonText: 'Finalizar'
+                    confirmButtonText: 'Ver Baucher'
                 }).then((result) => {
                     if (result.value) {
-                        window.location.replace(`/profile/`);
+                        window.location.replace(`/baucher/${data.request}/request`);
                     }
                 })
             })

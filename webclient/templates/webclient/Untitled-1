@@ -1,0 +1,176 @@
+                        <div class="col-12 col-xl-6">
+                            <button type="button" class="company-detail" data-id="${v.id}" data-company="crc" data-toggle="modal" data-target="#CrcDetailModal-${v.id}">
+                                <div class="d-flex flex-row content-result rounded mb-2">
+                                    <div class="thumbnail mr-2 mb-4">
+                                        
+                                        <img src="${logo}" width="90" height="90" alt="Logo Company">
+                                        <div class="qualification">
+                                            <span class="subtitle d-block">Calificación</span>
+                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
+                                        </div>
+                                    </div>
+                                    <div class="result-body">
+                                        <h4 class="text-small"><span>${v.name}</span></h4>
+                                        <div class="d-flex flex-row">
+                                            <div class="price  pr-2">
+                                                <span class="subtitle d-block">Precio</span>
+                                                <p class="weigh-5">$${v.final_price}</p>
+                                            </div>
+                                            <div class="schedule pl-2 pr-2">
+                                                <span class="subtitle d-block pb-3">Horarios</span>
+                                                <div class="d-flex flex-row d-normal">
+                                                    <div class="pr-2">
+                                                        <span class="subtitle d-block">Luneas a viernes:</span>
+                                                        <p class="text mb-1">08:00 AM - 12:00 PM y 2:00 PM - 6:00 PM</p>
+                                                    </div>
+                                                    <div class="saturday">
+                                                        <span class="subtitle d-block">Sábado:</span>
+                                                        <p class="text mb-0">08:00 AM - 12:00 PM </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <span class="subtitle d-block">Descripción:</span>
+                                        <p class="p-text">Lorem ipsum dolor sit amet </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="modal fade" id="CrcDetailModal-${v.id}" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <div class="col-sm-12 col-md-12 col-lg-12 form-box">
+                                            <div class="detail-crc">
+                                                <h3 class="crc-big-title">Detalle</h3>
+                                                <div class="row crc-info justify-content-around mb-4">
+                                                    <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
+                                                        <div class="image-crc">
+                                                            <img class="company-logo mx-auto d-block mt-4 img-fluid" src="${logo}" alt="Logo Company">
+                                                        </div>
+                                                        <div class="select-button mt-3">
+                                                            <button type="button" class="btn-select add-cart-crc" data-id="${v.id}" data-name='${v.name}' data-price='${v.final_price}' >Seleccionar</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-12 col-md-c-8 info-crc mb-4">
+                                                        <div class="row crc-title">
+                                                            <div class="col-12">
+                                                                <span>${v.name}</span>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                        <div class="row details">
+                                                            <div class="col-12 col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Dirección: <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            ${v.address}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="/static/icons/ciudad/res/mipmap-mdpi/Ciudad.png" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Sector: ${v.sector.name} <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            ${v.city.name}, ${v.city.state.name}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="/static/icons/horario/res/mipmap-mdpi/horario.png" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Horario <br>
+                                                                            Lunes a Viernes <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            08:00 AM - 12:00 PM <br>
+                                                                            02:00 PM - 06:00 PM
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="/static/icons/telefono/res/mipmap-mdpi/telefono.png" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Teléfono <br>
+                                                                        </span>
+                                                                        <span>
+                                                                            ${v.cellphone}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Calificación <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-lg-6">
+                                                                <div class="row">
+                                                                    <div class="col-3 img-location">
+                                                                        <img src="/static/icons/precio/res/mipmap-mdpi/precio.png" width="30" height="30">
+                                                                    </div>
+                                                                    <div class="col-8 item">
+                                                                        <span class="item-title">
+                                                                            Precios <br>
+                                                                        </span>
+                                                                        <span class="item-detail">
+                                                                            $ ${v.final_price}
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row map">
+                                                    <div class="col-12">
+                                                        <div style="width: 100%">
+                                                            <iframe 
+                                                                width="100%"
+                                                                height="400"
+                                                                src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;coord=4.8142912, -75.6946451&amp;q=Plaza%20de%20Bolivar+(Pereira%20Colombia)&amp;ie=UTF8&amp;t=&amp;z=16&amp;iwloc=B&amp;output=embed"
+                                                                frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                                                            </iframe>
+                                                        </div>
+                                                        <br />
+                                                    </div>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>

@@ -195,7 +195,7 @@ class TransitDepartmentAdmin(SoftDeletionModelAdminMixin):
     model = TransitDepartment
     extra_list_display = ('nit', 'name', 'cellphone')
     inlines = [TransitRatingAdmin]
-    readonly_fields = ('get_runt', 'get_printing', 'get_other_values')
+    readonly_fields = ('get_runt', 'get_printing', 'get_other_values', 'rating')
 
     class Media:
         js = (
