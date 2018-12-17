@@ -1,4 +1,5 @@
 import os
+import raven
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
@@ -26,6 +27,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'debug_toolbar',
+    'raven.contrib.django.raven_compat',
 ]
 
 PROJECT_APPS = [
@@ -169,3 +171,11 @@ EMAIL_HOST_USER = 'apptitud'
 EMAIL_HOST_PASSWORD = 'jkdsjk4534.sd!"'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+
+RAVEN_CONFIG = {
+    'dsn': 'https://49042bc6d09f4767ab2d697adc3737d2:743d7c42f47145629de34a5eb913570f@sentry.apptitud.com.co/2',
+    # If you are using git, you can also automatically configure the
+    # release based on the git info.
+    # 'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
+}
