@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['http://3.16.156.133/', '3.16.156.133']
 
