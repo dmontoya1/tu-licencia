@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tulicencia.settings.stage')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tulicencia.settings.prod')
 
 application = get_wsgi_application()
