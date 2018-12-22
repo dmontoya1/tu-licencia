@@ -405,7 +405,6 @@ function crc_filter(params){
         params: params
     })
     .then(function (response) {
-        console.log(response.data)
         data = response.data;
         if (data.length > 0){
             $('.crc-list').empty()
@@ -671,6 +670,7 @@ function cea_filter(params){
     })
     .then(function (response) {
         data = response.data;
+        console.log(data)
         if (data.length > 0){
             $('.cea-list').empty()
             $.each(data, function(i, v){
