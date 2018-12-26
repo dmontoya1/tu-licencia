@@ -194,6 +194,7 @@ input[type="number"]::-webkit-inner-spin-button {
 	text-transform: uppercase;
 	border-radius: .25rem;
 	cursor: pointer;
+	width: 100%;
 }
 
 .btn-brand{
@@ -369,6 +370,38 @@ input[type="number"]::-webkit-inner-spin-button {
   display: none;
 }
 
+.content-municip .header{
+	background-color: #eee;
+	border: 2px solid #ced4da;
+	border-bottom: none;
+	color: #162b3c;
+	padding: 10px 0;
+	text-align: center;
+	border-radius: 3px 3px 0 0;
+	font-weight: 700;
+}
+
+.content-municip .body{
+	padding: 15px;
+	border: 2px solid #ced4da;
+	border-radius: 0 0 3px 3px;
+
+}
+
+	.content-municip .body ul{
+		list-style: none;
+	}
+	.content-municip .body li{
+		color: #162b3c;
+		font-weight: 700;
+		font-size: 1rem;
+	}
+		.content-municip .body li span{
+			color: #ccc;
+			margin-right: 15px;
+		}
+
+
 .content-info-rut{
 	background-color: #d3d6d9;
 	color: rgba(22,43,60,.54);
@@ -427,6 +460,24 @@ button.company-detail {
 .divider{
 	border-bottom: dashed 1px #ccc;
 }
+
+.filter-mobile{
+	display: none;
+}
+
+.open-collapse{
+	width: 100%;
+	background-color: #162b3c;
+	color: #fff;
+	padding: 10px 15px;
+	text-align: left;
+	border: 1px;
+	border-radius: 3px;
+}
+	.open-collapse:focus{
+		outline:none;
+	}
+
 
 
 .element .title{
@@ -617,13 +668,19 @@ button.company-detail {
 	font-weight: 500;
 }
 
+.without-adding{
+	color: #ccc;
+	text-align: center;
+	height: 230px;
+	font-size: .9rem;
+	padding: 5.8rem 3rem;
+	vertical-align: middle;
+}
+
+
 @media (min-width: 1200px){
 	.big-container {
 	  max-width: 1300px;
-	}
-
-	.input-inline{
-		width: 200px !important;
 	}
 }
 
@@ -649,7 +706,7 @@ button.company-detail {
 		margin: 0 0 .5rem 0 !important;
 	}
 	
-	.btn-brand, .btn-filter{
+	.btn-brand{
 		width: 100%;
 	}
 
@@ -713,12 +770,10 @@ button.company-detail {
 }
 
 
-@media (min-width: 576px){
-	
-	.input-inline{
-		width: 222px !important;
-	}
+.t-justify{
+	text-align: justify;
 }
+
 
 @media (max-width: 500px){
 	
@@ -739,6 +794,17 @@ button.company-detail {
 	}
 
 }
+
+@media (max-width: 1024px) {
+	.filter-web{
+		display: none;
+	}
+
+	.filter-mobile{
+		display: block;
+	}
+}
+
 
 ul.tramit-choice {
 	list-style-type: none;
@@ -800,4 +866,16 @@ button.btn.btn-export {
     background-color: #162d3f;
     color: #fff;
     font-weight: 600;
+}
+.close-modal {
+	position: absolute;
+    right: 5px;
+    top: 5px;
+    color: #fecd23;
+    font-size: 2em;
+    font-weight: 700;
+    background-color: #162d3f;
+    opacity: 1;
+    border-radius: 25px;
+    padding: 6px 13px;
 }

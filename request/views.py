@@ -26,7 +26,10 @@ class RequestCreate(APIView):
         try:
             user_data = request.data['user']
             cea = Cea.objects.get(pk=request.data['cea'])
-            crc = Crc.objects.get(pk=request.data['crc'])
+            try:
+                crc = Crc.objects.get(pk=request.data['crc'])
+            except:
+                crc = None
             transit = TransitDepartment.objects.get(pk=request.data['transit'])
             crc_price = request.data['crc_price']
             cea_price = request.data['cea_price']
@@ -75,7 +78,8 @@ class RequestCreate(APIView):
                 has_runt=runt,
                 total_price=total_price,
                 credit_status=Request.PENDIENTE_APROBACION,
-                state=user.state
+                state=user.state,
+                paper=request.data['paper']
             )
             request_obj.save()
             

@@ -16,6 +16,7 @@ class Request(models.Model):
 
     CREDITO = "CR"
     CONTADO = "CO"
+    TARJETA = "TA"
 
     PENDING = "PEN"
     PAID = "PAI"
@@ -40,10 +41,14 @@ class Request(models.Model):
     STARTED = 'ST'
     FINISHED = 'FN'
 
+    SEND = 'SEND'
+    PICKUP = 'PICK'
+
 
     PAYMENTS = (
         (CREDITO, 'Sistecrédito'),
-        (CONTADO, 'Contado')
+        (CONTADO, 'Contado'),
+        (TARJETA, 'Tarjeta')
     )
 
     REQUEST_STATUS = (
@@ -76,6 +81,11 @@ class Request(models.Model):
         (RECHAZADO, 'Rechazado'),
         (PENDIENTE_APROBACION, 'Pendiente de aprobación'),
         (NO_APLICA, 'No aplica')
+    )
+
+    PAPER = (
+        (SEND, 'Envío'),
+        (PICKUP, 'Recoger en punto'),
     )
 
     state = models.ForeignKey(
@@ -136,6 +146,20 @@ class Request(models.Model):
         choices=PAYMENTS,
         max_length=2,
     )
+    payment_value = models.IntegerField(
+        "Valor del pago",
+        blank=True, null=True
+    )
+    payment_type2 = models.CharField(
+        "Tipo de pago secundario",
+        choices=PAYMENTS,
+        max_length=2,
+        blank=True, null=True
+    )
+    payment_value2 = models.IntegerField(
+        "Valor del pago secundario",
+        blank=True, null=True
+    )
     request_status = models.CharField(
         "Estado de la reserva",
         choices=REQUEST_STATUS,
@@ -172,6 +196,11 @@ class Request(models.Model):
     has_runt = models.BooleanField(
         "Tiene RUNT?",
         default=False
+    )
+    paper = models.CharField(
+        'Opcion entrega papeleo',
+        max_length=4,
+        choices=PAPER
     )
     payment_date = models.DateTimeField(
         "Fecha de Pago de la solicitud",

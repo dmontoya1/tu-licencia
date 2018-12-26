@@ -329,3 +329,26 @@ class EnableCeaRequest(APIView):
 
         return Response(response, status=status_e)
 
+
+class CRCDetail(generics.RetrieveAPIView):
+    """
+    """
+
+    serializer_class = CrcSerializer
+    queryset = Crc.objects.all()
+
+
+class CEADetail(generics.RetrieveAPIView):
+    """
+    """
+
+    serializer_class = CeaSerializer
+    queryset = Cea.objects.all()
+
+
+class TransitDetail(generics.RetrieveAPIView):
+    """
+    """
+
+    serializer_class = TransitSerializer
+    queryset = TransitDepartment.objects.all()
