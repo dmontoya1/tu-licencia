@@ -1131,6 +1131,9 @@ $('.continue-auth-data').on('click', function(){
             next = false
             toastr["error"]("Las contraseñas no coinciden")
         }
+        else{
+            next = true
+        }
     }
     if (next){
         $('.element--auth-data').addClass('d-none')
