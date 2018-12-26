@@ -42,15 +42,12 @@ function loadCitiesSelect(state_id){
         url:"/api/manager/city/"+state_id+"/",
         success:function(data)
         {   
-            $('select#cities').empty()
+            $('#cities').empty()
             $(data).each(function(i, v){
-                $('select#cities').append(
-                    `<option value="${v.id}">${v.name}</option>`
+                $('#cities').append(
+                    `<li class="col-12 col-md-6"> <span>*</span> ${v.name} </li>`
                 )
             })
-            $('select#cities').prepend(
-                `<option value="" disabled selected>Seleccione una ciudad</option>`
-            )
 
             $('select.city-select').empty()
             $(data).each(function(i, v){
@@ -61,6 +58,7 @@ function loadCitiesSelect(state_id){
             $('select.city-select').prepend(
                 `<option value="" disabled selected>Filtro por ciudad</option>`
             )
+            $('.content-municip').removeClass('d-none')
         },
     });
         
@@ -109,7 +107,6 @@ function loadCEASectorSelect(cityId){
 loadStatesSelect();
 
 function clearLicences(){
-    console.log("Clear Licence")
     $('#toggleA1')[0].checked = false;
     $('#toggleA2')[0].checked = false;
     $('#toggleB1')[0].checked = false;
@@ -188,14 +185,12 @@ function clearTramit(tramit){
                 bike = jQuery.inArray( licence, ['A1', 'A2'] )
                 car = jQuery.inArray( licence, ['B1', 'C1', 'C2', 'C3'] )
                 if (bike != -1){
-                    console.log("Licence Bike ")
                     $('ul.bike-licences').addClass('d-none')
                     $('li.bikelicence span.imgCheckbox0').removeClass('imgChked');
                     $('li.carlicence').removeClass('disabled');
                 }
                 else{
                     if (car != -1){
-                        console.log("Licence CAR ")
                         $('ul.car-licences').addClass('d-none')
                         $('li.carlicence span.imgCheckbox0').removeClass('imgChked');
                         $('li.bikelicence').removeClass('disabled');
@@ -280,11 +275,9 @@ function clearTramit(tramit){
             }
             if ((tramits['licence_1']['tramit'] == tramit && tramits['licence_2']['tramit'] == tramit) ||
                 (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] == "")){
-                    console.log("solo RC")
                     clearLicences()
             }
             else{
-                console.log("Elseeee")
                 if (tramits['licence_1']['tramit'] == tramit && tramits['licence_2'] != ""){
                     licence = tramits['licence_1']['licence']
                     tramits['licence_1'] = ""
@@ -308,14 +301,12 @@ function clearTramit(tramit){
                     bike = jQuery.inArray( licence, ['A1', 'A2'] )
                     car = jQuery.inArray( licence, ['B1', 'C1', 'C2', 'C3'] )
                     if (bike != -1){
-                        console.log("Licence Bike ")
                         $('ul.bike-licences').addClass('d-none')
                         $('li.bikelicence span.imgCheckbox0').removeClass('imgChked');
                         $('li.carlicence').removeClass('disabled');
                     }
                     else{
                         if (car != -1){
-                            console.log("Licence CAR ")
                             $('ul.car-licences').addClass('d-none')
                             $('li.carlicence span.imgCheckbox0').removeClass('imgChked');
                             $('li.bikelicence').removeClass('disabled');
@@ -328,8 +319,6 @@ function clearTramit(tramit){
         default:
             console.log('Default');
     }
-    console.log("Tramits sale: ")
-    console.warn(tramits)
 }
 
 $('select#cities-crc').on('change', function(){
@@ -399,6 +388,7 @@ var tramit_type1 = ""
 var tramit_type2 = ""
 var paper = ""
 var payment_type = ""
+var aditional_tramit = false
 
 function crc_filter(params){
     axios.get('/api/companies/crc', {
@@ -409,16 +399,16 @@ function crc_filter(params){
         if (data.length > 0){
             $('.crc-list').empty()
             $.each(data, function(i, v){
-                if(v.logo == null){
-                    logo = '/static/images/logo1.png'
+                if(data.logo == null){
+                    logo = "/static/images/logo1.png"
                 }
                 else{
-                    logo = v.logo
+                    logo = data.logo
                 }
                 $('.crc-list').append(
                     `
                         <div class="col-12 col-xl-6">
-                            <button type="button" class="company-detail" data-id="${v.id}" data-company="crc" data-toggle="modal" data-target=".crcDetailModal-${v.id}">
+                            <button type="button" class="company-detail" data-id="${v.id}" data-company="crc">
                                 <div class="d-flex flex-row content-result rounded mb-2">
                                     <div class="thumbnail mr-2 mb-4">
                                         
@@ -453,203 +443,59 @@ function crc_filter(params){
                                         <p class="p-text">Lorem ipsum dolor sit amet </p>
                                     </div>
                                 </div>
-                            </a>
-                        </div>
-
-                        <div class="modal fade crcDetailModal-${v.id}" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 form-box">
-                                            <div class="detail-crc">
-                                                <h3 class="crc-big-title">Detalle</h3>
-                                                <div class="row crc-info justify-content-around mb-4">
-                                                    <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
-                                                        <div class="image-crc">
-                                                            <img class="company-logo mx-auto d-block mt-4 img-fluid" width=200 height=200 src="${logo}" alt="Logo Company">
-                                                        </div>
-                                                        <div class="select-button mt-3">
-                                                            <button type="button" class="btn-select add-cart-crc" data-id="${v.id}" data-name='${v.name}' data-price='${v.final_price}' >Seleccionar</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-c-8 info-crc mb-4">
-                                                        <div class="row crc-title">
-                                                            <div class="col-12">
-                                                                <span>${v.name}</span>
-                                                            </div>
-                                                            
-                                                        </div>
-                                                        <div class="row details">
-                                                            <div class="col-12 col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-3 img-location">
-                                                                        <img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-                                                                    </div>
-                                                                    <div class="col-8 item">
-                                                                        <span class="item-title">
-                                                                            Dirección: <br>
-                                                                        </span>
-                                                                        <span class="item-detail">
-                                                                            ${v.address}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-3 img-location">
-                                                                        <img src="/static/icons/ciudad/res/mipmap-mdpi/ciudad.png" width="30" height="30">
-                                                                    </div>
-                                                                    <div class="col-8 item">
-                                                                        <span class="item-title">
-                                                                            Sector: ${v.sector.name} <br>
-                                                                        </span>
-                                                                        <span class="item-detail">
-                                                                            ${v.city.name}, ${v.city.state.name}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-3 img-location">
-                                                                        <img src="/static/icons/horario/res/mipmap-mdpi/horario.png" width="30" height="30">
-                                                                    </div>
-                                                                    <div class="col-8 item">
-                                                                        <span class="item-title">
-                                                                            Horario <br>
-                                                                            Lunes a Viernes <br>
-                                                                        </span>
-                                                                        <span class="item-detail">
-                                                                            08:00 AM - 12:00 PM <br>
-                                                                            02:00 PM - 06:00 PM
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-3 img-location">
-                                                                        <img src="/static/icons/telefono/res/mipmap-mdpi/telefono.png" width="30" height="30">
-                                                                    </div>
-                                                                    <div class="col-8 item">
-                                                                        <span class="item-title">
-                                                                            Teléfono <br>
-                                                                        </span>
-                                                                        <span>
-                                                                            ${v.cellphone}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-3 img-location">
-                                                                    </div>
-                                                                    <div class="col-8 item">
-                                                                        <span class="item-title">
-                                                                            Calificación <br>
-                                                                        </span>
-                                                                        <span class="item-detail">
-                                                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-3 img-location">
-                                                                        <img src="/static/icons/precio/res/mipmap-mdpi/precio.png" width="30" height="30">
-                                                                    </div>
-                                                                    <div class="col-8 item">
-                                                                        <span class="item-title">
-                                                                            Precios <br>
-                                                                        </span>
-                                                                        <span class="item-detail">
-                                                                            $ ${v.final_price}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row map">
-                                                    <div class="col-12">
-                                                        <div style="width: 100%">
-                                                            <iframe 
-                                                                width="100%"
-                                                                height="400"
-                                                                src="https://www.google.com/maps/embed/v1/directions
-                                                                ?key=AIzaSyBVpHZAXJYLpgCIuXAvb4HZSo0cT4wklIY
-                                                                &origin=Pereira+Risaralda+Colombia
-                                                                &destination=${v.address}+Pereira+Risaralda+Colombia
-                                                                &avoid=tolls|highways&output=embed"
-                                                                frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-                                                            </iframe>
-                                                        </div>
-                                                        <br />
-                                                    </div>
-                                                </div>
-                                            </div>    
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                            </button>
+                        </div> 
                         
                     `
                 )
             })
-            $('.add-cart-crc').on('click', function(){
-                crc = $(this).data('id')
-                crc_name = $(this).data('name')
-                crc_price = $(this).data('price')
+            $('.company-detail').on('click', function(){
+                var licence = ""
+                $.each(licences, function(i, v){
+                    licence += (`${v},`)
+                })
+                id = $(this).data('id')
+                company = $(this).data('company')
+                url = `api/companies/${company}/${id}`
+                axios.get(url, {
+                    params: {
+                      age: age,
+                      gender: gender,
+                      licences:licence,
+                    }
+                })
+                .then(function (response) {
+                    data = response.data
+                    if(data.logo == null){
+                        logo = "/static/images/logo1.png"
+                    }
+                    else{
+                        logo = data.logo
+                    }
 
-                function addCrc(){
-                    $('li.cart-crc').empty()
-                    $('li.cart-crc').append(
-                        `
-                            <div class="media w-100">
-                                <img class="align-self-top mr-2" src="/static/assets/img/img-check.svg" width="35">
-                                <div class="media-body">
-                                    <h6 class="mt-0 mb-0 text-small">CRC</h6>
-                                    <p class="mb-0 text-small">${crc_name}</p>
-                                    <p class="mb-0 text-small">$${crc_price}</p>
-                                </div>
-                            </div>
-                            <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
-                        `
-                    )
-                    $('li.cart-crc').data('value', crc)
-                    toastr["success"](`Se ha añadido ${crc_name} al carrito de compras`)
-                    setTimeout(function(){ 
-                        $('.modal').modal('hide')
-                        $('.btn-step-3').trigger('click')
-                    }, 2000);
-                }
-                if ($('li.cart-crc').data('value') == '0')
-                {
-                    addCrc();
-                }
-                else{
-                    swal({
-                        title: 'Momento',
-                        text: "Ya tienes un CRC en el carrito. Deseas agregar este y eliminar el anterior?",
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#162d40',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Si, agregar',
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.value) {
-                            addCrc();
-                        }
-                    })
-                }
-                
+                    $('.company-logo').attr('src', logo)
+                    $('.company-name').text(data.name)
+                    $('.company-address').text(data.address)
+                    $('.company-sector').text(data.sector.name)
+                    $('.company-location').text(`${data.city.name}, ${data.city.state.name}`)
+                    $('.company-schedule').text(data.schedule)
+                    $('.company-phone').text(data.cellphone)
+                    $('.company-rating').text(data.rating)
+                    $('.company-rating-count').text(`(${data.count_rating})`)
+                    $('.company-price').text(`$ ${data.final_price}`)
+                    $('.add-cart').data('id', data.id);
+                    $('.add-cart').data('name', data.name);
+                    $('.add-cart').data('price', data.final_price);
+                    $('.add-cart').data('company', company);
+
+                    $('.DetailModal').modal('show')
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
             })
+        
         }
         else {
             $('.crc-list').empty()
@@ -670,7 +516,6 @@ function cea_filter(params){
     })
     .then(function (response) {
         data = response.data;
-        console.log(data)
         if (data.length > 0){
             $('.cea-list').empty()
             $.each(data, function(i, v){
@@ -683,7 +528,7 @@ function cea_filter(params){
                 $('.cea-list').append(
                     `
                         <div class="col-12 col-xl-6">
-                            <button type="button" class="company-detail" data-id="${v.id}" data-company="cea" data-toggle="modal" data-target=".ceaDetailModal-${v.id}">
+                            <button type="button" class="company-detail" data-id="${v.id}" data-company="cea">
                                 <div class="d-flex flex-row content-result rounded mb-2">
                                     <div class="thumbnail mr-2 mb-4">
                                         
@@ -718,297 +563,57 @@ function cea_filter(params){
                                         <p class="p-text">Lorem ipsum dolor sit amet </p>
                                     </div>
                                 </div>
-                            </a>
-                        </div>
-
-                        <div class="modal fade ceaDetailModal-${v.id}" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <div class="col-sm-12 col-md-12 col-lg-12 form-box">
-                                            <div class="detail-crc">
-                                                <h3 class="crc-big-title">Detalle</h3>
-                                                <div class="row crc-info justify-content-around mb-4">
-                                                    <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
-                                                        <div class="image-crc">
-                                                            <img class="company-logo mx-auto d-block mt-4 img-fluid" width=200 height=200 src="${logo}" alt="Logo Company">
-                                                        </div>
-                                                        <div class="select-button mt-3">
-                                                            <button type="button" class="btn-select add-cart-cea" data-id="${v.id}" data-name='${v.name}' data-price='${v.final_price}' >Seleccionar</button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-sm-12 col-md-c-8 info-crc mb-4">
-                                                        <div class="row crc-title">
-                                                            <div class="col-12">
-                                                                <span>${v.name}</span>
-                                                            </div>
-                                                            
-                                                        </div>
-                                                        <div class="row details">
-                                                            <div class="col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-3 img-location">
-                                                                        <img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-                                                                    </div>
-                                                                    <div class="col-8 item">
-                                                                        <span class="item-title">
-                                                                            Dirección: <br>
-                                                                        </span>
-                                                                        <span class="item-detail">
-                                                                        ${v.address}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-3 img-location">
-                                                                        <img src="/static/icons/ciudad/res/mipmap-mdpi/ciudad.png" width="30" height="30">
-                                                                    </div>
-                                                                    <div class="col-8 item">
-                                                                        <span class="item-title">
-                                                                            Sector ${v.sector.name}<br>
-                                                                        </span>
-                                                                        <span class="item-detail">
-                                                                            ${v.city.name}, ${v.city.state.name}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-3 img-location">
-                                                                        <img src="/static/icons/horario/res/mipmap-mdpi/horario.png" width="30" height="30">
-                                                                    </div>
-                                                                    <div class="col-8 item">
-                                                                        <span class="item-title">
-                                                                            Horario <br>
-                                                                            Lunes a Viernes <br>
-                                                                        </span>
-                                                                        <span class="item-detail">
-                                                                            08:00 AM - 12:00 PM <br>
-                                                                            02:00 PM - 06:00 PM
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-3 img-location">
-                                                                        <img src="/static/icons/telefono/res/mipmap-mdpi/telefono.png" width="30" height="30">
-                                                                    </div>
-                                                                    <div class="col-8 item">
-                                                                        <span class="item-title">
-                                                                            Teléfono <br>
-                                                                        </span>
-                                                                        <span>
-                                                                            ${v.cellphone}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-3 img-location">
-                                                                    </div>
-                                                                    <div class="col-8 item">
-                                                                        <span class="item-title">
-                                                                            Calificación <br>
-                                                                        </span>
-                                                                        <span class="item-detail">
-                                                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="row">
-                                                                    <div class="col-3 img-location">
-                                                                        <img src="/static/icons/precio/res/mipmap-mdpi/precio.png" width="30" height="30">
-                                                                    </div>
-                                                                    <div class="col-8 item">
-                                                                        <span class="item-title">
-                                                                            Precio <br>
-                                                                        </span>
-                                                                        <span class="item-detail">
-                                                                            $ ${v.final_price}
-                                                                        </span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row vehicles">
-                                                    <div class="col-3 col-sm-2 col-md-1 img-location mt-3">
-                                                        <img src="/static/icons/vehiculos/res/mipmap-mdpi/vehiculos .png" width="30" height="30">
-                                                    </div>
-                                                    <div class="col-8 item mt-3">
-                                                        <span class="item-title">
-                                                            Vehículos: <br>
-                                                        </span>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="row justify-content-around mb-4 vehicle-list">
-                                                            <!-- <div class="col-1 img-location mt-3">
-                                                            </div> -->
-                                                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
-                                                                <div class="card">
-                                                                    <div class="card-img">
-                                                                        <img class="card-img-top" src="/static/vehicles/bike1.png" alt="Card image cap">
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                        <p class="card-text">Honda pop 100</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
-                                                                <div class="card">
-                                                                    <div class="card-img">
-                                                                        <img class="card-img-top" src="/static/vehicles/car1.png" alt="Card image cap">
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                        <p class="card-text">Chevrolet cruze</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
-                                                                <div class="card">
-                                                                    <div class="card-img">
-                                                                        <img class="card-img-top" src="/static/vehicles/car2.png" alt="Card image cap">
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                        <p class="card-text">Chevrolet Onix</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
-                                                                <div class="card">
-                                                                    <div class="card-img">
-                                                                        <img class="card-img-top" src="/static/vehicles/van1.png" alt="Card image cap">
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                        <p class="card-text">Chevrolet Van</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
-                                                                <div class="card">
-                                                                    <div class="card-img">
-                                                                        <img class="card-img-top" src="/static/vehicles/bus1.png" alt="Card image cap">
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                        <p class="card-text">Bus</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
-                                                                <div class="card">
-                                                                    <div class="card-img">
-                                                                        <img class="card-img-top" src="/static/vehicles/car2.png" alt="Card image cap">
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                        <p class="card-text">Chevrolet Onix</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- <div class="col-2 vehicle-detail">
-                                                                <div class="card">
-                                                                    <div class="card-img">
-                                                                        <img class="card-img-top" src="/static/vehicles/van1.png" alt="Card image cap">
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                        <p class="card-text">Chevrolet Van</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-2 vehicle-detail">
-                                                                <div class="card">
-                                                                    <div class="card-img">
-                                                                        <img class="card-img-top" src="/static/vehicles/bus1.png" alt="Card image cap">
-                                                                    </div>
-                                                                    <div class="card-body">
-                                                                        <p class="card-text">Bus</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div> -->
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row map">
-                                                    <div class="col-12">
-                                                        <div style="width: 100%">
-                                                            <iframe 
-                                                                width="100%"
-                                                                height="400"
-                                                                src="https://www.google.com/maps/embed/v1/directions
-                                                                ?key=AIzaSyBVpHZAXJYLpgCIuXAvb4HZSo0cT4wklIY
-                                                                &origin=Oslo+Norway
-                                                                &destination=Telemark+Norway
-                                                                &avoid=tolls|highways"
-                                                                frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-                                                            </iframe>
-                                                        </div>
-                                                        <br />
-                                                    </div>
-                                                </div>
-                                            </div>    
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            </button>
                         </div>
 
                     `
                 )
             })
-            $('.add-cart-cea').on('click', function(){
-                cea = $(this).data('id')
-                cea_name = $(this).data('name')
-                cea_price = $(this).data('price')
-                function addCea(){
-                    $('li.cart-cea').empty()
-                    $('li.cart-cea').append(
-                        `
-                            <div class="media w-100">
-                            <img class="align-self-top mr-2" src="/static/assets/img/volante.svg" width="35">
-                            <div class="media-body">
-                                <h6 class="mt-0 mb-0 text-small">CEA</h6>
-                                <p class="mb-0 text-small">${cea_name}</p>
-                                <p class="mb-0 text-small">$${cea_price}</p>
-                            </div>
-                        </div>
-                        <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
-                        `
-                    )
-                    $('li.cart-cea').data('value', cea)
-                    toastr["success"](`Se ha añadido ${$(this).data('name')} al carrito de compras`)
-                    setTimeout(function(){ 
-                        $('.modal').modal('hide')
-                        $('.btn-step-4').trigger('click')
-                    }, 2000);
-                }
-                if ($('li.cart-cea').data('value') == '0')
-                {
-                    addCea();
-                }
-                else{
-                    swal({
-                        title: 'Momento',
-                        text: "Ya tienes un CEA en el carrito. Deseas agregar este y eliminar el anterior?",
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#162d40',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Si, agregar',
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.value) {
-                            addCea();
-                        }
-                    })
-                }
-                
+            $('.company-detail').on('click', function(){
+                var licence = ""
+                $.each(licences, function(i, v){
+                    licence += (`${v},`)
+                })
+                id = $(this).data('id')
+                company = $(this).data('company')
+                url = `api/companies/${company}/${id}`
+                axios.get(url, {
+                    params: {
+                      age: age,
+                      gender: gender,
+                      licences:licence,
+                    }
+                })
+                .then(function (response) {
+                    data = response.data
+                    if(data.logo == null){
+                        logo = "/static/images/logo1.png"
+                    }
+                    else{
+                        logo = data.logo
+                    }
+
+                    $('.company-logo').attr('src', logo)
+                    $('.company-name').text(data.name)
+                    $('.company-address').text(data.address)
+                    $('.company-sector').text(data.sector.name)
+                    $('.company-location').text(`${data.city.name}, ${data.city.state.name}`)
+                    $('.company-schedule').text(data.schedule)
+                    $('.company-phone').text(data.cellphone)
+                    $('.company-rating').text(data.rating)
+                    $('.company-rating-count').text(`(${data.count_rating})`)
+                    $('.company-price').text(`$ ${data.final_price}`)
+                    $('.add-cart').data('id', data.id);
+                    $('.add-cart').data('name', data.name);
+                    $('.add-cart').data('price', data.final_price);
+                    $('.add-cart').data('company', company);
+
+                    $('.DetailModal1').modal('show')
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
             })
         }
         else {
@@ -1043,232 +648,85 @@ function transit_filter(params){
                 $('.transit-list').append(
                     `
                     <div class="col-12 col-xl-6">
-                    <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" data-toggle="modal" data-target=".transitDetailModal-${v.id}">
-                        <div class="d-flex flex-row content-result rounded mb-2">
-                            <div class="thumbnail mr-2 mb-4">
-                                
-                                <img src="${logo}" width="90" height="90" alt="Logo Company">
-                                <div class="qualification">
-                                    <span class="subtitle d-block">Calificación</span>
-                                    <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
-                                </div>
-                            </div>
-                            <div class="result-body">
-                                <h4 class="text-small"><span>${v.name}</span></h4>
-                                <div class="d-flex flex-row">
-                                    <div class="price  pr-2">
-                                        <span class="subtitle d-block">Precio</span>
-                                        <p class="weigh-5">$${v.final_price}</p>
-                                    </div>
-                                    <div class="schedule pl-2 pr-2">
-                                        <span class="subtitle d-block pb-3">Horarios</span>
-                                        <div class="d-flex flex-row d-normal">
-                                            <div class="pr-2">
-                                                <span class="subtitle d-block">Luneas a viernes:</span>
-                                                <p class="text mb-1">08:00 AM - 12:00 PM y 2:00 PM - 6:00 PM</p>
-                                            </div>
-                                            <div class="saturday">
-                                                <span class="subtitle d-block">Sábado:</span>
-                                                <p class="text mb-0">08:00 AM - 12:00 PM </p>
-                                            </div>
-                                        </div>
+                        <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" data-toggle="modal" data-target=".transitDetailModal-${v.id}">
+                            <div class="d-flex flex-row content-result rounded mb-2">
+                                <div class="thumbnail mr-2 mb-4">
+                                    
+                                    <img src="${logo}" width="90" height="90" alt="Logo Company">
+                                    <div class="qualification">
+                                        <span class="subtitle d-block">Calificación</span>
+                                        <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
                                     </div>
                                 </div>
-                                <span class="subtitle d-block">Descripción:</span>
-                                <p class="p-text">Lorem ipsum dolor sit amet </p>
-                            </div>
-                        </div>
-                    </button>
-                </div>
-
-                <div class="modal fade transitDetailModal-${v.id}" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body">
-                                <div class="col-sm-12 col-md-12 col-lg-12 form-box">
-                                    <div class="detail-transit">
-                                        <h3 class="transit-big-title">Detalle</h3>
-                                        <div class="row transit-info justify-content-around mb-4">
-                                            <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
-                                                <div class="image-transit">
-                                                    <img class="company-logo mx-auto d-block mt-4 img-fluid" src="${logo}" alt="Logo Company">
+                                <div class="result-body">
+                                    <h4 class="text-small"><span>${v.name}</span></h4>
+                                    <div class="d-flex flex-row">
+                                        <div class="price  pr-2">
+                                            <span class="subtitle d-block">Precio</span>
+                                            <p class="weigh-5">$${v.final_price}</p>
+                                        </div>
+                                        <div class="schedule pl-2 pr-2">
+                                            <span class="subtitle d-block pb-3">Horarios</span>
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Luneas a viernes:</span>
+                                                    <p class="text mb-1">08:00 AM - 12:00 PM y 2:00 PM - 6:00 PM</p>
                                                 </div>
-                                                <div class="select-button mt-3">
-                                                    <button type="button" class="btn-select add-cart-transit" data-id="${v.id}" data-name='${v.name}' data-price='${v.final_price}' >Seleccionar</button>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-c-8 info-transit mb-4">
-                                                <div class="row transit-title">
-                                                    <div class="col-12">
-                                                        <span>${v.name}</span>
-                                                    </div>
-                                                    
-                                                </div>
-                                                <div class="row details">
-                                                    <div class="col-12 col-lg-6">
-                                                        <div class="row">
-                                                            <div class="col-3 img-location">
-                                                                <img src="/static/icons/ubicacion/res/mipmap-mdpi/ubicacion.png" width="30" height="30">
-                                                            </div>
-                                                            <div class="col-8 item">
-                                                                <span class="item-title">
-                                                                    Dirección: <br>
-                                                                </span>
-                                                                <span class="item-detail">
-                                                                    ${v.address}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-lg-6">
-                                                        <div class="row">
-                                                            <div class="col-3 img-location">
-                                                                <img src="/static/icons/ciudad/res/mipmap-mdpi/ciudad.png" width="30" height="30">
-                                                            </div>
-                                                            <div class="col-8 item">
-                                                                <span class="item-title">
-                                                                    Sector: ${v.sector.name} <br>
-                                                                </span>
-                                                                <span class="item-detail">
-                                                                    ${v.city.name}, ${v.city.state.name}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-lg-6">
-                                                        <div class="row">
-                                                            <div class="col-3 img-location">
-                                                                <img src="/static/icons/horario/res/mipmap-mdpi/horario.png" width="30" height="30">
-                                                            </div>
-                                                            <div class="col-8 item">
-                                                                <span class="item-title">
-                                                                    Horario <br>
-                                                                    Lunes a Viernes <br>
-                                                                </span>
-                                                                <span class="item-detail">
-                                                                    08:00 AM - 12:00 PM <br>
-                                                                    02:00 PM - 06:00 PM
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-lg-6">
-                                                        <div class="row">
-                                                            <div class="col-3 img-location">
-                                                                <img src="/static/icons/telefono/res/mipmap-mdpi/telefono.png" width="30" height="30">
-                                                            </div>
-                                                            <div class="col-8 item">
-                                                                <span class="item-title">
-                                                                    Teléfono <br>
-                                                                </span>
-                                                                <span>
-                                                                    ${v.cellphone}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-lg-6">
-                                                        <div class="row">
-                                                            <div class="col-3 img-location">
-                                                            </div>
-                                                            <div class="col-8 item">
-                                                                <span class="item-title">
-                                                                    Calificación <br>
-                                                                </span>
-                                                                <span class="item-detail">
-                                                                    <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12 col-lg-6">
-                                                        <div class="row">
-                                                            <div class="col-3 img-location">
-                                                                <img src="/static/icons/precio/res/mipmap-mdpi/precio.png" width="30" height="30">
-                                                            </div>
-                                                            <div class="col-8 item">
-                                                                <span class="item-title">
-                                                                    Precios <br>
-                                                                </span>
-                                                                <span class="item-detail">
-                                                                    $ ${v.final_price}
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                <div class="saturday">
+                                                    <span class="subtitle d-block">Sábado:</span>
+                                                    <p class="text mb-0">08:00 AM - 12:00 PM </p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row map">
-                                            <div class="col-12">
-                                                <div style="width: 100%">
-                                                    <iframe 
-                                                        width="100%"
-                                                        height="400"
-                                                        src="https://maps.google.com/maps?width=100%&amp;height=600&amp;hl=en&amp;coord=4.8142912, -75.6946451&amp;q=Plaza%20de%20Bolivar+(Pereira%20Colombia)&amp;ie=UTF8&amp;t=&amp;z=16&amp;iwloc=B&amp;output=embed"
-                                                        frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-                                                    </iframe>
-                                                </div>
-                                                <br />
-                                            </div>
-                                        </div>
-                                    </div>    
+                                    </div>
+                                    <span class="subtitle d-block">Descripción:</span>
+                                    <p class="p-text">Lorem ipsum dolor sit amet </p>
                                 </div>
                             </div>
-                        </div>
+                        </button>
                     </div>
-                </div>
                     `
                 )
             })
-            $('.add-cart-transit').on('click', function(){
-                transit = $(this).data('id')
-                transit_name = $(this).data('name')
-                transit_price = $(this).data('price')
+            $('.company-detail').on('click', function(){
+                var licence = ""
+                $.each(licences, function(i, v){
+                    licence += (`${v},`)
+                })
+                id = $(this).data('id')
+                company = $(this).data('company')
+                url = `api/companies/${company}/${id}`
+                axios.get(url)
+                .then(function (response) {
+                    data = response.data
+                    if(data.logo == null){
+                        logo = "/static/images/logo1.png"
+                    }
+                    else{
+                        logo = data.logo
+                    }
 
-                function addTransit(){
-                    $('li.cart-transit').empty()
-                    $('li.cart-transit').append(
-                        `
-                            <div class="media w-100">
-                                <img class="align-self-top mr-2" src="/static/assets/img/img-check.svg" width="35">
-                                <div class="media-body">
-                                    <h6 class="mt-0 mb-0 text-small">Organismo de transito</h6>
-                                    <p class="mb-0 text-small">${transit_name}</p>
-                                    <p class="mb-0 text-small">$${transit_price}</p>
-                                </div>
-                            </div>
-                            <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
-                        `
-                    )
-                    $('li.cart-transit').data('value', transit)
-                    toastr["success"](`Se ha añadido ${transit_name} al carrito de compras`)
-                    setTimeout(function(){ 
-                        $('.modal').modal('hide')
-                        $('.btn-step-5').trigger('click')
-                    }, 2000);
-                }
-                if ($('li.cart-transit').data('value') == '0')
-                {
-                    addTransit();
-                }
-                else{
-                    swal({
-                        title: 'Momento',
-                        text: "Ya tienes un organismo de Tránsito en el carrito. Deseas agregar este y eliminar el anterior?",
-                        type: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#162d40',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Si, agregar',
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.value) {
-                            addTransit();
-                        }
-                    })
-                }
-                
+                    $('.company-logo').attr('src', logo)
+                    $('.company-name').text(data.name)
+                    $('.company-address').text(data.address)
+                    $('.company-sector').text(data.sector.name)
+                    $('.company-location').text(`${data.city.name}, ${data.city.state.name}`)
+                    $('.company-schedule').text(data.schedule)
+                    $('.company-phone').text(data.cellphone)
+                    $('.company-rating').text(data.rating)
+                    $('.company-rating-count').text(`(${data.count_rating})`)
+                    $('.company-price').text(`$ ${data.final_price}`)
+                    $('.add-cart').data('id', data.id);
+                    $('.add-cart').data('name', data.name);
+                    $('.add-cart').data('price', data.final_price);
+                    $('.add-cart').data('company', company);
+
+                    $('.DetailModal').modal('show')
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
             })
         }
         else {
@@ -1298,8 +756,6 @@ $('.continue-location').on('click', function(){
         $('.element--gender').addClass('animated fadeInRight')
         $('.element--gender').removeClass('d-none')
     }
-    
-
 })
 
 $('.back-gender').on('click', function(){
@@ -1436,24 +892,27 @@ $('.back-vehicle-type').on('click', function(){
 
 $('.back-second-licence').on('click', function(){
     $('.element--second-licence').addClass('d-none')
-    $('.element--tramit-type').removeClass('d-none')
+    if (aditional_tramit){
+        aditional_tramit = false
+        $('.element--aditional-tramit').removeClass('d-none')
+    }
+    else{
+        $('.element--tramit-type').removeClass('d-none')
+    }
 })
 
 $('.element--second-licence input').on('click', function(ev){
-    console.log('click')
-    console.log(($(this).val()))
     if (!($('.option-' + tramit_type1).hasClass('option--selected'))){
-        console.log('entro al if')
         $('.option-' + tramit_type1).addClass('option--selected')
         if($(this).val() != 'SL' ){
             $('.toggleC2').removeClass('d-none')
             $('.toggleC3').removeClass('d-none')
         }
         if($(this).val() == 'RC' ){
-            if (!($('#bike-licence').hasClass('disabled'))){
-                $('#bike-licence').addClass('disabled')
+            if (!($('#bike-licence').attr('disabled'))){
+                $('#bike-licence').attr('disabled', true)
             }
-            $('.toggleB1').addClass('d-none')
+            $('.licences-bikes').addClass('d-none')
             swal({
                 title: 'Atención',
                 type: 'info',
@@ -1471,7 +930,6 @@ $('.element--second-licence input').on('click', function(ev){
         }
         
         if (tramit_type1 == ""){
-            console.log("No hay tramite")
             tramit_type1 = $(this).val()
             $('.option-' + tramit_type1).addClass('option--selected');
             $('.element--second-licence').addClass('d-none');
@@ -1512,7 +970,6 @@ $('.element--second-licence input').on('click', function(ev){
         }
     }
     else {
-        console.log('else')
         $('.option-' + $(this).val()).removeClass('option--selected');
         clearTramit($(this).val())
     }
@@ -1594,8 +1051,30 @@ $('.continue-licence-type').on('click', function(){
         $('.element--have-runt').removeClass('d-none')
     }
     else{
-        $('.element--aditional-tramit').removeClass('d-none')
+        if(tramits['licence_2'] === ''){
+            $('.element--aditional-tramit').removeClass('d-none')
+        }
+        else {
+            $('.element--have-runt').removeClass('d-none')
+        }
     }
+})
+
+$('.new-tramit').on('click', function(){
+    aditional_tramit = true
+    $('.element--aditional-tramit').addClass('d-none')
+    $('.element--second-licence').removeClass('d-none')
+    $('li.option-'+tramit_type1).attr('disabled', true)
+})
+
+$('.no-more-tramit').on('click', function(){
+    $('.element--aditional-tramit').addClass('d-none')
+    $('.element--have-runt').removeClass('d-none')
+})
+
+$('.back-aditional-tramit').on('click', function(){
+    $('.element--aditional-tramit').addClass('d-none')
+    $('.element--licence-type').removeClass('d-none')
 })
 
 
@@ -1605,7 +1084,12 @@ $('.back-have-runt').on('click', function(){
         $('.element--licence-type').removeClass('d-none')
     }
     else{
-        $('.element--aditional-tramit').removeClass('d-none')
+        if(tramits['licence_2'] === ''){
+            $('.element--aditional-tramit').removeClass('d-none')
+        }
+        else{
+            $('.element--licence-type').removeClass('d-none')
+        }
     }
 })
 
@@ -1632,23 +1116,23 @@ $('.back-auth-data').on('click', function(){
 })
 
 $('.continue-auth-data').on('click', function(){
+    var next = true
     if(!($('.checkbox-terms').is(":checked"))){
+        next = false
         toastr["error"]("Debes aceptar los terminos y condiciones para continuar")
     }
-    if($('#phone_number').val() === null || 
-        $('#email').val() === null){
+    if($('#phone_number').val() === '' || 
+        $('#email').val() === ''){
+        next = false
         toastr["error"]("Debes llenar todos los campos")
     }
-    else if ($('#pass1').val() != null) {
+    if ($('#pass1').val() != '') {
+        next = false
         if ($('#pass1').val() != $('#pass2').val()){
             toastr["error"]("Las contraseñas no coinciden")
         }
-        else{
-            $('.element--auth-data').addClass('d-none')
-            $('.element--paper-data').removeClass('d-none')
-        }
     }
-    else{
+    if (next){
         $('.element--auth-data').addClass('d-none')
         $('.element--paper-data').removeClass('d-none')
     }
@@ -1656,11 +1140,11 @@ $('.continue-auth-data').on('click', function(){
 
 $('.send').on('click', function(e){
     
-    if ($('.pick-up').hasClass('choose--selected')){
+    if ($('.PICK').hasClass('choose--selected')){
         $('.pick-up').removeClass('choose--selected')
     }
     $(this).addClass('choose--selected')
-    paper = 'send'
+    paper = 'SEND'
     
     $('.element--paper-data').addClass('d-none')
     $('.element--payment').removeClass('d-none')
@@ -1672,7 +1156,7 @@ $('.pick-up').on('click', function(e){
         $('.send').removeClass('choose--selected')
     }
     $(this).addClass('choose--selected')
-    paper = 'pick-up'
+    paper = 'PICK'
     
     $('.element--paper-data').addClass('d-none')
     $('.element--payment').removeClass('d-none')
@@ -1703,7 +1187,6 @@ function addTramit(licence){
             tramits['licence_2'] = {'tramit': tramit_type2, 'licence':licence}
         }
     }
-    console.log(tramits)
 }
 
 function deleteTramit(licence){
@@ -1714,7 +1197,6 @@ function deleteTramit(licence){
     if(tramits['licence_2']['licence'] == licence){
         tramits['licence_2'] = ''
     }
-    console.log(tramits)
 }
 
 // MOTOS
@@ -2041,6 +1523,7 @@ $('.no-licence').on('click', function(e){
 }) 
 
 $('.online').on('click', function(e){
+    $('btn-finish').removeClass('d-none')
     if($(this).hasClass('choose--selected')){
         payment_type = ""
         $(this).removeClass('choose--selected')
@@ -2054,6 +1537,7 @@ $('.online').on('click', function(e){
     }
 })
 $('.credit').on('click', function(e){
+    $('btn-finish').removeClass('d-none')
     if($(this).hasClass('choose--selected')){
         payment_type = ""
         $(this).removeClass('choose--selected')
@@ -2107,6 +1591,7 @@ $('#licence-request-form').on('submit', function(e){
             'payment_type': payment_type,
             "licences": lic,
             "runt":runt,
+            "paper":paper,
             "cea_price":cea_price,
             "crc_price": crc_price,
             "transit_price": transit_price,
@@ -2142,7 +1627,12 @@ $('#licence-request-form').on('submit', function(e){
                     confirmButtonText: 'Finalizar'
                 }).then((result) => {
                     if (result.value) {
-                        window.location.replace(`/profile/`);
+                        if ($('#pass1').val() === ''){
+                            window.location.reload();
+                        }
+                        else {
+                            window.location.replace(`/profile/`);
+                        }
                     }
                 })
             })

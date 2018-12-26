@@ -144,11 +144,11 @@ class RequestAdmin(admin.ModelAdmin):
     fieldsets = (
         (None,
          {'fields':
-          ('user', 'payment_type', 'request_status', 'docs_status', 'credit_status', 'credit_request_code', 'booking', 'request_date', 'state')}),
+          ('user', 'request_status', 'paper', 'docs_status', 'credit_status', 'credit_request_code', 'booking', 'request_date', 'state')}),
         (('CRC'), {'fields': ('crc', 'crc_status',)}),
         (('CEA'), {'fields': ('cea', 'cea_status', )}),
         (('Transito'), {'fields': ('transit',)}),
-        (('Pago'), {'fields': ('id_invoice', 'payment_date', 'payment_status', 'id_epayco_invoice')}),
+        (('Pago'), {'fields': ('total_price', 'payment_type', 'payment_value', 'payment_type2', 'payment_value2', 'id_invoice', 'payment_date', 'payment_status', 'id_epayco_invoice')}),
     )
     cea_fieldsets = (
         (None, {
