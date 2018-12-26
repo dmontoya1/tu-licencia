@@ -22,27 +22,6 @@ class Stepper(TemplateView):
     template_name = 'webclient/stepper.html'
 
 
-class CRCDetail(TemplateView):
-    """Vista para el stepper
-    """
-
-    template_name = 'webclient/crc_detail.html'
-
-
-class CEADetail(TemplateView):
-    """Vista para el stepper
-    """
-
-    template_name = 'webclient/cea_detail.html'
-
-
-class TransitDetail(TemplateView):
-    """Vista para el stepper
-    """
-
-    template_name = 'webclient/transit_detail.html'
-
-
 class BaucherView(TemplateView):
     """Clase para ver el template del Boucher
     """
