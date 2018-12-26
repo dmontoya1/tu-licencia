@@ -1711,10 +1711,7 @@
                             `
                         )
                         $('li.cart-cea').data('value', id)
-                        console.log(end_price)
-                        console.log(price)
                         new_total = parseInt(end_price) + parseInt(price)
-                        console.log(new_total)
                         $('.total-price').text(`${new_total}`)
                         toastr["success"](`Se ha añadido ${name} al carrito de compras`)
                         setTimeout(function(){ 
