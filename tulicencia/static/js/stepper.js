@@ -1135,10 +1135,13 @@ $('.continue-auth-data').on('click', function(){
             next = true
         }
     }
+    console.log(next)
     if (next){
+        console.log('entro al if')
         $('.element--auth-data').addClass('d-none')
         $('.element--paper-data').removeClass('d-none')
     }
+    console.log('fin funcion')
 })
 
 $('.send').on('click', function(e){
