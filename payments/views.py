@@ -144,7 +144,7 @@ class Checkout(TemplateView):
             print (e)
 
         p_currency_code = 'COP'
-        p_amount = total_price
+        p_amount = int(total_price)
         p_amount_base = 0
         p_signature_receivers = ''
         p_split_receivers = []
@@ -157,7 +157,7 @@ class Checkout(TemplateView):
         p_signature = '{}^{}^{}^{}^{}'.format(p_cust_id_cliente, p_key, p_id_invoice, p_amount, p_currency_code)
         p_signature = hashlib.md5(p_signature.encode('utf-8')).hexdigest()
         p_split_receivers.append({'id': cea.epayco_code, 'fee': str(cea_price_final)})
-        p_split_receivers.append({'id': crc.epayco_code, 'fee': str(crc_price_final)})
+        # p_split_receivers.append({'id': crc.epayco_code, 'fee': str(crc_price_final)})
 
         print (p_split_receivers)
 
