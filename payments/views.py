@@ -247,7 +247,7 @@ class Checkout(TemplateView):
                     request_obj.id_epayco_invoice = x_ref_payco
                     request_obj.save()
                     ctx = {
-                        'request':request
+                        'request':request_obj
                     }
                     sendEmail(ctx, request_obj.user.email, 'Instrucciones TuLicencia', 'webclient/baucher.html')
                     return HttpResponse(status=200)
