@@ -1664,6 +1664,7 @@ $('#licence-request-form').on('submit', function(e){
             $('.transit-price-input').val(transit_price)
             $('.licence-1-input').val(tramits['licence_1']['licence'])
             $('.tramit-1-input').val(tramits['licence_1']['tramit'])
+            $('.paper-input').val(paper)
             if (tramits['licence_2'] != ''){
                 $('.licence-2-input').val(tramits['licence_2']['licence'])
                 $('.tramit-2-input').val(tramits['licence_2']['tramit'])
