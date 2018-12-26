@@ -59,7 +59,7 @@ class Checkout(TemplateView):
             p_split_merchant_receiver = '24075'
             p_split_primary_receiver = '24075'
             p_split_primary_receiver_fee = 0
-            host = 'http://tulicencia.co'
+            host = 'http://3.16.156.133'
 
         try:
             try:
