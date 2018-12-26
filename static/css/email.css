@@ -1,0 +1,544 @@
+/* ------------------------------
+RESET
+------------------------------ */
+html {
+	font-size: 100%; /* Corrects text resizing oddly in IE6/7 when body font-size is set using em units */
+    overflow-y: scroll; /* Keeps page centred in all browsers regardless of content height */
+    font-family:Arial;
+    background-color:#FFFFFF !important;
+}
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{
+	margin:0;
+	padding:0;
+}
+fieldset,img {
+	border:0; /* Removes img border when inside 'a' element in IE6/7/8/9, FF3 and removes the border for the fieldset in all browsers∫ */
+	outline:0;
+}
+textarea {
+    overflow:auto; /* Removes default vertical scrollbar in IE6/7/8/9 */
+	resize:none; /* Disable textarea resizing in all browsers */ 
+    vertical-align:top; /* Improves readability and alignment in all browsers */
+}
+table { /* Remove most spacing between table cells */
+    border-collapse:collapse;
+    border-spacing:0;
+}
+a:hover, a:active{ /* Improves readability when focused and also mouse hovered in all browsers */
+    outline:0;
+}
+ul {
+	list-style-type: none;
+}
+
+input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner 
+{
+    border: 0;    
+}
+
+input:focus, textarea  {  /* Remove Chrome's Orange Outline */
+    outline:none;  
+}
+/* ------------------------------
+GLOBAL SETTINGS
+------------------------------ */
+body {
+	font:normal normal 13px/normal Arial, Helvetica, sans-serif;
+	color:#666;	
+    background-color:#FFFFFF !important;
+}
+hr.line
+{
+    border-bottom: 1px solid #FFFFFF;
+    border-top: 1px solid #CCC;
+    border-left:none;
+    border-right:none;
+    width:100%;
+    margin:0px;
+}
+
+/* ------------------------------
+CUSTOM STYLES
+------------------------------ */
+
+/* ------------------------------
+CONTENT
+------------------------------ */
+
+
+#content-container
+{
+	border-top: 1px dashed #D7D6CF;
+	border-bottom:1px dashed #D7D6CF;
+	background-color:#F4F4F4;
+	background-image:url(/cassette.axd/file/Content/Images/BlackList/background_grey-0e56c4fa677669545696031a4324e7579015e31f.png);
+	text-align:center;
+}
+
+.view-online--templates #content-container
+{
+    border: 0;
+}
+
+.view-online--templates .center 
+{
+    margin: 0 auto;
+}
+
+#content
+{
+    width:100%;    
+}
+div.HTML-container
+{
+    background-color:#FFFFFF;   
+	display: flex;
+	display: -webkit-box; 
+	display: -ms-flexbox;  
+	display: -webkit-flex; 
+    align-items: center;
+    justify-content: center; 
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center; 
+}
+
+/* ------------------------------
+HEADER
+------------------------------ */
+#doppler-header .doppler p
+{
+    margin: 0px;
+}
+#doppler-header p.campaignField.doppler
+{
+    width:70px;
+    text-align:right;
+    display:inline-block;
+    padding-bottom:3px;
+}
+#doppler-header p.campaignFrom, p.campaignSubject
+{
+    padding-left:10px;
+    font-size:13px;
+}
+#doppler-header p.campaignSubject
+{
+    padding-bottom:10px !important;
+}
+
+
+/* ------------------------------
+SOCIAL NETWORKS
+------------------------------ */
+@media only screen and (min-width: 480px) { 
+	.sharesSocialNetworks-whatsapp{
+		display:none !important;
+		}
+}
+
+#doppler-header #sharesSocialNetworks.doppler.online-view, #doppler-header #sharesSocialNetworksEnglish.doppler.online-view
+{
+    width:100%;
+    height:40px;
+    background-color:#FFFFFF;
+    text-align:center;
+}
+#doppler-header #sharesSocialNetworksEnglish li a
+{
+    background-image:url("/cassette.axd/file/Content/Images/shares-icons-small-english-b6c53db1c099a5b3ff26279f11caaeca81a1b1a3.png");
+    background-repeat:no-repeat;
+    display:inline-block;
+    height:21px;
+    width:97px;
+    padding-left:23px;
+    border-bottom:1px solid #E0E0E0;
+    text-align:left;
+    font-size:11px;
+    color: #666666;
+    margin-bottom: 5px;
+    cursor:pointer;
+}
+#doppler-header #sharesSocialNetworks li a
+{
+    background-image:url("/cassette.axd/file/Content/Images/shares-icons-small-e24e1541bff2f325ae0fbbc11c26a2eff4f35076.png");
+    background-repeat:no-repeat;
+    display:inline-block;
+    height:21px;
+    width:97px;
+    padding-left:23px;
+    border-bottom:1px solid #E0E0E0;
+    text-align:left;
+    font-size:11px;
+    color: #666666;
+    margin-bottom: 5px;
+    cursor:pointer;
+}
+
+#doppler-header #socialNetworksList
+{
+    display:none;
+    padding: 5px 10px 5px 6px;
+    width:120px;
+    background-color:#FFF;
+    border:1px solid #CCC;
+    position:absolute;
+    border-radius: 3px;
+    box-shadow: 1px 1px 3px 0 #B2B2B2;
+    margin-left: 10px;
+}
+#doppler-header #socialNetworksButtonAndList
+{
+    width: 80px;
+    display: inline-block;
+    text-align: left;
+    list-style-type:none;
+}
+#doppler-header #socialNetworksList li:last-child a 
+{
+    border-bottom:none;
+    margin-bottom:0px;
+}
+#doppler-header #socialNetworksButtonAndList li
+{
+    list-style-type:none;
+}
+#doppler-header #socialNetwoksShowButton
+{
+    background-position:0px -752px;
+}
+#doppler-header .sharesSocialNetworks-facebook 
+{
+    background-position:0px -108px;
+}
+#doppler-header .sharesSocialNetworks-twitter
+{
+    background-position:0px -648px;
+}
+#doppler-header .sharesSocialNetworks-linkedin
+{
+    background-position:0px -252px;
+}
+#doppler-header .sharesSocialNetworks-googlemas
+{
+    background-position:0px -144px;
+}
+#doppler-header .sharesSocialNetworks-pinterest
+{
+    background-position:0px -432px;
+}
+#doppler-header .sharesSocialNetworks-google
+{
+    background-position:0px -180px;
+}
+#doppler-header .sharesSocialNetworks-whatsapp
+{
+    background-position:0px -788px;
+}
+
+#doppler-header .confirmExtrasContainer
+{
+    margin-left: -60px;
+    margin-top: 8px;
+    position: absolute; 
+    background-color: blue; 
+    width: 200px;
+    height: 35px;
+    -webkit-border-top-left-radius: 5px;
+	-webkit-border-top-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-webkit-border-bottom-right-radius: 5px;
+	-moz-border-radius-topleft: 5px;
+	-moz-border-radius-topright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	-moz-border-radius-bottomright: 5px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	border: 1px solid #666;
+	background: #627BB1;
+	-webkit-box-shadow: 0 0 8px 0 #666666;
+	-moz-box-shadow: 0 0 8px 0 #666666;
+	box-shadow: 0 0 8px 0 #666666;
+	font-family: Arial,Serif;
+	color: #FFF;
+	font-size: 15px;
+	font-weight: bold;
+	visibility: hidden;
+}
+
+#doppler-header .facebookBtn
+{
+    margin-right:10px !important;
+}
+
+#doppler-header .gPlus
+{
+    margin-bottom: 2px !important;
+    margin-left: 18px !important;
+}    
+
+#doppler-header .pinterestExtra
+{
+    padding-right:10px;
+}
+#doppler-header .pinterestExtra a
+{
+    margin-bottom: -2px !important;
+    
+}
+
+#doppler-header .footerSocial.doppler
+{
+    height:4px;
+    border:1px solid #ECEBE7;
+    background-color:#F1F1F1;
+}
+#doppler-header #shareSocialButtons.doppler
+{
+   margin:10px auto;
+   height: 21px;
+}
+#doppler-header #rssFeed
+{
+    padding:10px 0 10px 15px;
+    border-left:1px solid #ECEBE7;
+    height:20px;
+    width:114px;
+    color:#666666;
+    font-weight:bold;
+	display:inline-block;
+	position: relative;
+    top: -13px;
+}
+#doppler-header #sharesSocialNetworks #sharesSocialNetworksEnglish,#doppler-header  #sharesSocialNetworksEnglish a.rss-link .icon, 
+#doppler-header .pinterestExtra a.pin-it,#doppler-header  .google-plus,#doppler-header  .share-button,#sharesSocialNetworks a.rss-link .icon
+{
+    background:transparent url("/cassette.axd/file/Content/Images/social-share-icons-4232a737da3f021879c51b2cd2f94cb9c7293c3f.png") no-repeat;
+}
+#doppler-header #sharesSocialNetworks a.rss-link .icon,#doppler-header #sharesSocialNetworksEnglish a.rss-link .icon
+{
+     background-position: -155px -2px;
+     height:17px;
+     width:16px;
+     display:inline-block;
+}
+#doppler-header #sharesSocialNetworks a.rss-link, #doppler-header #sharesSocialNetworksEnglish a.rss-link
+{
+    background-image:none;
+    border:none;
+    color:#666666;
+    font-weight:bold;
+    font-size:13px;
+    text-decoration:none;
+    padding:0px;
+}
+#doppler-header #email-data.doppler
+{
+	padding-top: 30px;
+	padding-bottom:15px;
+	margin-left:30px;
+	word-wrap: break-word;
+}
+#doppler-header #email-data .campaignField
+{
+    color:#999999;
+    font-size:13px;
+	vertical-align:top;
+}
+#doppler-header #email-data .campaignFrom, #doppler-header  #email-data .campaignSubject
+{
+    font-size:13px;
+    color:#666666;
+}
+#doppler-header #sharesSocialNetworks a.tweeter-tweet,#doppler-header #sharesSocialNetworksEnglish a.tweeter-tweet
+{
+    height:20px;
+    width:56px;
+    display:inline-block;
+    border:none;
+    padding:0;
+    margin:0 10px 0 0;
+    
+}
+#doppler-header .twitter-share-button
+{
+    margin:0 10px 0 0;
+}
+#doppler-header #sharesSocialNetworks a#socialNetwoksShowButton,#doppler-header  #sharesSocialNetworksEnglish a#socialNetwoksShowButton
+{
+    display:inline-block;
+    width:77px;
+    line-height: 21px;
+    border-radius: 2px;
+    color:#FFFFFF;
+    font-size: 10px;
+    margin: 0 0 0 10px;
+    cursor: pointer;
+    padding:0px;
+    background-image:none;
+    padding: 0 10px 0 10px;
+    width: 57px;
+    border:none;
+    background: #FA5030 url("/cassette.axd/file/Content/Images/social-share-icons-4232a737da3f021879c51b2cd2f94cb9c7293c3f.png") no-repeat -175px 0;
+    
+}
+#doppler-header #sharesSocialNetworks a#socialNetwoksShowButton span
+{
+    margin: 0 0 0 10px;
+}
+#doppler-header #sharesSocialNetworks a#socialNetwoksShowButton .plus,#doppler-header  #sharesSocialNetworksEnglish a#socialNetwoksShowButton .plus
+{
+    background-image:url("/cassette.axd/file/Content/Images/social-share-icons-4232a737da3f021879c51b2cd2f94cb9c7293c3f.png");
+    background-position:-175px -4px;
+    background-repeat:no-repeat;
+    display:inline-block;
+    height:11px;
+    width:11px;
+    position: relative;
+    left:-5px;
+    top:-2px;
+}
+
+/* ------------------------------
+FOOTER
+------------------------------ */
+#doppler-footer .footer-container
+{
+    max-width:700px;
+    margin:0 auto;
+}
+ #doppler-actions-logo
+{
+    float:left;
+    background:url("/cassette.axd/file/Content/Images/doppler-actions-logo-fea1b88c49a3ee8d0399292b7a085eb75df327fe.png") no-repeat;
+    height:43px;
+    width:121px;
+    display:inline-block;
+}
+ #doppler-slogan
+{
+    float:right;
+    font-size: 15px;
+    line-height: 42px;
+    color:#999999;
+}
+#doppler-footer .footer-container .first-line
+{
+    height:43px;
+    margin-bottom:45px;
+    
+}
+#doppler-footer #base-footer .copyright
+{
+    float:left;
+} 
+#doppler-footer #base-footer .company
+{
+    float:right;
+}
+#doppler-footer #base-footer
+{
+    border-top: 1px dashed #D7D6CF;
+    padding: 10px 0;
+    font-size:13px;
+    color:#999999;
+}
+#doppler-footer .company a
+{
+    color:#00B866;
+    text-decoration:none;
+    cursor:pointer;
+}
+#doppler-footer div.footer
+{
+    text-align:center;
+    padding:50px 0 16px 0;
+    font-size:11px;
+    color: #999;
+    height:25px;
+}
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+a.share-main-button {
+	display: inline-block;
+	line-height: 21px;
+	border-radius: 2px;
+	color: #FFFFFF;
+	font-size: 10px;
+	margin: 0 0 0 10px;
+	cursor: pointer;
+	padding: 0px;
+	background-image: none;
+	padding: 0 10px 0 7px;
+	border: none;
+	background: #FA5030;
+}
+	.share-main-button .plus-sign {
+		background:#FA5030 url('/cassette.axd/file/Content/Images/social-share-icons-4232a737da3f021879c51b2cd2f94cb9c7293c3f.png') no-repeat -178px 0;
+		height:17px;
+		width:16px;
+		display:inline-block;
+		float:left;
+	}
+p.campaignFrom, p.campaignSubject {
+	display:inline-block;
+}
+/**------------------------------------------------*/
+/*	       STICKY FOOTER						   */
+/**------------------------------------------------*/
+* {
+  margin: 0;
+}
+html, body {
+  height: 100%;
+}
+.page-wrap {
+  min-height: 100%;
+  /* equal to footer height */
+  margin-bottom: -91px; 
+}
+.page-wrap:after {
+  content: "";
+  display: block;
+}
+#doppler-footer, .page-wrap:after {
+  height: 91px; 
+}
+
+/**------------------------------------------------*/
+/*	       STICKY FOOTER						   */
+/**------------------------------------------------*/
+@media only screen and (min-width: 640px) {
+	#doppler-footer #base-footer {
+		    margin: 0 4%;
+	}
+}
+@media only screen and (max-width: 470px) {
+	#doppler-footer #base-footer .copyright,#doppler-footer #base-footer .company {
+		    float:none;
+			display:block;
+			margin-bottom: 10px;
+	}
+	.socialRssContainer {
+		width:100% !important;
+	}
+	#sharesSocialNetworksEnglish.socialRssContainer.doppler.online-view, #sharesSocialNetworks.socialRssContainer.doppler.online-view {
+		height:80px !important;
+	}
+	#doppler-header #rssFeed {
+		border:none;
+	}
+
+}
+
