@@ -15,4 +15,7 @@ urlpatterns = [
     path('disable-cea', views.DisableCeaRequest.as_view(), name='disable-cea'),
     path('enable-crc', views.EnableCrcRequest.as_view(), name='enable-crc'),
     path('enable-cea', views.EnableCeaRequest.as_view(), name='enable-cea'),
+    path('crc/<int:pk>', views.CRCDetail.as_view(), name='crc-detail'),
+    path('cea/<int:pk>', views.CEADetail.as_view(), name='cea-detail'),
+    path('transit/<int:pk>', views.TransitDetail.as_view(), name='transit-detail'),
 ]
