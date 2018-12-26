@@ -1127,8 +1127,8 @@ $('.continue-auth-data').on('click', function(){
         toastr["error"]("Debes llenar todos los campos")
     }
     if ($('#pass1').val() != '') {
-        next = false
         if ($('#pass1').val() != $('#pass2').val()){
+            next = false
             toastr["error"]("Las contraseñas no coinciden")
         }
     }
@@ -1165,6 +1165,11 @@ $('.pick-up').on('click', function(e){
 $('.back-paper-data').on('click', function(){
     $('.element--paper-data').addClass('d-none')
     $('.element--auth-data').removeClass('d-none')
+})
+
+$('.back-payment').on('click', function(){
+    $('.element--payment').addClass('d-none')
+    $('.element--paper-data').removeClass('d-none')
 })
 
 
@@ -1578,7 +1583,7 @@ $('#licence-request-form').on('submit', function(e){
             "document_type": $('#doc_type :selected').val(),
             "document_id": $('#doc_id').val(),
             "cellphone": $('#phone_number').val(),
-            "city": $('#cities').val(),
+            // "city": $('#cities').val(),
             "state": $('#states').val(),
             "birth_date": birth_date
         },
@@ -1631,7 +1636,7 @@ $('#licence-request-form').on('submit', function(e){
                             window.location.reload();
                         }
                         else {
-                            window.location.replace(`/profile/`);
+                            window.location.replace(`/profile`);
                         }
                     }
                 })

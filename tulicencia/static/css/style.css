@@ -874,8 +874,8 @@ button.btn.btn-export {
     color: #fecd23;
     font-size: 2em;
     font-weight: 700;
-    background-color: #162d3f;
+    background-color: #162d3f !important;
     opacity: 1;
     border-radius: 25px;
-    padding: 6px 13px;
+    padding: 6px 13px !important;
 }

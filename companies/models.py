@@ -94,6 +94,10 @@ class Cea(SoftDeletionModelMixin):
         "Horarios de atención para cursos",
         help_text="Ejm: De lunes a viernes de 8:00 am a 6:00 pm"
     )
+    epayco_code = models.CharField(
+        'Codigo ePayco',
+        max_length=10,
+    )
 
     def __str__(self):
         return self.name
@@ -198,6 +202,10 @@ class Crc(SoftDeletionModelMixin):
     schedule = models.TextField(
         "Horarios de atención",
         help_text="Ejm: De lunes a viernes de 8:00 am a 6:00 pm"
+    )
+    epayco_code = models.CharField(
+        'Codigo ePayco',
+        max_length=10,
     )
     
     def get_pin_sicov(self):

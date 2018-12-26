@@ -970,7 +970,7 @@
                                     </div>
                                     <div class="form-group col-12 col-md-12 col-lg-6">
                                         <label for="">Apellidos*</label>
-                                        <input type="text" class="form-control form-control-lg" name="last_name" id="last_name" placeholder="Nombre" required {% if request.user.is_authenticated %}value="{{request.user.last_name}}{%endif%}">
+                                        <input type="text" class="form-control form-control-lg" name="last_name" id="last_name" placeholder="Apellidos" required {% if request.user.is_authenticated %}value="{{request.user.last_name}}{%endif%}">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -1075,11 +1075,11 @@
                                             <p class="text small">La contraseña es para crear un perfil en tulicencia.co donde podrás llevar el estado del proceso.</p>
                                             <div class="form-group">
                                                 <label for="">Contraseña*</label>
-                                                <input type="password" class="form-control form-control-lg" name="password1" id="pass1" placeholder="Contraseña" required>
+                                                <input type="password" class="form-control form-control-lg" name="password1" id="pass1" placeholder="Contraseña">
                                             </div>
                                             <div class="form-group">
                                                 <label for="">Repetir contraseña*</label>
-                                                <input type="password" class="form-control form-control-lg" name="password2" id="pass2" placeholder="Repetir contraseña" required>
+                                                <input type="password" class="form-control form-control-lg" name="password2" id="pass2" placeholder="Repetir contraseña">
                                             </div>
                                         </div>
                                     {% endif %}
@@ -1192,27 +1192,33 @@
                                 </div>
                             </div>
                             <div class="col-12 col-lg-3 offset-lg-1">
-                            <div class="content-summary">
-                                <div class="header-summary"> <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
-                                <div class="without-adding">No se han añadido elementos al carrito de compras </div>
-                                <ul class="list-summary d-none">
-                                    <li class="d-flex flex-row cart-crc" data-value="0">
-                                    </li>
-                                    <li class="d-flex flex-row cart-cea" data-value="0">
-                                    </li>
-                                    <li class="d-flex flex-row cart-transit" data-value="0">
-                                    </li>
-                                </ul>
-                                <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
-                            </div>
-                            <p class="text-center pt-3"><button class="btn-block btn-brand"><i class="material-icons">keyboard_backspace</i>Volver</button></p>
+                                <div class="content-summary">
+                                    <div class="header-summary"> <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
+                                    <div class="without-adding">No se han añadido elementos al carrito de compras </div>
+                                    <ul class="list-summary d-none">
+                                        <li class="d-flex flex-row cart-crc" data-value="0">
+                                        </li>
+                                        <li class="d-flex flex-row cart-cea" data-value="0">
+                                        </li>
+                                        <li class="d-flex flex-row cart-transit" data-value="0">
+                                        </li>
+                                    </ul>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                </div>
+                                <p class="text-center pt-3"><button class="btn-block btn-brand"><i class="material-icons">keyboard_backspace</i>Volver</button></p>
                             </div>
                         </div>
+                        <p class="text-center">
+                            <button type="button" class="btn-brand btn-small ml-1 mr-1 back-payment"><i class="material-icons">keyboard_backspace</i>Volver</button>
+                            <button type="submit" class="btn-brand btn-second btn-small ml-1 mr-1 btn-submit">Finalizar</button>
+                        </p>
                     </div>
+                    
                 </section>
-                <div class="f1-buttons d-none btn-finish">
+
+                <!-- <div class="f1-buttons d-none btn-finish">
                     <button type="submit" class="btn btn-submit" id="form-submit">Finalizar</button>
-                </div>
+                </div> -->
             </fieldset>
         
         </form>
@@ -1379,6 +1385,9 @@
                     <div class="col-sm-12 col-md-12 col-lg-12 form-box">
                         <div class="detail-crc">
                             <h3 class="crc-big-title">Detalle</h3>
+                            <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                             <div class="row crc-info justify-content-around mb-4">
                                 <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
                                     <div class="image-crc">
