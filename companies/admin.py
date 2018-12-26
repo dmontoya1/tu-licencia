@@ -89,7 +89,7 @@ class CeaAdmin(SoftDeletionModelAdminMixin):
             'fields': ('state', 'city', 'sector', 'address'),
         }),
         ('Precios', {
-            'fields': ('collection', 'get_pin_sicov', 'get_recaudo'),
+            'fields': ('epayco_code', 'collection', 'get_pin_sicov', 'get_recaudo'),
         }),
     )
 
@@ -142,7 +142,7 @@ class CrcAdmin(SoftDeletionModelAdminMixin):
             'fields': ('state', 'city', 'sector', 'address'),
         }),
         ('Precios', {
-            'fields': ('price', 'price_double', 'collection', 'get_pin_sicov', 'get_recaudo'),
+            'fields': ('epayco_code', 'price', 'price_double', 'collection', 'get_pin_sicov', 'get_recaudo'),
         }),
     )
 

@@ -5,151 +5,90 @@
 
 {% block content %}
 
-<div class="col-10 form-box">
+<div class="col-12 form-box">
     <form class="bg0 p-t-75 p-b-85 shoping-cart-form" id="frm_botonePayco" name="frm_botonePayco" method="post" action="https://secure.payco.co/splitpayments.php">
         <div class="container">
+            <h1 class="title-brand mt-5 mb-3">Resumen de solicitud</h1>
             <div class="row">
-                <div class="col-12">
-                    <span class="request-title">Resumen de tu solicitud</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
-                    <div class="wrap-table-shopping-cart">
-                        <table class="table-shopping-cart">
-                            <tr class="table_head">
-                                <th class="column-1">
-                                    <span class="request">
-                                        Solicitud
-                                    </span>
-                                </th>
-                                <th class="column-2">Detalle</th>
-                                <th class="column-3">Precio</th>
-                            </tr>
-
-                            <tr class="table_row">
-                                <td class="column-1">
-                                    <div class="how-itemcart1">
-                                        <a href="#" data-id="item.pk">
-                                            <img class="item-img" src="{% static 'images/2.png' %}" alt="IMG">
-                                        </a>
-                                        <span>CEA</span>
-                                    </div>
-                                </td>
-                                <td class="column-2">Academia Colombiana de Automovilismo</td>
-                                <td class="column-3">
-                                    <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                        $ 750.000
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="table_row">
-                                <td class="column-1">
-                                    <div class="how-itemcart1">
-                                        <a href="#" data-id="item.pk">
-                                            <img class="item-img" src="{% static 'images/4.png' %}" alt="IMG">
-                                        </a>
-                                        <span>CRC</span>
-                                    </div>
-                                </td>
-                                <td class="column-2">Academia Colombiana de Automovilismo</td>
-                                <td class="column-3">
-                                    <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                        $ 750.000
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr class="table_row">
-                                <td class="column-1">
-                                    <div class="how-itemcart1">
-                                        <a href="#" data-id="item.pk">
-                                            <img class="item-img" src="{% static 'images/3.png' %}" alt="IMG">
-                                        </a>
-                                        <span>Organismo de transporte</span>
-                                    </div>
-                                </td>
-                                <td class="column-2">Academia Colombiana de Automovilismo</td>
-                                <td class="column-3">
-                                    <div class="wrap-num-product flex-w m-l-auto m-r-0">
-                                        $ 750.000
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-    
-                </div>
-    
-                <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
-                    <div class="bor10 p-l-20 p-t-30 p-b-40 ">
-                        <h4 class="mtext-109 cl2 p-b-30">
-                            Total en tu carrito
-                        </h4>
-    
-                        <div class="flex-w flex-t bor12 p-b-13">
-                            <div class="size-208">
-                                <span class="stext-110 cl2">
-                                    Subtotal:
-                                </span>
-                            </div>
-    
-                            <div class="size-209">
-                                <span class="mtext-110 cl2">
-                                    ${{order.get_total_price|intcomma}}
-                                </span>
-                            </div>
-                        </div>
-    
-                        <div class="flex-w flex-t bor12 p-t-15 p-b-30">
-                            <div class="size-208 w-full-ssm">
-                                <span class="stext-110 cl2">
-                                    Envío:
-                                </span>
-                            </div>
-    
-                            <div class="p-r-18 p-r-0-sm w-full-ssm" style="width: 100%">
-                                
-                                <div class="p-t-15">
-                                    <div class="bor8 bg0 m-b-12">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="Departamento/Estado">
-                                    </div>
-    
-                                    <div class="bor8 bg0 m-b-22">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="city" placeholder="Ciudad/Municipio">
-                                    </div>
-    
-                                    <div class="bor8 bg0 m-b-22">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="tel" name="telephone" placeholder="Teléfono">
-                                    </div>
-    
-                                    <div class="bor8 bg0 m-b-22">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="email" name="email" placeholder="Correo electrónico">
-                                    </div>
-    
-                                    <div class="bor8 bg0 m-b-22">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="address" placeholder="Dirección">
-                                    </div>
-                                    <input type="hidden" name="order" value="{{order.pk}}">
-                                        
+                <div class="col-12 col-lg-8">
+                    <div class="table-responsive">
+                    <table class="table table-buy">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="text-small">SOLICITUD</th>
+                            <th scope="col" class="text-small">DETALLE</th>
+                            <th scope="col" class="text-small">PRECIO</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                            <div class="media">
+                                <img class="align-self-center mr-2" src="{% static 'assets/img/img-check.svg' %}" width="35">
+                                <div class="media-body align-self-center">
+                                <h6 class="mt-0 mb-0 text-small">CEA</h6>
                                 </div>
                             </div>
-                        </div>
-    
-                        <div class="flex-w flex-t p-t-27 p-b-33">
-                            <div class="size-208">
-                                <span class="mtext-101 cl2">
-                                    Total:
-                                </span>
+                            </td>
+                            <td>{{cea}}</td>
+                            <td>$ {{cea_price|intcomma}}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                            <div class="media">
+                                <img class="align-self-center mr-2" src="{% static 'assets/img/volante.svg' %}" width="35">
+                                <div class="media-body align-self-center">
+                                <h6 class="mt-0 mb-0 text-small">CRC</h6>
+                                </div>
                             </div>
-    
-                            <div class="size-209 p-t-1">
-                                <span class="mtext-110 cl2">
-                                    ${{order.get_total_price|intcomma}}
-                                </span>
+                            </td>
+                            <td>{{crc}}</td>
+                            <td>$ {{crc_price|intcomma}}</td>
+                        </tr>
+                        <tr>
+                            <td>
+                            <div class="media">
+                                <img class="align-self-center mr-2" src="{% static 'assets/img/gorro.svg' %}" width="35">
+                                <div class="media-body align-self-center">
+                                <h6 class="mt-0 mb-0 text-small">Organismo de transporte</h6>
+                                </div>
                             </div>
+                            </td>
+                            <td>{{transit}}</td>
+                            <td>$ {{transit_price|intcomma}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>           
+                </div>
+                <div class="col-12 col-lg-4">
+                    <div class="info-applicant">
+                        <h2 class="title-brand">TOTAL COMPRA</h2>
+                        <p><strong class="pr-5">Subtotal:</strong> <strong>${{p_amount|intcomma}}</strong></p>
+                        <div class="divider"></div>
+                        <div class="row pt-3 pb-2">
+                            <div class="col-5"><span class="color-light weigh-5 text-small">Nombre:</span></div>
+                            <div class="col-7"><span class="color-brand weigh-5 text-small">{{user.first_name}}</span></div>
                         </div>
+                        <div class="row pt-2 pb-2">
+                            <div class="col-5"><span class="color-light weigh-5 text-small">Apellidos:</span></div>
+                            <div class="col-7"><span class="color-brand weigh-5 text-small">{{user.last_name}}</span></div>
+                        </div>
+                        <div class="row pt-2 pb-2">
+                            <div class="col-5"><span class="color-light weigh-5 text-small">Correo electrónico:</span></div>
+                            <div class="col-7"><span class="color-brand weigh-5 text-small">{{user.email}}</span></div>
+                        </div>
+                        <div class="row pt-2 pb-2">
+                            <div class="col-5"><span class="color-light weigh-5 text-small">Departamento:</span></div>
+                            <div class="col-7"><span class="color-brand weigh-5 text-small">{{user.state}}</span></div>
+                        </div>
+                        <!-- <div class="row pt-2 pb-3">
+                            <div class="col-5"><span class="color-light weigh-5 text-small">Ciudad:</span></div>
+                            <div class="col-7"><span class="color-brand weigh-5 text-small">Pereira</span></div>
+                        </div> -->
+                        <div class="divider"></div>
+                        <p class="title-brand mt-3"><span class="pr-5">Total:</span>${{p_amount|intcomma}}</p>
 
-                         
                         <input name="p_cust_id_cliente" type="hidden" value="{{p_cust_id_cliente}}"> 
                         <input name="p_key" type="hidden" value="{{p_key}}"> 
                         <input name="p_id_invoice" type="hidden" value="{{p_id_invoice}}"> 
@@ -170,12 +109,13 @@
                         <input name="p_split_receivers" type="hidden" value="{{p_split_receivers}}"> 
                         <input name="p_signature_split" type="hidden" value="{{p_signature_split}}"> 
 
-                        <input type="image" id="imagen" 
-                        src="https://369969691f476073508a-60bf0867add971908d4f26a64519c2aa.ssl.cf5.rackcdn.com/btns/btn1.png"> 
+                        <button class="btn-brand btn-second btn-block">REALIZAR PAGO</button>
                     </div>
                 </div>
-            </div>
+            </div>       
         </div>
+    
+    
     </form>
 
 </div>

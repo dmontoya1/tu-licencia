@@ -50,7 +50,7 @@ class Checkout(TemplateView):
             p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
             p_split_merchant_receiver = '24075'
             p_split_primary_receiver = '24075'
-            p_split_primary_receiver_fee = '500'
+            p_split_primary_receiver_fee = 0
             host = 'http://tulicencia.apptitud.com.co'
         else:
             p_test_request = False
@@ -58,7 +58,7 @@ class Checkout(TemplateView):
             p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
             p_split_merchant_receiver = '24075'
             p_split_primary_receiver = '24075'
-            p_split_primary_receiver_fee = '500'
+            p_split_primary_receiver_fee = 0
             host = 'http://tulicencia.co'
 
         try:
@@ -76,8 +76,8 @@ class Checkout(TemplateView):
             licence_2 = request.POST['licence_2']
             tramit_2 = request.POST['tramit_2']
 
-            city = City.objects.get(pk=request.POST['city'])
-            state = city.state
+            state = State.objects.get(pk=request.POST['state'])
+            # state = city.state
             try:
                 user = User.objects.get(username=request.POST['document_id'])
             except User.DoesNotExist:
@@ -94,7 +94,7 @@ class Checkout(TemplateView):
                 user.document_type = request.POST['doc_type']
                 user.document_id = request.POST['document_id']
                 user.state = state
-                user.city = city
+                # user.city = city
                 user.gender = request.POST['gender']
                 user.birth_date = birth_date
                 user.backend = 'django.contrib.auth.backends.ModelBackend'
@@ -106,7 +106,13 @@ class Checkout(TemplateView):
             else:
                 runt = False
             
-            total_price = int(crc_price) + int(cea_price) + int(transit_price)
+            total_price = float(crc_price) + float(cea_price) + float(transit_price)
+            p_split_primary_receiver_fee = (float(crc_price) * 0.2) + (float(cea_price) * 0.2) + float(transit_price)
+            print (p_split_primary_receiver_fee)
+            crc_price_final = float(crc_price) - (float(float(crc_price) * 0.2))
+            print (crc_price_final)
+            cea_price_final = float(cea_price) - (float(float(cea_price) * 0.2))
+            print (cea_price_final)
 
             request_obj = Request(
                 user=user,
@@ -115,7 +121,8 @@ class Checkout(TemplateView):
                 transit=transit,
                 payment_type = 'CO',
                 has_runt=runt,
-                total_price=total_price
+                total_price=total_price,
+                paper=request.POST['paper']
             )
             request_obj.save()
 
@@ -149,7 +156,10 @@ class Checkout(TemplateView):
         p_confirm_method = 'GET'
         p_signature = '{}^{}^{}^{}^{}'.format(p_cust_id_cliente, p_key, p_id_invoice, p_amount, p_currency_code)
         p_signature = hashlib.md5(p_signature.encode('utf-8')).hexdigest()
-        p_split_receivers.append({'id': '11736', 'fee': '500'})
+        p_split_receivers.append({'id': cea.epayco_code, 'fee': str(cea_price_final)})
+        p_split_receivers.append({'id': crc.epayco_code, 'fee': str(crc_price_final)})
+
+        print (p_split_receivers)
 
         for r in p_split_receivers:
             p_signature_receivers += r['id'] + '^' + r['fee']
@@ -159,6 +169,13 @@ class Checkout(TemplateView):
         p_signature_split = hashlib.md5(p_signature_split.encode('utf-8')).hexdigest()
 
         ctx = {
+            'cea': cea,
+            'crc': crc,
+            'transit': transit,
+            'crc_price': int(crc_price),
+            'cea_price': int(cea_price),
+            'transit_price': int(transit_price),
+            'user': request_obj.user,
             'request_obj': request_obj,
             'p_description': p_description,
             'p_cust_id_cliente' : p_cust_id_cliente,
