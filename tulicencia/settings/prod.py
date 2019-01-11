@@ -26,6 +26,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = '/var/www/tulicencia/media/'
 FILE_UPLOAD_PERMISSIONS = 0o644
 
-MEDIA_ROOT = 'media'
-
 EMAIL_ADMIN = 'tulicencia.apptitud@gmail.com'
