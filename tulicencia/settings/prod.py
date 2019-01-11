@@ -15,14 +15,15 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = '/var/www/tulicencia/static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, 'static'),
+    os.path.join(PROJECT_DIR, 'tulicencia/static'),
 ]
+STATIC_ROOT = '/var/www/tulicencia/static/'
 
 
-MEDIA_ROOT = '/var/www/tulicencia/media/'
 MEDIA_URL = '/media/'
+MEDIA_ROOT = '/var/www/tulicencia/media/'
 FILE_UPLOAD_PERMISSIONS = 0o644
 
 MEDIA_ROOT = 'media'
