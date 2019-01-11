@@ -492,9 +492,13 @@ button.company-detail {
 	font-weight: 700;
 }
 
+h2.company-title {
+    color: #162d3f;
+}
+
 .element .text{
 	color: #888;
-	font-size: .9rem;
+	font-size: 1rem;
 }
 
 .element label, .choose-text, .content-option li, .span-label, .title-brand, .table-buy thead th{

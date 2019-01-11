@@ -15,14 +15,16 @@ DATABASES = {
     }
 }
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
+STATIC_ROOT = '/var/www/tulicencia/static/'
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
 ]
 
 
-# MEDIA_ROOT = 'media'
+MEDIA_ROOT = '/var/www/tulicencia/media/'
+MEDIA_URL = '/media/'
+FILE_UPLOAD_PERMISSIONS = 0o644
+
+MEDIA_ROOT = 'media'
 
 EMAIL_ADMIN = 'tulicencia.apptitud@gmail.com'

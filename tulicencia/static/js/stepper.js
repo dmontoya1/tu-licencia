@@ -770,10 +770,13 @@ $('.male').on('click', function(e){
     }
     $(this).addClass('choose--selected')
     gender = 'M'
+
+    setTimeout(function(){ 
+        $('.element--gender').addClass('d-none')
+        $('.element--birth-date').addClass('animated fadeInRight')
+        $('.element--birth-date').removeClass('d-none')
+    }, 700);
     
-    $('.element--gender').addClass('d-none')
-    $('.element--birth-date').addClass('animated fadeInRight')
-    $('.element--birth-date').removeClass('d-none')
 
 })
 $('.female').on('click', function(e){
@@ -784,9 +787,11 @@ $('.female').on('click', function(e){
     $(this).addClass('choose--selected')
     gender = 'F'
     
-    $('.element--gender').addClass('d-none')
-    $('.element--birth-date').addClass('animated fadeInRight')
-    $('.element--birth-date').removeClass('d-none')
+    setTimeout(function(){ 
+        $('.element--gender').addClass('d-none')
+        $('.element--birth-date').addClass('animated fadeInRight')
+        $('.element--birth-date').removeClass('d-none')
+    }, 700);
 })
 
 $('.back-birth-date').on('click', function(){
@@ -864,9 +869,10 @@ $('#licence-1').on('click', function(ev){
     if ($('#licence-2').hasClass('choose--selected')){
         $('#licence-2').removeClass('choose--selected')
     }
-
-    $('.element--tramit-type').addClass('d-none')
-    $('.element--vehicle-type').removeClass('d-none')
+    setTimeout(function(){ 
+        $('.element--tramit-type').addClass('d-none')
+        $('.element--vehicle-type').removeClass('d-none')
+    }, 700);
 })
 
 $('#licence-2').on('click', function(ev){
@@ -876,8 +882,10 @@ $('#licence-2').on('click', function(ev){
     if ($('#licence-1').hasClass('choose--selected')){
         $('#licence-1').removeClass('choose--selected')
     }
-    $('.element--tramit-type').addClass('d-none')
-    $('.element--second-licence').removeClass('d-none')
+    setTimeout(function(){ 
+        $('.element--tramit-type').addClass('d-none')
+        $('.element--second-licence').removeClass('d-none')
+    }, 700);
 })
 
 $('.back-vehicle-type').on('click', function(){
@@ -1062,14 +1070,18 @@ $('.continue-licence-type').on('click', function(){
 
 $('.new-tramit').on('click', function(){
     aditional_tramit = true
-    $('.element--aditional-tramit').addClass('d-none')
-    $('.element--second-licence').removeClass('d-none')
     $('li.option-'+tramit_type1).attr('disabled', true)
+    setTimeout(function(){ 
+        $('.element--aditional-tramit').addClass('d-none')
+        $('.element--second-licence').removeClass('d-none')
+    }, 700);
 })
 
 $('.no-more-tramit').on('click', function(){
-    $('.element--aditional-tramit').addClass('d-none')
-    $('.element--have-runt').removeClass('d-none')
+    setTimeout(function(){ 
+        $('.element--aditional-tramit').addClass('d-none')
+        $('.element--have-runt').removeClass('d-none')
+    }, 700);
 })
 
 $('.back-aditional-tramit').on('click', function(){
@@ -1135,13 +1147,10 @@ $('.continue-auth-data').on('click', function(){
             next = true
         }
     }
-    console.log(next)
     if (next){
-        console.log('entro al if')
         $('.element--auth-data').addClass('d-none')
         $('.element--paper-data').removeClass('d-none')
     }
-    console.log('fin funcion')
 })
 
 $('.send').on('click', function(e){
@@ -1152,8 +1161,10 @@ $('.send').on('click', function(e){
     $(this).addClass('choose--selected')
     paper = 'SEND'
     
-    $('.element--paper-data').addClass('d-none')
-    $('.element--payment').removeClass('d-none')
+    setTimeout(function(){ 
+        $('.element--paper-data').addClass('d-none')
+        $('.element--payment').removeClass('d-none')
+    }, 700);
 
 })
 $('.pick-up').on('click', function(e){
@@ -1164,8 +1175,10 @@ $('.pick-up').on('click', function(e){
     $(this).addClass('choose--selected')
     paper = 'PICK'
     
-    $('.element--paper-data').addClass('d-none')
-    $('.element--payment').removeClass('d-none')
+    setTimeout(function(){ 
+        $('.element--paper-data').addClass('d-none')
+        $('.element--payment').removeClass('d-none')
+    }, 700);
 })
 
 $('.back-paper-data').on('click', function(){
@@ -1177,8 +1190,6 @@ $('.back-payment').on('click', function(){
     $('.element--payment').addClass('d-none')
     $('.element--paper-data').removeClass('d-none')
 })
-
-
 
 
 function addTramit(licence){
@@ -1389,8 +1400,10 @@ $('.si-runt').on('click', function(e){
     $(this).addClass('choose--selected')
     runt = 'si'
     
-    $('.element--have-runt').addClass('d-none')
-    $('.btn-step-2').trigger('click')
+    setTimeout(function(){ 
+        $('.element--have-runt').addClass('d-none')
+        $('.btn-step-2').trigger('click')
+    }, 700);
 })
 $('.no-runt').on('click', function(e){
     if ($('.si-runt').hasClass('choose--selected')){
@@ -1399,8 +1412,10 @@ $('.no-runt').on('click', function(e){
     $(this).addClass('choose--selected')
     runt = 'no'
     
-    $('.element--have-runt').addClass('d-none')
-    $('.element--runt').removeClass('d-none')
+    setTimeout(function(){ 
+        $('.element--have-runt').addClass('d-none')
+        $('.element--runt').removeClass('d-none')
+    }, 700);
 })
 
 $('.back-runt').on('click', function(){
@@ -1522,7 +1537,6 @@ $('button.filter-transit').on('click', function(e){
     params_transit['city'] = $('#transit-city').val(),
     transit_filter(params_transit)
 })
-
 
 $('.no-licence').on('click', function(e){
     if (tramit == ""){
