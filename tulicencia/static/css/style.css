@@ -482,7 +482,7 @@ button.company-detail {
 
 .element .title{
 	color: #888;
-	font-size: 1.3rem;
+	font-size: 1.2rem;
 	font-weight: 700;
 }
 
@@ -807,6 +807,7 @@ ul.tramit-choice input {
 	transition: opacity 0.3s;
 	font-size: .9rem;
 	font-weight: 400;
+	background-color: #fff;
 }
 
 .tooltip-brand .tooltiptext::after {
@@ -877,11 +878,15 @@ button.btn.btn-export {
 	}
 
 	.tooltip-brand .tooltiptext{
-		left: -176px;
+		left: -170px;
 	}
 
 	.tooltip-brand .tooltiptext{
-		width: 300px;
+		width:290px;
+	}
+
+	.f1{
+		padding: 15px;
 	}
 
 }
