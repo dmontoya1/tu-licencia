@@ -694,15 +694,7 @@ h2.company-title {
 	}
 }
 
-@media (max-width: 992px){
-	.tooltip-brand .tooltiptext{
-		left: -220px;
-	}
 
-	.tooltip-brand .tooltiptext::after{
-		left: 85%;
-	}
-}
 
 @media (max-width: 600px){	
 	.btn-small{
@@ -779,37 +771,6 @@ h2.company-title {
 }
 
 
-@media (max-width: 500px){
-	
-	.content-result{
-		display: inherit !important;
-	}
-
-	.thumbnail{
-		text-align: center;
-	}
-
-	.tooltip-brand .tooltiptext{
-		left: -176px;
-	}
-
-	.tooltip-brand .tooltiptext{
-		width: 300px;
-	}
-
-}
-
-@media (max-width: 1024px) {
-	.filter-web{
-		display: none;
-	}
-
-	.filter-mobile{
-		display: block;
-	}
-}
-
-
 ul.tramit-choice {
 	list-style-type: none;
 	text-align: center;
@@ -882,4 +843,45 @@ button.btn.btn-export {
     opacity: 1;
     border-radius: 25px;
     padding: 6px 13px !important;
+}
+
+
+@media (max-width: 1024px) {
+	.filter-web{
+		display: none;
+	}
+
+	.filter-mobile{
+		display: block;
+	}
+}
+
+@media (max-width: 992px){
+	.tooltip-brand .tooltiptext{
+		left: -220px;
+	}
+
+	.tooltip-brand .tooltiptext::after{
+		left: 85%;
+	}
+}
+
+@media (max-width: 500px){
+	
+	.content-result{
+		display: inherit !important;
+	}
+
+	.thumbnail{
+		text-align: center;
+	}
+
+	.tooltip-brand .tooltiptext{
+		left: -176px;
+	}
+
+	.tooltip-brand .tooltiptext{
+		width: 300px;
+	}
+
 }
