@@ -441,7 +441,13 @@ button.company-detail {
 	border: none;
 	cursor: pointer;
 	text-align: left;
+	width: 100%;
+	border:none;
 }
+	.company-detail-crc{
+		width: 100%;
+		border:none;
+	}
 
 @media (min-width: 768px){
 	.modal-lg {
@@ -590,7 +596,7 @@ h2.company-title {
 	max-height: 550px;
 	overflow-y: auto;
   overflow-x: hidden;
-  padding: .5rem .5rem 0 .5rem;
+  padding: .5rem;
 }
 
 .table-buy{
@@ -854,6 +860,10 @@ button.btn.btn-export {
 
 	.filter-mobile{
 		display: block;
+	}
+
+	.text-small-modal{
+		font-size: 90%;
 	}
 }
 

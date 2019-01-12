@@ -1079,7 +1079,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="">Correo electrónico*</label>
-                                            <input type="mail" class="form-control form-control-lg" name="email" id="email" placeholder="Correo electroónico" {% if request.user.is_authenticated %}value="{{request.user.email}}{%endif%}">
+                                            <input type="mail" class="form-control form-control-lg" name="email" id="email" placeholder="Correo electrónico" {% if request.user.is_authenticated %}value="{{request.user.email}}{%endif%}">
                                         </div>
                                     </div>
                                     {% if request.user.is_anonymous %}
@@ -1242,148 +1242,151 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <div class="col-sm-12 col-md-12 col-lg-12 form-box">
-                        <div class="detail-crc">
-                            <h3 class="crc-big-title">Detalle</h3>
-                            <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <div class="row crc-info justify-content-around mb-4">
-                                <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
-                                    <div class="image-crc">
-                                        <img class="company-logo mx-auto d-block mt-4 img-fluid" width=200 height=200 src="" alt="Logo Company">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 form-box text-small-modal">
+                            <div class="detail-crc">
+                                <h3 class="crc-big-title">Detalle</h3>
+                                <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <div class="row crc-info justify-content-around mb-4">
+                                    <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
+                                        <div class="image-crc">
+                                            <img class="company-logo mx-auto d-block mt-4 img-fluid" width=200 height=200 src="" alt="Logo Company">
+                                        </div>
+                                        <div class="select-button mt-3">
+                                            <button type="button" class="btn-select add-cart" data-id="" data-name="" data-price="" data-company="">Seleccionar</button>
+                                        </div>
                                     </div>
-                                    <div class="select-button mt-3">
-                                        <button type="button" class="btn-select add-cart" data-id="" data-name="" data-price="" data-company="">Seleccionar</button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-c-8 info-crc mb-4">
-                                    <div class="row crc-title">
-                                        <div class="col-12">
-                                            <span class="company-name">Nombre</span>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="row details">
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Dirección: <br>
-                                                    </span>
-                                                    <span class="item-detail company-address">
-                                                        direccion
-                                                    </span>
-                                                </div>
+                                    <div class="col-sm-12 col-md-c-8 ">
+                                        <div class="info-crc mb-4">
+                                            <div class="crc-title">
+                                                <div class="col-12">
+                                                    <span class="company-name">Nombre</span>
+                                                </div>                                            
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/ciudad/res/mipmap-mdpi/ciudad.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Sector: <span class="company-sector">Sector</span> <br>
-                                                    </span>
-                                                    <span class="item-detail company-location">
-                                                        Ciudad, Dpto
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/horario/res/mipmap-mdpi/horario.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Horario <br>
-                                                        Lunes a Viernes <br>
-                                                    </span>
-                                                    <span class="item-detail company-schedule">
-                                                        08:00 AM - 12:00 PM <br>
-                                                        02:00 PM - 06:00 PM
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Teléfono <br>
-                                                    </span>
-                                                    <span class="company-phone">
-                                                        telefono
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Calificación <br>
-                                                    </span>
-                                                    <span class="item-detail">
-                                                        <p class="text">
-                                                            <span class="weigh-5 company-rating">
-                                                                ${v.rating} 
+                                            <div class="row details">
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Dirección: <br>
                                                             </span>
-                                                            <i class="material-icons">grade</i> 
-                                                            <span class="company-rating-count">
-                                                                (${v.count_rating})
+                                                            <span class="item-detail company-address">
+                                                                direccion
                                                             </span>
-                                                        </p>
-                                                    </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/precio/res/mipmap-mdpi/precio.png' %}" width="30" height="30">
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/ciudad/res/mipmap-mdpi/ciudad.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Sector: <span class="company-sector">Sector</span> <br>
+                                                            </span>
+                                                            <span class="item-detail company-location">
+                                                                Ciudad, Dpto
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Precios <br>
-                                                    </span>
-                                                    <span class="item-detail company-price">
-                                                        $ price
-                                                    </span>
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/horario/res/mipmap-mdpi/horario.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Horario <br>
+                                                                Lunes a Viernes <br>
+                                                            </span>
+                                                            <span class="item-detail company-schedule">
+                                                                08:00 AM - 12:00 PM <br>
+                                                                02:00 PM - 06:00 PM
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Teléfono <br>
+                                                            </span>
+                                                            <span class="company-phone">
+                                                                telefono
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Calificación <br>
+                                                            </span>
+                                                            <span class="item-detail">
+                                                                <p class="text">
+                                                                    <span class="weigh-5 company-rating">
+                                                                        ${v.rating} 
+                                                                    </span>
+                                                                    <i class="material-icons">grade</i> 
+                                                                    <span class="company-rating-count">
+                                                                        (${v.count_rating})
+                                                                    </span>
+                                                                </p>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/precio/res/mipmap-mdpi/precio.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Precios <br>
+                                                            </span>
+                                                            <span class="item-detail company-price">
+                                                                $ price
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row map">
-                                <div class="col-12">
-                                    <div style="width: 100%">
-                                        <iframe 
-                                            src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d15903.15217075221!2d-75.72533726779959!3d4.8064181639462245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e0!4m3!3m2!1d4.8156126!2d-75.7219981!4m3!3m2!1d4.8138567!2d-75.69442099999999!5e0!3m2!1ses-419!2sco!4v1545779183981" 
-                                            width="100%" 
-                                            height="450" 
-                                            frameborder="0" 
-                                            style="border:0" 
-                                            allowfullscreen>
-                                        </iframe>
+                                <div class="row map">
+                                    <div class="col-12">
+                                        <div style="width: 100%">
+                                            <iframe 
+                                                src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d15903.15217075221!2d-75.72533726779959!3d4.8064181639462245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e0!4m3!3m2!1d4.8156126!2d-75.7219981!4m3!3m2!1d4.8138567!2d-75.69442099999999!5e0!3m2!1ses-419!2sco!4v1545779183981" 
+                                                width="100%" 
+                                                height="450" 
+                                                frameborder="0" 
+                                                style="border:0" 
+                                                allowfullscreen>
+                                            </iframe>
+                                        </div>
+                                        <br />
                                     </div>
-                                    <br />
                                 </div>
-                            </div>
-                        </div>    
-                    </div>
+                            </div>    
+                        </div>
+                    </div>                        
                 </div>
             </div>
         </div>
@@ -1413,8 +1416,7 @@
                                     <div class="row crc-title">
                                         <div class="col-12">
                                             <span class="company-name">Nombre</span>
-                                        </div>
-                                        
+                                        </div>                                        
                                     </div>
                                     <div class="row details">
                                         <div class="col-lg-6">

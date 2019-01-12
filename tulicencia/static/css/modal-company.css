@@ -15,7 +15,6 @@ img.company-logo {
 }
 
 .detail-crc {
-    padding: 25px; 
     background: #fff;
     -moz-border-radius: 4px; 
     -webkit-border-radius: 4px; 
@@ -25,7 +24,6 @@ img.company-logo {
 .image-crc {
     border: 2px solid #ddd;
     border-radius: 10px;
-    margin: 0 -20px;
     height: 250px;
 }
 
@@ -45,7 +43,7 @@ img.company-logo {
 }
 
 button.btn-select {
-    width: 114%;
+    width: 100%;
     color: #fff;
     font-weight: 600;
     border-color: #162d3f;
