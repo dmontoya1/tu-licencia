@@ -866,6 +866,17 @@ button.btn.btn-export {
 		left: 85%;
 	}
 }
+@media (max-width: 625px){
+	.content-stepper{
+		overflow-x: auto;
+	}
+
+	.content-stepper .f1-steps{
+		width: 560px;
+    	padding-left: 16px;
+	}
+}
+
 
 @media (max-width: 500px){
 	
