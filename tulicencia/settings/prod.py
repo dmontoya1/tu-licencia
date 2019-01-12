@@ -1,6 +1,6 @@
 from .base import *
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['http://3.16.156.133/', '3.16.156.133']
 
@@ -9,22 +9,21 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'tulicencia',
         'USER': 'tulicencia',
-        'PASSWORD': 'licencia-pass',
+        'PASSWORD': 'tulicencia-pass',
         'HOST': 'localhost',
         'PORT': '',
     }
 }
 
-STATIC_ROOT = '/var/www/tulicencia/static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, 'static'),
 ]
+STATIC_ROOT = '/var/www/tulicencia/static/'
 
 
-MEDIA_ROOT = '/var/www/tulicencia/media/'
 MEDIA_URL = '/media/'
+MEDIA_ROOT = '/var/www/tulicencia/media/'
 FILE_UPLOAD_PERMISSIONS = 0o644
-
-MEDIA_ROOT = 'media'
 
 EMAIL_ADMIN = 'tulicencia.apptitud@gmail.com'

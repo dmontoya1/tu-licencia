@@ -388,7 +388,7 @@
                                 </div>
                             </div>
                             <p class="text-center">
-                                <button class="btn-brand" type="button" class="back-aditional-tramit">
+                                <button class="btn-brand back-aditional-tramit" type="button">
                                     <i class="material-icons">keyboard_backspace</i>
                                     Volver
                                 </button>
@@ -610,7 +610,7 @@
                                             <li class="d-flex flex-row cart-transit" data-value="0">
                                             </li>
                                         </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
                                     <button type="button" class="btn-block btn-brand back-crc">
@@ -782,7 +782,7 @@
                                             <li class="d-flex flex-row cart-transit" data-value="0">
                                             </li>
                                         </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
                                     <button type="button" class="btn-block btn-brand back-crc">
@@ -943,7 +943,7 @@
                                             <li class="d-flex flex-row cart-transit" data-value="0">
                                             </li>
                                         </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
                                     <button type="button" class="btn-block btn-brand back-crc">
@@ -1051,7 +1051,7 @@
                                         <li class="d-flex flex-row cart-transit" data-value="0">
                                         </li>
                                     </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                             </div>
                         </div>
@@ -1068,6 +1068,10 @@
                                         <div class="form-group">
                                             <label for="">Teléfono fijo*</label>
                                             <input type="number" class="form-control form-control-lg" id="phone_number" name="phone_number" placeholder="Numero teléfono fijo" {% if request.user.is_authenticated %}value="{{request.user.phone_number|default:''}}{%endif%}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Dirección*</label>
+                                            <input type="text" class="form-control form-control-lg" id="address" name="address" placeholder="Dirección" {% if request.user.is_authenticated %}value="{{request.user.address|default:''}}{%endif%}">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Correo electrónico*</label>
@@ -1113,7 +1117,7 @@
                                         <li class="d-flex flex-row cart-transit" data-value="0">
                                         </li>
                                     </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <!-- <p class="text-center pt-3">
                                     <button class="btn-block btn-brand">
@@ -1164,7 +1168,7 @@
                                         <li class="d-flex flex-row cart-transit" data-value="0">
                                         </li>
                                     </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
                                     <button class="btn-block btn-brand back-paper-data" type="button">
@@ -1207,7 +1211,7 @@
                                         <li class="d-flex flex-row cart-transit" data-value="0">
                                         </li>
                                     </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3"><button class="btn-block btn-brand"><i class="material-icons">keyboard_backspace</i>Volver</button></p>
                             </div>
@@ -1652,11 +1656,11 @@
                         $('li.cart-crc').append(
                             `
                                 <div class="media w-100">
-                                    <img class="align-self-top mr-2" src="/static/assets/img/img-check.svg" width="35">
+                                    <img class="align-self-top mr-2" src="/static/assets/img/stethoscope.svg" width="35">
                                     <div class="media-body">
                                         <h6 class="mt-0 mb-0 text-small">CRC</h6>
                                         <p class="mb-0 text-small crc-cart-name">${name}</p>
-                                        <p class="mb-0 text-small crc-cart-price">${price}</p>
+                                        <p class="mb-0 text-small crc-cart-price">$<span class="crc-cart-price-1">${price}</span></p>
                                     </div>
                                 </div>
                                 <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
@@ -1673,7 +1677,7 @@
                     }
                     if ($('li.cart-crc').data('value') == '0')
                     {
-                        total = parseInt($('.total-price').text())
+                        total = parseInt($('.total-price').first().text())
                         addCrc(total);
                     }
                     else{
@@ -1688,9 +1692,14 @@
                             reverseButtons: true
                         }).then((result) => {
                             if (result.value) {
-                                total = parseInt($('.total-price').text())
-                                old_value = parseInt($('crc-cart-price').text())
+                                console.log($('.total-price').first().text())
+                                total = parseInt($('.total-price').first().text())
+                                console.log(total)
+                                console.log($('.crc-cart-price-1').first().text())
+                                old_value = parseInt($('.crc-cart-price-1').first().text())
+                                console.log(old_value)
                                 final_price = total-old_value
+                                console.log(final_price)
                                 addCrc(final_price);
                             }
                         })
@@ -1708,7 +1717,7 @@
                                 <div class="media-body">
                                     <h6 class="mt-0 mb-0 text-small">CEA</h6>
                                     <p class="mb-0 text-small cea-cart-name">${name}</p>
-                                    <p class="mb-0 text-small cea-cart-price">${price}</p>
+                                    <p class="mb-0 text-small cea-cart-price">$<span class="cea-cart-price-1">${price}</span></p>
                                 </div>
                             </div>
                             <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
@@ -1741,7 +1750,7 @@
                         }).then((result) => {
                             if (result.value) {
                                 total = parseInt($('.total-price').first().text())
-                                old_value = parseInt($('cea-cart-price').text())
+                                old_value = parseInt($('.cea-cart-price-1').first().text())
                                 final_price = total-old_value
                                 addCea(final_price);
                             }
@@ -1756,11 +1765,11 @@
                         $('li.cart-transit').append(
                             `
                                 <div class="media w-100">
-                                    <img class="align-self-top mr-2" src="/static/assets/img/img-check.svg" width="35">
+                                    <img class="align-self-top mr-2" src="/static/assets/img/gorro.svg" width="35">
                                     <div class="media-body">
                                         <h6 class="mt-0 mb-0 text-small">Organismo de transito</h6>
                                         <p class="mb-0 text-small transit-cart-name">${name}</p>
-                                        <p class="mb-0 text-small transit-cart-price">${price}</p>
+                                        <p class="mb-0 text-small transit-cart-price">$<span class="transit-cart-price-1">${price}</span></p>
                                     </div>
                                 </div>
                                 <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
@@ -1793,7 +1802,7 @@
                         }).then((result) => {
                             if (result.value) {
                                 total = parseInt($('.total-price').first().text())
-                                old_value = parseInt($('cea-cart-price').text())
+                                old_value = parseInt($('.cea-cart-price-1').first().text())
                                 final_price = total-old_value
                                 addTransit(final_price);
                             }
