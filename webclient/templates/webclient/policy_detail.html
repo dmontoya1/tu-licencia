@@ -1,0 +1,35 @@
+{% extends 'webclient/base.html' %}
+{% load static %}{% load i18n %}
+
+{% block title %}
+        <title>TuLicencia, {{name}}</title>
+{% endblock %}
+
+{% block extra_css%}
+    <link rel="stylesheet" href="{% static 'assets/css/polices.css' %}">
+{% endblock %}
+
+
+{% block content %}
+
+  <br>
+  <br>
+  <main>
+    <section class="terms">
+      <div class="container text-justify terms-container">
+        <div class="row align-items-center">
+          <div class="col-12 police-title">
+            <h2>{{name}}</h2>
+          </div>
+        </div>
+        <div class="row">
+          {{content}}
+        </div>        
+      </div>
+    </section>
+  </main>
+
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

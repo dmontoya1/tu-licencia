@@ -9,18 +9,18 @@
                 <a href="{% url 'reports:purchases' %}" target="_blank">Compras realizadas</a>
             </li>
             <li>
-                <a href="{% url 'reports:credits' %}">Solicitudes de Créditos</a>
+                <a href="{% url 'reports:credits' %}" target="_blank">Solicitudes de Créditos</a>
             </li>
             <li>
-                <a href="{% url 'reports:services' %}">Servicios adquiridos a cada proveedor</a>
+                <a href="{% url 'reports:services' %}" target="_blank">Servicios adquiridos a cada proveedor</a>
             </li>
         {% elif request.user.user_type == 'CEA' %}
             <li>
-                <a href="{% url 'reports:cea' %}">Servicios Adquiridos</a>
+                <a href="{% url 'reports:cea' %}" target="_blank">Servicios Adquiridos</a>
             </li>
         {% elif request.user.user_type == 'CRC' %}
             <li>
-                <a href="{% url 'reports:crc' %}">Servicios Adquiridos</a>
+                <a href="{% url 'reports:crc' %}" target="_blank">Servicios Adquiridos</a>
             </li>
         {% endif %}
 </ul>

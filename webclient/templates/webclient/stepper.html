@@ -1102,7 +1102,7 @@
                                             <input type="checkbox" class="checkbox-terms">
                                             <span class="checkmark"></span>
                                         </label>
-                                        <p class="mb-0 pl-2">Al continuar acepta los <a href="#">TÉRMINOS Y CONDICIONES</a> y la <a href="#">POLÍTICA DE TRATAMIENTO DE DATOS</a> de <strong>TULICENCIA.CO</strong></p>
+                                        <p class="mb-0 pl-2">Al continuar acepta los <a href="{% url 'webclient:terms' %}" target="_blank">TÉRMINOS Y CONDICIONES</a> y la <a href="{% url 'webclient:privacy' %}" target="_blank">POLÍTICA DE TRATAMIENTO DE DATOS</a> de <strong>TULICENCIA.CO</strong></p>
                                     </div>
                                 {% endif %}
                             </div>
@@ -1217,7 +1217,6 @@
                                     </ul>
                                     <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
-                                <p class="text-center pt-3"><button class="btn-block btn-brand"><i class="material-icons">keyboard_backspace</i>Volver</button></p>
                             </div>
                         </div>
                         <p class="text-center">
