@@ -9,7 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('jet/', include('jet.urls', namespace='jet'), name='jet'),  # Django JET URLS
     path('jet/dashboard/', include('jet.dashboard.urls', namespace='jet-dashboard'), name='jet-dashboard'),
-    path('reports/', include('reports.urls', namespace='reports'), name='report'),
+
     path('api/', include('api.urls', namespace='api'), name='api'),
     path('payments/', include('payments.urls', namespace='payments'), name='payments'),
     path('', include('webclient.urls', namespace='webclient'), name='webclient'),
