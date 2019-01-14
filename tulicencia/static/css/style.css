@@ -911,3 +911,13 @@ button.btn.btn-export {
 	}
 
 }
+
+button.btn.btn-next-step, button.btn.btn-next-step:focus, button.btn.btn-next-step:active:focus, button.btn.btn-next-step.active:focus {
+    background: #162d40;
+    padding-left: 50px;
+    padding-right: 50px;
+	width: 100%;
+	margin-top: 10px;
+	text-transform: uppercase;
+    font-weight: 600;
+}

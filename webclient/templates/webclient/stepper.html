@@ -223,7 +223,7 @@
                                         </li>
                                         <li class="option option-DU">
                                             <input id="toggle4" type="checkbox" name="dupl" value="DU">
-                                            <label for="toggle4">Solicitar duplicado de mi actual licencia.</label>
+                                            <label for="toggle4">Solicitar duplicado de mi actual licencia</label>
                                         </li>
                                     </ul>
                                 </div>
@@ -620,6 +620,9 @@
                                     <button type="button" class="btn-block btn-brand back-crc">
                                         <i class="material-icons">keyboard_backspace</i>Volver
                                     </button>
+                                    <button type="button" class="btn btn-next-step btn-step-3">
+                                        Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next">
+                                    </button>
                                 </p>
                             </div>
                         </div>
@@ -627,7 +630,7 @@
                 </section>
                 
                 <div class="f1-buttons">
-                    <button type="button" hidden class="btn btn-next btn-step-3">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
+                    
                 </div>
             </fieldset>
             
@@ -792,14 +795,14 @@
                                     <button type="button" class="btn-block btn-brand back-crc">
                                         <i class="material-icons">keyboard_backspace</i>Volver
                                     </button>
+                                    <button type="button" class="btn btn-next-step btn-step-4">
+                                        Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next">
+                                    </button>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </section>
-                <div class="f1-buttons">
-                    <button type="button" hidden class="btn btn-next btn-step-4">Siguiente </button>
-                </div>
             </fieldset>
             
             <!-- Selección Tránsito -->
@@ -953,15 +956,14 @@
                                     <button type="button" class="btn-block btn-brand back-crc">
                                         <i class="material-icons">keyboard_backspace</i>Volver
                                     </button>
+                                    <button type="button" class="btn btn-next-step btn-step-5">
+                                        Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next">
+                                    </button>
                                 </p>
                             </div>
                         </div>
                     </div>
                 </section>
-                <div class="f1-buttons">
-                    <button type="button" class="btn btn-previous"><img src="{% static 'images/Volver.png' %}" alt="back">Volver </button>
-                    <button type="button" class="btn btn-next btn-step-5">Siguiente <img src="{% static 'images/Siguiente.png' %}" alt="next"></button>
-                </div>
             </fieldset>
 
             <!-- Datos finales -->
@@ -1677,8 +1679,7 @@
                         toastr["success"](`Se ha añadido ${name} al carrito de compras`)
                         setTimeout(function(){
                             $('.modal').modal('hide')
-                            $('.btn-step-3').trigger('click')
-                        }, 2000);
+                        }, 1500);
                     }
                     if ($('li.cart-crc').data('value') == '0')
                     {
@@ -1734,8 +1735,7 @@
                         toastr["success"](`Se ha añadido ${name} al carrito de compras`)
                         setTimeout(function(){ 
                             $('.modal').modal('hide')
-                            $('.btn-step-4').trigger('click')
-                        }, 2000);
+                        }, 1500);
                     }
                     if ($('li.cart-cea').data('value') == '0')
                     {
@@ -1786,8 +1786,7 @@
                         toastr["success"](`Se ha añadido ${name} al carrito de compras`)
                         setTimeout(function(){ 
                             $('.modal').modal('hide')
-                            $('.btn-step-5').trigger('click')
-                        }, 2000);
+                        }, 1500);
                     }
                     if ($('li.cart-transit').data('value') == '0')
                     {
