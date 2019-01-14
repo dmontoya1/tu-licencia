@@ -807,10 +807,14 @@ $('.continue-birth-date').click(() => {
     }
     else {
 
-        birth_date = `${$('#month').val()}-${$('#day').val()}-${$('#year').val()}`
+        birth_date = `${$('#month').val()}/${$('#day').val()}/${$('#year').val()}`
+        console.log(birth_date)
         dob = new Date(birth_date);
+        console.log(dob)
         var today = new Date();
+        console.log(today)
         age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+        console.log(age)
         $('#day-1').val($('#day').val())
         $('#month-1').val($('#month').val())
         $('#year-1').val($('#year').val())
