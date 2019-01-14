@@ -808,13 +808,9 @@ $('.continue-birth-date').click(() => {
     else {
 
         birth_date = `${$('#month').val()}/${$('#day').val()}/${$('#year').val()}`
-        console.log(birth_date)
         dob = new Date(birth_date);
-        console.log(dob)
         var today = new Date();
-        console.log(today)
         age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-        console.log(age)
         $('#day-1').val($('#day').val())
         $('#month-1').val($('#month').val())
         $('#year-1').val($('#year').val())
@@ -914,8 +910,10 @@ $('.back-second-licence').on('click', function(){
 })
 
 $('.element--second-licence input').on('click', function(ev){
-    if (!($('.option-' + tramit_type1).hasClass('option--selected'))){
-        $('.option-' + tramit_type1).addClass('option--selected')
+    console.log('click')
+    console.log($(this).val())
+    console.log(tramit_type1)
+    if (!($('.option-' + $(this).val()).hasClass('option--selected'))){
         if($(this).val() != 'SL' ){
             $('.toggleC2').removeClass('d-none')
             $('.toggleC3').removeClass('d-none')
@@ -944,8 +942,10 @@ $('.element--second-licence input').on('click', function(ev){
         if (tramit_type1 == ""){
             tramit_type1 = $(this).val()
             $('.option-' + tramit_type1).addClass('option--selected');
-            $('.element--second-licence').addClass('d-none');
-            $('.element--vehicle-type').removeClass('d-none');
+            setTimeout(function(){ 
+                $('.element--second-licence').addClass('d-none');
+                $('.element--vehicle-type').removeClass('d-none');
+            }, 700);
         }
         else{
             if (jQuery.isEmptyObject(licences)){
@@ -959,6 +959,8 @@ $('.element--second-licence input').on('click', function(ev){
                 })
             }
             else{
+                console.log("Else second licence")
+                $('.option-' + $(this).val()).addClass('option--selected')
                 if ('bike' in licences){
                     $('.bike-licences').toggleClass('d-none')
                     $('.bikelicence').toggleClass('disabled')
@@ -975,8 +977,10 @@ $('.element--second-licence input').on('click', function(ev){
                 }
                 tramit_type2 = $(this).val()
                 $('.option-' + tramit_type1).addClass('option--selected');
-                $('.element--second-licence').addClass('d-none')
-                $('.element--vehicle-type').removeClass('d-none')
+                setTimeout(function(){ 
+                    $('.element--second-licence').addClass('d-none')
+                    $('.element--vehicle-type').removeClass('d-none')
+                }, 700);
             }
             
         }
@@ -987,60 +991,140 @@ $('.element--second-licence input').on('click', function(ev){
     }
 })
 
+$('.male').on('click', function(e){
+    
+    if ($('.female').hasClass('choose--selected')){
+        $('.female').removeClass('choose--selected')
+    }
+    $(this).addClass('choose--selected')
+    gender = 'M'
+
+    setTimeout(function(){ 
+        $('.element--gender').addClass('d-none')
+        $('.element--birth-date').addClass('animated fadeInRight')
+        $('.element--birth-date').removeClass('d-none')
+    }, 700);
+    
+
+})
+
 $('#bike-licence').on('click', function(ev){
-    if(tramit_type1 == 'SL'){
-        if ($('#car-licence').hasClass('choose--selected'))
-        {
-            $('#car-licence').removeClass('choose--selected')
-        }
-    }
     bike = !bike;
-    if (!(bike)){
-        $('#bike-licence').removeClass('choose--selected')
-        if ('bike' in licences){
-            delete licences['bike']
+    console.log(bike)
+    if(tramit_type1 == 'SL'){
+        if ($('#car-licence').hasClass('choose--selected')){
+            $('#car-licence').removeClass('choose--selected')
+            car = false
         }
-        $('.title-car').addClass('d-none')
-        $('.toggleA1').addClass('d-none')
-        $('.toggleA2').addClass('d-none')
+        if (!(bike)){
+            console.log("If bike")
+            $('#bike-licence').removeClass('choose--selected')
+            if ('bike' in licences){
+                delete licences['bike']
+            }
+            $('.title-bike').addClass('d-none')
+            $('.toggleA1').addClass('d-none')
+            $('.toggleA2').addClass('d-none')
+            
+        }
+        else{
+            console.log("else Car")
+            $('#bike-licence').addClass('choose--selected')
+            $('.title-bike').removeClass('d-none')
+            $('.toggleA1').removeClass('d-none')
+            $('.toggleA2').removeClass('d-none')
+            $('.title-car').addClass('d-none')
+            $('.toggleB1').addClass('d-none')
+            $('.toggleC1').addClass('d-none')
+            $('.toggleC2').addClass('d-none')
+            $('.toggleC3').addClass('d-none')
+        }
     }
-    else{
-        $('#bike-licence').addClass('choose--selected')
-        $('.title-bike').removeClass('d-none')
-        $('.toggleA1').removeClass('d-none')
-        $('.toggleA2').removeClass('d-none')
+    else {
+        if (!(bike)){
+            console.log("If bike")
+            $('#bike-licence').removeClass('choose--selected')
+            if ('bike' in licences){
+                delete licences['bike']
+            }
+            $('.title-bike').addClass('d-none')
+            $('.toggleA1').addClass('d-none')
+            $('.toggleA2').addClass('d-none')
+            
+        }
+        else{
+            console.log("else bike")
+            $('#bike-licence').addClass('choose--selected')
+            $('.title-bike').removeClass('d-none')
+            $('.toggleA1').removeClass('d-none')
+            $('.toggleA2').removeClass('d-none')
+            
+        }
     }
     
 })
 
 $('#car-licence').on('click', function(ev){
-    if(tramit_type1 == 'SL'){
-        if ($('#bike-licence').hasClass('choose--selected'))
-        {
-            $('#bike-licence').removeClass('choose--selected')
-        }
-    }
+    console.log(car)
     car = !car;
-    if (!(car)){
-        $('#car-licence').removeClass('choose--selected')
-        if ('car' in licences){
-            delete licences['car']
+    if(tramit_type1 == 'SL'){
+        if ($('#bike-licence').hasClass('choose--selected')){
+            $('#bike-licence').removeClass('choose--selected')
+            bike = false
         }
-        $('.title-car').addClass('d-none')
-        $('.toggleB1').addClass('d-none')
-        $('.toggleC1').addClass('d-none')
-        $('.toggleC2').addClass('d-none')
-        $('.toggleC3').addClass('d-none')
-        
+    
+        if (!(car)){
+            console.log("if Car")
+            $('#car-licence').removeClass('choose--selected')
+            if ('car' in licences){
+                delete licences['car']
+            }
+            $('.title-car').addClass('d-none')
+            $('.toggleB1').addClass('d-none')
+            $('.toggleC1').addClass('d-none')
+            $('.toggleC2').addClass('d-none')
+            $('.toggleC3').addClass('d-none')
+            
+        }
+        else{
+            console.log("else car")
+            $('#car-licence').addClass('choose--selected')
+            $('.title-car').removeClass('d-none')
+            $('.toggleB1').removeClass('d-none')
+            $('.toggleC1').removeClass('d-none')
+            $('.title-bike').addClass('d-none')
+            $('.toggleA1').addClass('d-none')
+            $('.toggleA2').addClass('d-none')
+            if(tramit_type1 == 'RN'){
+                $('.toggleC2').removeClass('d-none')
+                $('.toggleC3').removeClass('d-none')
+            }
+        }
     }
-    else{
-        $('#car-licence').addClass('choose--selected')
-        $('.title-car').removeClass('d-none')
-        $('.toggleB1').removeClass('d-none')
-        $('.toggleC1').removeClass('d-none')
-        if(tramit_type1 == 'RN'){
-            $('.toggleC2').removeClass('d-none')
-            $('.toggleC3').removeClass('d-none')
+    else {
+        if (!(car)){
+            console.log("if Car")
+            $('#car-licence').removeClass('choose--selected')
+            if ('car' in licences){
+                delete licences['car']
+            }
+            $('.title-car').addClass('d-none')
+            $('.toggleB1').addClass('d-none')
+            $('.toggleC1').addClass('d-none')
+            $('.toggleC2').addClass('d-none')
+            $('.toggleC3').addClass('d-none')
+            
+        }
+        else{
+            console.log("else car")
+            $('#car-licence').addClass('choose--selected')
+            $('.title-car').removeClass('d-none')
+            $('.toggleB1').removeClass('d-none')
+            $('.toggleC1').removeClass('d-none')
+            if(tramit_type1 == 'RN'){
+                $('.toggleC2').removeClass('d-none')
+                $('.toggleC3').removeClass('d-none')
+            }
         }
     }
     
@@ -1652,7 +1736,9 @@ $('#licence-request-form').on('submit', function(e){
                 data = response.data;
                 swal({
                     title: 'Felicitaciones!',
-                    text: 'Tu solicitud se ha creado exitosamente. Dirigete al punto de TuLicencia mas cercano para validar tu solicitud de crédito',
+                    html:
+                        'Tu solicitud se ha creado exitosamente. Dirigete al punto de TuLicencia mas cercano para validar tu solicitud de crédito <br/><br/>' +
+                        `Tu código de solicitud es <strong>${data.booking}</strong>`,
                     type: 'success',
                     showCancelButton: false,
                     confirmButtonText: 'Finalizar'
