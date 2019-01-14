@@ -114,7 +114,7 @@ class RequestCreate(APIView):
             # sendBaucherEmail(ctx, request_obj.user.email, 'Instrucciones TuLicencia', params=params)
 
             message = 'Se ha creado la solicitud con éxito'
-            response = {'detail': message, 'request': request_obj.pk}
+            response = {'detail': message, 'request': request_obj.pk, 'booking': request_obj.booking}
             status_e = status.HTTP_201_CREATED
         except Exception as e:
             print (e)

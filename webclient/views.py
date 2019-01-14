@@ -62,7 +62,7 @@ class Profile(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Profile, self).get_context_data(**kwargs)
-        requests = Request.objects.filter(user=self.request.user)
+        requests = Request.objects.filter(user=self.request.user).order_by('request_date')
         context['requests'] = requests
         return context
 
