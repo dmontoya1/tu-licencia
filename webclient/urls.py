@@ -16,4 +16,6 @@ urlpatterns = [
     path('profile', views.Profile.as_view(), name='profile'),
     path('profile/<int:pk>/', views.ProfileDetail.as_view(), name='profile-detail'),
     path('request/<int:pk>/', views.RequestDetail.as_view(), name='request-detail'),
+    path('terms', views.TermsView.as_view(), name='terms'),
+    path('privacy', views.PrivacyPolicyView.as_view(), name='privacy'),
 ]

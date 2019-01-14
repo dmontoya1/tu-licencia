@@ -12,6 +12,7 @@ from django.views.generic.base import TemplateView, View
 from django.views.generic.detail import DetailView
 
 from companies.models import TuLicencia
+from manager.models import Police
 from request.models import Request
 from users.models import UserToken
 
@@ -146,4 +147,26 @@ class ResetPasswordView(TemplateView):
     def get_context_data(self,user=None, **kwargs):
         context = super(ResetPasswordView, self).get_context_data(**kwargs)
         context['user'] = user
+        return context
+
+
+class TermsView(TemplateView):
+    template_name = 'webclient/policy_detail.html'
+
+    def get_context_data(self, **kwargs):
+        police = get_object_or_404(Police, police_type='TC')
+        context = super(TermsView, self).get_context_data(**kwargs)
+        context['name'] = police.get_police_type_display()
+        context['content'] = police.text
+        return context
+
+
+class PrivacyPolicyView(TemplateView):
+    template_name = 'webclient/policy_detail.html'
+
+    def get_context_data(self, **kwargs):
+        police = get_object_or_404(Police, police_type='PP')
+        context = super(PrivacyPolicyView, self).get_context_data(**kwargs)
+        context['name'] = police.get_police_type_display()
+        context['content'] = police.text
         return context
