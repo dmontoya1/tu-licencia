@@ -441,7 +441,13 @@ button.company-detail {
 	border: none;
 	cursor: pointer;
 	text-align: left;
+	width: 100%;
+	border:none;
 }
+	.company-detail-crc{
+		width: 100%;
+		border:none;
+	}
 
 @media (min-width: 768px){
 	.modal-lg {
@@ -482,7 +488,7 @@ button.company-detail {
 
 .element .title{
 	color: #888;
-	font-size: 1.3rem;
+	font-size: 1.2rem;
 	font-weight: 700;
 }
 
@@ -590,7 +596,7 @@ h2.company-title {
 	max-height: 550px;
 	overflow-y: auto;
   overflow-x: hidden;
-  padding: .5rem .5rem 0 .5rem;
+  padding: .5rem;
 }
 
 .table-buy{
@@ -694,15 +700,7 @@ h2.company-title {
 	}
 }
 
-@media (max-width: 992px){
-	.tooltip-brand .tooltiptext{
-		left: -220px;
-	}
 
-	.tooltip-brand .tooltiptext::after{
-		left: 85%;
-	}
-}
 
 @media (max-width: 600px){	
 	.btn-small{
@@ -779,37 +777,6 @@ h2.company-title {
 }
 
 
-@media (max-width: 500px){
-	
-	.content-result{
-		display: inherit !important;
-	}
-
-	.thumbnail{
-		text-align: center;
-	}
-
-	.tooltip-brand .tooltiptext{
-		left: -176px;
-	}
-
-	.tooltip-brand .tooltiptext{
-		width: 300px;
-	}
-
-}
-
-@media (max-width: 1024px) {
-	.filter-web{
-		display: none;
-	}
-
-	.filter-mobile{
-		display: block;
-	}
-}
-
-
 ul.tramit-choice {
 	list-style-type: none;
 	text-align: center;
@@ -846,6 +813,7 @@ ul.tramit-choice input {
 	transition: opacity 0.3s;
 	font-size: .9rem;
 	font-weight: 400;
+	background-color: #fff;
 }
 
 .tooltip-brand .tooltiptext::after {
@@ -882,4 +850,64 @@ button.btn.btn-export {
     opacity: 1;
     border-radius: 25px;
     padding: 6px 13px !important;
+}
+
+
+@media (max-width: 1024px) {
+	.filter-web{
+		display: none;
+	}
+
+	.filter-mobile{
+		display: block;
+	}
+
+	.text-small-modal{
+		font-size: 90%;
+	}
+}
+
+@media (max-width: 992px){
+	.tooltip-brand .tooltiptext{
+		left: -220px;
+	}
+
+	.tooltip-brand .tooltiptext::after{
+		left: 85%;
+	}
+}
+@media (max-width: 625px){
+	.content-stepper{
+		overflow-x: auto;
+	}
+
+	.content-stepper .f1-steps{
+		width: 560px;
+    	padding-left: 16px;
+	}
+}
+
+
+@media (max-width: 500px){
+	
+	.content-result{
+		display: inherit !important;
+	}
+
+	.thumbnail{
+		text-align: center;
+	}
+
+	.tooltip-brand .tooltiptext{
+		left: -170px;
+	}
+
+	.tooltip-brand .tooltiptext{
+		width:290px;
+	}
+
+	.f1{
+		padding: 15px;
+	}
+
 }

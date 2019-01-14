@@ -51,6 +51,8 @@ class RequestCreate(APIView):
                 user.first_name = user_data['first_name']
                 user.last_name = user_data['last_name']
                 user.cellphone = user_data['cellphone']
+                user.phone_number = user_data['phone_number']
+                user.address = user_data['address']
                 user.user_type = User.CLIENTE
                 user.document_type = user_data['document_type']
                 user.document_id = user_data['document_id']

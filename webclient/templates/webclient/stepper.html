@@ -1,5 +1,6 @@
 {% extends 'webclient/base.html' %}
 
+
 {% load static %}
 {% load custom_range %}
 {% load humanize %}
@@ -30,36 +31,39 @@
             <input type="hidden" name="tramit_1" class="tramit-1-input" value="">
             <input type="hidden" name="licence_2" class="licence-2-input" value="">
             <input type="hidden" name="tramit_2" class="tramit-2-input" value="">
-             
-            <div class="f1-steps row">
-                <div class="f1-progress">
-                    <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="6" style="width: 16.66%;"></div>
-                </div>
-                <div class="f1-step active">
-                    <div class="f1-step-icon"><img src="{% static '/images/1.png' %}" width="23" alt="stepper-1"></div>
-                    <p>Datos Usuario</p>
-                </div>
-                <div class="f1-step">
-                    <div class="f1-step-icon"><img src="{% static '/images/2.png' %}" width="23" alt="stepper-2"></div>
-                    <p>Tipo de trámite</p>
-                </div>
-                <div class="f1-step">
-                    <div class="f1-step-icon"><img src="{% static '/images/3.png' %}" width="23" alt="stepper-3"></div>
-                    <p>Seleccionar CRC</p>
-                </div>
-                <div class="f1-step">
-                    <div class="f1-step-icon"><img src="{% static '/images/4.png' %}" width="23" alt="stepper-4"></div>
-                    <p>Seleccionar CEA</p>
-                </div>
-                <div class="f1-step">
-                    <div class="f1-step-icon"><img src="{% static '/images/5.png' %}" width="23" alt="stepper-5"></div>
-                    <p>Organismo de Transporte</p>
-                </div>
-                <div class="f1-step">
-                    <div class="f1-step-icon"><img src="{% static '/images/6.png' %}" width="23" alt="stepper-6"></div>
-                    <p>Datos finales usuario</p>
+            
+            <div class="content-stepper">
+                <div class="f1-steps row">
+                    <div class="f1-progress">
+                        <div class="f1-progress-line" data-now-value="16.66" data-number-of-steps="6" style="width: 16.66%;"></div>
+                    </div>
+                    <div class="f1-step active">
+                        <div class="f1-step-icon"><img src="{% static '/images/1.png' %}" width="23" alt="stepper-1"></div>
+                        <p>Datos Usuario</p>
+                    </div>
+                    <div class="f1-step">
+                        <div class="f1-step-icon"><img src="{% static '/images/2.png' %}" width="23" alt="stepper-2"></div>
+                        <p>Tipo de trámite</p>
+                    </div>
+                    <div class="f1-step">
+                        <div class="f1-step-icon"><img src="{% static '/images/3.png' %}" width="23" alt="stepper-3"></div>
+                        <p>Seleccionar CRC</p>
+                    </div>
+                    <div class="f1-step">
+                        <div class="f1-step-icon"><img src="{% static '/images/4.png' %}" width="23" alt="stepper-4"></div>
+                        <p>Seleccionar CEA</p>
+                    </div>
+                    <div class="f1-step">
+                        <div class="f1-step-icon"><img src="{% static '/images/5.png' %}" width="23" alt="stepper-5"></div>
+                        <p>Organismo de Transporte</p>
+                    </div>
+                    <div class="f1-step">
+                        <div class="f1-step-icon"><img src="{% static '/images/6.png' %}" width="23" alt="stepper-6"></div>
+                        <p>Datos finales usuario</p>
+                    </div>
                 </div>
             </div>
+               
             
             <!-- Datos iniciales -->
             <fieldset>
@@ -264,7 +268,7 @@
                     <div class="element element--licence-type d-none animated fadeInRight">
                         <div class="row">
                             <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
-                                <h3 class="title text-center mt-5">Selecciona la clase de licencia que necesitas</h3>
+                                <h3 class="title text-center mt-5 ">Selecciona la clase de licencia que necesitas</h3>
                                 <p class="text text-center pb-5 mb-0  t-justify"><strong>Nota: </strong>Las licencias para Automóvil categoría 3ra y 4ta (son actualmente conocidas como B1, C1) y para Motocicleta categoría 1ra y 2da (son actualmente conocidas como A1, A2)</p>
                             </div>
                         </div>
@@ -272,12 +276,12 @@
                             <div class="col-12 col-xl-10 offset-xl-1">
                                 <h5 class="title-second pb-5 title-car d-none">
                                     <img src="{% static 'assets/img/carro.svg' %}" width="50" alt="">
-                                    <span class="pl-5">Licencias para Automóviles</span>
+                                    <span class="pl-5 pl1-m">Licencias para Automóviles</span>
                                 </h5>
                                 <div class="row pb-5 mb-4">
                                     <div class="col-12 col-md-6 toggleB1 d-none">
-                                        <div class="d-flex flex-row">
-                                            <div class="pr-4">
+                                        <div class="d-flex flex-row no-flex mb-2">
+                                            <div class="pr-4 p0-m mb2-m">
                                                 <label class="check-pass check-B1">
                                                     <span>B1</span>
                                                     <input type="checkbox" id="toggleB1" data-name="B1" name="B1">
@@ -288,8 +292,8 @@
                                         </div>          
                                     </div>
                                     <div class="col-12 col-md-6 toggleC1 d-none">
-                                        <div class="d-flex flex-row ">
-                                            <div class="pr-4">
+                                        <div class="d-flex flex-row no-flex mb-2">
+                                            <div class="pr-4 p0-m mb2-m">
                                                 <label class="check-pass check-C1">
                                                     <span>C1</span>
                                                     <input type="checkbox" id="toggleC1" data-name="C1" name="C1">
@@ -331,12 +335,12 @@
                             <div class="col-12 col-xl-10 offset-xl-1">
                                 <h5 class="title-second title-bike pb-5 d-none">
                                     <img src="{% static 'assets/img/moto.svg' %}" width="50" alt="">
-                                    <span class="pl-5">Licencias para Moticicletas</span>
+                                    <span class="pl-5 pl1-m">Licencias para Moticicletas</span>
                                 </h5>
                                 <div class="row pb-5 mb-4">
                                     <div class="col-12 col-md-6 toggleA1 d-none">
-                                        <div class="d-flex flex-row">
-                                            <div class="pr-4">
+                                        <div class="d-flex flex-row no-flex mb-2">
+                                            <div class="pr-4 p0-m mb2-m">
                                                 <label class="check-pass check-A1">
                                                     <span>A1</span>
                                                     <input type="checkbox" id="toggleA1" data-name="A1" name="A1">
@@ -347,8 +351,8 @@
                                         </div>          
                                     </div>
                                     <div class="col-12 col-md-6 toggleA2 d-none">
-                                        <div class="d-flex flex-row align-self-center">
-                                            <div class="pr-4">
+                                        <div class="d-flex flex-row no-flex mb-2 align-self-center">
+                                            <div class="pr-4 p0-m mb2-m">
                                                 <label class="check-pass check-A2">
                                                     <span>A2</span>
                                                     <input type="checkbox" id="toggleA2" data-name="A2" name="A2">
@@ -388,7 +392,7 @@
                                 </div>
                             </div>
                             <p class="text-center">
-                                <button class="btn-brand" type="button" class="back-aditional-tramit">
+                                <button class="btn-brand back-aditional-tramit" type="button">
                                     <i class="material-icons">keyboard_backspace</i>
                                     Volver
                                 </button>
@@ -565,7 +569,7 @@
                                                         <p class="text"><span class="weigh-5">4.5 </span><i class="material-icons">grade</i> (200)</p>                            
                                                     </div>
                                                 </div>
-                                                <div class="result-body">
+                                                <div class="result-body text-left">
                                                     <h4 class="text-small"><span>Simetric</span> - Centro Integral de Reconocimiento</h4>
                                                     <div class="d-flex flex-row">
                                                         <div class="price  pr-2">
@@ -610,7 +614,7 @@
                                             <li class="d-flex flex-row cart-transit" data-value="0">
                                             </li>
                                         </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
                                     <button type="button" class="btn-block btn-brand back-crc">
@@ -782,7 +786,7 @@
                                             <li class="d-flex flex-row cart-transit" data-value="0">
                                             </li>
                                         </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
                                     <button type="button" class="btn-block btn-brand back-crc">
@@ -943,7 +947,7 @@
                                             <li class="d-flex flex-row cart-transit" data-value="0">
                                             </li>
                                         </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
                                     <button type="button" class="btn-block btn-brand back-crc">
@@ -1051,7 +1055,7 @@
                                         <li class="d-flex flex-row cart-transit" data-value="0">
                                         </li>
                                     </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                             </div>
                         </div>
@@ -1070,8 +1074,12 @@
                                             <input type="number" class="form-control form-control-lg" id="phone_number" name="phone_number" placeholder="Numero teléfono fijo" {% if request.user.is_authenticated %}value="{{request.user.phone_number|default:''}}{%endif%}">
                                         </div>
                                         <div class="form-group">
+                                            <label for="">Dirección*</label>
+                                            <input type="text" class="form-control form-control-lg" id="address" name="address" placeholder="Dirección" {% if request.user.is_authenticated %}value="{{request.user.address|default:''}}{%endif%}">
+                                        </div>
+                                        <div class="form-group">
                                             <label for="">Correo electrónico*</label>
-                                            <input type="mail" class="form-control form-control-lg" name="email" id="email" placeholder="Correo electroónico" {% if request.user.is_authenticated %}value="{{request.user.email}}{%endif%}">
+                                            <input type="mail" class="form-control form-control-lg" name="email" id="email" placeholder="Correo electrónico" {% if request.user.is_authenticated %}value="{{request.user.email}}{%endif%}">
                                         </div>
                                     </div>
                                     {% if request.user.is_anonymous %}
@@ -1113,7 +1121,7 @@
                                         <li class="d-flex flex-row cart-transit" data-value="0">
                                         </li>
                                     </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <!-- <p class="text-center pt-3">
                                     <button class="btn-block btn-brand">
@@ -1164,7 +1172,7 @@
                                         <li class="d-flex flex-row cart-transit" data-value="0">
                                         </li>
                                     </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
                                     <button class="btn-block btn-brand back-paper-data" type="button">
@@ -1207,7 +1215,7 @@
                                         <li class="d-flex flex-row cart-transit" data-value="0">
                                         </li>
                                     </ul>
-                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: </strong><span class="total-price">0</span></p>
+                                    <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3"><button class="btn-block btn-brand"><i class="material-icons">keyboard_backspace</i>Volver</button></p>
                             </div>
@@ -1234,148 +1242,151 @@
         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <div class="col-sm-12 col-md-12 col-lg-12 form-box">
-                        <div class="detail-crc">
-                            <h3 class="crc-big-title">Detalle</h3>
-                            <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <div class="row crc-info justify-content-around mb-4">
-                                <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
-                                    <div class="image-crc">
-                                        <img class="company-logo mx-auto d-block mt-4 img-fluid" width=200 height=200 src="" alt="Logo Company">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 form-box text-small-modal">
+                            <div class="detail-crc">
+                                <h3 class="crc-big-title">Detalle</h3>
+                                <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <div class="row crc-info justify-content-around mb-4">
+                                    <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
+                                        <div class="image-crc">
+                                            <img class="company-logo mx-auto d-block mt-4 img-fluid" width=200 height=200 src="" alt="Logo Company">
+                                        </div>
+                                        <div class="select-button mt-3">
+                                            <button type="button" class="btn-select add-cart" data-id="" data-name="" data-price="" data-company="">Seleccionar</button>
+                                        </div>
                                     </div>
-                                    <div class="select-button mt-3">
-                                        <button type="button" class="btn-select add-cart" data-id="" data-name="" data-price="" data-company="">Seleccionar</button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-md-c-8 info-crc mb-4">
-                                    <div class="row crc-title">
-                                        <div class="col-12">
-                                            <span class="company-name">Nombre</span>
-                                        </div>
-                                        
-                                    </div>
-                                    <div class="row details">
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Dirección: <br>
-                                                    </span>
-                                                    <span class="item-detail company-address">
-                                                        direccion
-                                                    </span>
-                                                </div>
+                                    <div class="col-sm-12 col-md-c-8 ">
+                                        <div class="info-crc mb-4">
+                                            <div class="crc-title">
+                                                <div class="col-12">
+                                                    <span class="company-name">Nombre</span>
+                                                </div>                                            
                                             </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/ciudad/res/mipmap-mdpi/ciudad.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Sector: <span class="company-sector">Sector</span> <br>
-                                                    </span>
-                                                    <span class="item-detail company-location">
-                                                        Ciudad, Dpto
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/horario/res/mipmap-mdpi/horario.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Horario <br>
-                                                        Lunes a Viernes <br>
-                                                    </span>
-                                                    <span class="item-detail company-schedule">
-                                                        08:00 AM - 12:00 PM <br>
-                                                        02:00 PM - 06:00 PM
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Teléfono <br>
-                                                    </span>
-                                                    <span class="company-phone">
-                                                        telefono
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Calificación <br>
-                                                    </span>
-                                                    <span class="item-detail">
-                                                        <p class="text">
-                                                            <span class="weigh-5 company-rating">
-                                                                ${v.rating} 
+                                            <div class="row details">
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Dirección: <br>
                                                             </span>
-                                                            <i class="material-icons">grade</i> 
-                                                            <span class="company-rating-count">
-                                                                (${v.count_rating})
+                                                            <span class="item-detail company-address">
+                                                                direccion
                                                             </span>
-                                                        </p>
-                                                    </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/precio/res/mipmap-mdpi/precio.png' %}" width="30" height="30">
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/ciudad/res/mipmap-mdpi/ciudad.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Sector: <span class="company-sector">Sector</span> <br>
+                                                            </span>
+                                                            <span class="item-detail company-location">
+                                                                Ciudad, Dpto
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Precios <br>
-                                                    </span>
-                                                    <span class="item-detail company-price">
-                                                        $ price
-                                                    </span>
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/horario/res/mipmap-mdpi/horario.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Horario <br>
+                                                                Lunes a Viernes <br>
+                                                            </span>
+                                                            <span class="item-detail company-schedule">
+                                                                08:00 AM - 12:00 PM <br>
+                                                                02:00 PM - 06:00 PM
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Teléfono <br>
+                                                            </span>
+                                                            <span class="company-phone">
+                                                                telefono
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Calificación <br>
+                                                            </span>
+                                                            <span class="item-detail">
+                                                                <p class="text">
+                                                                    <span class="weigh-5 company-rating">
+                                                                        ${v.rating} 
+                                                                    </span>
+                                                                    <i class="material-icons">grade</i> 
+                                                                    <span class="company-rating-count">
+                                                                        (${v.count_rating})
+                                                                    </span>
+                                                                </p>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/precio/res/mipmap-mdpi/precio.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Precios <br>
+                                                            </span>
+                                                            <span class="item-detail company-price">
+                                                                $ price
+                                                            </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row map">
-                                <div class="col-12">
-                                    <div style="width: 100%">
-                                        <iframe 
-                                            src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d15903.15217075221!2d-75.72533726779959!3d4.8064181639462245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e0!4m3!3m2!1d4.8156126!2d-75.7219981!4m3!3m2!1d4.8138567!2d-75.69442099999999!5e0!3m2!1ses-419!2sco!4v1545779183981" 
-                                            width="100%" 
-                                            height="450" 
-                                            frameborder="0" 
-                                            style="border:0" 
-                                            allowfullscreen>
-                                        </iframe>
+                                <div class="row map">
+                                    <div class="col-12">
+                                        <div style="width: 100%">
+                                            <iframe 
+                                                src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d15903.15217075221!2d-75.72533726779959!3d4.8064181639462245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e0!4m3!3m2!1d4.8156126!2d-75.7219981!4m3!3m2!1d4.8138567!2d-75.69442099999999!5e0!3m2!1ses-419!2sco!4v1545779183981" 
+                                                width="100%" 
+                                                height="450" 
+                                                frameborder="0" 
+                                                style="border:0" 
+                                                allowfullscreen>
+                                            </iframe>
+                                        </div>
+                                        <br />
                                     </div>
-                                    <br />
                                 </div>
-                            </div>
-                        </div>    
-                    </div>
+                            </div>    
+                        </div>
+                    </div>                        
                 </div>
             </div>
         </div>
@@ -1405,8 +1416,7 @@
                                     <div class="row crc-title">
                                         <div class="col-12">
                                             <span class="company-name">Nombre</span>
-                                        </div>
-                                        
+                                        </div>                                        
                                     </div>
                                     <div class="row details">
                                         <div class="col-lg-6">
@@ -1652,11 +1662,11 @@
                         $('li.cart-crc').append(
                             `
                                 <div class="media w-100">
-                                    <img class="align-self-top mr-2" src="/static/assets/img/img-check.svg" width="35">
+                                    <img class="align-self-top mr-2" src="/static/assets/img/stethoscope.svg" width="35">
                                     <div class="media-body">
                                         <h6 class="mt-0 mb-0 text-small">CRC</h6>
                                         <p class="mb-0 text-small crc-cart-name">${name}</p>
-                                        <p class="mb-0 text-small crc-cart-price">${price}</p>
+                                        <p class="mb-0 text-small crc-cart-price">$<span class="crc-cart-price-1">${price}</span></p>
                                     </div>
                                 </div>
                                 <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
@@ -1673,7 +1683,7 @@
                     }
                     if ($('li.cart-crc').data('value') == '0')
                     {
-                        total = parseInt($('.total-price').text())
+                        total = parseInt($('.total-price').first().text())
                         addCrc(total);
                     }
                     else{
@@ -1688,9 +1698,14 @@
                             reverseButtons: true
                         }).then((result) => {
                             if (result.value) {
-                                total = parseInt($('.total-price').text())
-                                old_value = parseInt($('crc-cart-price').text())
+                                console.log($('.total-price').first().text())
+                                total = parseInt($('.total-price').first().text())
+                                console.log(total)
+                                console.log($('.crc-cart-price-1').first().text())
+                                old_value = parseInt($('.crc-cart-price-1').first().text())
+                                console.log(old_value)
                                 final_price = total-old_value
+                                console.log(final_price)
                                 addCrc(final_price);
                             }
                         })
@@ -1708,7 +1723,7 @@
                                 <div class="media-body">
                                     <h6 class="mt-0 mb-0 text-small">CEA</h6>
                                     <p class="mb-0 text-small cea-cart-name">${name}</p>
-                                    <p class="mb-0 text-small cea-cart-price">${price}</p>
+                                    <p class="mb-0 text-small cea-cart-price">$<span class="cea-cart-price-1">${price}</span></p>
                                 </div>
                             </div>
                             <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
@@ -1741,7 +1756,7 @@
                         }).then((result) => {
                             if (result.value) {
                                 total = parseInt($('.total-price').first().text())
-                                old_value = parseInt($('cea-cart-price').text())
+                                old_value = parseInt($('.cea-cart-price-1').first().text())
                                 final_price = total-old_value
                                 addCea(final_price);
                             }
@@ -1756,11 +1771,11 @@
                         $('li.cart-transit').append(
                             `
                                 <div class="media w-100">
-                                    <img class="align-self-top mr-2" src="/static/assets/img/img-check.svg" width="35">
+                                    <img class="align-self-top mr-2" src="/static/assets/img/gorro.svg" width="35">
                                     <div class="media-body">
                                         <h6 class="mt-0 mb-0 text-small">Organismo de transito</h6>
                                         <p class="mb-0 text-small transit-cart-name">${name}</p>
-                                        <p class="mb-0 text-small transit-cart-price">${price}</p>
+                                        <p class="mb-0 text-small transit-cart-price">$<span class="transit-cart-price-1">${price}</span></p>
                                     </div>
                                 </div>
                                 <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
@@ -1793,7 +1808,7 @@
                         }).then((result) => {
                             if (result.value) {
                                 total = parseInt($('.total-price').first().text())
-                                old_value = parseInt($('cea-cart-price').text())
+                                old_value = parseInt($('.cea-cart-price-1').first().text())
                                 final_price = total-old_value
                                 addTransit(final_price);
                             }

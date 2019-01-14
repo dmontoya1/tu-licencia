@@ -408,7 +408,7 @@ function crc_filter(params){
                 $('.crc-list').append(
                     `
                         <div class="col-12 col-xl-6">
-                            <button type="button" class="company-detail" data-id="${v.id}" data-company="crc">
+                            <button type="button" class="company-detail-crc" data-id="${v.id}" data-company="crc">
                                 <div class="d-flex flex-row content-result rounded mb-2">
                                     <div class="thumbnail mr-2 mb-4">
                                         
@@ -449,7 +449,7 @@ function crc_filter(params){
                     `
                 )
             })
-            $('.company-detail').on('click', function(){
+            $('.company-detail-crc').on('click', function(){
                 var licence = ""
                 $.each(licences, function(i, v){
                     licence += (`${v},`)
@@ -528,7 +528,7 @@ function cea_filter(params){
                 $('.cea-list').append(
                     `
                         <div class="col-12 col-xl-6">
-                            <button type="button" class="company-detail" data-id="${v.id}" data-company="cea">
+                            <button type="button" class="company-detail-cea" data-id="${v.id}" data-company="cea">
                                 <div class="d-flex flex-row content-result rounded mb-2">
                                     <div class="thumbnail mr-2 mb-4">
                                         
@@ -569,7 +569,7 @@ function cea_filter(params){
                     `
                 )
             })
-            $('.company-detail').on('click', function(){
+            $('.company-detail-cea').on('click', function(){
                 var licence = ""
                 $.each(licences, function(i, v){
                     licence += (`${v},`)
@@ -1428,6 +1428,7 @@ $('.continue-runt').on('click', function(){
 })
 
 $('.back-crc').on('click', function() {
+    $('.cea-list').empty()
     $('.element--have-runt').removeClass('d-none')
     var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     var progress_line = $(this).parents('.f1').find('.f1-progress-line');
@@ -1602,8 +1603,9 @@ $('#licence-request-form').on('submit', function(e){
             "gender": gender,
             "document_type": $('#doc_type :selected').val(),
             "document_id": $('#doc_id').val(),
-            "cellphone": $('#phone_number').val(),
-            // "city": $('#cities').val(),
+            "cellphone": $('#cellphone').val(),
+            "phone_number": $('#phone_number').val(),
+            "address": $('#address').val(),
             "state": $('#states').val(),
             "birth_date": birth_date
         },
