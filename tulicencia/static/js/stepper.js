@@ -426,21 +426,16 @@ function crc_filter(params){
                                                 <p class="weigh-5">$${v.final_price}</p>
                                             </div>
                                             <div class="schedule pl-2 pr-2">
-                                                <span class="subtitle d-block pb-3">Horarios</span>
+                                                <span class="subtitle d-block pb-3">Horarios de atención</span>
                                                 <div class="d-flex flex-row d-normal">
                                                     <div class="pr-2">
                                                         <span class="subtitle d-block">Luneas a viernes:</span>
-                                                        <p class="text mb-1">08:00 AM - 12:00 PM y 2:00 PM - 6:00 PM</p>
+                                                        <p class="text mb-1">${v.schedule}</p>
                                                     </div>
-                                                    <div class="saturday">
-                                                        <span class="subtitle d-block">Sábado:</span>
-                                                        <p class="text mb-0">08:00 AM - 12:00 PM </p>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                        <span class="subtitle d-block">Descripción:</span>
-                                        <p class="p-text">Lorem ipsum dolor sit amet </p>
                                     </div>
                                 </div>
                             </button>
@@ -541,26 +536,23 @@ function cea_filter(params){
                                     <div class="result-body">
                                         <h4 class="text-small"><span>${v.name}</span></h4>
                                         <div class="d-flex flex-row">
-                                            <div class="price  pr-2">
+                                            <div class="price pr-2">
                                                 <span class="subtitle d-block">Precio</span>
-                                                <p class="weigh-5">$${v.final_price}</p>
+                                                <p>$${v.final_price}</p>
                                             </div>
                                             <div class="schedule pl-2 pr-2">
-                                                <span class="subtitle d-block pb-3">Horarios</span>
+                                                <span class="subtitle d-block pb-3">Horarios de atención</span>
                                                 <div class="d-flex flex-row d-normal">
                                                     <div class="pr-2">
                                                         <span class="subtitle d-block">Luneas a viernes:</span>
-                                                        <p class="text mb-1">08:00 AM - 12:00 PM y 2:00 PM - 6:00 PM</p>
+                                                        <p class="text mb-1">${v.schedule}</p>
                                                     </div>
-                                                    <div class="saturday">
-                                                        <span class="subtitle d-block">Sábado:</span>
-                                                        <p class="text mb-0">08:00 AM - 12:00 PM </p>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                        <span class="subtitle d-block">Descripción:</span>
-                                        <p class="p-text">Lorem ipsum dolor sit amet </p>
+                                        <span class="subtitle d-block">Horarios de Clases:</span>
+                                        <p class="p-text">${v.courses_schedule}</p>
                                     </div>
                                 </div>
                             </button>
@@ -592,13 +584,13 @@ function cea_filter(params){
                     else{
                         logo = data.logo
                     }
-
                     $('.company-logo').attr('src', logo)
                     $('.company-name').text(data.name)
                     $('.company-address').text(data.address)
                     $('.company-sector').text(data.sector.name)
                     $('.company-location').text(`${data.city.name}, ${data.city.state.name}`)
-                    $('.company-schedule').text(data.schedule)
+                    $('.company-schedule-atention').text(data.schedule)
+                    $('.company-schedule-classes').text(data.courses_schedule)
                     $('.company-phone').text(data.cellphone)
                     $('.company-rating').text(data.rating)
                     $('.company-rating-count').text(`(${data.count_rating})`)
@@ -607,7 +599,30 @@ function cea_filter(params){
                     $('.add-cart').data('name', data.name);
                     $('.add-cart').data('price', data.final_price);
                     $('.add-cart').data('company', company);
-
+                    $('.vehicle-list').empty()
+                    $.each(data.vehicles, function(i, v){
+                        try{
+                            logo_vehicle = v.vehicle.images[0].image
+                        }
+                        catch(error){
+                            logo_vehicle = '/static/vehicles/car1.png'
+                        }
+                        $('.vehicle-list').append(
+                            `
+                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img class="card-img-top" src="${logo_vehicle}" alt="Card image cap">
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">${v.vehicle.brand.name} ${v.vehicle.line}</p>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            `
+                        )
+                    })
                     $('.DetailModal1').modal('show')
 
                 })
@@ -670,17 +685,12 @@ function transit_filter(params){
                                             <div class="d-flex flex-row d-normal">
                                                 <div class="pr-2">
                                                     <span class="subtitle d-block">Luneas a viernes:</span>
-                                                    <p class="text mb-1">08:00 AM - 12:00 PM y 2:00 PM - 6:00 PM</p>
+                                                    <p class="text mb-1">${v.schedule}</p>
                                                 </div>
-                                                <div class="saturday">
-                                                    <span class="subtitle d-block">Sábado:</span>
-                                                    <p class="text mb-0">08:00 AM - 12:00 PM </p>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
-                                    <span class="subtitle d-block">Descripción:</span>
-                                    <p class="p-text">Lorem ipsum dolor sit amet </p>
                                 </div>
                             </div>
                         </button>
@@ -910,14 +920,8 @@ $('.back-second-licence').on('click', function(){
 })
 
 $('.element--second-licence input').on('click', function(ev){
-    console.log('click')
-    console.log($(this).val())
-    console.log(tramit_type1)
     if (!($('.option-' + $(this).val()).hasClass('option--selected'))){
-        if($(this).val() != 'SL' ){
-            $('.toggleC2').removeClass('d-none')
-            $('.toggleC3').removeClass('d-none')
-        }
+        
         if($(this).val() == 'RC' ){
             if (!($('#bike-licence').attr('disabled'))){
                 $('#bike-licence').attr('disabled', true)
@@ -959,7 +963,6 @@ $('.element--second-licence input').on('click', function(ev){
                 })
             }
             else{
-                console.log("Else second licence")
                 $('.option-' + $(this).val()).addClass('option--selected')
                 if ('bike' in licences){
                     $('.bike-licences').toggleClass('d-none')
@@ -1010,14 +1013,12 @@ $('.male').on('click', function(e){
 
 $('#bike-licence').on('click', function(ev){
     bike = !bike;
-    console.log(bike)
     if(tramit_type1 == 'SL'){
         if ($('#car-licence').hasClass('choose--selected')){
             $('#car-licence').removeClass('choose--selected')
             car = false
         }
         if (!(bike)){
-            console.log("If bike")
             $('#bike-licence').removeClass('choose--selected')
             if ('bike' in licences){
                 delete licences['bike']
@@ -1028,7 +1029,6 @@ $('#bike-licence').on('click', function(ev){
             
         }
         else{
-            console.log("else Car")
             $('#bike-licence').addClass('choose--selected')
             $('.title-bike').removeClass('d-none')
             $('.toggleA1').removeClass('d-none')
@@ -1042,7 +1042,6 @@ $('#bike-licence').on('click', function(ev){
     }
     else {
         if (!(bike)){
-            console.log("If bike")
             $('#bike-licence').removeClass('choose--selected')
             if ('bike' in licences){
                 delete licences['bike']
@@ -1053,7 +1052,6 @@ $('#bike-licence').on('click', function(ev){
             
         }
         else{
-            console.log("else bike")
             $('#bike-licence').addClass('choose--selected')
             $('.title-bike').removeClass('d-none')
             $('.toggleA1').removeClass('d-none')
@@ -1065,7 +1063,6 @@ $('#bike-licence').on('click', function(ev){
 })
 
 $('#car-licence').on('click', function(ev){
-    console.log(car)
     car = !car;
     if(tramit_type1 == 'SL'){
         if ($('#bike-licence').hasClass('choose--selected')){
@@ -1074,7 +1071,6 @@ $('#car-licence').on('click', function(ev){
         }
     
         if (!(car)){
-            console.log("if Car")
             $('#car-licence').removeClass('choose--selected')
             if ('car' in licences){
                 delete licences['car']
@@ -1087,7 +1083,6 @@ $('#car-licence').on('click', function(ev){
             
         }
         else{
-            console.log("else car")
             $('#car-licence').addClass('choose--selected')
             $('.title-car').removeClass('d-none')
             $('.toggleB1').removeClass('d-none')
@@ -1095,15 +1090,10 @@ $('#car-licence').on('click', function(ev){
             $('.title-bike').addClass('d-none')
             $('.toggleA1').addClass('d-none')
             $('.toggleA2').addClass('d-none')
-            if(tramit_type1 == 'RN'){
-                $('.toggleC2').removeClass('d-none')
-                $('.toggleC3').removeClass('d-none')
-            }
         }
     }
     else {
         if (!(car)){
-            console.log("if Car")
             $('#car-licence').removeClass('choose--selected')
             if ('car' in licences){
                 delete licences['car']
@@ -1116,7 +1106,6 @@ $('#car-licence').on('click', function(ev){
             
         }
         else{
-            console.log("else car")
             $('#car-licence').addClass('choose--selected')
             $('.title-car').removeClass('d-none')
             $('.toggleB1').removeClass('d-none')
@@ -1516,7 +1505,6 @@ $('.continue-runt').on('click', function(){
 })
 
 $('.back-crc').on('click', function() {
-    $('.cea-list').empty()
     $('.element--have-runt').removeClass('d-none')
     var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     var progress_line = $(this).parents('.f1').find('.f1-progress-line');
@@ -1532,6 +1520,8 @@ $('.back-crc').on('click', function() {
         scroll_to_class( $('.f1'), 20 );
     });
 })
+
+
 
 
 var params_crc = {}

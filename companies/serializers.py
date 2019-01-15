@@ -174,7 +174,7 @@ class CeaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cea
-        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'licences', 'vehicles', 'rating', 'schedule', 'final_price', 'count_rating')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'licences', 'vehicles', 'rating', 'schedule', 'final_price', 'count_rating', 'courses_schedule')
 
 
 class TransitSerializer(serializers.ModelSerializer):

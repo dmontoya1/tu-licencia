@@ -315,7 +315,7 @@
                                             <p class="text align-self-center mb-0 t-justify">Automóviles, motocarros, camperos, camionetas y microbuses de servicio particular.</p>       
                                         </div>          
                                     </div>
-                                    <div class="col-12 col-md-6 toggleC3 mt-3  d-none">
+                                    <div class="col-12 col-md-6 toggleC3 mt-3 d-none">
                                         <div class="d-flex flex-row ">
                                             <div class="pr-4">
                                                 <label class="check-pass check-C3">
@@ -953,7 +953,7 @@
                                     <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
-                                    <button type="button" class="btn-block btn-brand back-crc">
+                                    <button type="button" class="btn-block btn-brand back-transit">
                                         <i class="material-icons">keyboard_backspace</i>Volver
                                     </button>
                                     <button type="button" class="btn btn-next-step btn-step-5">
@@ -1457,10 +1457,10 @@
                                                 </div>
                                                 <div class="col-8 item">
                                                     <span class="item-title">
-                                                        Horario <br>
+                                                        Horario de Atención<br>
                                                         Lunes a Viernes <br>
                                                     </span>
-                                                    <span class="item-detail company-schedule">
+                                                    <span class="item-detail company-schedule-atention">
                                                         08:00 AM - 12:00 PM <br>
                                                         02:00 PM - 06:00 PM
                                                     </span>
@@ -1478,6 +1478,23 @@
                                                     </span>
                                                     <span class="company-phone">
                                                         telefono
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/horario/res/mipmap-mdpi/horario.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 item">
+                                                    <span class="item-title">
+                                                        Horario de clases<br>
+                                                        Lunes a Viernes <br>
+                                                    </span>
+                                                    <span class="item-detail company-schedule-classes">
+                                                        08:00 AM - 12:00 PM <br>
+                                                        02:00 PM - 06:00 PM
                                                     </span>
                                                 </div>
                                             </div>
@@ -1533,8 +1550,6 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="row justify-content-around mb-4 vehicle-list">
-                                        <!-- <div class="col-1 img-location mt-3">
-                                        </div> -->
                                         <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
                                             <div class="card">
                                                 <div class="card-img">

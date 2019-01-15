@@ -424,7 +424,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .content-result {
 	background-color: #fff;
 	padding: .5rem;
-	min-height: 240px;
+	min-height: 210px;
 }
 	
 	.content-result .thumbnail .img{
@@ -920,4 +920,29 @@ button.btn.btn-next-step, button.btn.btn-next-step:focus, button.btn.btn-next-st
 	margin-top: 10px;
 	text-transform: uppercase;
     font-weight: 600;
+}
+
+.price.pr-2 {
+    min-width: 90px;
+}
+
+.price.pr-2 p {
+	font-size: 1.2em;
+	font-weight: 600,
+}
+
+button.company-detail-cea {
+    width: 100%;
+}
+
+button.company-detail-crc {
+    width: 100%;
+}
+
+button.company-detail {
+    width: 100%;
+}
+
+.vehicle-list p.card-text {
+    padding-left: 10px;
 }
