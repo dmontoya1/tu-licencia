@@ -18,4 +18,5 @@ urlpatterns = [
     path('request/<int:pk>/', views.RequestDetail.as_view(), name='request-detail'),
     path('terms', views.TermsView.as_view(), name='terms'),
     path('privacy', views.PrivacyPolicyView.as_view(), name='privacy'),
+    path('transits/<int:state>', views.TransitList.as_view(), name='transit-list'),
 ]

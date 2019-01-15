@@ -197,17 +197,17 @@ input[type="number"]::-webkit-inner-spin-button {
 	width: 100%;
 }
 
-.btn-brand{
-	background-color: #ffcb00;
-	color: #162b3c;
-	font-weight: 700;
-	width: 300px;
-	padding: 10px 15px;
-	border: 1px;
-	position: relative;
-	text-transform: uppercase;
-	border-radius: .25rem;
-	cursor: pointer;
+.btn-brand {
+    background-color: #162b3c;
+    color: #fff;
+    font-weight: 700;
+    width: 300px;
+    padding: 10px 15px;
+    border: 1px;
+    position: relative;
+    text-transform: uppercase;
+    border-radius: .25rem;
+    cursor: pointer;
 }
 	.btn-brand i{
 		position: absolute;
@@ -216,9 +216,9 @@ input[type="number"]::-webkit-inner-spin-button {
 		font-weight: 600;
 	}
 
-.btn-second{
-	background-color: #162b3c;
-	color: #fff;
+.btn-second {
+	background-color: #ffcb00;
+	color: #162b3c;
 }
 
 .btn-small{
@@ -424,7 +424,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .content-result {
 	background-color: #fff;
 	padding: .5rem;
-	min-height: 240px;
+	min-height: 210px;
 }
 	
 	.content-result .thumbnail .img{
@@ -437,6 +437,15 @@ input[type="number"]::-webkit-inner-spin-button {
 	}
 
 button.company-detail {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	text-align: left;
+	width: 100%;
+	border:none;
+}
+
+button.company-detail-1 {
 	background: transparent;
 	border: none;
 	cursor: pointer;
@@ -621,8 +630,17 @@ h2.company-title {
 	font-size: 90% !important;
 }
 
-.result-body	.p-text{
-	font-size: .7rem;
+.text-small-1{
+	font-size: 1.3em !important;
+}
+
+.result-body {
+    width: 100%;
+    padding: 20px;
+}
+
+.result-body .p-text{
+	font-size: .9rem;
 	color: rgba(0,0,0,.7);
 	font-weight: 500;
 }
@@ -664,12 +682,12 @@ h2.company-title {
 }
 
 .subtitle{
-	font-size: .75rem;
+	font-size: 1rem;
 	color: rgba(0,0,0,.4);
 }
 
 .schedule .text{
-	font-size: .73rem;
+	font-size: .9rem;
 	color: rgba(0,0,0,.7);
 	font-weight: 500;
 }
@@ -913,11 +931,25 @@ button.btn.btn-export {
 }
 
 button.btn.btn-next-step, button.btn.btn-next-step:focus, button.btn.btn-next-step:active:focus, button.btn.btn-next-step.active:focus {
-    background: #162d40;
+    background: #ffcb00;
     padding-left: 50px;
     padding-right: 50px;
 	width: 100%;
 	margin-top: 10px;
 	text-transform: uppercase;
-    font-weight: 600;
+	font-weight: 600;
+	color: #162b3c;
+}
+
+.price.pr-2 {
+    min-width: 90px;
+}
+
+.price.pr-2 p {
+	font-size: 1.2em;
+	font-weight: 600,
+}
+
+.vehicle-list p.card-text {
+    padding-left: 10px;
 }

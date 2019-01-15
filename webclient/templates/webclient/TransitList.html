@@ -1,0 +1,579 @@
+{% extends 'webclient/base.html' %}
+
+{% load static %}
+{% load custom_range %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/transit.css' %}">
+    <link rel="stylesheet" href="{% static 'css/modal-company.css' %}">
+    
+{% endblock %}
+
+{% block content %}
+
+    <div class="col-12 form-box">
+        <section class="Transit-ex-list">
+            <div class="element element--seventeen ">
+                <h2 class="company-title text-center pt-2 mb-0">Instituto de tránsito o SIM</h2>
+                <div class="filter-web">
+                    <span class="title-brand d-block pb-2">Filtrar por:</span>
+                    <div class="form-row">
+                        <div class="col-12 col-md-10">
+                            <div class="form-row">
+                            <div class="col">
+                                <label class="sr-only" for=""></label>
+                                <input type="text" class="form-control input-inline mb-2 mr-sm-2" id="name-transit" placeholder="Nombre">
+                            </div>
+                            <div class="col">
+                                <label class="sr-only" for="">Ciudad</label>
+                                <select class="form-control city-select input-inline mb-2 mr-sm-2" id="transit-city">
+                                    <option disabled selected value="">Selecciona una ciudad</option>
+                                    {% for city in cities %}
+                                        <option value="{{city.id}}">{{city.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label class="sr-only" for="">Sector</label>
+                                <select class="form-control sector-select input-inline mb-2 mr-sm-2" id="sector-transit">
+                                    <option selected disabled value="">Selecciona primero una ciudad</option>
+                                </select>
+                            </div>
+                            <!-- <div class="col">
+                                <label class="sr-only" for="">Precio</label>
+                                <select class="form-control input-inline mb-2 mr-sm-2" id="">
+                                    <option selected disabled>Precio</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                </select>
+                            </div> -->
+                            <div class="col">
+                                <label class="sr-only" for="">Calificación</label>
+                                <select class="form-control rating-select input-inline mb-2 mr-sm-2" id="rating-transit">
+                                    <option selected disabled value="">Selecciona una opción</option>
+                                    <option value="0">Eliminar filtro</option>
+                                    <option value="1">De menor a mayor calificación</option>
+                                    <option value="2">De mayor a menor calificación</option>
+                                </select>
+                            </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-2">
+                            <button type="button" class="btn-filter mb-2 filter-transit">FILTRAR</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter-mobile mb-3">
+        
+                    <button class="open-collapse" type="button" data-toggle="collapse" data-target="#filter" aria-expanded="false" aria-controls="collapseExample">
+                        Filtrar por
+                    </button>
+                    
+                    <div class="collapse" id="filter">
+                        <div class="card card-body">
+                            <div class="form-row">
+                                <div class="col-12">
+                                    <label class="sr-only" for=""></label>
+                                    <input type="text" class="form-control input-inline mb-2 mr-sm-2" id="name-transit" placeholder="Nombre">                    
+                                </div>
+                                <div class="col-12">
+                                    <label class="sr-only" for="">Ciudad</label>
+                                    <select class="form-control city-select input-inline mb-2 mr-sm-2" id="transit-city">
+                                        <option disabled selected value="">Selecciona una ciudad</option>
+                                        {% for city in cities %}
+                                            <option value="{{city.id}}">{{city.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="sr-only" for="">Sector</label>
+                                    <select class="form-control sector-select input-inline mb-2 mr-sm-2" id="sector-transit">
+                                        <option selected disabled value="">Selecciona primero una ciudad</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <label class="sr-only" for="">Calificación</label>
+                                    <select class="form-control rating-select input-inline mb-2 mr-sm-2" id="rating-transit">
+                                        <option selected disabled value="">Selecciona una opción</option>
+                                        <option value="0">Eliminar filtro</option>
+                                        <option value="1">De menor a mayor calificación</option>
+                                        <option value="2">De mayor a menor calificación</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="btn-filter mb-2 filter-transit">FILTRAR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-5">
+                    <div class="col-12 col-lg-12">
+                        <div class="results rounded">
+                            <div class="form-row transit-list">
+                                <!-- <div class="col-12 col-xl-6">
+                                    <div class="d-flex flex-row content-result rounded mb-2">
+                                        <div class="thumbnail mr-2 mb-4">
+                                            <div class="img" style="background-image: url(/static/assets/img/img-result.png);"></div>
+                                            <div class="qualification">
+                                                <span class="subtitle d-block">Calificación</span>
+                                                <p class="text"><span class="weigh-5">4.5 </span><i class="material-icons">grade</i> (200)</p>                            
+                                            </div>
+                                        </div>
+                                        <div class="result-body">
+                                            <h4 class="text-small"><span>Simetric</span> - Centro Integral de Reconocimiento</h4>
+                                            <div class="d-flex flex-row">
+                                                <div class="price  pr-2">
+                                                    <span class="subtitle d-block">Una licencia</span>
+                                                    <p class="weigh-5">$150.000</p>
+                                                </div>
+                                                <div class="schedule pl-2 pr-2">
+                                                    <span class="subtitle d-block pb-3">Horarios</span>
+                                                    <div class="d-flex flex-row d-normal">
+                                                        <div class="pr-2">
+                                                        <span class="subtitle d-block">Luneas a viernes:</span>
+                                                        <p class="text mb-1">08:00 AM - 12:00 PM <br/>
+                                                            02:00 PM - 06:00 PM</p>
+                                                        </div>
+                                                        <div class="saturday">
+                                                        <span class="subtitle d-block">Sábado:</span>
+                                                        <p class="text mb-0">08:00 AM - 12:00 PM </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="subtitle d-block">Descripción:</span>
+                                            <p class="p-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation </p>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>                
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="modal fade DetailModal" tabindex="-1" role="dialog" aria-labelledby="companyDetailModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-12 col-lg-12 form-box text-small-modal">
+                            <div class="detail-crc">
+                                <h3 class="crc-big-title">Detalle</h3>
+                                <button type="button" class="close close-modal" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <div class="row crc-info justify-content-around mb-4">
+                                    <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
+                                        <div class="image-crc">
+                                            <img class="company-logo mx-auto d-block mt-4 img-fluid" width=200 height=200 src="" alt="Logo Company">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-c-8 ">
+                                        <div class="info-crc mb-4">
+                                            <div class="crc-title">
+                                                <div class="col-12">
+                                                    <span class="company-name">Nombre</span>
+                                                </div>                                            
+                                            </div>
+                                            <div class="row details">
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/ubicacion/res/mipmap-mdpi/ubicacion.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Dirección: <br>
+                                                            </span>
+                                                            <span class="item-detail company-address">
+                                                                direccion
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/ciudad/res/mipmap-mdpi/ciudad.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Sector: <span class="company-sector">Sector</span> <br>
+                                                            </span>
+                                                            <span class="item-detail company-location">
+                                                                Ciudad, Dpto
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/horario/res/mipmap-mdpi/horario.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Horario <br>
+                                                                Lunes a Viernes <br>
+                                                            </span>
+                                                            <span class="item-detail company-schedule">
+                                                                08:00 AM - 12:00 PM <br>
+                                                                02:00 PM - 06:00 PM
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                            <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Teléfono <br>
+                                                            </span>
+                                                            <span class="company-phone">
+                                                                telefono
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-lg-6">
+                                                    <div class="row">
+                                                        <div class="col-3 img-location">
+                                                        </div>
+                                                        <div class="col-8 item">
+                                                            <span class="item-title">
+                                                                Calificación <br>
+                                                            </span>
+                                                            <span class="item-detail">
+                                                                <p class="text">
+                                                                    <span class="weigh-5 company-rating">
+                                                                        ${v.rating} 
+                                                                    </span>
+                                                                    <i class="material-icons">grade</i> 
+                                                                    <span class="company-rating-count">
+                                                                        (${v.count_rating})
+                                                                    </span>
+                                                                </p>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row map">
+                                    <div class="col-12">
+                                        <div style="width: 100%">
+                                            <iframe 
+                                                src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d15903.15217075221!2d-75.72533726779959!3d4.8064181639462245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e0!4m3!3m2!1d4.8156126!2d-75.7219981!4m3!3m2!1d4.8138567!2d-75.69442099999999!5e0!3m2!1ses-419!2sco!4v1545779183981" 
+                                                width="100%" 
+                                                height="450" 
+                                                frameborder="0" 
+                                                style="border:0" 
+                                                allowfullscreen>
+                                            </iframe>
+                                        </div>
+                                        <br />
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                    </div>                        
+                </div>
+            </div>
+        </div>
+    </div>
+   
+{% endblock %}
+{% block extra_js %}
+    <script>
+        var params_transit = {}
+        params_transit['state'] = '{{state.id}}'
+        
+        function transit_filter(params){
+            axios.get('/api/companies/transit', {
+                params: params
+            })
+            .then(function (response) {
+                data = response.data;
+                $('.transit-list').empty()
+                if (data.length > 0){
+                    const starTotal = 5;
+                    $.each(data, function(i, v){
+                        if(v.logo == null){
+                            logo = '/static/logos/movilidad.png'
+                        }
+                        else{
+                            logo = v.logo
+                        }
+                        $('.transit-list').append(
+                            `
+                            <div class="col-12 col-xl-6">
+                                <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" data-toggle="modal" data-target=".transitDetailModal-${v.id}">
+                                    <div class="d-flex flex-row content-result rounded mb-2">
+                                        <div class="thumbnail mr-2 mb-4">
+                                            
+                                            <img src="${logo}" width="90" height="90" alt="Logo Company">
+                                            <div class="qualification">
+                                                <span class="subtitle d-block">Calificación</span>
+                                                <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
+                                            </div>
+                                        </div>
+                                        <div class="result-body">
+                                            <h4 class="text-small-1"><span>${v.name}</span></h4>
+                                            <div class="d-flex flex-row">
+                                                <div class="price  pr-2">
+                                                    <span class="subtitle d-block">Precio</span>
+                                                    <p class="weigh-5">$${v.final_price}</p>
+                                                </div>
+                                                <div class="schedule pl-2 pr-2">
+                                                    <span class="subtitle d-block pb-3">Horarios</span>
+                                                    <div class="d-flex flex-row d-normal">
+                                                        <div class="pr-2">
+                                                            <span class="subtitle d-block">Luneas a viernes:</span>
+                                                            <p class="text mb-1">${v.schedule}</p>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    <div class="d-flex flex-row d-normal">
+                                                        <div class="pr-2">
+                                                            <span class="subtitle d-block">Dirección:</span>
+                                                            <p class="text mb-1">${v.address}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                            `
+                        )
+                    })
+                    $('.company-detail').on('click', function(){
+                        var licence = ""
+                        $.each(licences, function(i, v){
+                            licence += (`${v},`)
+                        })
+                        id = $(this).data('id')
+                        company = $(this).data('company')
+                        url = `api/companies/${company}/${id}`
+                        axios.get(url)
+                        .then(function (response) {
+                            data = response.data
+                            if(data.logo == null){
+                                logo = "/static/images/logo1.png"
+                            }
+                            else{
+                                logo = data.logo
+                            }
+
+                            $('.company-logo').attr('src', logo)
+                            $('.company-name').text(data.name)
+                            $('.company-address').text(data.address)
+                            $('.company-sector').text(data.sector.name)
+                            $('.company-location').text(`${data.city.name}, ${data.city.state.name}`)
+                            $('.company-schedule').text(data.schedule)
+                            $('.company-phone').text(data.cellphone)
+                            $('.company-rating').text(data.rating)
+                            $('.company-rating-count').text(`(${data.count_rating})`)
+                            $('.company-price').text(`$ ${data.final_price}`)
+                            $('.add-cart').data('id', data.id);
+                            $('.add-cart').data('name', data.name);
+                            $('.add-cart').data('price', data.final_price);
+                            $('.add-cart').data('company', company);
+
+                            $('.DetailModal').modal('show')
+
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                    })
+                }
+                else {
+                    $('.transit-list').empty()
+                    $('.transit-list').append(
+                        '<h3 style="padding:25px;">No se han encontrado organismos de tránsito en tu localidad. '+
+                        'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
+                    )
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        }
+        
+        $(document).ready(function() {
+            Swal({
+                title: 'Duplicado de tu licencia',
+                text: "Para solicitar el duplicado de tu actual licencia debes dirigirte directamente \
+                al Organismo de tránsito de tu ciudad. ",
+                animation: false,
+                customClass: 'animated rubberBand'
+            })
+            transit_filter(params_transit)
+        });
+
+        function loadTransitSectorSelect(cityId){
+            $.ajax({
+                type: "GET",
+                url:"/api/manager/sector/"+cityId+"/",
+                success:function(data)
+                {   
+                    $('select.sector-select').empty()
+                    $(data).each(function(i, v){
+                        $('select.sector-select').append(
+                            `<option value="${v.id}">${v.name}</option>`
+                        )
+                    })
+                    $('select.sector-select').prepend(
+                        `<option value="" selected disabled>Seleccione un sector</option>`
+                    )
+                },
+            });
+        }
+
+        $('select.city-select').on('change', function(){
+            selected = $(this)
+            loadTransitSectorSelect(selected.val())
+        })
+        
+        function transit_filter(params){
+            console.log(params)
+            axios.get('/api/companies/transit', {
+                params: params
+            })
+            .then(function (response) {
+                data = response.data;
+                $('.transit-list').empty()
+                if (data.length > 0){
+                    const starTotal = 5;
+                    $.each(data, function(i, v){
+                        if(v.logo == null){
+                            logo = '/static/logos/movilidad.png'
+                        }
+                        else{
+                            logo = v.logo
+                        }
+                        $('.transit-list').append(
+                            `
+                            <div class="col-12 col-xl-6">
+                                <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" data-toggle="modal" data-target=".transitDetailModal-${v.id}">
+                                    <div class="d-flex flex-row content-result rounded mb-2">
+                                        <div class="thumbnail mr-2 mb-4">
+                                            
+                                            <img src="${logo}" width="120" height="120" alt="Logo Company">
+                                            <div class="qualification">
+                                                <span class="subtitle d-block">Calificación</span>
+                                                <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
+                                            </div>
+                                        </div>
+                                        <div class="result-body">
+                                            <h4 class=""><span>${v.name}</span></h4>
+                                            <div class="d-flex flex-row">
+                                                <div class="schedule pl-2 pr-2">
+                                                    <span class="subtitle d-block pb-3">Horarios</span>
+                                                    <div class="d-flex flex-row d-normal">
+                                                        <div class="pr-2">
+                                                            <span class="subtitle d-block">Luneas a viernes:</span>
+                                                            <p class="text mb-1">${v.schedule}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex flex-row d-normal">
+                                                        <div class="pr-2">
+                                                            <span class="subtitle d-block">Dirección:</span>
+                                                            <p class="text mb-1">${v.address}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </button>
+                            </div>
+                            `
+                        )
+                    })
+                    $('.company-detail').on('click', function(){
+                        id = $(this).data('id')
+                        company = $(this).data('company')
+                        url = `/api/companies/${company}/${id}`
+                        axios.get(url)
+                        .then(function (response) {
+                            data = response.data
+                            if(data.logo == null){
+                                logo = "/static/images/logo1.png"
+                            }
+                            else{
+                                logo = data.logo
+                            }
+
+                            $('.company-logo').attr('src', logo)
+                            $('.company-name').text(data.name)
+                            $('.company-address').text(data.address)
+                            $('.company-sector').text(data.sector.name)
+                            $('.company-location').text(`${data.city.name}, ${data.city.state.name}`)
+                            $('.company-schedule').text(data.schedule)
+                            $('.company-phone').text(data.cellphone)
+                            $('.company-rating').text(data.rating)
+                            $('.company-rating-count').text(`(${data.count_rating})`)
+                            $('.company-price').text(`$ ${data.final_price}`)
+                            $('.add-cart').data('id', data.id);
+                            $('.add-cart').data('name', data.name);
+                            $('.add-cart').data('price', data.final_price);
+                            $('.add-cart').data('company', company);
+
+                            $('.DetailModal').modal('show')
+
+                        })
+                        .catch(function (error) {
+                            console.log(error);
+                        })
+                    })
+                }
+                else {
+                    $('.transit-list').empty()
+                    $('.transit-list').append(
+                        '<h3 style="padding:25px;">No se han encontrado organismos de tránsito en tu localidad. '+
+                        'Intenta nuevamente con un nuevo departamento y ciudad</h3>'
+                    )
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        }
+        
+        $('#rating-transit').on('change', function(){
+            if ($(this).val() === '0'){
+                delete params_transit['rating']
+            }
+            else{
+                params_transit['rating'] = $(this).val()
+            }
+        })
+        $('#sector-transit').on('change', function(e){
+            params_transit['sector'] = $(this).val()
+        })
+        $('button.filter-transit').on('click', function(e){
+            params_transit['state'] = '{{state.id}}'
+            if ($('.city-select').first().val() == null){
+                params_transit['city'] = $('.city-select').last().val()
+            }
+            else{
+                params_transit['city'] = $('.city-select').first().val()
+            }
+            transit_filter(params_transit)
+        })
+
+    </script>
+{% endblock %}

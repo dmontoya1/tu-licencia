@@ -60,8 +60,7 @@ function loadCitiesSelect(state_id){
             )
             $('.content-municip').removeClass('d-none')
         },
-    });
-        
+    });     
 }
 
 function loadCRCSectorSelect(cityId){
@@ -70,18 +69,17 @@ function loadCRCSectorSelect(cityId){
         url:"/api/manager/sector/"+cityId+"/",
         success:function(data)
         {   
-            $('select#sector-crc').empty()
+            $('select.sector-crc').empty()
             $(data).each(function(i, v){
-                $('select#sector-crc').append(
+                $('select.sector-crc').append(
                     `<option value="${v.id}">${v.name}</option>`
                 )
             })
-            $('select#sector-crc').prepend(
+            $('select.sector-crc').prepend(
                 `<option value="" selected disabled>Seleccione un sector</option>`
             )
         },
-    });
-        
+    });     
 }
 
 function loadCEASectorSelect(cityId){
@@ -90,13 +88,33 @@ function loadCEASectorSelect(cityId){
         url:"/api/manager/sector/"+cityId+"/",
         success:function(data)
         {   
-            $('select#sector-cea').empty()
+            $('select.sector-cea').empty()
             $(data).each(function(i, v){
-                $('select#sector-cea').append(
+                $('select.sector-cea').append(
                     `<option value="${v.id}">${v.name}</option>`
                 )
             })
-            $('select#sector-cea').prepend(
+            $('select.sector-cea').prepend(
+                `<option value="" selected disabled>Seleccione un sector</option>`
+            )
+        },
+    });
+        
+}
+
+function loadTransitSectorSelect(cityId){
+    $.ajax({
+        type: "GET",
+        url:"/api/manager/sector/"+cityId+"/",
+        success:function(data)
+        {   
+            $('select.sector-transit').empty()
+            $(data).each(function(i, v){
+                $('select.sector-transit').append(
+                    `<option value="${v.id}">${v.name}</option>`
+                )
+            })
+            $('select.sector-transit').prepend(
                 `<option value="" selected disabled>Seleccione un sector</option>`
             )
         },
@@ -321,14 +339,19 @@ function clearTramit(tramit){
     }
 }
 
-$('select#cities-crc').on('change', function(){
+$('select.cities-crc').on('change', function(){
     selected = $(this)
     loadCRCSectorSelect(selected.val())
 })
 
-$('select#cea-city').on('change', function(){
+$('select.cities-cea').on('change', function(){
     selected = $(this)
     loadCEASectorSelect(selected.val())
+})
+
+$('select.cities-transit').on('change', function(){
+    selected = $(this)
+    loadTransitSectorSelect(selected.val())
 })
 
 function loadVehicleSelect(licences){
@@ -407,44 +430,44 @@ function crc_filter(params){
                 }
                 $('.crc-list').append(
                     `
-                        <div class="col-12 col-xl-6">
-                            <button type="button" class="company-detail-crc" data-id="${v.id}" data-company="crc">
-                                <div class="d-flex flex-row content-result rounded mb-2">
-                                    <div class="thumbnail mr-2 mb-4">
-                                        
-                                        <img src="${logo}" width="90" height="90" alt="Logo Company">
-                                        <div class="qualification">
-                                            <span class="subtitle d-block">Calificación</span>
-                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
-                                        </div>
+                    <div class="col-12 col-xl-6">
+                        <button type="button" class="company-detail-crc" data-id="${v.id}" data-company="crc">
+                            <div class="d-flex flex-row content-result rounded mb-2">
+                                <div class="thumbnail mr-2 mb-4">
+                                    
+                                    <img src="${logo}" width="90" height="90" alt="Logo Company">
+                                    <div class="qualification">
+                                        <span class="subtitle d-block">Calificación</span>
+                                        <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
                                     </div>
-                                    <div class="result-body">
-                                        <h4 class="text-small"><span>${v.name}</span></h4>
-                                        <div class="d-flex flex-row">
-                                            <div class="price  pr-2">
-                                                <span class="subtitle d-block">Precio</span>
-                                                <p class="weigh-5">$${v.final_price}</p>
+                                </div>
+                                <div class="result-body">
+                                    <h4 class="text-small-1"><span>${v.name}</span></h4>
+                                    <div class="d-flex flex-row">
+                                        <div class="price pr-2">
+                                            <span class="subtitle d-block">Precio</span>
+                                            <p>$${v.final_price}</p>
+                                        </div>
+                                        <div class="schedule pl-2 pr-2">
+                                            <span class="subtitle d-block pb-3">Horarios de atención</span>
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Luneas a viernes:</span>
+                                                    <p class="text mb-1">${v.schedule}</p>
+                                                </div>
                                             </div>
-                                            <div class="schedule pl-2 pr-2">
-                                                <span class="subtitle d-block pb-3">Horarios</span>
-                                                <div class="d-flex flex-row d-normal">
-                                                    <div class="pr-2">
-                                                        <span class="subtitle d-block">Luneas a viernes:</span>
-                                                        <p class="text mb-1">08:00 AM - 12:00 PM y 2:00 PM - 6:00 PM</p>
-                                                    </div>
-                                                    <div class="saturday">
-                                                        <span class="subtitle d-block">Sábado:</span>
-                                                        <p class="text mb-0">08:00 AM - 12:00 PM </p>
-                                                    </div>
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Dirección:</span>
+                                                    <p class="text mb-1">${v.address}</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <span class="subtitle d-block">Descripción:</span>
-                                        <p class="p-text">Lorem ipsum dolor sit amet </p>
                                     </div>
                                 </div>
-                            </button>
-                        </div> 
+                            </div>
+                        </button>
+                    </div> 
                         
                     `
                 )
@@ -527,44 +550,46 @@ function cea_filter(params){
                 }
                 $('.cea-list').append(
                     `
-                        <div class="col-12 col-xl-6">
-                            <button type="button" class="company-detail-cea" data-id="${v.id}" data-company="cea">
-                                <div class="d-flex flex-row content-result rounded mb-2">
-                                    <div class="thumbnail mr-2 mb-4">
-                                        
-                                        <img src="${logo}" width="90" height="90" alt="Logo Company">
-                                        <div class="qualification">
-                                            <span class="subtitle d-block">Calificación</span>
-                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
-                                        </div>
+                    <div class="col-12 col-xl-6">
+                        <button type="button" class="company-detail-cea" data-id="${v.id}" data-company="cea">
+                            <div class="d-flex flex-row content-result rounded mb-2">
+                                <div class="thumbnail mr-2 mb-4">
+                                    
+                                    <img src="${logo}" width="90" height="90" alt="Logo Company">
+                                    <div class="qualification">
+                                        <span class="subtitle d-block">Calificación</span>
+                                        <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
                                     </div>
-                                    <div class="result-body">
-                                        <h4 class="text-small"><span>${v.name}</span></h4>
-                                        <div class="d-flex flex-row">
-                                            <div class="price  pr-2">
-                                                <span class="subtitle d-block">Precio</span>
-                                                <p class="weigh-5">$${v.final_price}</p>
+                                </div>
+                                <div class="result-body">
+                                    <h4 class="text-small-1"><span>${v.name}</span></h4>
+                                    <div class="d-flex flex-row">
+                                        <div class="price pr-2">
+                                            <span class="subtitle d-block">Precio</span>
+                                            <p>$${v.final_price}</p>
+                                        </div>
+                                        <div class="schedule pl-2 pr-2">
+                                            <span class="subtitle d-block pb-3">Horarios de atención</span>
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Luneas a viernes:</span>
+                                                    <p class="text mb-1">${v.schedule}</p>
+                                                </div>
                                             </div>
-                                            <div class="schedule pl-2 pr-2">
-                                                <span class="subtitle d-block pb-3">Horarios</span>
-                                                <div class="d-flex flex-row d-normal">
-                                                    <div class="pr-2">
-                                                        <span class="subtitle d-block">Luneas a viernes:</span>
-                                                        <p class="text mb-1">08:00 AM - 12:00 PM y 2:00 PM - 6:00 PM</p>
-                                                    </div>
-                                                    <div class="saturday">
-                                                        <span class="subtitle d-block">Sábado:</span>
-                                                        <p class="text mb-0">08:00 AM - 12:00 PM </p>
-                                                    </div>
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Dirección:</span>
+                                                    <p class="text mb-1">${v.address}</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <span class="subtitle d-block">Descripción:</span>
-                                        <p class="p-text">Lorem ipsum dolor sit amet </p>
                                     </div>
+                                    <span class="subtitle d-block">Horarios de Clases:</span>
+                                    <p class="p-text">${v.courses_schedule}</p>
                                 </div>
-                            </button>
-                        </div>
+                            </div>
+                        </button>
+                    </div>
 
                     `
                 )
@@ -592,13 +617,13 @@ function cea_filter(params){
                     else{
                         logo = data.logo
                     }
-
                     $('.company-logo').attr('src', logo)
                     $('.company-name').text(data.name)
                     $('.company-address').text(data.address)
                     $('.company-sector').text(data.sector.name)
                     $('.company-location').text(`${data.city.name}, ${data.city.state.name}`)
-                    $('.company-schedule').text(data.schedule)
+                    $('.company-schedule-atention').text(data.schedule)
+                    $('.company-schedule-classes').text(data.courses_schedule)
                     $('.company-phone').text(data.cellphone)
                     $('.company-rating').text(data.rating)
                     $('.company-rating-count').text(`(${data.count_rating})`)
@@ -607,7 +632,30 @@ function cea_filter(params){
                     $('.add-cart').data('name', data.name);
                     $('.add-cart').data('price', data.final_price);
                     $('.add-cart').data('company', company);
-
+                    $('.vehicle-list').empty()
+                    $.each(data.vehicles, function(i, v){
+                        try{
+                            logo_vehicle = v.vehicle.images[0].image
+                        }
+                        catch(error){
+                            logo_vehicle = '/static/vehicles/car1.png'
+                        }
+                        $('.vehicle-list').append(
+                            `
+                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
+                                <div class="card">
+                                    <div class="card-img">
+                                        <img class="card-img-top" src="${logo_vehicle}" alt="Card image cap">
+                                    </div>
+                                    <div class="card-body card-body-detail">
+                                        <p class="card-text">${v.vehicle.brand.name} ${v.vehicle.line}</p>
+                                    </div>
+                                </div>
+                            </div>
+        
+                            `
+                        )
+                    })
                     $('.DetailModal1').modal('show')
 
                 })
@@ -659,28 +707,34 @@ function transit_filter(params){
                                     </div>
                                 </div>
                                 <div class="result-body">
-                                    <h4 class="text-small"><span>${v.name}</span></h4>
+                                    <h4 class="text-small-1"><span>${v.name}</span></h4>
                                     <div class="d-flex flex-row">
-                                        <div class="price  pr-2">
+                                        <div class="price pr-2">
                                             <span class="subtitle d-block">Precio</span>
-                                            <p class="weigh-5">$${v.final_price}</p>
+                                            <p>$${v.final_price}</p>
                                         </div>
                                         <div class="schedule pl-2 pr-2">
-                                            <span class="subtitle d-block pb-3">Horarios</span>
+                                            <span class="subtitle d-block pb-3">Horarios de atención</span>
                                             <div class="d-flex flex-row d-normal">
                                                 <div class="pr-2">
                                                     <span class="subtitle d-block">Luneas a viernes:</span>
-                                                    <p class="text mb-1">08:00 AM - 12:00 PM y 2:00 PM - 6:00 PM</p>
+                                                    <p class="text mb-1">${v.schedule}</p>
                                                 </div>
-                                                <div class="saturday">
-                                                    <span class="subtitle d-block">Sábado:</span>
-                                                    <p class="text mb-0">08:00 AM - 12:00 PM </p>
+                                            </div>
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Dirección:</span>
+                                                    <p class="text mb-1">${v.address}</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Dirección:</span>
+                                                    <p class="text mb-1">${v.address}</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <span class="subtitle d-block">Descripción:</span>
-                                    <p class="p-text">Lorem ipsum dolor sit amet </p>
                                 </div>
                             </div>
                         </button>
@@ -745,6 +799,7 @@ function transit_filter(params){
 $('select#states').on('change', function() {
     selected = $(this)
     loadCitiesSelect(selected.val())
+    $('#toggle4').attr("href", `/transits/${selected.val()}`);
 })
 
 $('.continue-location').on('click', function(){
@@ -910,14 +965,8 @@ $('.back-second-licence').on('click', function(){
 })
 
 $('.element--second-licence input').on('click', function(ev){
-    console.log('click')
-    console.log($(this).val())
-    console.log(tramit_type1)
     if (!($('.option-' + $(this).val()).hasClass('option--selected'))){
-        if($(this).val() != 'SL' ){
-            $('.toggleC2').removeClass('d-none')
-            $('.toggleC3').removeClass('d-none')
-        }
+        
         if($(this).val() == 'RC' ){
             if (!($('#bike-licence').attr('disabled'))){
                 $('#bike-licence').attr('disabled', true)
@@ -959,7 +1008,6 @@ $('.element--second-licence input').on('click', function(ev){
                 })
             }
             else{
-                console.log("Else second licence")
                 $('.option-' + $(this).val()).addClass('option--selected')
                 if ('bike' in licences){
                     $('.bike-licences').toggleClass('d-none')
@@ -1010,14 +1058,12 @@ $('.male').on('click', function(e){
 
 $('#bike-licence').on('click', function(ev){
     bike = !bike;
-    console.log(bike)
     if(tramit_type1 == 'SL'){
         if ($('#car-licence').hasClass('choose--selected')){
             $('#car-licence').removeClass('choose--selected')
             car = false
         }
         if (!(bike)){
-            console.log("If bike")
             $('#bike-licence').removeClass('choose--selected')
             if ('bike' in licences){
                 delete licences['bike']
@@ -1028,7 +1074,6 @@ $('#bike-licence').on('click', function(ev){
             
         }
         else{
-            console.log("else Car")
             $('#bike-licence').addClass('choose--selected')
             $('.title-bike').removeClass('d-none')
             $('.toggleA1').removeClass('d-none')
@@ -1042,7 +1087,6 @@ $('#bike-licence').on('click', function(ev){
     }
     else {
         if (!(bike)){
-            console.log("If bike")
             $('#bike-licence').removeClass('choose--selected')
             if ('bike' in licences){
                 delete licences['bike']
@@ -1053,7 +1097,6 @@ $('#bike-licence').on('click', function(ev){
             
         }
         else{
-            console.log("else bike")
             $('#bike-licence').addClass('choose--selected')
             $('.title-bike').removeClass('d-none')
             $('.toggleA1').removeClass('d-none')
@@ -1065,7 +1108,6 @@ $('#bike-licence').on('click', function(ev){
 })
 
 $('#car-licence').on('click', function(ev){
-    console.log(car)
     car = !car;
     if(tramit_type1 == 'SL'){
         if ($('#bike-licence').hasClass('choose--selected')){
@@ -1074,7 +1116,6 @@ $('#car-licence').on('click', function(ev){
         }
     
         if (!(car)){
-            console.log("if Car")
             $('#car-licence').removeClass('choose--selected')
             if ('car' in licences){
                 delete licences['car']
@@ -1087,7 +1128,6 @@ $('#car-licence').on('click', function(ev){
             
         }
         else{
-            console.log("else car")
             $('#car-licence').addClass('choose--selected')
             $('.title-car').removeClass('d-none')
             $('.toggleB1').removeClass('d-none')
@@ -1095,15 +1135,10 @@ $('#car-licence').on('click', function(ev){
             $('.title-bike').addClass('d-none')
             $('.toggleA1').addClass('d-none')
             $('.toggleA2').addClass('d-none')
-            if(tramit_type1 == 'RN'){
-                $('.toggleC2').removeClass('d-none')
-                $('.toggleC3').removeClass('d-none')
-            }
         }
     }
     else {
         if (!(car)){
-            console.log("if Car")
             $('#car-licence').removeClass('choose--selected')
             if ('car' in licences){
                 delete licences['car']
@@ -1116,7 +1151,6 @@ $('#car-licence').on('click', function(ev){
             
         }
         else{
-            console.log("else car")
             $('#car-licence').addClass('choose--selected')
             $('.title-car').removeClass('d-none')
             $('.toggleB1').removeClass('d-none')
@@ -1516,7 +1550,6 @@ $('.continue-runt').on('click', function(){
 })
 
 $('.back-crc').on('click', function() {
-    $('.cea-list').empty()
     $('.element--have-runt').removeClass('d-none')
     var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     var progress_line = $(this).parents('.f1').find('.f1-progress-line');
@@ -1533,12 +1566,23 @@ $('.back-crc').on('click', function() {
     });
 })
 
-
 var params_crc = {}
-$('#sector-crc').on('change', function(e){
+$('.sector-crc').on('change', function(e){
     params_crc['sector'] = $(this).val()
 })
-$('#rating-crc').on('change', function(){
+$('.rating-crc').on('change', function(){
+    if ($(this).val() === '0'){
+        delete params_crc['rating']
+    }
+    else{
+        params_crc['rating'] = $(this).val()
+    }
+})
+
+$('.sector-crc').on('change', function(e){
+    params_crc['sector'] = $(this).val()
+})
+$('.rating-crc').on('change', function(){
     if ($(this).val() === '0'){
         delete params_crc['rating']
     }
@@ -1553,7 +1597,19 @@ $('button.filter-crc').on('click', function(e){
         licence += (`${v},`)
     })
     params_crc['state']= $('#states').val()
-    params_crc['city']= $('#cities-crc').val()
+    params_crc['city']= $('.cities-crc').val()
+    params_crc['age']= age
+    params_crc['gender']= gender
+    params_crc['licences']= licence
+    crc_filter(params_crc)
+})
+$('button.filter-crc-1').on('click', function(e){
+    var licence = ""
+    $.each(licences, function(i, v){
+        licence += (`${v},`)
+    })
+    params_crc['state']= $('#states').val()
+    params_crc['city']= $('.cities-crc-1').val()
     params_crc['age']= age
     params_crc['gender']= gender
     params_crc['licences']= licence
@@ -1566,10 +1622,10 @@ $.each(licences, function(i, v){
 })
 
 var params_cea = {}
-$('#vehicle-cea').on('change', function(e){
+$('.vehicle-cea').on('change', function(e){
     params_cea['vehicles__vehicle__line'] = $(this).val()
 })
-$('#rating-cea').on('change', function(){
+$('.rating-cea').on('change', function(){
     if ($(this).val() === '0'){
         delete params_cea['rating']
     }
@@ -1585,7 +1641,7 @@ $('#rating-cea').on('change', function(){
 //         params_cea['price'] = $(this).val()
 //     }
 // })
-$('#sector-cea').on('change', function(e){
+$('.sector-cea').on('change', function(e){
     params_cea['sector'] = $(this).val()
 })
 
@@ -1595,7 +1651,7 @@ $('button.filter-cea').on('click', function(e){
         licence += (`${v},`)
     })
     params_cea['state'] = $('#states').val()
-    params_cea['city'] = $('#cea-city').val()
+    params_cea['city'] = $('.cea-city').val()
     params_cea['age']= age
     params_cea['gender']= gender
     params_cea['licences']= licence
@@ -1605,7 +1661,7 @@ $('button.filter-cea').on('click', function(e){
 })
 
 var params_transit = {}
-$('#rating-transit').on('change', function(){
+$('.rating-transit').on('change', function(){
     if ($(this).val() === '0'){
         delete params_transit['rating']
     }
@@ -1613,17 +1669,12 @@ $('#rating-transit').on('change', function(){
         params_transit['rating'] = $(this).val()
     }
 })
-$('#price-transit').on('change', function(){
-    if ($(this).val() === '0'){
-        delete params_transit['price']
-    }
-    else{
-        params_transit['price'] = $(this).val()
-    }
+$('.sector-transit').on('change', function(e){
+    params_transit['sector'] = $(this).val()
 })
 $('button.filter-transit').on('click', function(e){
     params_transit['state'] = $('#states').val(),
-    params_transit['city'] = $('#transit-city').val(),
+    params_transit['city'] = $('.transit-city').val(),
     transit_filter(params_transit)
 })
 
