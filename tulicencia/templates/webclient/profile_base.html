@@ -5,7 +5,7 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/r-2.2.2/datatables.min.css"/>
     
 {% endblock %}
 
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="col-8 col-lg-7 align-self-center">
                                     <span class="detail-title">Teléfono</span>
-                                    <span class="detail-info">{{request.user.phone_number|default:"Sin telefono"}}</span>
+                                    <span class="detail-info">{{request.user.cellphone|default:"Sin telefono"}}</span>
                                 </div>
                             </div>
                         </div>

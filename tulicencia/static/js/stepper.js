@@ -727,12 +727,6 @@ function transit_filter(params){
                                                     <p class="text mb-1">${v.address}</p>
                                                 </div>
                                             </div>
-                                            <div class="d-flex flex-row d-normal">
-                                                <div class="pr-2">
-                                                    <span class="subtitle d-block">Dirección:</span>
-                                                    <p class="text mb-1">${v.address}</p>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
