@@ -222,8 +222,9 @@
                                             <label for="toggle2">Subir la categoría de mi actual licencia</label>
                                         </li>
                                         <li class="option option-DU">
-                                            <input id="toggle4" type="checkbox" name="dupl" value="DU">
-                                            <label for="toggle4">Solicitar duplicado de mi actual licencia</label>
+                                            <a style="color: #162d3f" href="#" id="toggle4" name="dupl" value="DU" target="_blank">
+                                                <label for="toggle4">Solicitar duplicado de mi actual licencia</label>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -469,16 +470,16 @@
                                     <div class="form-row">
                                     <div class="col">
                                         <label class="sr-only" for=""></label>
-                                        <input type="text" class="form-control input-inline mb-2 mr-sm-2" id="name-crc" placeholder="Nombre">
+                                        <input type="text" class="form-control input-inline mb-2 mr-sm-2 name-crc" placeholder="Nombre">
                                     </div>
                                     <div class="col">
                                         <label class="sr-only" for="">Ciudad</label>
-                                        <select class="form-control city-select input-inline mb-2 mr-sm-2" id="cities-crc">
+                                        <select class="form-control city-select input-inline mb-2 mr-sm-2 cities-crc">
                                         </select>
                                     </div>
                                     <div class="col">
                                         <label class="sr-only" for="">Sector</label>
-                                        <select class="form-control sector-select input-inline mb-2 mr-sm-2" id="sector-crc">
+                                        <select class="form-control sector-select-crc input-inline mb-2 mr-sm-2 sector-crc" >
                                             <option selected disabled value="">Selecciona primero una ciudad</option>
                                         </select>
                                     </div>
@@ -494,7 +495,7 @@
                                     </div> -->
                                     <div class="col">
                                         <label class="sr-only" for="">Calificación</label>
-                                        <select class="form-control rating-select input-inline mb-2 mr-sm-2" id="rating-crc">
+                                        <select class="form-control rating-select input-inline mb-2 mr-sm-2 rating-crc">
                                             <option selected disabled value="">Selecciona una opción</option>
                                             <option value="0">Eliminar filtro</option>
                                             <option value="1">De menor a mayor calificación</option>
@@ -519,16 +520,16 @@
                                     <div class="form-row">
                                         <div class="col-12">
                                             <label class="sr-only" for=""></label>
-                                            <input type="text" class="form-control input-inline mb-2 mr-sm-2" id="name-crc" placeholder="Nombre">                    
+                                            <input type="text" class="form-control input-inline mb-2 mr-sm-2 name-crc-1" placeholder="Nombre">                    
                                         </div>
                                         <div class="col-12">
                                             <label class="sr-only" for="">Ciudad</label>
-                                            <select class="form-control city-select input-inline mb-2 mr-sm-2" id="cities-crc">
+                                            <select class="form-control city-select input-inline mb-2 mr-sm-2 cities-crc-1">
                                             </select>
                                         </div>
                                         <div class="col-12">
                                             <label class="sr-only" for="">Sector</label>
-                                            <select class="form-control sector-select input-inline mb-2 mr-sm-2" id="sector-crc">
+                                            <select class="form-control sector-select-crc input-inline mb-2 mr-sm-2 sector-crc-1">
                                                 <option selected disabled value="">Selecciona primero una ciudad</option>
                                             </select>
                                         </div>
@@ -544,14 +545,14 @@
                                         </div> -->
                                         <div class="col-12">
                                             <label class="sr-only" for="">Calificación</label>
-                                            <select class="form-control rating-select input-inline mb-2 mr-sm-2" id="rating-crc">
+                                            <select class="form-control rating-select input-inline mb-2 mr-sm-2 rating-crc-1">
                                                 <option selected disabled value="">Selecciona una opción</option>
                                                 <option value="0">Eliminar filtro</option>
                                                 <option value="1">De menor a mayor calificación</option>
                                                 <option value="2">De mayor a menor calificación</option>
                                             </select>
                                         </div>
-                                        <button type="button" class="btn-filter mb-2 filter-crc">FILTRAR</button>
+                                        <button type="button" class="btn-filter mb-2 filter-crc-1">FILTRAR</button>
                                     </div>
                                 </div>
                             </div>
@@ -649,16 +650,16 @@
                                     <div class="form-row">
                                     <div class="col">
                                         <label class="sr-only" for=""></label>
-                                        <input type="text" class="form-control input-inline mb-2 mr-sm-2" id="name-cea" placeholder="Nombre">
+                                        <input type="text" class="form-control input-inline mb-2 mr-sm-2 name-cea" placeholder="Nombre">
                                     </div>
                                     <div class="col">
                                         <label class="sr-only" for="">Ciudad</label>
-                                        <select class="form-control city-select input-inline mb-2 mr-sm-2" id="cities-cea">
+                                        <select class="form-control city-select input-inline mb-2 mr-sm-2 cities-cea">
                                         </select>
                                     </div>
                                     <div class="col">
                                         <label class="sr-only" for="">Sector</label>
-                                        <select class="form-control sector-select input-inline mb-2 mr-sm-2" id="sector-cea">
+                                        <select class="form-control sector-select input-inline mb-2 mr-sm-2 sector-cea">
                                             <option selected disabled value="">Selecciona primero una ciudad</option>
                                         </select>
                                     </div>
@@ -673,8 +674,14 @@
                                         </select>
                                     </div> -->
                                     <div class="col">
+                                        <label class="sr-only" for="">Vehículo</label>
+                                        <select class="form-control sector-select input-inline mb-2 mr-sm-2 vehicle-cea">
+                                            <option value="" disabled selected>Filtro de vehículo</option>
+                                        </select>
+                                    </div>
+                                    <div class="col">
                                         <label class="sr-only" for="">Calificación</label>
-                                        <select class="form-control rating-select input-inline mb-2 mr-sm-2" id="rating-cea">
+                                        <select class="form-control rating-select input-inline mb-2 mr-sm-2 rating-cea">
                                             <option selected disabled value="">Selecciona una opción</option>
                                             <option value="0">Eliminar filtro</option>
                                             <option value="1">De menor a mayor calificación</option>
@@ -699,28 +706,28 @@
                                     <div class="form-row">
                                         <div class="col-12">
                                             <label class="sr-only" for=""></label>
-                                            <input type="text" class="form-control input-inline mb-2 mr-sm-2" id="name-cea" placeholder="Nombre">                    
+                                            <input type="text" class="form-control input-inline mb-2 mr-sm-2 name-cea" placeholder="Nombre">                    
                                         </div>
                                         <div class="col-12">
                                             <label class="sr-only" for="">Ciudad</label>
-                                            <select class="form-control city-select input-inline mb-2 mr-sm-2" id="cea-city">
+                                            <select class="form-control city-select input-inline mb-2 mr-sm-2 cea-city">
                                             </select>
                                         </div>
                                         <div class="col-12">
                                             <label class="sr-only" for="">Sector</label>
-                                            <select class="form-control sector-select input-inline mb-2 mr-sm-2" id="sector-cea">
+                                            <select class="form-control sector-select input-inline mb-2 mr-sm-2 sector-cea">
                                                 <option selected disabled value="">Selecciona primero una ciudad</option>
                                             </select>
                                         </div>
                                         <div class="col-12">
                                             <label class="sr-only" for="vehicle-cea">Vehículo</label>
-                                            <select class="form-control vehicle-select input-inline mb-2 mr-sm-2" id="vehicle-cea">
+                                            <select class="form-control vehicle-select input-inline mb-2 mr-sm-2 vehicle-cea">
                                                 <option value="" disabled selected>Filtro de vehículo</option>
                                             </select>
                                         </div>
                                         <div class="col-12">
                                             <label class="sr-only" for="">Calificación</label>
-                                            <select class="form-control rating-select input-inline mb-2 mr-sm-2" id="rating-cea">
+                                            <select class="form-control rating-select input-inline mb-2 mr-sm-2 rating-cea">
                                                 <option selected disabled value="">Selecciona una opción</option>
                                                 <option value="0">Eliminar filtro</option>
                                                 <option value="1">De menor a mayor calificación</option>
@@ -822,12 +829,12 @@
                                     </div>
                                     <div class="col">
                                         <label class="sr-only" for="">Ciudad</label>
-                                        <select class="form-control city-select input-inline mb-2 mr-sm-2" id="transit-city">
+                                        <select class="form-control city-select input-inline mb-2 mr-sm-2 cities-transit" id="cities-transit">
                                         </select>
                                     </div>
                                     <div class="col">
                                         <label class="sr-only" for="">Sector</label>
-                                        <select class="form-control sector-select input-inline mb-2 mr-sm-2" id="sector-transit">
+                                        <select class="form-control sector-select input-inline mb-2 mr-sm-2 sector-transit" id="sector-transit">
                                             <option selected disabled value="">Selecciona primero una ciudad</option>
                                         </select>
                                     </div>
@@ -872,18 +879,18 @@
                                         </div>
                                         <div class="col-12">
                                             <label class="sr-only" for="">Ciudad</label>
-                                            <select class="form-control city-select input-inline mb-2 mr-sm-2" id="transit-city">
+                                            <select class="form-control city-select input-inline mb-2 mr-sm-2 cities-transit"">
                                             </select>
                                         </div>
                                         <div class="col-12">
                                             <label class="sr-only" for="">Sector</label>
-                                            <select class="form-control sector-select input-inline mb-2 mr-sm-2" id="sector-transit">
+                                            <select class="form-control sector-select input-inline mb-2 mr-sm-2 sector-transit">
                                                 <option selected disabled value="">Selecciona primero una ciudad</option>
                                             </select>
                                         </div>
                                         <div class="col-12">
                                             <label class="sr-only" for="">Calificación</label>
-                                            <select class="form-control rating-select input-inline mb-2 mr-sm-2" id="rating-transit">
+                                            <select class="form-control rating-select input-inline mb-2 mr-sm-2 rating-transit">
                                                 <option selected disabled value="">Selecciona una opción</option>
                                                 <option value="0">Eliminar filtro</option>
                                                 <option value="1">De menor a mayor calificación</option>
@@ -1555,7 +1562,7 @@
                                                 <div class="card-img">
                                                     <img class="card-img-top" src="/static/vehicles/bike1.png" alt="Card image cap">
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="card-body card-body-detail">
                                                     <p class="card-text">Honda pop 100</p>
                                                 </div>
                                             </div>
@@ -1565,7 +1572,7 @@
                                                 <div class="card-img">
                                                     <img class="card-img-top" src="/static/vehicles/car1.png" alt="Card image cap">
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="card-body card-body-detail">
                                                     <p class="card-text">Chevrolet cruze</p>
                                                 </div>
                                             </div>
@@ -1575,7 +1582,7 @@
                                                 <div class="card-img">
                                                     <img class="card-img-top" src="/static/vehicles/car2.png" alt="Card image cap">
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="card-body card-body-detail">
                                                     <p class="card-text">Chevrolet Onix</p>
                                                 </div>
                                             </div>
@@ -1585,7 +1592,7 @@
                                                 <div class="card-img">
                                                     <img class="card-img-top" src="/static/vehicles/van1.png" alt="Card image cap">
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="card-body card-body-detail">
                                                     <p class="card-text">Chevrolet Van</p>
                                                 </div>
                                             </div>
@@ -1595,7 +1602,7 @@
                                                 <div class="card-img">
                                                     <img class="card-img-top" src="/static/vehicles/bus1.png" alt="Card image cap">
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="card-body card-body-detail">
                                                     <p class="card-text">Bus</p>
                                                 </div>
                                             </div>
@@ -1605,31 +1612,11 @@
                                                 <div class="card-img">
                                                     <img class="card-img-top" src="/static/vehicles/car2.png" alt="Card image cap">
                                                 </div>
-                                                <div class="card-body">
+                                                <div class="card-body card-body-detail">
                                                     <p class="card-text">Chevrolet Onix</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="col-2 vehicle-detail">
-                                            <div class="card">
-                                                <div class="card-img">
-                                                    <img class="card-img-top" src="/static/vehicles/van1.png" alt="Card image cap">
-                                                </div>
-                                                <div class="card-body">
-                                                    <p class="card-text">Chevrolet Van</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-2 vehicle-detail">
-                                            <div class="card">
-                                                <div class="card-img">
-                                                    <img class="card-img-top" src="/static/vehicles/bus1.png" alt="Card image cap">
-                                                </div>
-                                                <div class="card-body">
-                                                    <p class="card-text">Bus</p>
-                                                </div>
-                                            </div>
-                                        </div> -->
                                     </div>
                                 </div>
                             </div>

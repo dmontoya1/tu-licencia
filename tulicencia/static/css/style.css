@@ -444,6 +444,15 @@ button.company-detail {
 	width: 100%;
 	border:none;
 }
+
+button.company-detail-1 {
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	text-align: left;
+	width: 100%;
+	border:none;
+}
 	.company-detail-crc{
 		width: 100%;
 		border:none;
@@ -618,11 +627,16 @@ h2.company-title {
 	}
 
 .text-small{
-	font-size: 90% !important;
+	font-size: 1.3em !important;
 }
 
-.result-body	.p-text{
-	font-size: .7rem;
+.result-body {
+    width: 100%;
+    padding: 20px;
+}
+
+.result-body .p-text{
+	font-size: .9rem;
 	color: rgba(0,0,0,.7);
 	font-weight: 500;
 }
@@ -664,12 +678,12 @@ h2.company-title {
 }
 
 .subtitle{
-	font-size: .75rem;
+	font-size: 1rem;
 	color: rgba(0,0,0,.4);
 }
 
 .schedule .text{
-	font-size: .73rem;
+	font-size: .9rem;
 	color: rgba(0,0,0,.7);
 	font-weight: 500;
 }
@@ -929,18 +943,6 @@ button.btn.btn-next-step, button.btn.btn-next-step:focus, button.btn.btn-next-st
 .price.pr-2 p {
 	font-size: 1.2em;
 	font-weight: 600,
-}
-
-button.company-detail-cea {
-    width: 100%;
-}
-
-button.company-detail-crc {
-    width: 100%;
-}
-
-button.company-detail {
-    width: 100%;
 }
 
 .vehicle-list p.card-text {

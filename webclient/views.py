@@ -11,8 +11,8 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.views.generic.base import TemplateView, View
 from django.views.generic.detail import DetailView
 
-from companies.models import TuLicencia
-from manager.models import Police
+from companies.models import TuLicencia, TransitDepartment
+from manager.models import Police, State, City
 from request.models import Request
 from users.models import UserToken
 
@@ -169,4 +169,22 @@ class PrivacyPolicyView(TemplateView):
         context = super(PrivacyPolicyView, self).get_context_data(**kwargs)
         context['name'] = police.get_police_type_display()
         context['content'] = police.text
+        return context
+
+
+class TransitList(TemplateView):
+    """ Vista para ver los departamentos de tránsito cuando se da click
+    al flujo de duplicado
+    """
+
+    template_name = 'webclient/TransitList.html'
+
+    def get_context_data(self, **kwargs):
+        state = State.objects.get(pk=self.kwargs['state'])
+        cities = City.objects.alive().filter(state=state).order_by('name')
+        transits = TransitDepartment.objects.filter(state=state)
+        context = super(TransitList, self).get_context_data(**kwargs)
+        context['transits'] = transits
+        context['cities'] = cities
+        context['state'] = state
         return context
