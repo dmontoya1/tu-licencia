@@ -197,17 +197,17 @@ input[type="number"]::-webkit-inner-spin-button {
 	width: 100%;
 }
 
-.btn-brand{
-	background-color: #ffcb00;
-	color: #162b3c;
-	font-weight: 700;
-	width: 300px;
-	padding: 10px 15px;
-	border: 1px;
-	position: relative;
-	text-transform: uppercase;
-	border-radius: .25rem;
-	cursor: pointer;
+.btn-brand {
+    background-color: #162b3c;
+    color: #fff;
+    font-weight: 700;
+    width: 300px;
+    padding: 10px 15px;
+    border: 1px;
+    position: relative;
+    text-transform: uppercase;
+    border-radius: .25rem;
+    cursor: pointer;
 }
 	.btn-brand i{
 		position: absolute;
@@ -216,9 +216,9 @@ input[type="number"]::-webkit-inner-spin-button {
 		font-weight: 600;
 	}
 
-.btn-second{
-	background-color: #162b3c;
-	color: #fff;
+.btn-second {
+	background-color: #ffcb00;
+	color: #162b3c;
 }
 
 .btn-small{
@@ -627,6 +627,10 @@ h2.company-title {
 	}
 
 .text-small{
+	font-size: 90% !important;
+}
+
+.text-small-1{
 	font-size: 1.3em !important;
 }
 
@@ -927,13 +931,14 @@ button.btn.btn-export {
 }
 
 button.btn.btn-next-step, button.btn.btn-next-step:focus, button.btn.btn-next-step:active:focus, button.btn.btn-next-step.active:focus {
-    background: #162d40;
+    background: #ffcb00;
     padding-left: 50px;
     padding-right: 50px;
 	width: 100%;
 	margin-top: 10px;
 	text-transform: uppercase;
-    font-weight: 600;
+	font-weight: 600;
+	color: #162b3c;
 }
 
 .price.pr-2 {

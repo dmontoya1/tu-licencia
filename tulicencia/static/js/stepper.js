@@ -430,39 +430,44 @@ function crc_filter(params){
                 }
                 $('.crc-list').append(
                     `
-                        <div class="col-12 col-xl-6">
-                            <button type="button" class="company-detail-crc" data-id="${v.id}" data-company="crc">
-                                <div class="d-flex flex-row content-result rounded mb-2">
-                                    <div class="thumbnail mr-2 mb-4">
-                                        
-                                        <img src="${logo}" width="90" height="90" alt="Logo Company">
-                                        <div class="qualification">
-                                            <span class="subtitle d-block">Calificación</span>
-                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
-                                        </div>
+                    <div class="col-12 col-xl-6">
+                        <button type="button" class="company-detail-crc" data-id="${v.id}" data-company="crc">
+                            <div class="d-flex flex-row content-result rounded mb-2">
+                                <div class="thumbnail mr-2 mb-4">
+                                    
+                                    <img src="${logo}" width="90" height="90" alt="Logo Company">
+                                    <div class="qualification">
+                                        <span class="subtitle d-block">Calificación</span>
+                                        <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
                                     </div>
-                                    <div class="result-body">
-                                        <h4 class="text-small"><span>${v.name}</span></h4>
-                                        <div class="d-flex flex-row">
-                                            <div class="price  pr-2">
-                                                <span class="subtitle d-block">Precio</span>
-                                                <p class="weigh-5">$${v.final_price}</p>
+                                </div>
+                                <div class="result-body">
+                                    <h4 class="text-small-1"><span>${v.name}</span></h4>
+                                    <div class="d-flex flex-row">
+                                        <div class="price pr-2">
+                                            <span class="subtitle d-block">Precio</span>
+                                            <p>$${v.final_price}</p>
+                                        </div>
+                                        <div class="schedule pl-2 pr-2">
+                                            <span class="subtitle d-block pb-3">Horarios de atención</span>
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Luneas a viernes:</span>
+                                                    <p class="text mb-1">${v.schedule}</p>
+                                                </div>
                                             </div>
-                                            <div class="schedule pl-2 pr-2">
-                                                <span class="subtitle d-block pb-3">Horarios de atención</span>
-                                                <div class="d-flex flex-row d-normal">
-                                                    <div class="pr-2">
-                                                        <span class="subtitle d-block">Luneas a viernes:</span>
-                                                        <p class="text mb-1">${v.schedule}</p>
-                                                    </div>
-                                                    
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Dirección:</span>
+                                                    <p class="text mb-1">${v.address}</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </button>
-                        </div> 
+                            </div>
+                        </button>
+                    </div> 
                         
                     `
                 )
@@ -545,41 +550,46 @@ function cea_filter(params){
                 }
                 $('.cea-list').append(
                     `
-                        <div class="col-12 col-xl-6">
-                            <button type="button" class="company-detail-cea" data-id="${v.id}" data-company="cea">
-                                <div class="d-flex flex-row content-result rounded mb-2">
-                                    <div class="thumbnail mr-2 mb-4">
-                                        
-                                        <img src="${logo}" width="90" height="90" alt="Logo Company">
-                                        <div class="qualification">
-                                            <span class="subtitle d-block">Calificación</span>
-                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
-                                        </div>
+                    <div class="col-12 col-xl-6">
+                        <button type="button" class="company-detail-cea" data-id="${v.id}" data-company="cea">
+                            <div class="d-flex flex-row content-result rounded mb-2">
+                                <div class="thumbnail mr-2 mb-4">
+                                    
+                                    <img src="${logo}" width="90" height="90" alt="Logo Company">
+                                    <div class="qualification">
+                                        <span class="subtitle d-block">Calificación</span>
+                                        <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
                                     </div>
-                                    <div class="result-body">
-                                        <h4 class="text-small"><span>${v.name}</span></h4>
-                                        <div class="d-flex flex-row">
-                                            <div class="price pr-2">
-                                                <span class="subtitle d-block">Precio</span>
-                                                <p>$${v.final_price}</p>
+                                </div>
+                                <div class="result-body">
+                                    <h4 class="text-small-1"><span>${v.name}</span></h4>
+                                    <div class="d-flex flex-row">
+                                        <div class="price pr-2">
+                                            <span class="subtitle d-block">Precio</span>
+                                            <p>$${v.final_price}</p>
+                                        </div>
+                                        <div class="schedule pl-2 pr-2">
+                                            <span class="subtitle d-block pb-3">Horarios de atención</span>
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Luneas a viernes:</span>
+                                                    <p class="text mb-1">${v.schedule}</p>
+                                                </div>
                                             </div>
-                                            <div class="schedule pl-2 pr-2">
-                                                <span class="subtitle d-block pb-3">Horarios de atención</span>
-                                                <div class="d-flex flex-row d-normal">
-                                                    <div class="pr-2">
-                                                        <span class="subtitle d-block">Luneas a viernes:</span>
-                                                        <p class="text mb-1">${v.schedule}</p>
-                                                    </div>
-                                                    
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Dirección:</span>
+                                                    <p class="text mb-1">${v.address}</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <span class="subtitle d-block">Horarios de Clases:</span>
-                                        <p class="p-text">${v.courses_schedule}</p>
                                     </div>
+                                    <span class="subtitle d-block">Horarios de Clases:</span>
+                                    <p class="p-text">${v.courses_schedule}</p>
                                 </div>
-                            </button>
-                        </div>
+                            </div>
+                        </button>
+                    </div>
 
                     `
                 )
@@ -697,20 +707,31 @@ function transit_filter(params){
                                     </div>
                                 </div>
                                 <div class="result-body">
-                                    <h4 class="text-small"><span>${v.name}</span></h4>
+                                    <h4 class="text-small-1"><span>${v.name}</span></h4>
                                     <div class="d-flex flex-row">
-                                        <div class="price  pr-2">
+                                        <div class="price pr-2">
                                             <span class="subtitle d-block">Precio</span>
-                                            <p class="weigh-5">$${v.final_price}</p>
+                                            <p>$${v.final_price}</p>
                                         </div>
                                         <div class="schedule pl-2 pr-2">
-                                            <span class="subtitle d-block pb-3">Horarios</span>
+                                            <span class="subtitle d-block pb-3">Horarios de atención</span>
                                             <div class="d-flex flex-row d-normal">
                                                 <div class="pr-2">
                                                     <span class="subtitle d-block">Luneas a viernes:</span>
                                                     <p class="text mb-1">${v.schedule}</p>
                                                 </div>
-                                                
+                                            </div>
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Dirección:</span>
+                                                    <p class="text mb-1">${v.address}</p>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex flex-row d-normal">
+                                                <div class="pr-2">
+                                                    <span class="subtitle d-block">Dirección:</span>
+                                                    <p class="text mb-1">${v.address}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
