@@ -441,6 +441,7 @@
             loadTransitSectorSelect(selected.val())
         })
         function transit_filter(params){
+            console.log(params)
             axios.get('/api/companies/transit', {
                 params: params
             })
@@ -546,7 +547,7 @@
         }
 
         
-        $('.rating-transit').on('change', function(){
+        $('#rating-transit').on('change', function(){
             if ($(this).val() === '0'){
                 delete params_transit['rating']
             }
@@ -554,12 +555,12 @@
                 params_transit['rating'] = $(this).val()
             }
         })
-        $('.sector-transit').on('change', function(e){
+        $('#sector-transit').on('change', function(e){
             params_transit['sector'] = $(this).val()
         })
         $('button.filter-transit').on('click', function(e){
-            params_transit['state'] = $('#states').val(),
-            params_transit['city'] = $('.transit-city').val(),
+            params_transit['state'] = '{{state.id}}',
+            params_transit['city'] = $('#transit-city').val(),
             transit_filter(params_transit)
         })
 
