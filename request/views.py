@@ -42,7 +42,7 @@ class RequestCreate(APIView):
                 user = User.objects.get(username=user_data['document_id'])
                 token, created = Token.objects.get_or_create(user=user)
             except User.DoesNotExist:
-                birth_date = datetime.strptime(user_data['birth_date'], '%m-%d-%Y')
+                birth_date = datetime.strptime(user_data['birth_date'], '%m/%d/%Y')
                 user = get_user_model()
                 user = user()
                 user.username = user_data['document_id']

@@ -55,20 +55,22 @@
     <div class="col-12 form-box mb-4">
         <div class="container">
             <div class="row profile-title">
-                <div class="col-12">
+                <div class="col-xs-12 col-sm-6">
                    <span>
                         Mi Perfil
                    </span>
+                </div>
+                <div class="col-xs-12 col-sm-6">
                     <a href="{% url 'webclient:profile' %}" class="btn btn-back"><img src="{% static 'images/Volver.png' %}" alt=""> Regresar</a>
                 </div>
             </div>
             <div class="row profile-info align-items-center">
                 <div class="col-12">
                     <div class="row profile-description">
-                        <div class="col-2 align-self-center">
-                            <img src="{% static 'images/07.png' %}" alt="user-img" width="100" height="100">
+                        <div class="col-md-3 col-lg-2 align-self-center">
+                            <img class="img-profile-1" src="{% static 'images/07.png' %}" alt="user-img" width="100" height="100">
                         </div>
-                        <div class="col-8 align-self-center">
+                        <div class="col-md-9 col-lg-8 align-self-center">
                             <span class="description-email">
                                 {{request.user.email}}  
                                 <i class="fas fa-check-circle"></i>

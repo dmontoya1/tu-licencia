@@ -453,7 +453,7 @@
                     </div>
                 </section>
                 
-                <button type="button" hidden class="btn btn-next btn-step-2">Siguiente</button>
+                <button type="button" hidden class="btn btn-next btn-step-2">Continuar</button>
             </fieldset>
             
             <!-- Selección CRC -->
@@ -622,7 +622,7 @@
                                         <i class="material-icons">keyboard_backspace</i>Volver
                                     </button>
                                     <button type="button" class="btn btn-next-step btn-step-3">
-                                        Siguiente
+                                        Continuar
                                     </button>
                                 </p>
                             </div>
@@ -803,7 +803,7 @@
                                         <i class="material-icons">keyboard_backspace</i>Volver
                                     </button>
                                     <button type="button" class="btn btn-next-step btn-step-4">
-                                        Siguiente
+                                        Continuar
                                     </button>
                                 </p>
                             </div>
@@ -964,7 +964,7 @@
                                         <i class="material-icons">keyboard_backspace</i>Volver
                                     </button>
                                     <button type="button" class="btn btn-next-step btn-step-5">
-                                        Siguiente
+                                        Continuar
                                     </button>
                                 </p>
                             </div>
@@ -1691,6 +1691,7 @@
                     else{
                         swal({
                             title: 'Momento',
+                            cancelButtonText: 'Cancelar',
                             text: "Ya tienes un CRC en el carrito. Deseas agregar este y eliminar el anterior?",
                             type: 'warning',
                             showCancelButton: true,
@@ -1753,6 +1754,7 @@
                             confirmButtonColor: '#162d40',
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'Si, agregar',
+                            cancelButtonText: 'Cancelar',
                             reverseButtons: true
                         }).then((result) => {
                             if (result.value) {
@@ -1802,6 +1804,7 @@
                             type: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#162d40',
+                            cancelButtonText: 'Cancelar',
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'Si, agregar',
                             reverseButtons: true

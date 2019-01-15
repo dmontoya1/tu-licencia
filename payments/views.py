@@ -81,7 +81,7 @@ class Checkout(TemplateView):
             try:
                 user = User.objects.get(username=request.POST['document_id'])
             except User.DoesNotExist:
-                birth_date = datetime.strptime(request.POST['birth_date'], '%m-%d-%Y')
+                birth_date = datetime.strptime(request.POST['birth_date'], '%m/%d/%Y')
                 user = get_user_model()
                 user = user()
                 user.username = request.POST['document_id']

@@ -39,6 +39,12 @@ img.img-profile {
     margin-left: 30px;
 }
 
+img.img-profile-1 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .row.profile-title {
     height: 70px;
     margin-top: 30px;
@@ -46,6 +52,7 @@ img.img-profile {
     font-weight: 500;
     color: #162d3f;
     text-align: left;
+    margin-bottom: 30px;
 }
 
 .row.profile-info {
@@ -58,7 +65,7 @@ img.img-profile {
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     padding: 25px 15px;
-    height: 140px;
+    height: 170px;
 }
 
 span.description-email {
@@ -68,6 +75,17 @@ span.description-email {
     display: block;
     font-weight: 600;
     margin-left: -30px;
+}
+
+@media (max-width: 776px) { 
+    span.description-email {
+        font-size: 0.9em;
+        color: #fff;
+        text-align: center;
+        display: block;
+        font-weight: 600;
+        margin-top: 10px;
+    }
 }
 
 .btn.btn-edit {
@@ -125,7 +143,7 @@ span.detail-info {
     .col-lg-6.col-data-profile.mt-4 {
         flex: 0 0 48.6%;
     }
- }
+}
 
 .table_id {
     width: 100%;
@@ -157,6 +175,11 @@ a.btn.btn-back {
     background: #ffca24;
     font-weight: 500;
     float: right;
+}
+@media (max-width: 576px) { 
+    a.btn.btn-back {
+        float: left;
+    }
 }
 
 .request-data span.title {
