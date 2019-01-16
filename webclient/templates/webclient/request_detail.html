@@ -9,14 +9,14 @@
     <div class="row row-details">
         <div class="col-12">
             <div class="row row-title-details">
-                <div class="col-3">
+                <div class="col-sm-12 col-md-4 col-lg-3">
                     <span class="services-title">Detalle de solicitud</span>
                 </div>
-                <div class="col-6">
-                    <a href="{% url 'webclient:baucher-detail' pk=object.pk %}" target="_blank" class="btn btn-baucher">Ver Baucher</a>
+                <div class="col-sm-6 col-md-4">
+                    <a href="{% url 'webclient:baucher-detail' pk=object.pk %}" target="_blank" class="btn btn-baucher mb-3">Ver Baucher</a>
                 </div>
-                <div class="col-3">
-                    <a href="{% url 'webclient:profile' %}" class="btn btn-back"><img src="{% static 'images/Volver.png' %}" alt=""> Regresar</a>
+                <div class="col-sm-6 col-md-4">
+                    <a href="{% url 'webclient:profile' %}" class="btn btn-back mb-3">Regresar</a>
                 </div>
 
             </div>
@@ -106,8 +106,8 @@
                     </div>
                 {% endif %}
                 {% if object.request_status != 'CAN' %}
-                    <div class="col-sm-6 col-md-4 align-self-end">
-                        <button id="cancel-request" class="btn btn-cancel">Solicitar Cancelación del servicio</button>
+                    <div class="col-12 align-self-end">
+                        <button id="cancel-request" class="btn-cancel">Solicitar Cancelación del servicio</button>
                     </div>
                 {% endif %}
             </div>
