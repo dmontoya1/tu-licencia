@@ -56,7 +56,17 @@ function loadCitiesSelect(state_id){
                 )
             })
             $('select.city-select').prepend(
-                `<option value="" disabled selected>Filtro por ciudad</option>`
+                `<option value="" disabled selected>Filtro por ciudad</option>`+
+                `<option value="0"> Ver todos</option>`
+            )
+            $('#city-user').empty()
+            $(data).each(function(i, v){
+                $('#city-user').append(
+                    `<option value="${v.id}">${v.name}</option>`
+                )
+            })
+            $('#city-user').prepend(
+                `<option value="" disabled selected>Selecciona tu ciudad de residencia</option>`
             )
             $('.content-municip').removeClass('d-none')
         },
@@ -76,7 +86,8 @@ function loadCRCSectorSelect(cityId){
                 )
             })
             $('select.sector-crc').prepend(
-                `<option value="" selected disabled>Seleccione un sector</option>`
+                `<option value="" selected disabled>Seleccione un sector</option>`+
+                `<option value="0"> Ver todos</option>`
             )
         },
     });     
@@ -95,7 +106,8 @@ function loadCEASectorSelect(cityId){
                 )
             })
             $('select.sector-cea').prepend(
-                `<option value="" selected disabled>Seleccione un sector</option>`
+                `<option value="" selected disabled>Seleccione un sector</option>`+
+                `<option value="0"> Ver todos</option>`
             )
         },
     });
@@ -115,7 +127,8 @@ function loadTransitSectorSelect(cityId){
                 )
             })
             $('select.sector-transit').prepend(
-                `<option value="" selected disabled>Seleccione un sector</option>`
+                `<option value="" selected disabled>Seleccione un sector</option>`+
+                `<option value="0"> Ver todos</option>`
             )
         },
     });
@@ -423,7 +436,7 @@ function crc_filter(params){
             $('.crc-list').empty()
             $.each(data, function(i, v){
                 if(data.logo == null){
-                    logo = "/static/images/logo1.png"
+                    logo = "../static/images/logo1.png"
                 }
                 else{
                     logo = data.logo
@@ -434,41 +447,36 @@ function crc_filter(params){
                         <button type="button" class="company-detail-crc" data-id="${v.id}" data-company="crc">
                             <div class="d-flex flex-row content-result rounded mb-2">
                                 <div class="thumbnail mr-2 mb-4">
-                                    
-                                    <img src="${logo}" width="90" height="90" alt="Logo Company">
-                                    <div class="qualification">
-                                        <span class="subtitle d-block">Calificación</span>
-                                        <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
-                                    </div>
-                                </div>
-                                <div class="result-body">
-                                    <h4 class="text-small-1"><span>${v.name}</span></h4>
-                                    <div class="d-flex flex-row">
-                                        <div class="price pr-2">
-                                            <span class="subtitle d-block">Precio</span>
-                                            <p>$${v.final_price}</p>
+                                    <div class="img" style="background-image: url(${logo});background-size: contain;"></div>
+                                        <div class="qualification">
+                                            <span class="subtitle d-block">Calificación</span>
+                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
                                         </div>
-                                        <div class="schedule pl-2 pr-2">
+                                    </div>
+                                    <div class="result-body">
+                                        <h4 class="text-small"><span>${v.name}</span></h4>
+                                        <div class="d-flex flex-row">
+                                            <div class="price  pr-2">
+                                                <span class="subtitle d-block">Valor examen</span>
+                                                <p class="weigh-5">$${v.final_price}</p>
+                                            </div>
+                                            <div class="schedule pl-2 pr-2">
                                             <span class="subtitle d-block pb-3">Horarios de atención</span>
                                             <div class="d-flex flex-row d-normal">
                                                 <div class="pr-2">
-                                                    <span class="subtitle d-block">Luneas a viernes:</span>
-                                                    <p class="text mb-1">${v.schedule}</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row d-normal">
-                                                <div class="pr-2">
-                                                    <span class="subtitle d-block">Dirección:</span>
-                                                    <p class="text mb-1">${v.address}</p>
-                                                </div>
+                                                <span class="subtitle d-block">Luneas a viernes:</span>
+                                                <p class="text mb-1">${v.schedule}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </button>
+                                <span class="subtitle d-block">Dirección:</span>
+                                <p class="p-text">${v.address}</p>
+                                </div>
+                            </button>
+                        </div>
                     </div> 
-                        
                     `
                 )
             })
@@ -506,6 +514,7 @@ function crc_filter(params){
                     $('.company-rating').text(data.rating)
                     $('.company-rating-count').text(`(${data.count_rating})`)
                     $('.company-price').text(`$ ${data.final_price}`)
+                    $('.price-title').text('Valor examen')
                     $('.add-cart').data('id', data.id);
                     $('.add-cart').data('name', data.name);
                     $('.add-cart').data('price', data.final_price);
@@ -550,45 +559,44 @@ function cea_filter(params){
                 }
                 $('.cea-list').append(
                     `
+
                     <div class="col-12 col-xl-6">
                         <button type="button" class="company-detail-cea" data-id="${v.id}" data-company="cea">
                             <div class="d-flex flex-row content-result rounded mb-2">
                                 <div class="thumbnail mr-2 mb-4">
-                                    
-                                    <img src="${logo}" width="90" height="90" alt="Logo Company">
-                                    <div class="qualification">
-                                        <span class="subtitle d-block">Calificación</span>
-                                        <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
-                                    </div>
-                                </div>
-                                <div class="result-body">
-                                    <h4 class="text-small-1"><span>${v.name}</span></h4>
-                                    <div class="d-flex flex-row">
-                                        <div class="price pr-2">
-                                            <span class="subtitle d-block">Precio</span>
-                                            <p>$${v.final_price}</p>
+                                    <div class="img" style="background-image: url(${logo});background-size: contain;"></div>
+                                        <div class="qualification">
+                                            <span class="subtitle d-block">Calificación</span>
+                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
                                         </div>
-                                        <div class="schedule pl-2 pr-2">
+                                    </div>
+                                    <div class="result-body">
+                                        <h4 class="text-small"><span>${v.name}</span></h4>
+                                        <div class="d-flex flex-row">
+                                            <div class="price  pr-2">
+                                                <span class="subtitle d-block">Valor curso de conducción</span>
+                                                <p class="weigh-5">$${v.final_price}</p>
+                                            </div>
+                                            <div class="schedule pl-2 pr-2">
                                             <span class="subtitle d-block pb-3">Horarios de atención</span>
                                             <div class="d-flex flex-row d-normal">
                                                 <div class="pr-2">
-                                                    <span class="subtitle d-block">Luneas a viernes:</span>
-                                                    <p class="text mb-1">${v.schedule}</p>
+                                                    <span class="subtitle d-block">Lunes a viernes:</span>
+                                                    <p class="text mb-1">${v.schedule}
+                                                    </p>
+                                                </div>
+                                                <div class="saturday">
+                                                    <span class="subtitle d-block">horarios de cursos:</span>
+                                                    <p class="text mb-0">${v.courses_schedule}</p>
                                                 </div>
                                             </div>
-                                            <div class="d-flex flex-row d-normal">
-                                                <div class="pr-2">
-                                                    <span class="subtitle d-block">Dirección:</span>
-                                                    <p class="text mb-1">${v.address}</p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                     </div>
                                     </div>
-                                    <span class="subtitle d-block">Horarios de Clases:</span>
-                                    <p class="p-text">${v.courses_schedule}</p>
+                                    <span class="subtitle d-block">Dirección:</span>
+                                    <p class="p-text">${v.address}</p>
                                 </div>
-                            </div>
-                        </button>
+                            </button>
+                        </div>
                     </div>
 
                     `
@@ -696,42 +704,38 @@ function transit_filter(params){
                 $('.transit-list').append(
                     `
                     <div class="col-12 col-xl-6">
-                        <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" data-toggle="modal" data-target=".transitDetailModal-${v.id}">
+                        <button type="button" class="company-detail" data-id="${v.id}" data-company="transit">
                             <div class="d-flex flex-row content-result rounded mb-2">
                                 <div class="thumbnail mr-2 mb-4">
-                                    
-                                    <img src="${logo}" width="90" height="90" alt="Logo Company">
-                                    <div class="qualification">
-                                        <span class="subtitle d-block">Calificación</span>
-                                        <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
-                                    </div>
-                                </div>
-                                <div class="result-body">
-                                    <h4 class="text-small-1"><span>${v.name}</span></h4>
-                                    <div class="d-flex flex-row">
-                                        <div class="price pr-2">
-                                            <span class="subtitle d-block">Precio</span>
-                                            <p>$${v.final_price}</p>
+                                    <div class="img" style="background-image: url(${logo});background-size: contain;"></div>
+                                        <div class="qualification">
+                                            <span class="subtitle d-block">Calificación</span>
+                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
                                         </div>
-                                        <div class="schedule pl-2 pr-2">
-                                            <span class="subtitle d-block pb-3">Horarios de atención</span>
-                                            <div class="d-flex flex-row d-normal">
-                                                <div class="pr-2">
-                                                    <span class="subtitle d-block">Luneas a viernes:</span>
-                                                    <p class="text mb-1">${v.schedule}</p>
-                                                </div>
+                                    </div>
+                                    <div class="result-body">
+                                        <h4 class="text-small"><span>${v.name}</span></h4>
+                                        <div class="d-flex flex-row">
+                                            <div class="price  pr-2">
+                                                <span class="subtitle d-block">Valor expedición</span>
+                                                <p class="weigh-5">$${v.final_price}</p>
                                             </div>
+                                            <div class="schedule pl-2 pr-2">
+                                            <span class="subtitle d-block pb-3">Horarios</span>
                                             <div class="d-flex flex-row d-normal">
                                                 <div class="pr-2">
-                                                    <span class="subtitle d-block">Dirección:</span>
-                                                    <p class="text mb-1">${v.address}</p>
-                                                </div>
+                                                <span class="subtitle d-block">Luneas a viernes:</span>
+                                                <p class="text mb-1">${v.schedule}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </button>
+                                <span class="subtitle d-block">Dirección:</span>
+                                <p class="p-text">${v.address}</p>
+                                </div>
+                            </button>
+                        </div>
                     </div>
                     `
                 )
@@ -798,7 +802,13 @@ $('select#states').on('change', function() {
 
 $('.continue-location').on('click', function(){
     if($('select#states').val() === null){
-        toastr["error"]("Debes seleccionar un departamento antes de continuar")
+        swal({
+            title: 'Atención',
+            text: 'Debes seleccionar un departamento antes de continuar',
+            type: 'error',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar'
+        })
     }
     else{
         $('.element--location').addClass('d-none')
@@ -852,7 +862,13 @@ $('.back-birth-date').on('click', function(){
 })
 $('.continue-birth-date').click(() => {
     if($('#day').val() === '' || $('#month').val() === '' || $('#year').val() === '' ){
-        toastr["error"]("Ingresa tu fecha de nacimiento para continuar")
+        swal({
+            title: 'Atención',
+            text: 'Ingresa tu fecha de nacimiento para continuar',
+            type: 'error',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar'
+        })
     }
     else {
 
@@ -1160,8 +1176,19 @@ $('#car-licence').on('click', function(ev){
 
 
 $('.continue-vehicle-type').on('click', function(){
-    $('.element--vehicle-type').addClass('d-none')
-    $('.element--licence-type').removeClass('d-none')
+    if (bike === false && car === false){
+        swal({
+            title: 'Atención',
+            text: 'Selecciona el tipo de vehículo para continuar',
+            type: 'error',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar'
+        })
+    }
+    else{
+        $('.element--vehicle-type').addClass('d-none')
+        $('.element--licence-type').removeClass('d-none')
+    }
 })
 
 $('.back-licence-type').on('click', function(){
@@ -1170,17 +1197,31 @@ $('.back-licence-type').on('click', function(){
 })
 
 $('.continue-licence-type').on('click', function(){
-    $('.element--licence-type').addClass('d-none')
-    if(tramit_type1 == 'FL'){
-        $('.element--have-runt').removeClass('d-none')
+    if(( tramits['licence_1'] === "" && tramits['licence_2'] === '') || 
+        (bike && car && (tramits['licence_1'] === "" || tramits['licence_2'] === ''))
+        ){
+            swal({
+                title: 'Atención',
+                text: 'Selecciona los tipos de licencia para tus vehículos para continuar',
+                type: 'error',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar'
+            })
     }
     else{
-        if(tramits['licence_2'] === ''){
-            $('.element--aditional-tramit').removeClass('d-none')
-        }
-        else {
+        $('.element--licence-type').addClass('d-none')
+        if(tramit_type1 == 'FL'){
             $('.element--have-runt').removeClass('d-none')
         }
+        else{
+            if(tramits['licence_2'] === ''){
+                $('.element--aditional-tramit').removeClass('d-none')
+            }
+            else {
+                $('.element--have-runt').removeClass('d-none')
+            }
+        }
+        
     }
 })
 
@@ -1222,14 +1263,14 @@ $('.back-have-runt').on('click', function(){
 })
 
 $('.continue-personal-data').on('click', function(){
-    if($('#first_name').val() === null || 
-    $('#last_name').val() === null ||
+    if($('#first_name').val() === null || $('#first_name').val() === '' ||
+    $('#last_name').val() === null || $('#last_name').val() === '' ||
     $('#doc_type').val() === null ||
-    $('#document_id').val() === null ||
-    $('#day-1').val() === null ||
-    $('#month-1').val() === null ||
-    $('#year-1').val() === null ||
-    $('#cellphone').val() === null){
+    $('#document_id').val() === null || $('#document_id').val() === '' ||
+    $('#day-1').val() === null || $('#day-1').val() === '' ||
+    $('#month-1').val() === null || $('#month-1').val() === '' ||
+    $('#year-1').val() === null || $('#year-1').val() === '' ||
+    $('#cellphone').val() === null || $('#cellphone').val() === ''){
         toastr["error"]("Debes llenar todos los campos")
     }
     else{
@@ -1243,35 +1284,9 @@ $('.back-auth-data').on('click', function(){
     $('.element--personal-data').removeClass('d-none')
 })
 
-$('.continue-auth-data').on('click', function(){
-    var next = true
-    if(!($('.checkbox-terms').is(":checked"))){
-        next = false
-        toastr["error"]("Debes aceptar los terminos y condiciones para continuar")
-    }
-    if($('#phone_number').val() === '' || 
-        $('#email').val() === ''){
-        next = false
-        toastr["error"]("Debes llenar todos los campos")
-    }
-    if ($('#pass1').val() != '') {
-        if ($('#pass1').val() != $('#pass2').val()){
-            next = false
-            toastr["error"]("Las contraseñas no coinciden")
-        }
-        else{
-            next = true
-        }
-    }
-    if (next){
-        $('.element--auth-data').addClass('d-none')
-        $('.element--paper-data').removeClass('d-none')
-    }
-})
-
 $('.send').on('click', function(e){
     
-    if ($('.PICK').hasClass('choose--selected')){
+    if ($('.pick-up').hasClass('choose--selected')){
         $('.pick-up').removeClass('choose--selected')
     }
     $(this).addClass('choose--selected')
@@ -1716,11 +1731,11 @@ $('#licence-request-form').on('submit', function(e){
     if(payment_type == ""){
         submit = false
         swal({
-        title: 'Atención',
-        text: 'Selecciona tu medio de pago',
-        type: 'error',
-        showCancelButton: false,
-        confirmButtonText: 'Ok'
+            title: 'Atención',
+            text: 'Selecciona tu medio de pago',
+            type: 'error',
+            showCancelButton: false,
+            confirmButtonText: 'Ok'
         })
     }
     if (submit){
@@ -1740,6 +1755,7 @@ $('#licence-request-form').on('submit', function(e){
             "phone_number": $('#phone_number').val(),
             "address": $('#address').val(),
             "state": $('#states').val(),
+            "city": $('#city-user').val(),
             "birth_date": birth_date
         },
 

@@ -425,6 +425,7 @@ input[type="number"]::-webkit-inner-spin-button {
 	background-color: #fff;
 	padding: .5rem;
 	min-height: 210px;
+	text-align: left;
 }
 	
 	.content-result .thumbnail .img{
@@ -435,6 +436,14 @@ input[type="number"]::-webkit-inner-spin-button {
 		background-repeat: no-repeat;
 		margin: 0 auto;
 	}
+
+.qualification {
+	text-align: center;
+}
+
+.row.details {
+    padding-left: 20px;
+}
 
 button.company-detail {
 	background: transparent;
@@ -640,7 +649,7 @@ h2.company-title {
 }
 
 .result-body .p-text{
-	font-size: .9rem;
+	font-size: .7rem;
 	color: rgba(0,0,0,.7);
 	font-weight: 500;
 }
@@ -682,12 +691,12 @@ h2.company-title {
 }
 
 .subtitle{
-	font-size: 1rem;
+	font-size: 0.75rem;
 	color: rgba(0,0,0,.4);
 }
 
 .schedule .text{
-	font-size: .9rem;
+	font-size: .75rem;
 	color: rgba(0,0,0,.7);
 	font-weight: 500;
 }

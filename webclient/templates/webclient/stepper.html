@@ -39,7 +39,7 @@
                     </div>
                     <div class="f1-step active">
                         <div class="f1-step-icon"><img src="{% static '/images/1.png' %}" width="23" alt="stepper-1"></div>
-                        <p>Datos Usuario</p>
+                        <p>Solicitud</p>
                     </div>
                     <div class="f1-step">
                         <div class="f1-step-icon"><img src="{% static '/images/2.png' %}" width="23" alt="stepper-2"></div>
@@ -47,19 +47,19 @@
                     </div>
                     <div class="f1-step">
                         <div class="f1-step-icon"><img src="{% static '/images/3.png' %}" width="23" alt="stepper-3"></div>
-                        <p>Seleccionar CRC</p>
+                        <p>Exámen médico</p>
                     </div>
                     <div class="f1-step">
                         <div class="f1-step-icon"><img src="{% static '/images/4.png' %}" width="23" alt="stepper-4"></div>
-                        <p>Seleccionar CEA</p>
+                        <p>Curso de conducción</p>
                     </div>
                     <div class="f1-step">
                         <div class="f1-step-icon"><img src="{% static '/images/5.png' %}" width="23" alt="stepper-5"></div>
-                        <p>Organismo de Transporte</p>
+                        <p>Entrega de licencia</p>
                     </div>
                     <div class="f1-step">
                         <div class="f1-step-icon"><img src="{% static '/images/6.png' %}" width="23" alt="stepper-6"></div>
-                        <p>Datos finales usuario</p>
+                        <p>Datos ciudadano</p>
                     </div>
                 </div>
             </div>
@@ -82,7 +82,7 @@
                                     </div>                  
                                 </div>
                                 <div class="content-municip mb-4 d-none">
-                                    <div class="header">Ciudades en tu departamento donde tenemos servicio TuLicencia.</div>
+                                    <div class="header">Podrás cotizar y pagar tu proceso en las siguientes ciudades.</div>
                                     <div class="body">
                                         <ul class="row mb-0" id="cities">
                                             <li class="col-12 col-md-6"> <span>01</span> Pereira </li>
@@ -101,7 +101,7 @@
                     <div class="element element--gender d-none">
                         <div class="row">
                             <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
-                                <h3 class="title text-center mt-5">Selecciona tu genero  
+                                <h3 class="title text-center mt-5">Selecciona tu género  
                                     <div class="tooltip-brand">
                                         <img src="{% static 'assets/img/duda.svg' %}"  width="25" alt="">
                                         <span class="tooltiptext shadow-sm">El precio de la licencia de conducción se calcula de acuerdo a tu edad y género</span>
@@ -211,7 +211,7 @@
                                     <ul class="content-option pt-2 pb-4 tramit-choice">
                                         <li class="option option-SL">
                                             <input id="toggle1" type="checkbox" name="initial" value="SL">
-                                            <label for="toggle1">Aprender a conducir un nuevo vehículo</label>
+                                            <label for="toggle1">Adquirir licencia de carro o moto</label>
                                         </li>
                                         <li class="option option-RN">
                                             <input id="toggle3" type="checkbox" name="renew" value="RN">
@@ -242,7 +242,7 @@
                         <div class="row">
                             <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
                             <h3 class="title text-center mt-5">¿Para qué tipo de vehículo?</h3>
-                            <p class="text text-center pb-5 mb-0">En caso de que necesites ambas licencias, puedes seleccionar los dos tipos de vehículo.</p>
+                            <p class="text text-center pb-5 mb-0">En caso de requerir ambas licencias por primera vez, selecciona los dos vehículos.</p>
                             <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
                                 <div class="pl-3 pr-3">
                                     <div class="choose" id="car-licence">
@@ -270,7 +270,7 @@
                         <div class="row">
                             <div class="col-12 col-md-10 col-lg-8 offset-md-1 offset-lg-2">
                                 <h3 class="title text-center mt-5 ">Selecciona la clase de licencia que necesitas</h3>
-                                <p class="text text-center pb-5 mb-0  t-justify"><strong>Nota: </strong>Las licencias para Automóvil categoría 3ra y 4ta (son actualmente conocidas como B1, C1) y para Motocicleta categoría 1ra y 2da (son actualmente conocidas como A1, A2)</p>
+                                <p class="text text-center pb-5 mb-0  t-justify"></p>
                             </div>
                         </div>
                         <div class="row">
@@ -289,7 +289,7 @@
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
-                                            <p class="text align-self-center mb-0 t-justify">Automóviles, motocarros, camperos, camionetas y microbuses de servicio particular.</p>       
+                                            <p class="text align-self-center mb-0 t-justify">Automóviles, motocarros, camperos, camionetas y microbuses de servicio <strong>particular. </strong>(Antes categoría 3).</p>       
                                         </div>          
                                     </div>
                                     <div class="col-12 col-md-6 toggleC1 d-none">
@@ -301,7 +301,7 @@
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
-                                            <p class="text align-self-center mb-0 t-justify">Automóviles, motocarros, camperos, camionetas y microbuses de servicio público y particular.</p>                   
+                                            <p class="text align-self-center mb-0 t-justify">Automóviles, motocarros, camperos, camionetas y microbuses de servicio <strong>público y particular. </strong>(Antes categoría 4).</p>
                                         </div>          
                                     </div>
                                     <div class="col-12 col-md-6 toggleC2 mt-3 d-none">
@@ -313,7 +313,7 @@
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
-                                            <p class="text align-self-center mb-0 t-justify">Automóviles, motocarros, camperos, camionetas y microbuses de servicio particular.</p>       
+                                            <p class="text align-self-center mb-0 t-justify">Camiones rígidos, buses y busetas de servicio <strong>público y particular. </strong>(Antes categoría 5).</p>
                                         </div>          
                                     </div>
                                     <div class="col-12 col-md-6 toggleC3 mt-3 d-none">
@@ -325,7 +325,7 @@
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
-                                            <p class="text align-self-center mb-0 t-justify">Automóviles, motocarros, camperos, camionetas y microbuses de servicio público y particular.</p>                   
+                                            <p class="text align-self-center mb-0 t-justify">Vehículos articulados de servicio <strong>público y particular. </strong>(Antes categoría 6).</p>
                                         </div>          
                                     </div>
                                 </div>
@@ -348,7 +348,7 @@
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
-                                            <p class="text align-self-center mb-0 t-justify">Cilindraje igual o menor a 125 c.c. de servicio particular)</p>                   
+                                            <p class="text align-self-center mb-0 t-justify">Motocicletas de cilindraje igual o menor a 125 c.c. (Antes categoría 1)</p>                   
                                         </div>          
                                     </div>
                                     <div class="col-12 col-md-6 toggleA2 d-none">
@@ -360,7 +360,7 @@
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
-                                            <p class="text align-self-center mb-0 t-justify">Para cualquier tipo de motocicleta de servicio particular.</p>                   
+                                            <p class="text align-self-center mb-0 t-justify">Motocicletas, motociclos y mototriciclos de cilindrajes superiores a 125 c.c. (Antes categoría 2).</p>                   
                                         </div>          
                                     </div>
                                 </div>
@@ -404,23 +404,23 @@
                     <div class="element element--have-runt d-none animated fadeInRight">
                         <div class="row">
                             <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
-                            <h3 class="title text-center mt-5">¿Estas inscrito en el RUNT?</h3>
-                            <p class="text text-center pb-5 mb-0">si no está seguro puede verificar haciendo clic 
+                            <h3 class="title text-center mt-5">¿Estás inscrito en el Registro Único Nacional de Tránsito (RUNT)?</h3>
+                            <p class="text text-center pb-5 mb-0">Si no estás seguro, puedes verificar tu estado 
                                 <a href="https://www.runt.com.co/consultaCiudadana/#/consultaPersona" target="_blank" class="btn-link ml-3">Aquí</a></p>
                             <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
                                 <div class="pl-3 pr-3">
                                     <div class="choose si-runt">
-                                        <img src="{% static 'assets/img/si.svg' %}" alt="">
+                                        <img src="{% static 'images/icon-yes.png' %}" alt="">
                                         <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
                                     </div>
                                     <p class="choose-text text-center mt-3">Si</p>
                                 </div>
                                 <div class="pl-3 pr-3"> 
                                     <div class="choose no-runt">
-                                        <img src="{% static 'assets/img/no.svg' %}" alt="">
+                                        <img src="{% static 'images/icon-no.png' %}" alt="">
                                         <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
                                     </div>
-                                    <p class="choose-text text-center mt-3">No</p>
+                                    <p class="choose-text text-center mt-3">No/No sé</p>
                                 </div>
                             </div>
                             <p class="text-center">
@@ -437,7 +437,7 @@
                             <div class="col-12 col-lg-10 offset-lg-1">
                             <div class="content-info-rut mb-5 animated">
                                 <img src="{% static 'assets/img/signo.svg' %}" class="icon-signo" alt="">
-                                <p class="mb-0">Al final del proceso te indicaremos el proceso de inscripción al <span>RUNT</span> que tendrás deberás hacerlo personalmente en cualquier Instituto de Tránsito o SIM de tu ciudad.</p>
+                                <p class="mb-0">Al final del proceso te indicaremos el proceso de inscripción al <span>RUNT,</span> que podrás hacerlo en cualquier SIM, instituto o secretaría de tránsito de tu ciudad.</p>
                             </div>
                             <p class="text-center pt-5">
                                 <button type="button" class="btn-brand btn-small ml-1 mr-1 back-runt">
@@ -461,7 +461,7 @@
                 
                 <section>
                     <div class="element element--seventeen animated fadeInRight">
-                        <h2 class="company-title text-center pt-2 mb-0">Centro de Reconocimiento de Conductores</h2>
+                        <h2 class="company-title text-center pt-2 mb-0">Exámen médico</h2>
                         <p class="text text-center pt-4 pb-3 mb-0"> Como primer paso selecciona el Centro de reconocimiento de conductores (CRC) donde vas a realizar tu examen médico, requisito necesario y obligatorio para adquirir la licencia de conducción.</p>
                         <div class="filter-web">
                             <span class="title-brand d-block pb-2">Filtrar por:</span>
@@ -561,44 +561,7 @@
                             <div class="col-12 col-lg-9">
                                 <div class="results rounded">
                                     <div class="form-row crc-list">
-                                        <div class="col-12 col-xl-6">
-                                            <div class="d-flex flex-row content-result rounded mb-2">
-                                                <div class="thumbnail mr-2 mb-4">
-                                                    <div class="img" style="background-image: url(/static/assets/img/img-result.png);"></div>
-                                                    <div class="qualification">
-                                                        <span class="subtitle d-block">Calificación</span>
-                                                        <p class="text"><span class="weigh-5">4.5 </span><i class="material-icons">grade</i> (200)</p>                            
-                                                    </div>
-                                                </div>
-                                                <div class="result-body text-left">
-                                                    <h4 class="text-small-1"><span>Simetric</span> - Centro Integral de Reconocimiento</h4>
-                                                    <div class="d-flex flex-row">
-                                                        <div class="price  pr-2">
-                                                            <span class="subtitle d-block">Una lincencia</span>
-                                                            <p class="weigh-5">$150.000</p>
-                                                            <span class="subtitle d-block">Dos lincencia</span>
-                                                            <p class="weigh-5">$150.000</p>
-                                                        </div>
-                                                        <div class="schedule pl-2 pr-2">
-                                                            <span class="subtitle d-block pb-3">Horarios</span>
-                                                            <div class="d-flex flex-row d-normal">
-                                                                <div class="pr-2">
-                                                                <span class="subtitle d-block">Luneas a viernes:</span>
-                                                                <p class="text mb-1">08:00 AM - 12:00 PM <br/>
-                                                                    02:00 PM - 06:00 PM</p>
-                                                                </div>
-                                                                <div class="saturday">
-                                                                <span class="subtitle d-block">Sábado:</span>
-                                                                <p class="text mb-0">08:00 AM - 12:00 PM </p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <span class="subtitle d-block">Descripción:</span>
-                                                    <p class="p-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation </p>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        
                                     </div>
                                 </div>                
                             </div>
@@ -879,7 +842,7 @@
                                         </div>
                                         <div class="col-12">
                                             <label class="sr-only" for="">Ciudad</label>
-                                            <select class="form-control city-select input-inline mb-2 mr-sm-2 cities-transit"">
+                                            <select class="form-control city-select input-inline mb-2 mr-sm-2 cities-transit">
                                             </select>
                                         </div>
                                         <div class="col-12">
@@ -978,6 +941,8 @@
                 
                 <section>
                     <div class="element element--personal-data animated fadeInRight">
+                        <h2 class="company-title text-center pt-2 mb-0">Datos finales</h2>
+                        <p class="text text-center pt-4 pb-3 mb-0">Requeriremos información necesaria para tu proceso, asegúrate de escribirla correctamente</p>
                         <div class="row pt-5">
                             <div class="col-12 col-lg-8">
                                 <div class="form-row">
@@ -1079,7 +1044,7 @@
                                 <div class="row align-items-end mb-5">
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
-                                            <label for="">Teléfono fijo*</label>
+                                            <label for="">Teléfono fijo</label>
                                             <input type="number" class="form-control form-control-lg" id="phone_number" name="phone_number" placeholder="Numero teléfono fijo" {% if request.user.is_authenticated %}value="{{request.user.phone_number|default:''}}{%endif%}">
                                         </div>
                                         <div class="form-group">
@@ -1089,6 +1054,11 @@
                                         <div class="form-group">
                                             <label for="">Correo electrónico*</label>
                                             <input type="mail" class="form-control form-control-lg" name="email" id="email" placeholder="Correo electrónico" {% if request.user.is_authenticated %}value="{{request.user.email}}{%endif%}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Ciudad de residencia*</label>
+                                            <select class="form-control form-control-lg city-select" id="city-user" name='city'>
+                                            </select>
                                         </div>
                                     </div>
                                     {% if request.user.is_anonymous %}
@@ -1147,8 +1117,10 @@
                     <div class="element element--paper-data d-none animated fadeInRight">
                         <div class="row pt-5">
                             <div class="col-12 col-lg-8">
-                                <h3 class="title text-center">Selecciona el medio por el cual prefieres recibir la papeleria</h3>
-                                <p class="text text-center pb-5 mb-0">Para reclamar tu licencia en el Instituto de Tránsito/SIM seleccionado, deberás presentar una documentación y papelería que nosotros prepararemos por ti, selecciona el método por el cual deseas recibir la documentación:</p>
+                                <h3 class="title text-center">Reclama tu licencia</h3>
+                                <p class="text text-center pb-5 mb-0"><strong>Solo tú podrás reclamar tu licencia de conducción</stong>, para ello te entregaremos las certificaciones y recibos de pago (según aplique en tu caso) que deberás presentar en la secretaria, instituto de tránsito o SIM de tu ciudad. <br>
+                                    <strong>¿Cómo quieres recibir  esta documentación?</strong>:
+                                </p>
                                 <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
                                     <div class="pl-3 pr-3">
                                         <div class="choose send">
@@ -1195,6 +1167,8 @@
                         <div class="row pt-5">
                             <div class="col-12 col-lg-8">
                                 <h3 class="title text-center pb-5">Elegir medio de pago</h3>
+                                <p class="text text-center pb-5 mb-0">Paga con tarjeta de crédito o débito tu proceso o solicita un crédito en línea:
+                                </p>
                                 <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
                                     <div class="pl-3 pr-3">
                                         <div class="choose online">
@@ -1364,8 +1338,8 @@
                                                             <img src="{% static 'icons/precio/res/mipmap-mdpi/precio.png' %}" width="30" height="30">
                                                         </div>
                                                         <div class="col-8 item">
-                                                            <span class="item-title">
-                                                                Precios <br>
+                                                            <span class="item-title price-title">
+                                                                Valor expedición <br>
                                                             </span>
                                                             <span class="item-detail company-price">
                                                                 $ price
@@ -1535,7 +1509,7 @@
                                                 </div>
                                                 <div class="col-8 item">
                                                     <span class="item-title">
-                                                        Precios <br>
+                                                        Valor curso de conducción <br>
                                                     </span>
                                                     <span class="item-detail company-price">
                                                         $ price
@@ -1667,7 +1641,7 @@
                                 <div class="media w-100">
                                     <img class="align-self-top mr-2" src="/static/assets/img/stethoscope.svg" width="35">
                                     <div class="media-body">
-                                        <h6 class="mt-0 mb-0 text-small">CRC</h6>
+                                        <h6 class="mt-0 mb-0 text-small">Examen médico</h6>
                                         <p class="mb-0 text-small crc-cart-name">${name}</p>
                                         <p class="mb-0 text-small crc-cart-price">$<span class="crc-cart-price-1">${price}</span></p>
                                     </div>
@@ -1724,7 +1698,7 @@
                                 <div class="media w-100">
                                 <img class="align-self-top mr-2" src="/static/assets/img/volante.svg" width="35">
                                 <div class="media-body">
-                                    <h6 class="mt-0 mb-0 text-small">CEA</h6>
+                                    <h6 class="mt-0 mb-0 text-small">Curso de conducción</h6>
                                     <p class="mb-0 text-small cea-cart-name">${name}</p>
                                     <p class="mb-0 text-small cea-cart-price">$<span class="cea-cart-price-1">${price}</span></p>
                                 </div>
@@ -1776,7 +1750,7 @@
                                 <div class="media w-100">
                                     <img class="align-self-top mr-2" src="/static/assets/img/gorro.svg" width="35">
                                     <div class="media-body">
-                                        <h6 class="mt-0 mb-0 text-small">Organismo de transito</h6>
+                                        <h6 class="mt-0 mb-0 text-small">Expedición licencia</h6>
                                         <p class="mb-0 text-small transit-cart-name">${name}</p>
                                         <p class="mb-0 text-small transit-cart-price">$<span class="transit-cart-price-1">${price}</span></p>
                                     </div>
@@ -1820,6 +1794,35 @@
                     break;
                 default:
                     console.log('Default')
+            }
+        })
+
+        $('.continue-auth-data').on('click', function(){
+            var next = true
+            {% if request.user.is_anonymous %}
+                if(!($('.checkbox-terms').is(":checked"))){
+                    next = false
+                    toastr["error"]("Debes aceptar los terminos y condiciones para continuar")
+                }
+            {% endif%}
+            if($('#address').val() === '' || 
+                $('#email').val() === '' ||
+                $('#city-user').val() === ''){
+                next = false
+                toastr["error"]("Debes llenar todos los campos")
+            }
+            if ($('#pass1').val() != '') {
+                if ($('#pass1').val() != $('#pass2').val()){
+                    next = false
+                    toastr["error"]("Las contraseñas no coinciden")
+                }
+                else{
+                    next = true
+                }
+            }
+            if (next){
+                $('.element--auth-data').addClass('d-none')
+                $('.element--paper-data').removeClass('d-none')
             }
         })
    

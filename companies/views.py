@@ -27,6 +27,16 @@ class CrcList(generics.ListAPIView):
         get_list.pop('gender')
         get_list.pop('licences')
         try:
+            city = get_list['city']
+            get_list.pop('city')
+        except:
+            city = "0"
+        try:
+            sector = get_list['sector']
+            get_list.pop('sector')
+        except:
+            sector = "0"
+        try:
             rating = get_list['rating']
             get_list.pop('rating')
         except:
@@ -40,6 +50,10 @@ class CrcList(generics.ListAPIView):
         params = params_to_filter(get_list.items())
         query = Crc.objects.filter(**params).distinct()
         try:
+            if city != "0":
+                query = query.filter(city__pk=city)
+            if sector != "0":
+                query = query.filter(sector__pk=sector)
             if rating:
                 if rating == "1":
                     if price:
@@ -83,6 +97,16 @@ class CeaList(generics.ListAPIView):
         get_list.pop('gender')
         get_list.pop('licences')
         try:
+            city = get_list['city']
+            get_list.pop('city')
+        except:
+            city = "0"
+        try:
+            sector = get_list['sector']
+            get_list.pop('sector')
+        except:
+            sector = "0"
+        try:
             rating = get_list['rating']
             get_list.pop('rating')
         except:
@@ -95,6 +119,10 @@ class CeaList(generics.ListAPIView):
         params = params_to_filter(get_list.items())
         query = Cea.objects.filter(**params).distinct()
         try:
+            if city != "0":
+                query = query.filter(city__pk=city)
+            if sector != "0":
+                query = query.filter(sector__pk=sector)
             if rating:
                 if rating == "1":
                     if price:
@@ -171,6 +199,16 @@ class TransitList(generics.ListAPIView):
     def get_queryset(self):
         get_list = self.request.GET.copy()
         try:
+            city = get_list['city']
+            get_list.pop('city')
+        except:
+            city = "0"
+        try:
+            sector = get_list['sector']
+            get_list.pop('sector')
+        except:
+            sector = "0"
+        try:
             rating = get_list['rating']
             get_list.pop('rating')
         except:
@@ -183,6 +221,10 @@ class TransitList(generics.ListAPIView):
         params = params_to_filter(get_list.items())
         query = TransitDepartment.objects.filter(**params).distinct()
         try:
+            if city != "0":
+                query = query.filter(city__pk=city)
+            if sector != "0":
+                query = query.filter(sector__pk=sector)
             if rating:
                 if rating == "1":
                     if price:
