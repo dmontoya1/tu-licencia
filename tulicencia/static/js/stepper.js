@@ -877,55 +877,64 @@ $('.continue-birth-date').click(() => {
         dob = new Date(birth_date);
         var today = new Date();
         age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-        $('#day-1').val($('#day').val())
-        $('#month-1').val($('#month').val())
-        $('#year-1').val($('#year').val())
-        if (age == 18){
+        console.log(age)
+        if (isNaN(age)){
             swal({
-                title: 'Atención',
-                text: 'Tienes 18 años. Para sacar tu licencia es necesario tu documento original. No se aceptan contraseñas',
-                type: 'info',
+                title: 'Error',
+                text: 'Debes introducir una fecha de nacimiento válida',
+                type: 'error',
                 showCancelButton: false,
                 confirmButtonText: 'Aceptar'
-            }).then(function(){
+            })
+        }
+        else {
+            $('#day-1').val($('#day').val())
+            $('#month-1').val($('#month').val())
+            $('#year-1').val($('#year').val())
+    
+            if (age == 18){
+                swal({
+                    title: 'Atención',
+                    text: 'Tienes 18 años. Para sacar tu licencia es necesario tu documento original. No se aceptan contraseñas',
+                    type: 'info',
+                    showCancelButton: false,
+                    confirmButtonText: 'Aceptar'
+                }).then(function(){
+                    $('.btn-step-1').trigger('click')
+                })
+            }
+            else if (age < 18 && age >= 16){
+                $(".toggleC1").addClass('disabled');
+                $("input#toggleC1").attr('disabled', true);
+                $(".toggleC2").addClass('disabled');
+                $("input#toggleC2").attr('disabled', true);
+                $("toggleC3").addClass('disabled');
+                $("input#toggleC3").attr('disabled', true);
+                swal({
+                    title: 'Atención',
+                    text: 'Los menores de 18 años podrán adquirir únicamente licencias de servicio particular ( A1, A2 y B1), estarán restringidas las de servicio público (C1, C2 y C3).',
+                    type: 'info',
+                    showCancelButton: false,
+                    confirmButtonText: 'Aceptar'
+                }).then(function(){
+                    $('.btn-step-1').trigger('click')
+                })
+            }
+            else if (age < 16) {
+                swal({
+                    title: 'Atención',
+                    text: 'La edad mínima permitida para adquirir la licencia de conducción colombiana son 16 años, no podrás continuar con el proceso hasta que no cumplas este requisito',
+                    type: 'info',
+                    showCancelButton: false,
+                    confirmButtonText: 'Aceptar'
+                })
+            }
+            else{
                 $('.btn-step-1').trigger('click')
-            })
-        }
-        else if (age < 18 && age >= 16){
-            $(".toggleC1").addClass('disabled');
-            $("input#toggleC1").attr('disabled', true);
-            $(".toggleC2").addClass('disabled');
-            $("input#toggleC2").attr('disabled', true);
-            $("toggleC3").addClass('disabled');
-            $("input#toggleC3").attr('disabled', true);
-            swal({
-                title: 'Atención',
-                text: 'Los menores de 18 años podrán adquirir únicamente licencias de servicio particular ( A1, A2 y B1), estarán restringidas las de servicio público (C1, C2 y C3).',
-                type: 'info',
-                showCancelButton: false,
-                confirmButtonText: 'Aceptar'
-            }).then(function(){
-                $('.btn-step-1').trigger('click')
-            })
-        }
-        else if (age < 16) {
-            swal({
-                title: 'Atención',
-                text: 'La edad mínima permitida para adquirir la licencia de conducción colombiana son 16 años, no podrás continuar con el proceso hasta que no cumplas este requisito',
-                type: 'info',
-                showCancelButton: false,
-                confirmButtonText: 'Aceptar'
-            })
-        }
-        else{
-            $('.btn-step-1').trigger('click')
-        }
-        
-        
+            }
+        }   
     }
-
 })
-
 
 function get_age(){
     swal({
@@ -939,7 +948,17 @@ function get_age(){
     dob = new Date(birth_date);
     var today = new Date();
     age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-    if (age == 18){
+    console.log(age)
+    if (isNaN(age)){
+        swal({
+            title: 'Error',
+            text: 'Debes introducir una fecha de nacimiento válida',
+            type: 'error',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar'
+        })
+    }
+    else if (age == 18){
         swal({
             title: 'Atención',
             text: 'Tienes 18 años. Para sacar tu licencia es necesario tu documento original. No se aceptan contraseñas',
@@ -1061,10 +1080,7 @@ $('.element--second-licence input').on('click', function(ev){
         switch($(this).val()) {
             case 'SL':
                 actual_tramit = 'SL'
-                console.log(tramit_type1)
-                console.log(tramits['licence_1'])
                 if (tramits['licence_1'] == ""){
-                    console.log('Entro al if SL')
                     tramit_type1 = $(this).val()
                     if($('.option-RN').hasClass('option--selected')){
                         $('.option-RN').removeClass('option--selected')
@@ -1097,7 +1113,14 @@ $('.element--second-licence input').on('click', function(ev){
                     })
                 }
                 else {
-                    console.log('Entro al else SL')
+                    if($('.option-RN').hasClass('option--selected') && tramit_type1 != 'RN'){
+                        $('.option-RN').removeClass('option--selected')
+                        clearTramit('RN')
+                    }
+                    if($('.option-RC').hasClass('option--selected') && tramit_type1 != 'RC'){
+                        $('.option-RC').removeClass('option--selected')
+                        clearTramit('RC')
+                    }
                     tramit_type2 = $(this).val()
                     $('.option-' + tramit_type2).addClass('option--selected');
                     swal({
@@ -1114,14 +1137,21 @@ $('.element--second-licence input').on('click', function(ev){
                                 $('.content-bike').addClass('d-none')
                                 $('.licences-bikes').addClass('d-none')
                             }
+                            else {
+                                $('.content-bike').removeClass('d-none')
+                                $('.licences-bikes').removeClass('d-none')
+                            }
                             if ('car' in licences){
                                 $('.content-car').addClass('d-none')
                                 $('.licences-cars').addClass('d-none')
                             }
+                            else {
+                                $('.content-car').removeClass('d-none')
+                                $('.licences-cars').removeClass('d-none')
+                            }
                             $('.element--second-licence').addClass('d-none');
                             $('.element--vehicle-type').removeClass('d-none');
                         } else {
-                            console.log('Cancel')
                             tramit_type2 = ''
                             $('.option-SL').removeClass('option--selected');
                         }
@@ -1130,10 +1160,7 @@ $('.element--second-licence input').on('click', function(ev){
                 break;
             case 'RC':
                 actual_tramit = 'RC'
-                console.log(tramit_type1)
-                console.log(tramits['licence_1'])
                 if (tramits['licence_1'] == ""){
-                    console.log('Entro al if RC')
                     if($('.option-SL').hasClass('option--selected')){
                         $('.option-SL').removeClass('option--selected')
                         clearTramit('SL')
@@ -1172,13 +1199,20 @@ $('.element--second-licence input').on('click', function(ev){
                             $('.element--second-licence').addClass('d-none');
                             $('.element--licence-type').removeClass('d-none');
                         } else {
-                            console.log('Cancel')
                             $('.option-' + tramit_type1).removeClass('option--selected');
                             tramit_type1 = ''
                         }
                     })
                 }
                 else {
+                    if($('.option-RN').hasClass('option--selected') && tramit_type1 != 'RN'){
+                        $('.option-RN').removeClass('option--selected')
+                        clearTramit('RN')
+                    }
+                    if($('.option-SL').hasClass('option--selected') && tramit_type1 != 'SL'){
+                        $('.option-SL').removeClass('option--selected')
+                        clearTramit('SL')
+                    }
                     if ('car' in licences){
                         swal({
                             title: 'Atención',
@@ -1189,7 +1223,6 @@ $('.element--second-licence input').on('click', function(ev){
                         })
                     }
                     else{
-                        console.log('Entro al else RC')
                         tramit_type2 = $(this).val()
                         $('.option-' + tramit_type2).addClass('option--selected');
                         swal({
@@ -1211,9 +1244,17 @@ $('.element--second-licence input').on('click', function(ev){
                                     $('.content-bike').addClass('d-none')
                                     $('.licences-bikes').addClass('d-none')
                                 }
+                                else {
+                                    $('.content-bike').removeClass('d-none')
+                                    $('.licences-bikes').removeClass('d-none')
+                                }
                                 if ('car' in licences){
                                     $('.content-car').addClass('d-none')
                                     $('.licences-cars').addClass('d-none')
+                                }
+                                else {
+                                    $('.content-car').removeClass('d-none')
+                                    $('.licences-cars').removeClass('d-none')
                                 }
                                 $('.element--second-licence').addClass('d-none');
                                 $('.element--vehicle-type').removeClass('d-none');
@@ -1228,10 +1269,7 @@ $('.element--second-licence input').on('click', function(ev){
                 break;
             case 'RN':
                 actual_tramit = 'RN'
-                console.log(tramit_type1)
-                console.log(tramits['licence_1'])
                 if (tramits['licence_1'] == ""){
-                    console.log('Entro al if RN')
                     if($('.option-SL').hasClass('option--selected')){
                         $('.option-SL').removeClass('option--selected')
                         clearTramit('SL')
@@ -1251,7 +1289,14 @@ $('.element--second-licence input').on('click', function(ev){
                     
                 }
                 else {
-                    console.log('Entro al else RN')
+                    if($('.option-SL').hasClass('option--selected') && tramit_type1 != 'SL'){
+                        $('.option-SL').removeClass('option--selected')
+                        clearTramit('SL')
+                    }
+                    if($('.option-RC').hasClass('option--selected') && tramit_type1 != 'RC'){
+                        $('.option-RC').removeClass('option--selected')
+                        clearTramit('RC')
+                    }
                     tramit_type2 = $(this).val()
                     $('.option-' + tramit_type2).addClass('option--selected');
                     
@@ -1259,9 +1304,17 @@ $('.element--second-licence input').on('click', function(ev){
                         $('.content-bike').addClass('d-none')
                         $('.licences-bikes').addClass('d-none')
                     }
+                    else {
+                        $('.content-bike').removeClass('d-none')
+                        $('.licences-bikes').removeClass('d-none')
+                    }
                     if ('car' in licences){
                         $('.content-car').addClass('d-none')
                         $('.licences-cars').addClass('d-none')
+                    }
+                    else {
+                        $('.content-car').removeClass('d-none')
+                        $('.licences-cars').removeClass('d-none')
                     }
                     setTimeout(function(){
                         $('.element--second-licence').addClass('d-none');
@@ -1463,7 +1516,8 @@ $('.continue-licence-type').on('click', function(){
 
 $('.new-tramit').on('click', function(){
     aditional_tramit = true
-    $('li.option-'+tramit_type1).attr('disabled', true)
+    $('.new-tramit').addClass('choose--selected')
+    $('li.option-'+tramit_type1).addClass('d-none')
     setTimeout(function(){ 
         $('.element--aditional-tramit').addClass('d-none')
         $('.element--second-licence').removeClass('d-none')
@@ -1471,6 +1525,7 @@ $('.new-tramit').on('click', function(){
 })
 
 $('.no-more-tramit').on('click', function(){
+    $('.no-more-tramit').addClass('choose--selected')
     setTimeout(function(){ 
         $('.element--aditional-tramit').addClass('d-none')
         $('.element--have-runt').removeClass('d-none')
