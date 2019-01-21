@@ -1517,43 +1517,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Calificación <br>
-                                                    </span>
-                                                    <span class="item-detail">
-                                                        <p class="text">
-                                                            <span class="weigh-5 company-rating">
-                                                                ${v.rating} 
-                                                            </span>
-                                                            <i class="material-icons">grade</i> 
-                                                            <span class="company-rating-count">
-                                                                (${v.count_rating})
-                                                            </span>
-                                                        </p>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/precio/res/mipmap-mdpi/precio.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Valor curso de conducción <br>
-                                                    </span>
-                                                    <span class="item-detail company-price">
-                                                        $ price
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1812,9 +1775,6 @@
                 if ($('#pass1').val() != $('#pass2').val()){
                     next = false
                     toastr["error"]("Las contraseñas no coinciden")
-                }
-                else{
-                    next = true
                 }
             }
             if (next){
