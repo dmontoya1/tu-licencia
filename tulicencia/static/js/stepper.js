@@ -879,7 +879,47 @@ $('.continue-birth-date').click(() => {
         $('#day-1').val($('#day').val())
         $('#month-1').val($('#month').val())
         $('#year-1').val($('#year').val())
-        $('.btn-step-1').trigger('click')
+        if (age == 18){
+            swal({
+                title: 'Atención',
+                text: 'Tienes 18 años. Para sacar tu licencia es necesario tu documento original. No se aceptan contraseñas',
+                type: 'info',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar'
+            }).then(function(){
+                $('.btn-step-1').trigger('click')
+            })
+        }
+        else if (age < 18 && age >= 16){
+            $(".toggleC1").addClass('disabled');
+            $("input#toggleC1").attr('disabled', true);
+            $(".toggleC2").addClass('disabled');
+            $("input#toggleC2").attr('disabled', true);
+            $("toggleC3").addClass('disabled');
+            $("input#toggleC3").attr('disabled', true);
+            swal({
+                title: 'Atención',
+                text: 'Los menores de 18 años podrán adquirir únicamente licencias de servicio particular ( A1, A2 y B1), estarán restringidas las de servicio público (C1, C2 y C3).',
+                type: 'info',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar'
+            }).then(function(){
+                $('.btn-step-1').trigger('click')
+            })
+        }
+        else if (age < 16) {
+            swal({
+                title: 'Atención',
+                text: 'La edad mínima permitida para adquirir la licencia de conducción colombiana son 16 años, no podrás continuar con el proceso hasta que no cumplas este requisito',
+                type: 'info',
+                showCancelButton: false,
+                confirmButtonText: 'Aceptar'
+            })
+        }
+        else{
+            $('.btn-step-1').trigger('click')
+        }
+        
         
     }
 
@@ -898,6 +938,46 @@ function get_age(){
     dob = new Date(birth_date);
     var today = new Date();
     age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+    if (age == 18){
+        swal({
+            title: 'Atención',
+            text: 'Tienes 18 años. Para sacar tu licencia es necesario tu documento original. No se aceptan contraseñas',
+            type: 'info',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar'
+        }).then(function(){
+            $('.btn-step-1').trigger('click')
+        })
+    }
+    else if (age < 18 && age >= 16){
+        $(".toggleC1").addClass('disabled');
+        $("input#toggleC1").attr('disabled', true);
+        $(".toggleC2").addClass('disabled');
+        $("input#toggleC2").attr('disabled', true);
+        $("toggleC3").addClass('disabled');
+        $("input#toggleC3").attr('disabled', true);
+        swal({
+            title: 'Atención',
+            text: 'Los menores de 18 años podrán adquirir únicamente licencias de servicio particular ( A1, A2 y B1), estarán restringidas las de servicio público (C1, C2 y C3).',
+            type: 'info',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar'
+        }).then(function(){
+            $('.btn-step-1').trigger('click')
+        })
+    }
+    else if (age < 16) {
+        swal({
+            title: 'Atención',
+            text: 'La edad mínima permitida para adquirir la licencia de conducción colombiana son 16 años, no podrás continuar con el proceso hasta que no cumplas este requisito',
+            type: 'info',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar'
+        })
+    }
+    else{
+        $('.btn-step-1').trigger('click')
+    }
 }
 
 $('#day-1').on('change', function(e){
@@ -978,8 +1058,8 @@ $('.element--second-licence input').on('click', function(ev){
     if (!($('.option-' + $(this).val()).hasClass('option--selected'))){
         
         if($(this).val() == 'RC' ){
-            if (!($('#bike-licence').attr('disabled'))){
-                $('#bike-licence').attr('disabled', true)
+            if (!($('.content-bike').hasClass('d-none'))){
+                $('.content-bike').addClass('d-none')
             }
             $('.licences-bikes').addClass('d-none')
             swal({
@@ -994,7 +1074,7 @@ $('.element--second-licence input').on('click', function(ev){
                     '</ul>' +
                     'Debes seleccionar la licencia a la cual quieres recategorizar',
                 showCancelButton: false,
-                confirmButtonText: 'Ok'
+                confirmButtonText: 'Aceptar'
             })
         }
         

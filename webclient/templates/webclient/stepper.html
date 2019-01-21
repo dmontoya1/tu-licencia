@@ -244,14 +244,14 @@
                             <h3 class="title text-center mt-5">¿Para qué tipo de vehículo?</h3>
                             <p class="text text-center pb-5 mb-0">En caso de requerir ambas licencias por primera vez, selecciona los dos vehículos.</p>
                             <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
-                                <div class="pl-3 pr-3">
+                                <div class="pl-3 pr-3 content-car">
                                     <div class="choose" id="car-licence">
                                         <img src="{% static 'assets/img/carro.svg' %}" alt="">
                                         <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
                                     </div>
                                     <p class="choose-text text-center mt-3">Auto</p>
                                 </div>
-                                <div class="pl-3 pr-3"> 
+                                <div class="pl-3 pr-3 content-bike"> 
                                     <div class="choose" id="bike-licence">
                                         <img src="{% static 'assets/img/moto.svg' %}" alt="">
                                         <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
@@ -1388,7 +1388,7 @@
                             <div class="row crc-info justify-content-around mb-4">
                                 <div class="col-sm-12 col-md-c-4 justify-content-center mb-4">
                                     <div class="image-crc">
-                                        <img class="company-logo mx-auto d-block mt-4 img-fluid" width=200 height=200 src="" alt="Logo Company">
+                                        <img class="company-logo mx-auto d-block mt-4 img-fluid" width="200" height="200" src="" alt="Logo Company">
                                     </div>
                                     <div class="select-button mt-3">
                                         <button type="button" class="btn-select add-cart" data-id="" data-name="" data-price="" data-company="">Seleccionar</button>
@@ -1517,6 +1517,43 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="col-lg-6">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                </div>
+                                                <div class="col-8 item">
+                                                    <span class="item-title">
+                                                        Calificación <br>
+                                                    </span>
+                                                    <span class="item-detail">
+                                                        <p class="text">
+                                                            <span class="weigh-5 company-rating">
+                                                                ${v.rating} 
+                                                            </span>
+                                                            <i class="material-icons">grade</i> 
+                                                            <span class="company-rating-count">
+                                                                (${v.count_rating})
+                                                            </span>
+                                                        </p>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="row">
+                                                <div class="col-3 img-location">
+                                                    <img src="{% static 'icons/precio/res/mipmap-mdpi/precio.png' %}" width="30" height="30">
+                                                </div>
+                                                <div class="col-8 item">
+                                                    <span class="item-title">
+                                                        Valor curso de conducción <br>
+                                                    </span>
+                                                    <span class="item-detail company-price">
+                                                        $ price
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1548,46 +1585,6 @@
                                                 </div>
                                                 <div class="card-body card-body-detail">
                                                     <p class="card-text">Chevrolet cruze</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
-                                            <div class="card">
-                                                <div class="card-img">
-                                                    <img class="card-img-top" src="/static/vehicles/car2.png" alt="Card image cap">
-                                                </div>
-                                                <div class="card-body card-body-detail">
-                                                    <p class="card-text">Chevrolet Onix</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
-                                            <div class="card">
-                                                <div class="card-img">
-                                                    <img class="card-img-top" src="/static/vehicles/van1.png" alt="Card image cap">
-                                                </div>
-                                                <div class="card-body card-body-detail">
-                                                    <p class="card-text">Chevrolet Van</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
-                                            <div class="card">
-                                                <div class="card-img">
-                                                    <img class="card-img-top" src="/static/vehicles/bus1.png" alt="Card image cap">
-                                                </div>
-                                                <div class="card-body card-body-detail">
-                                                    <p class="card-text">Bus</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
-                                            <div class="card">
-                                                <div class="card-img">
-                                                    <img class="card-img-top" src="/static/vehicles/car2.png" alt="Card image cap">
-                                                </div>
-                                                <div class="card-body card-body-detail">
-                                                    <p class="card-text">Chevrolet Onix</p>
                                                 </div>
                                             </div>
                                         </div>
