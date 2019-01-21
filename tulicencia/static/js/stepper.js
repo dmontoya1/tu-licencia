@@ -1354,6 +1354,7 @@ $('.male').on('click', function(e){
 
 $('#bike-licence').on('click', function(ev){
     bike = !bike;
+    console.log(bike)
     if(tramit_type1 == 'SL'){
         if ($('#car-licence').hasClass('choose--selected')){
             $('#car-licence').removeClass('choose--selected')
@@ -1405,7 +1406,8 @@ $('#bike-licence').on('click', function(ev){
 
 $('#car-licence').on('click', function(ev){
     car = !car;
-    if(tramit_type1 == 'SL'){
+    console.log(car)
+    if(tramit_type1 == 'SL' && actual_tramit == 'SL'){
         if ($('#bike-licence').hasClass('choose--selected')){
             $('#bike-licence').removeClass('choose--selected')
             bike = false
@@ -1471,6 +1473,15 @@ $('.continue-vehicle-type').on('click', function(){
             confirmButtonText: 'Aceptar'
         })
     }
+    else if (tramits['licence_1'] != '' && (bike === false || car === false)){
+        swal({
+            title: 'Atención',
+            text: 'Selecciona el tipo de vehículo para continuar',
+            type: 'error',
+            showCancelButton: false,
+            confirmButtonText: 'Aceptar'
+        })
+    }
     else{
         $('.element--vehicle-type').addClass('d-none')
         $('.element--licence-type').removeClass('d-none')
@@ -1489,6 +1500,10 @@ $('.back-licence-type').on('click', function(){
 })
 
 $('.continue-licence-type').on('click', function(){
+    console.log(tramits['licence_1'])
+    console.log(tramits['licence_2'])
+    console.log(car)
+    console.log(bike)
     if(( tramits['licence_1'] === "" && tramits['licence_2'] === '') || 
         (bike && car && (tramits['licence_1'] === "" || tramits['licence_2'] === ''))
         ){
