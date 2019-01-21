@@ -1355,7 +1355,7 @@ $('.male').on('click', function(e){
 $('#bike-licence').on('click', function(ev){
     bike = !bike;
     console.log(bike)
-    if(tramit_type1 == 'SL'){
+    if(tramit_type1 == 'SL' && actual_tramit == 'SL'){
         if ($('#car-licence').hasClass('choose--selected')){
             $('#car-licence').removeClass('choose--selected')
             car = false
