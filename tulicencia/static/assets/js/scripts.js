@@ -56,30 +56,6 @@ jQuery(document).ready(function() {
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
 		
     	if( next_step ) {
-			if (age == 18){
-				swal({
-					title: 'Atención',
-					text: 'Tienes 18 años. Para sacar tu licencia es necesario tu documento original. No se aceptan contraseñas',
-					type: 'info',
-					showCancelButton: false,
-					confirmButtonText: 'Ok'
-				})
-			}
-			if (age < 18){
-				swal({
-					title: 'Atención',
-					text: 'Los menores de 18 años podrán adquirir únicamente licencias de servicio particular ( A1, A2 y B1), estarán restringidas las de servicio público (C1, C2 y C3).',
-					type: 'info',
-					showCancelButton: false,
-					confirmButtonText: 'Aceptar'
-				})
-				$(".toggleC1").addClass('disabled');
-				$("input#toggleC1").attr('disabled', true);
-				$(".toggleC2").addClass('disabled');
-				$("input#toggleC2").attr('disabled', true);
-				$("toggleC3").addClass('disabled');
-				$("input#toggleC3").attr('disabled', true);
-			}
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
     			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
