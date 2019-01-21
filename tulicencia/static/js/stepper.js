@@ -1102,9 +1102,9 @@ $('.element--second-licence input').on('click', function(ev){
                         confirmButtonText: 'Aceptar'
                     }).then((result) => {
                         if (result.value) {
-                            
                             $('.element--second-licence').addClass('d-none');
                             $('.element--vehicle-type').removeClass('d-none');
+                            $('.sl-text').text('Selecciona el nuevo tipo de vehículo que quieres agregar a tu licencia de conducción')
                         } else {
                             console.log('Cancel')
                             tramit_type1 = ''
@@ -1149,6 +1149,7 @@ $('.element--second-licence input').on('click', function(ev){
                                 $('.content-car').removeClass('d-none')
                                 $('.licences-cars').removeClass('d-none')
                             }
+                            $('.sl-text').text('Selecciona el nuevo tipo de vehículo que quieres agregar a tu licencia de conducción')
                             $('.element--second-licence').addClass('d-none');
                             $('.element--vehicle-type').removeClass('d-none');
                         } else {
@@ -1297,6 +1298,8 @@ $('.element--second-licence input').on('click', function(ev){
                         $('.option-RC').removeClass('option--selected')
                         clearTramit('RC')
                     }
+                    $('.toggleC2').removeClass('d-none')
+                    $('.toggleC3').removeClass('d-none')
                     tramit_type2 = $(this).val()
                     $('.option-' + tramit_type2).addClass('option--selected');
                     
