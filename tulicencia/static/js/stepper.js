@@ -425,6 +425,7 @@ var tramit_type2 = ""
 var paper = ""
 var payment_type = ""
 var aditional_tramit = false
+var actual_tramit = ''
 
 function crc_filter(params){
     axios.get('/api/companies/crc', {
@@ -1057,71 +1058,220 @@ $('.back-second-licence').on('click', function(){
 $('.element--second-licence input').on('click', function(ev){
     if (!($('.option-' + $(this).val()).hasClass('option--selected'))){
         
-        if($(this).val() == 'RC' ){
-            if (!($('.content-bike').hasClass('d-none'))){
-                $('.content-bike').addClass('d-none')
-            }
-            $('.licences-bikes').addClass('d-none')
-            swal({
-                title: 'Atención',
-                type: 'info',
-                html:
-                    'Solo puedes recategorizar licencias de carros, de la siguiente manera: ' +
-                    '<ul class="recat-info"> ' +
-                        '<li>De B1 a C1</li>'+
-                        '<li>De C1 a C2</li>'+
-                        '<li>De C2 a C3</li>'+
-                    '</ul>' +
-                    'Debes seleccionar la licencia a la cual quieres recategorizar',
-                showCancelButton: false,
-                confirmButtonText: 'Aceptar'
-            })
-        }
-        
-        if (tramit_type1 == ""){
-            tramit_type1 = $(this).val()
-            $('.option-' + tramit_type1).addClass('option--selected');
-            setTimeout(function(){ 
-                $('.element--second-licence').addClass('d-none');
-                $('.element--vehicle-type').removeClass('d-none');
-            }, 700);
-        }
-        else{
-            if (jQuery.isEmptyObject(licences)){
-                $(this)[0].checked = false;
-                swal({
-                    title: 'Atención',
-                    text: 'Primero selecciona la licencia para tu primer categoría',
-                    type: 'error',
-                    showCancelButton: false,
-                    confirmButtonText: 'Ok'
-                })
-            }
-            else{
-                $('.option-' + $(this).val()).addClass('option--selected')
-                if ('bike' in licences){
-                    $('.bike-licences').toggleClass('d-none')
-                    $('.bikelicence').toggleClass('disabled')
-                    if ($('.carlicence').hasClass('disabled')){
-                        $('.carlicence').removeClass('disabled')
+        switch($(this).val()) {
+            case 'SL':
+                actual_tramit = 'SL'
+                console.log(tramit_type1)
+                console.log(tramits['licence_1'])
+                if (tramits['licence_1'] == ""){
+                    console.log('Entro al if SL')
+                    tramit_type1 = $(this).val()
+                    if($('.option-RN').hasClass('option--selected')){
+                        $('.option-RN').removeClass('option--selected')
+                        clearTramit('RN')
+                    }
+                    if($('.option-RC').hasClass('option--selected')){
+                        $('.option-RC').removeClass('option--selected')
+                        clearTramit('RC')
+                    }
+                    $('.option-' + tramit_type1).addClass('option--selected');
+                    swal({
+                        title: 'Atención',
+                        type: 'info',
+                        html:
+                            'Selecciona  la nueva categoría que quieres aprender a conducir, podrás elegir entre moto categorías A1 y A2 y carro categorías B1 y C1.<br>'+
+                            'Para categorías C2 y C3 consulta la opción “Subir la categoría de mi actual licencia”',
+                        showCancelButton: true,
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: 'Aceptar'
+                    }).then((result) => {
+                        if (result.value) {
+                            
+                            $('.element--second-licence').addClass('d-none');
+                            $('.element--vehicle-type').removeClass('d-none');
+                        } else {
+                            console.log('Cancel')
+                            tramit_type1 = ''
+                            $('.option-SL').removeClass('option--selected');
+                        }
+                    })
+                }
+                else {
+                    console.log('Entro al else SL')
+                    tramit_type2 = $(this).val()
+                    $('.option-' + tramit_type2).addClass('option--selected');
+                    swal({
+                        title: 'Atención',
+                        type: 'info',
+                        html:
+                            'Selecciona  la nueva categoría que quieres aprender a conducir, podrás elegir entre moto categorías A1 y A2 y carro categorías B1 y C1.<br>'+
+                            'Para categorías C2 y C3 consulta la opción “Subir la categoría de mi actual licencia”',
+                        showCancelButton: false,
+                        confirmButtonText: 'Aceptar'
+                    }).then((result) => {
+                        if (result.value) {
+                            if ('bike' in licences){
+                                $('.content-bike').addClass('d-none')
+                                $('.licences-bikes').addClass('d-none')
+                            }
+                            if ('car' in licences){
+                                $('.content-car').addClass('d-none')
+                                $('.licences-cars').addClass('d-none')
+                            }
+                            $('.element--second-licence').addClass('d-none');
+                            $('.element--vehicle-type').removeClass('d-none');
+                        } else {
+                            console.log('Cancel')
+                            tramit_type2 = ''
+                            $('.option-SL').removeClass('option--selected');
+                        }
+                    })
+                }
+                break;
+            case 'RC':
+                actual_tramit = 'RC'
+                console.log(tramit_type1)
+                console.log(tramits['licence_1'])
+                if (tramits['licence_1'] == ""){
+                    console.log('Entro al if RC')
+                    if($('.option-SL').hasClass('option--selected')){
+                        $('.option-SL').removeClass('option--selected')
+                        clearTramit('SL')
+                    }
+                    if($('.option-RN').hasClass('option--selected')){
+                        $('.option-RN').removeClass('option--selected')
+                        clearTramit('RN')
+                    }
+                    if (!($('.content-bike').hasClass('d-none'))){
+                        $('.content-bike').addClass('d-none')
+                    }
+                    $('.licences-bikes').addClass('d-none')
+                    $('.licences-car .toggleB1').addClass('d-none')
+                    $('.title-car').removeClass('d-none')
+                    $('.toggleC1').removeClass('d-none')
+                    $('.toggleC2').removeClass('d-none')
+                    $('.toggleC3').removeClass('d-none')
+                    tramit_type1 = $(this).val()
+                    $('.option-' + tramit_type1).addClass('option--selected');
+                    swal({
+                        title: 'Atención',
+                        type: 'info',
+                        html:
+                            'Solo puedes recategorizar licencias de carros, de la siguiente manera: ' +
+                            '<ul class="recat-info"> ' +
+                                '<li>De B1 a C1</li>'+
+                                '<li>De C1 a C2</li>'+
+                                '<li>De C2 a C3</li>'+
+                            '</ul>' +
+                            'Debes seleccionar la licencia a la cual quieres recategorizar',
+                        showCancelButton: false,
+                        confirmButtonText: 'Aceptar'
+                    }).then((result) => {
+                        if (result.value) {
+                            car = true
+                            $('.element--second-licence').addClass('d-none');
+                            $('.element--licence-type').removeClass('d-none');
+                        } else {
+                            console.log('Cancel')
+                            $('.option-' + tramit_type1).removeClass('option--selected');
+                            tramit_type1 = ''
+                        }
+                    })
+                }
+                else {
+                    if ('car' in licences){
+                        swal({
+                            title: 'Atención',
+                            type: 'error',
+                            text: 'Ya tienes una licencia de automóvil en proceso, no puedes realizar la recategorización',
+                            showCancelButton: false,
+                            confirmButtonText: 'Aceptar'
+                        })
+                    }
+                    else{
+                        console.log('Entro al else RC')
+                        tramit_type2 = $(this).val()
+                        $('.option-' + tramit_type2).addClass('option--selected');
+                        swal({
+                            title: 'Atención',
+                            type: 'info',
+                            html:
+                                'Solo puedes recategorizar licencias de carros, de la siguiente manera: ' +
+                                '<ul class="recat-info"> ' +
+                                    '<li>De B1 a C1</li>'+
+                                    '<li>De C1 a C2</li>'+
+                                    '<li>De C2 a C3</li>'+
+                                '</ul>' +
+                                'Debes seleccionar la licencia a la cual quieres recategorizar',
+                            showCancelButton: false,
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            if (result.value) {
+                                if ('bike' in licences){
+                                    $('.content-bike').addClass('d-none')
+                                    $('.licences-bikes').addClass('d-none')
+                                }
+                                if ('car' in licences){
+                                    $('.content-car').addClass('d-none')
+                                    $('.licences-cars').addClass('d-none')
+                                }
+                                $('.element--second-licence').addClass('d-none');
+                                $('.element--vehicle-type').removeClass('d-none');
+                            } else {
+                                console.log('Cancel')
+                                $('.option-' + tramit_type2).removeClass('option--selected');
+                                tramit_type2 = ''
+                            }
+                        })
                     }
                 }
-                else{
-                    $('.car-licences').toggleClass('d-none')
-                    $('.carlicence').toggleClass('disabled')
-                    if(!($(this).val() == 'RC' )){
-                        $('.bikelicence').toggleClass('disabled')
+                break;
+            case 'RN':
+                actual_tramit = 'RN'
+                console.log(tramit_type1)
+                console.log(tramits['licence_1'])
+                if (tramits['licence_1'] == ""){
+                    console.log('Entro al if RN')
+                    if($('.option-SL').hasClass('option--selected')){
+                        $('.option-SL').removeClass('option--selected')
+                        clearTramit('SL')
                     }
+                    if($('.option-RC').hasClass('option--selected')){
+                        $('.option-RC').removeClass('option--selected')
+                        clearTramit('RC')
+                    }
+                    $('.toggleC2').removeClass('d-none')
+                    $('.toggleC3').removeClass('d-none')
+                    tramit_type1 = $(this).val()
+                    $('.option-' + tramit_type1).addClass('option--selected');
+                    setTimeout(function(){
+                        $('.element--second-licence').addClass('d-none');
+                        $('.element--vehicle-type').removeClass('d-none'); 
+                    },700);
+                    
                 }
-                tramit_type2 = $(this).val()
-                $('.option-' + tramit_type1).addClass('option--selected');
-                setTimeout(function(){ 
-                    $('.element--second-licence').addClass('d-none')
-                    $('.element--vehicle-type').removeClass('d-none')
-                }, 700);
-            }
-            
-        }
+                else {
+                    console.log('Entro al else RN')
+                    tramit_type2 = $(this).val()
+                    $('.option-' + tramit_type2).addClass('option--selected');
+                    
+                    if ('bike' in licences){
+                        $('.content-bike').addClass('d-none')
+                        $('.licences-bikes').addClass('d-none')
+                    }
+                    if ('car' in licences){
+                        $('.content-car').addClass('d-none')
+                        $('.licences-cars').addClass('d-none')
+                    }
+                    setTimeout(function(){
+                        $('.element--second-licence').addClass('d-none');
+                        $('.element--vehicle-type').removeClass('d-none'); 
+                    },700);
+                }
+                break;
+            default:
+                console.log('default')
+          }
     }
     else {
         $('.option-' + $(this).val()).removeClass('option--selected');
@@ -1272,8 +1422,14 @@ $('.continue-vehicle-type').on('click', function(){
 })
 
 $('.back-licence-type').on('click', function(){
-    $('.element--licence-type').addClass('d-none')
-    $('.element--vehicle-type').removeClass('d-none')
+    if (actual_tramit == 'RC'){
+        $('.element--licence-type').addClass('d-none')
+        $('.element--second-licence).removeClass('d-none')
+    }
+    else {
+        $('.element--licence-type').addClass('d-none')
+        $('.element--vehicle-type').removeClass('d-none')
+    }
 })
 
 $('.continue-licence-type').on('click', function(){
