@@ -1424,7 +1424,7 @@ $('.continue-vehicle-type').on('click', function(){
 $('.back-licence-type').on('click', function(){
     if (actual_tramit == 'RC'){
         $('.element--licence-type').addClass('d-none')
-        $('.element--second-licence).removeClass('d-none')
+        $('.element--second-licence').removeClass('d-none')
     }
     else {
         $('.element--licence-type').addClass('d-none')
