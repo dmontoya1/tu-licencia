@@ -36,6 +36,7 @@ class RequestCreate(APIView):
             transit_price = request.data['transit_price']
             tramits = request.data['tramits']
 
+            city = City.objects.get(pk=user_data['city'])
             state = State.objects.get(pk=user_data['state'])
             # state = city.state
             try:
@@ -57,7 +58,7 @@ class RequestCreate(APIView):
                 user.document_type = user_data['document_type']
                 user.document_id = user_data['document_id']
                 user.state = state
-                # user.city = city
+                user.city = city
                 user.gender = user_data['gender']
                 user.birth_date = birth_date
                 user.backend = 'django.contrib.auth.backends.ModelBackend'

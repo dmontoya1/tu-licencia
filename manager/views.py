@@ -79,7 +79,8 @@ class SectorList(generics.ListAPIView):
         queryset = Sector.objects.alive()
         cityId = self.kwargs['cityId']
         if cityId:
-            queryset = queryset.filter(city=cityId).order_by('name')
+            if cityId != 0:
+                queryset = queryset.filter(city=cityId).order_by('name')
         return queryset
 
 

@@ -68,17 +68,17 @@ jQuery(document).ready(function() {
 			if (age < 18){
 				swal({
 					title: 'Atención',
-					text: 'Tienes menos de 18 años. Solamente puedes sacar licencias de auto B1 y de moto A1 o A2',
+					text: 'Los menores de 18 años podrán adquirir únicamente licencias de servicio particular ( A1, A2 y B1), estarán restringidas las de servicio público (C1, C2 y C3).',
 					type: 'info',
 					showCancelButton: false,
-					confirmButtonText: 'Ok'
+					confirmButtonText: 'Aceptar'
 				})
-				$("label[for='toggleC1']").addClass('disabled');
-				$("input[id='toggleC1']").attr('disabled', true);
-				$("label[for='toggleC2']").addClass('disabled');
-				$("input[id='toggleC2']").attr('disabled', true);
-				$("label[for='toggleC3']").addClass('disabled');
-				$("input[id='toggleC3']").attr('disabled', true);
+				$(".toggleC1").addClass('disabled');
+				$("input#toggleC1").attr('disabled', true);
+				$(".toggleC2").addClass('disabled');
+				$("input#toggleC2").attr('disabled', true);
+				$("toggleC3").addClass('disabled');
+				$("input#toggleC3").attr('disabled', true);
 			}
     		parent_fieldset.fadeOut(400, function() {
     			// change icons

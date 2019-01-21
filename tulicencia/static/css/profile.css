@@ -86,6 +86,13 @@ span.description-email {
         font-weight: 600;
         margin-top: 10px;
     }
+    .row.profile-description {
+        background-color: #162d3f;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        padding: 25px 15px;
+        height: 225px;
+    }
 }
 
 .btn.btn-edit {
@@ -93,9 +100,14 @@ span.description-email {
     border: 2px solid #fff;
     font-size: 1em;
     font-weight: 600;
+    text-align: center;
     color: #fff;
     padding: 6px 30px;
-    float: right;
+    display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 150px;
 }
 
 .row.profile-detail {
@@ -168,6 +180,7 @@ a.btn.btn-baucher {
     background-color: #162d3f;
     font-size: 0.9em;
     padding: 6px 15px;
+    width: 140px;
 }
 
 a.btn.btn-back {
@@ -175,6 +188,7 @@ a.btn.btn-back {
     background: #ffca24;
     font-weight: 500;
     float: right;
+    width: 140px;
 }
 @media (max-width: 576px) { 
     a.btn.btn-back {
@@ -258,12 +272,16 @@ button.save-data {
     font-weight: 400;
 }
 
-.btn.btn-cancel {
+.btn-cancel {
     color: #666;
     background: transparent;
-    float: right;
-    margin-left: 20px;
+    margin-top: 20px;
     font-weight: 400;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 5px 20px;
+    border: transparent;
 }
 .btn.btn-cancel:hover, 
 .btn.btn-cancel:focus {
