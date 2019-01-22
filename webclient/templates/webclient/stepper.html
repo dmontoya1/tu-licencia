@@ -697,7 +697,7 @@
                                                 <option value="2">De mayor a menor calificación</option>
                                             </select>
                                         </div>
-                                        <button type="button" class="btn-filter mb-2 filter-cea">FILTRAR</button>
+                                        <button type="button" class="btn-filter mb-2 filter-cea-1">FILTRAR</button>
                                     </div>
                                 </div>
                             </div>
@@ -981,7 +981,7 @@
                                     </div>                  
                                     <div class="form-group col-12 col-md-12 col-lg-6">
                                         <label for="">Nº de identificación*</label>
-                                        <input type="text" class="form-control form-control-lg" name="document_id" id="doc_id" placeholder="Número de documento" required {%if request.user.is_authenticated %}value="{{request.user.document_id}}{%endif%}">
+                                        <input type="number" class="form-control form-control-lg" name="document_id" id="doc_id" placeholder="Número de documento" required {%if request.user.is_authenticated %}value="{{request.user.document_id}}{%endif%}">
                                     </div>
                                 </div>
                                 <div class="form-row align-items-end">
@@ -1118,7 +1118,9 @@
                         <div class="row pt-5">
                             <div class="col-12 col-lg-8">
                                 <h3 class="title text-center">Reclama tu licencia</h3>
-                                <p class="text text-center pb-5 mb-0"><strong>Solo tú podrás reclamar tu licencia de conducción</stong>, para ello te entregaremos las certificaciones y recibos de pago (según aplique en tu caso) que deberás presentar en la secretaria, instituto de tránsito o SIM de tu ciudad. <br>
+                                <p class="text text-center pb-5 mb-0">
+                                <strong>Solo tú podrás reclamar tu licencia de conducción</strong>, 
+                                para ello te entregaremos las certificaciones y recibos de pago (según aplique en tu caso) que deberás presentar en la secretaria, instituto de tránsito o SIM de tu ciudad. <br>
                                     <strong>¿Cómo quieres recibir  esta documentación?</strong>:
                                 </p>
                                 <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
@@ -1339,8 +1341,8 @@
                                                         </div>
                                                         <div class="col-8 item">
                                                             <span class="item-title price-title">
-                                                                Valor expedición <br>
-                                                            </span>
+                                                                Valor expedición 
+                                                            </span><br>
                                                             <span class="item-detail company-price">
                                                                 $ price
                                                             </span>
