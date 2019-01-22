@@ -238,7 +238,7 @@ jQuery(document).ready(function() {
 				bar_progress(progress_line, 'right');
 				// show next step
 				$(this).next().fadeIn();
-			}, 1000);
+			}, 100);
 		}
 		else if (cea == ""){
 			next_step = false;
