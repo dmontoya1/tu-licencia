@@ -1576,6 +1576,9 @@ $('.continue-licence-type').on('click', function(){
 })
 
 $('.new-tramit').on('click', function(){
+    if ($('.no-more-tramit').hasClass('choose--selected')){
+        $('.no-more-tramit').removeClass('choose--selected')
+    }
     aditional_tramit = true
     $('.new-tramit').addClass('choose--selected')
     $('li.option-'+tramit_type1).addClass('d-none')
@@ -1586,6 +1589,9 @@ $('.new-tramit').on('click', function(){
 })
 
 $('.no-more-tramit').on('click', function(){
+    if ($('.new-tramit').hasClass('choose--selected')){
+        $('.new-tramit').removeClass('choose--selected')
+    }
     $('.no-more-tramit').addClass('choose--selected')
     setTimeout(function(){ 
         $('.element--aditional-tramit').addClass('d-none')
