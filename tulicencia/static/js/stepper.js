@@ -770,6 +770,7 @@ function transit_filter(params){
                     $('.company-rating-count').text(`(${data.count_rating})`)
                     $('.company-price').text(`$ ${data.final_price}`)
                     $('.add-cart').data('id', data.id);
+                    $('.price-title').text('Valor expedición')
                     $('.add-cart').data('name', data.name);
                     $('.add-cart').data('price', data.final_price);
                     $('.add-cart').data('company', company);
@@ -1500,10 +1501,6 @@ $('.back-licence-type').on('click', function(){
 })
 
 $('.continue-licence-type').on('click', function(){
-    console.log(tramits['licence_1'])
-    console.log(tramits['licence_2'])
-    console.log(car)
-    console.log(bike)
     if(( tramits['licence_1'] === "" && tramits['licence_2'] === '') || 
         (bike && car && (tramits['licence_1'] === "" || tramits['licence_2'] === ''))
         ){
@@ -1951,14 +1948,7 @@ $('.rating-cea').on('change', function(){
         params_cea['rating'] = $(this).val()
     }
 })
-// $('#price-cea').on('change', function(){
-//     if ($(this).val() === '0'){
-//         delete params_cea['price']
-//     }
-//     else{
-//         params_cea['price'] = $(this).val()
-//     }
-// })
+
 $('.sector-cea').on('change', function(e){
     params_cea['sector'] = $(this).val()
 })
@@ -1969,13 +1959,25 @@ $('button.filter-cea').on('click', function(e){
         licence += (`${v},`)
     })
     params_cea['state'] = $('#states').val()
-    params_cea['city'] = $('.cea-city').val()
+    params_cea['city'] = $('.cities-cea').val()
     params_cea['age']= age
     params_cea['gender']= gender
     params_cea['licences']= licence
     params_cea['licences__licence__category__in'] = licence
     cea_filter(params_cea)
+})
 
+$('button.filter-cea-1').on('click', function(e){
+    var licence = ""
+    $.each(licences, function(i, v){
+        licence += (`${v},`)
+    })
+    params_cea['state']= $('#states').val()
+    params_cea['city']= $('.cea-city').val()
+    params_cea['age']= age
+    params_cea['gender']= gender
+    params_cea['licences']= licence
+    cea_filter(params_cea)
 })
 
 var params_transit = {}
