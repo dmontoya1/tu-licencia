@@ -111,7 +111,7 @@ span.description-email {
 }
 
 .row.profile-detail {
-    padding: 10px 10px;
+    padding: 10px 5px;
 }
 
 span.detail-title {
@@ -133,6 +133,9 @@ span.detail-info {
     color: #162d3f;
     font-size: 0.8em;
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .row.row-details {
@@ -337,4 +340,29 @@ button.rated-service {
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
+}
+
+@media (max-width: 767px) { 
+    .profile-detail img {
+        width: 35px;
+        height: 35px;
+    }
+
+    span.detail-title {
+        font-size: 0.7em;
+    }
+
+    span.detail-info {
+        font-size: 0.7em;
+    }
+}
+
+@media (max-width: 395px) { 
+    #DataTables_Table_0_filter{
+        width: 100%;
+    }
+    
+    input[type="search"] {
+        width: 100%;
+    }
 }
