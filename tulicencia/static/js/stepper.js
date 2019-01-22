@@ -412,7 +412,6 @@ function clearTramit(tramit){
 }
 
 
-
 function loadVehicleSelect(licences){
     vehicle_params: {
         
@@ -870,6 +869,7 @@ $('.back-gender').on('click', function(){
     $('.element--location').addClass('animated fadeInRight')
     $('.element--location').removeClass('d-none')
 })
+
 $('.male').on('click', function(e){
     
     if ($('.female').hasClass('choose--selected')){
@@ -886,6 +886,7 @@ $('.male').on('click', function(e){
     
 
 })
+
 $('.female').on('click', function(e){
     
     if ($('.male').hasClass('choose--selected')){
@@ -908,6 +909,7 @@ $('.back-birth-date').on('click', function(){
     loadCitiesSelect(selected.val())
 
 })
+
 $('.continue-birth-date').click(() => {
     if($('#day').val() === '' || $('#month').val() === '' || $('#year').val() === '' ){
         swal({
@@ -924,7 +926,6 @@ $('.continue-birth-date').click(() => {
         dob = new Date(birth_date);
         var today = new Date();
         age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-        console.log(age)
         if (isNaN(age)){
             swal({
                 title: 'Error',
@@ -995,7 +996,6 @@ function get_age(){
     dob = new Date(birth_date);
     var today = new Date();
     age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-    console.log(age)
     if (isNaN(age)){
         swal({
             title: 'Error',
@@ -1050,9 +1050,11 @@ function get_age(){
 $('#day-1').on('change', function(e){
     get_age()
 })
+
 $('#month-1').on('change', function(e){
     get_age()
 })
+
 $('#year-1').on('change', function(e){
     get_age()
 })
@@ -1153,7 +1155,6 @@ $('.element--second-licence input').on('click', function(ev){
                             $('.element--vehicle-type').removeClass('d-none');
                             $('.sl-text').text('Selecciona el nuevo tipo de vehículo que quieres agregar a tu licencia de conducción')
                         } else {
-                            console.log('Cancel')
                             tramit_type1 = ''
                             $('.option-SL').removeClass('option--selected');
                         }
@@ -1307,7 +1308,6 @@ $('.element--second-licence input').on('click', function(ev){
                                 $('.element--second-licence').addClass('d-none');
                                 $('.element--vehicle-type').removeClass('d-none');
                             } else {
-                                console.log('Cancel')
                                 $('.option-' + tramit_type2).removeClass('option--selected');
                                 tramit_type2 = ''
                             }
@@ -1401,7 +1401,6 @@ $('.male').on('click', function(e){
 
 $('#bike-licence').on('click', function(ev){
     bike = !bike;
-    console.log(bike)
     if(tramit_type1 == 'SL' && actual_tramit == 'SL'){
         if ($('#car-licence').hasClass('choose--selected')){
             $('#car-licence').removeClass('choose--selected')
@@ -1453,7 +1452,6 @@ $('#bike-licence').on('click', function(ev){
 
 $('#car-licence').on('click', function(ev){
     car = !car;
-    console.log(car)
     if(tramit_type1 == 'SL' && actual_tramit == 'SL'){
         if ($('#bike-licence').hasClass('choose--selected')){
             $('#bike-licence').removeClass('choose--selected')
@@ -1604,7 +1602,6 @@ $('.back-aditional-tramit').on('click', function(){
     $('.element--licence-type').removeClass('d-none')
 })
 
-
 $('.back-have-runt').on('click', function(){
     $('.element--have-runt').addClass('d-none')
     if(tramit_type1 == 'FL'){
@@ -1656,6 +1653,7 @@ $('.send').on('click', function(e){
     }, 700);
 
 })
+
 $('.pick-up').on('click', function(e){
     
     if ($('.send').hasClass('choose--selected')){
@@ -1894,6 +1892,7 @@ $('.si-runt').on('click', function(e){
         $('.btn-step-2').trigger('click')
     }, 700);
 })
+
 $('.no-runt').on('click', function(e){
     if ($('.si-runt').hasClass('choose--selected')){
         $('.si-runt').removeClass('choose--selected')
@@ -1995,7 +1994,6 @@ $('button.filter-crc').on('click', function(e){
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
-    console.log($('.name-crc').val())
     if ($('.name-crc').val() != ''){
         params_crc['name']= $('.name-crc').val()
     }
