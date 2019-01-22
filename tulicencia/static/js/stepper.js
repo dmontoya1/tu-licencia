@@ -1989,7 +1989,9 @@ $('button.filter-crc').on('click', function(e){
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
-    params_crc['name']= $('.name-crc').val()
+    if ($('.name-crc').val() != ''){
+        params_crc['name']= $('.name-crc').val()
+    }
     params_crc['state']= $('#states').val()
     params_crc['city']= $('.cities-crc').val()
     params_crc['age']= age
@@ -2002,6 +2004,9 @@ $('button.filter-crc-1').on('click', function(e){
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
+    if ($('.name-crc-1').val() != ''){
+        params_crc['name']= $('.name-crc-1').val()
+    }
     params_crc['name']= $('.name-crc-1').val()
     params_crc['state']= $('#states').val()
     params_crc['city']= $('.cities-crc-1').val()
@@ -2052,7 +2057,9 @@ $('button.filter-cea').on('click', function(e){
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
-    params_cea['name']= $('.name-cea').val()
+    if ($('.name-cea').val() != ''){
+        params_cea['name']= $('.name-cea').val()
+    }
     params_cea['state'] = $('#states').val()
     params_cea['city'] = $('.cities-cea').val()
     params_cea['age']= age
@@ -2067,6 +2074,9 @@ $('button.filter-cea-1').on('click', function(e){
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
+    if ($('.name-cea-1').val() != ''){
+        params_cea['name']= $('.name-cea-1').val()
+    }
     params_cea['name']= $('.name-cea-1').val()
     params_cea['state']= $('#states').val()
     params_cea['city']= $('.cities-cea-1').val()
@@ -2101,12 +2111,17 @@ $('.sector-transit-1').on('change', function(e){
     params_transit['sector'] = $(this).val()
 })
 $('button.filter-transit').on('click', function(e){
-    params_transit['name']= $('.name-transit').val()
+    if ($('.name-transit').val() != ''){
+        params_transit['name']= $('.name-transit').val()
+    }
     params_transit['state'] = $('#states').val(),
     params_transit['city'] = $('.cities-transit').val(),
     transit_filter(params_transit)
 })
 $('button.filter-transit-1').on('click', function(e){
+    if ($('.name-transit-1').val() != ''){
+        params_transit['name']= $('.name-transit-1').val()
+    }
     params_transit['name']= $('.name-transit-1').val()
     params_transit['state'] = $('#states').val(),
     params_transit['city'] = $('.cities-transit-1').val(),
