@@ -1989,6 +1989,7 @@ $('button.filter-crc').on('click', function(e){
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
+    console.log($('.name-crc').val())
     if ($('.name-crc').val() != ''){
         params_crc['name']= $('.name-crc').val()
     }
