@@ -2171,6 +2171,9 @@ $('.credit').on('click', function(e){
 $('#licence-request-form').on('submit', function(e){
     e.preventDefault();
     submit = true
+    payment_value =  parseInt($('.total-price').last().text())
+    payment_type2 = ''
+    payment_value2 = 0
     if(payment_type == ""){
         submit = false
         swal({
@@ -2181,43 +2184,65 @@ $('#licence-request-form').on('submit', function(e){
             confirmButtonText: 'Ok'
         })
     }
-    if (submit){
-        var lic = []
-        $.each(licences, function(i, v){
-            lic.push(v)
-        })
-        user = {
-            "first_name": $('#first_name').val(),
-            "last_name": $('#last_name').val(),
-            "email": $('#email').val(),
-            "password": $('#pass1').val(),
-            "gender": gender,
-            "document_type": $('#doc_type :selected').val(),
-            "document_id": $('#doc_id').val(),
-            "cellphone": $('#cellphone').val(),
-            "phone_number": $('#phone_number').val(),
-            "address": $('#address').val(),
-            "state": $('#states').val(),
-            "city": $('#city-user').val(),
-            "birth_date": birth_date
-        },
-
-        form_data = {
-            "user": user,
-            "cea": cea,
-            "crc": crc,
-            "transit": transit,
-            'payment_type': payment_type,
-            "licences": lic,
-            "runt":runt,
-            "paper":paper,
-            "cea_price":cea_price,
-            "crc_price": crc_price,
-            "transit_price": transit_price,
-            "tramits": tramits
+    else if (payment_type == 'EXU'){
+        total_exu = parseInt($('#payment-value-1').val()) + parseInt($('#payment-value-2').val())
+        if (payment_value !== total_exu){
+            submit = false
+            swal({
+                title: 'Atención',
+                text: 'El valor total y el valor de los pagos no coincide. ',
+                type: 'error',
+                showCancelButton: false,
+                confirmButtonText: 'Ok'
+            })
         }
-        
-        if (payment_type == "CR"){
+    }
+    if (submit){
+        if (payment_type == "CR" || payment_type == 'EXU'){
+            var lic = []
+            $.each(licences, function(i, v){
+                lic.push(v)
+            })
+            if (payment_type == 'EXU'){
+                payment_type = $('#payment-type-1').val()
+                payment_value = parseInt($('#payment-value-1').val())
+                if ($('#payment-type-2').val() != ''){
+                    payment_type2 = $('#payment-type-2').val()
+                    payment_value2 = parseInt($('#payment-value-2').val())
+                }
+            }
+            user = {
+                "first_name": $('#first_name').val(),
+                "last_name": $('#last_name').val(),
+                "email": $('#email').val(),
+                "password": $('#pass1').val(),
+                "gender": gender,
+                "document_type": $('#doc_type :selected').val(),
+                "document_id": $('#doc_id').val(),
+                "cellphone": $('#cellphone').val(),
+                "phone_number": $('#phone_number').val(),
+                "address": $('#address').val(),
+                "state": $('#states').val(),
+                "city": $('#city-user').val(),
+                "birth_date": birth_date
+            }
+            form_data = {
+                "user": user,
+                "cea": cea,
+                "crc": crc,
+                "transit": transit,
+                'payment_type': payment_type,
+                'payment_value': payment_value,
+                'payment_type2': payment_type2,
+                'payment_value2': payment_value2,
+                "licences": lic,
+                "runt":runt,
+                "paper":paper,
+                "cea_price":cea_price,
+                "crc_price": crc_price,
+                "transit_price": transit_price,
+                "tramits": tramits
+            } 
             function getCookie(name) {
                 var cookieValue = null;
                 if (document.cookie && document.cookie !== '') {

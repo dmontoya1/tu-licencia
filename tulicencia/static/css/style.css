@@ -424,7 +424,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .content-result {
 	background-color: #fff;
 	padding: .5rem;
-	min-height: 210px;
+	height: 300px;
 	text-align: left;
 }
 	
@@ -979,4 +979,12 @@ span.resume-T2 {
     text-align: center;
     font-size: 0.9em;
     font-weight: 400;
+}
+
+.express-form input {
+	height: 45px;
+}
+
+.express-form select {
+	border: 2px solid #ced4da;
 }
