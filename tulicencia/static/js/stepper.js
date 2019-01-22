@@ -2007,7 +2007,6 @@ $('button.filter-crc-1').on('click', function(e){
     if ($('.name-crc-1').val() != ''){
         params_crc['name']= $('.name-crc-1').val()
     }
-    params_crc['name']= $('.name-crc-1').val()
     params_crc['state']= $('#states').val()
     params_crc['city']= $('.cities-crc-1').val()
     params_crc['age']= age
@@ -2077,7 +2076,6 @@ $('button.filter-cea-1').on('click', function(e){
     if ($('.name-cea-1').val() != ''){
         params_cea['name']= $('.name-cea-1').val()
     }
-    params_cea['name']= $('.name-cea-1').val()
     params_cea['state']= $('#states').val()
     params_cea['city']= $('.cities-cea-1').val()
     params_cea['age']= age
@@ -2122,7 +2120,6 @@ $('button.filter-transit-1').on('click', function(e){
     if ($('.name-transit-1').val() != ''){
         params_transit['name']= $('.name-transit-1').val()
     }
-    params_transit['name']= $('.name-transit-1').val()
     params_transit['state'] = $('#states').val(),
     params_transit['city'] = $('.cities-transit-1').val(),
     transit_filter(params_transit)
