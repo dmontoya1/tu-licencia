@@ -43,12 +43,16 @@ class RequestCreate(APIView):
                 user = User.objects.get(username=user_data['document_id'])
                 token, created = Token.objects.get_or_create(user=user)
             except User.DoesNotExist:
+                print (user_data)
                 birth_date = datetime.strptime(user_data['birth_date'], '%m/%d/%Y')
                 user = get_user_model()
                 user = user()
                 user.username = user_data['document_id']
                 user.email = user_data['email']
-                user.set_password(user_data['password'])
+                try:
+                    user.set_password(user_data['password'])
+                except:
+                    print ('Not password supply')
                 user.first_name = user_data['first_name']
                 user.last_name = user_data['last_name']
                 user.cellphone = user_data['cellphone']
@@ -78,6 +82,9 @@ class RequestCreate(APIView):
                 crc=crc,
                 transit=transit,
                 payment_type = request.data['payment_type'],
+                payment_value = request.data['payment_value'],
+                payment_type2 = request.data['payment_type2'],
+                payment_value2 = request.data['payment_value2'],
                 has_runt=runt,
                 total_price=total_price,
                 credit_status=Request.PENDIENTE_APROBACION,

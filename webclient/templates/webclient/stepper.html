@@ -568,16 +568,23 @@
                             <div class="col-12 col-lg-3">
                                 <div class="content-summary">
                                     <div class="header-summary"> 
-                                        <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
-                                        <div class="without-adding">No se han añadido elementos al carrito de compras </div>
-                                        <ul class="list-summary d-none">
-                                            <li class="d-flex flex-row cart-crc" data-value="0">
-                                            </li>
-                                            <li class="d-flex flex-row cart-cea" data-value="0">
-                                            </li>
-                                            <li class="d-flex flex-row cart-transit" data-value="0">
-                                            </li>
-                                        </ul>
+                                        <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio
+                                        <div class="licences-resume">
+                                            <span class="resume-T1">
+                                            </span>
+                                            <span class="resume-T2">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="without-adding">No se han añadido elementos al carrito de compras </div>
+                                    <ul class="list-summary d-none">
+                                        <li class="d-flex flex-row cart-crc" data-value="0">
+                                        </li>
+                                        <li class="d-flex flex-row cart-cea" data-value="0">
+                                        </li>
+                                        <li class="d-flex flex-row cart-transit" data-value="0">
+                                        </li>
+                                    </ul>
                                     <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
@@ -749,16 +756,24 @@
                             </div>
                             <div class="col-12 col-lg-3">
                                 <div class="content-summary">
-                                    <div class="header-summary"> <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
+                                    <div class="header-summary"> 
+                                        <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio
+                                        <div class="licences-resume">
+                                            <span class="resume-T1">
+                                            </span>
+                                            <span class="resume-T2">
+                                            </span>
+                                        </div>
+                                    </div>
                                     <div class="without-adding">No se han añadido elementos al carrito de compras </div>
-                                        <ul class="list-summary d-none">
-                                            <li class="d-flex flex-row cart-crc" data-value="0">
-                                            </li>
-                                            <li class="d-flex flex-row cart-cea" data-value="0">
-                                            </li>
-                                            <li class="d-flex flex-row cart-transit" data-value="0">
-                                            </li>
-                                        </ul>
+                                    <ul class="list-summary d-none">
+                                        <li class="d-flex flex-row cart-crc" data-value="0">
+                                        </li>
+                                        <li class="d-flex flex-row cart-cea" data-value="0">
+                                        </li>
+                                        <li class="d-flex flex-row cart-transit" data-value="0">
+                                        </li>
+                                    </ul>
                                     <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
@@ -910,16 +925,24 @@
                             </div>
                             <div class="col-12 col-lg-3">
                                 <div class="content-summary">
-                                    <div class="header-summary"> <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
+                                    <div class="header-summary"> 
+                                        <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio
+                                        <div class="licences-resume">
+                                            <span class="resume-T1">
+                                            </span>
+                                            <span class="resume-T2">
+                                            </span>
+                                        </div>
+                                    </div>
                                     <div class="without-adding">No se han añadido elementos al carrito de compras </div>
-                                        <ul class="list-summary d-none">
-                                            <li class="d-flex flex-row cart-crc" data-value="0">
-                                            </li>
-                                            <li class="d-flex flex-row cart-cea" data-value="0">
-                                            </li>
-                                            <li class="d-flex flex-row cart-transit" data-value="0">
-                                            </li>
-                                        </ul>
+                                    <ul class="list-summary d-none">
+                                        <li class="d-flex flex-row cart-crc" data-value="0">
+                                        </li>
+                                        <li class="d-flex flex-row cart-cea" data-value="0">
+                                        </li>
+                                        <li class="d-flex flex-row cart-transit" data-value="0">
+                                        </li>
+                                    </ul>
                                     <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
@@ -948,11 +971,11 @@
                                 <div class="form-row">
                                     <div class="form-group col-12 col-md-12 col-lg-6">
                                         <label for="">Nombre*</label>
-                                        <input type="text" class="form-control form-control-lg" name="first_name" id="first_name" placeholder="Nombre" required {% if request.user.is_authenticated %}value="{{request.user.first_name}}{%endif%}">
+                                        <input type="text" class="form-control form-control-lg" name="first_name" id="first_name" placeholder="Nombre" required {% if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.first_name}}{%endif%}">
                                     </div>
                                     <div class="form-group col-12 col-md-12 col-lg-6">
                                         <label for="">Apellidos*</label>
-                                        <input type="text" class="form-control form-control-lg" name="last_name" id="last_name" placeholder="Apellidos" required {% if request.user.is_authenticated %}value="{{request.user.last_name}}{%endif%}">
+                                        <input type="text" class="form-control form-control-lg" name="last_name" id="last_name" placeholder="Apellidos" required {% if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.last_name}}{%endif%}">
                                     </div>
                                 </div>
                                 <div class="form-row">
@@ -960,7 +983,7 @@
                                         <label for="">Tipo de documento*</label>
                                         <div class="select-box">
                                             <select class="form-control form-control-lg doc-type-select" id="doc_type" name="doc_type" required>
-                                                {%if request.user.is_authenticated%}
+                                                {%if request.user.is_authenticated and not request.user.user_type == 'EXU'%}
                                                     <option disable value="request.user.document_type">
                                                         {%if request.user.document_type == 'CC'%}
                                                             Cédula de Ciudadanía
@@ -981,7 +1004,7 @@
                                     </div>                  
                                     <div class="form-group col-12 col-md-12 col-lg-6">
                                         <label for="">Nº de identificación*</label>
-                                        <input type="number" class="form-control form-control-lg" name="document_id" id="doc_id" placeholder="Número de documento" required {%if request.user.is_authenticated %}value="{{request.user.document_id}}{%endif%}">
+                                        <input type="number" class="form-control form-control-lg" name="document_id" id="doc_id" placeholder="Número de documento" required {%if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.document_id}}{%endif%}">
                                     </div>
                                 </div>
                                 <div class="form-row align-items-end">
@@ -1010,15 +1033,20 @@
                                     </div>
                                     <div class="form-group col-12 col-md-12 col-lg-6">
                                         <label for="">Télefono celular*</label>
-                                        <input type="number" class="form-control form-control-lg" name="cellphone" id="cellphone" placeholder="Número de celular" required {% if request.user.is_authenticated %}value="{{request.user.cellphone|default:''}}{%endif%}">
+                                        <input type="number" class="form-control form-control-lg" name="cellphone" id="cellphone" placeholder="Número de celular" required {% if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.cellphone|default:''}}{%endif%}">
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 col-lg-3 offset-lg-1">
                                 <div class="content-summary">
                                     <div class="header-summary"> 
-                                        <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">
-                                        Resumen del servicio
+                                        <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio
+                                        <div class="licences-resume">
+                                            <span class="resume-T1">
+                                            </span>
+                                            <span class="resume-T2">
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="without-adding">No se han añadido elementos al carrito de compras </div>
                                     <ul class="list-summary d-none">
@@ -1045,15 +1073,15 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="">Teléfono fijo</label>
-                                            <input type="number" class="form-control form-control-lg" id="phone_number" name="phone_number" placeholder="Numero teléfono fijo" {% if request.user.is_authenticated %}value="{{request.user.phone_number|default:''}}{%endif%}">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="">Dirección*</label>
-                                            <input type="text" class="form-control form-control-lg" id="address" name="address" placeholder="Dirección" {% if request.user.is_authenticated %}value="{{request.user.address|default:''}}{%endif%}">
+                                            <input type="number" class="form-control form-control-lg" id="phone_number" name="phone_number" placeholder="Numero teléfono fijo" {% if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.phone_number|default:''}}{%endif%}">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Correo electrónico*</label>
-                                            <input type="mail" class="form-control form-control-lg" name="email" id="email" placeholder="Correo electrónico" {% if request.user.is_authenticated %}value="{{request.user.email}}{%endif%}">
+                                            <input type="mail" class="form-control form-control-lg" name="email" id="email" placeholder="Correo electrónico" {% if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.email}}{%endif%}">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="">Dirección*</label>
+                                            <input type="text" class="form-control form-control-lg" id="address" name="address" placeholder="Dirección" {% if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.address|default:''}}{%endif%}">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Ciudad de residencia*</label>
@@ -1088,8 +1116,13 @@
                             <div class="col-12 col-lg-3 offset-lg-1">
                                 <div class="content-summary">
                                     <div class="header-summary"> 
-                                        <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">
-                                        Resumen del servicio
+                                        <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio
+                                        <div class="licences-resume">
+                                            <span class="resume-T1">
+                                            </span>
+                                            <span class="resume-T2">
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="without-adding">No se han añadido elementos al carrito de compras </div>
                                     <ul class="list-summary d-none">
@@ -1143,8 +1176,13 @@
                             <div class="col-12 col-lg-3 offset-lg-1">
                                 <div class="content-summary">
                                     <div class="header-summary"> 
-                                        <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">
-                                        Resumen del servicio
+                                        <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio
+                                        <div class="licences-resume">
+                                            <span class="resume-T1">
+                                            </span>
+                                            <span class="resume-T2">
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="without-adding">No se han añadido elementos al carrito de compras </div>
                                     <ul class="list-summary d-none">
@@ -1171,26 +1209,66 @@
                                 <h3 class="title text-center pb-5">Elegir medio de pago</h3>
                                 <p class="text text-center pb-5 mb-0">Paga con tarjeta de crédito o débito tu proceso o solicita un crédito en línea:
                                 </p>
-                                <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
-                                    <div class="pl-3 pr-3">
-                                        <div class="choose online">
-                                            <img src="{% static 'assets/img/pc.svg' %}" alt="">
-                                            <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                {% if request.user.user_type != 'EXU' %}
+                                    <div class="d-flex flex-row mb-3 justify-content-center pt-5 pb-5">
+                                        <div class="pl-3 pr-3">
+                                            <div class="choose online">
+                                                <img src="{% static 'assets/img/pc.svg' %}" alt="">
+                                                <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                            </div>
+                                            <p class="choose-text text-center mt-3">Pagar Online</p>
                                         </div>
-                                        <p class="choose-text text-center mt-3">Pagar Online</p>
-                                    </div>
-                                    <div class="pl-3 pr-3"> 
-                                        <div class="choose credit">
-                                            <img src="{% static 'assets/img/pay.svg' %}" alt="" style="height: 70px;">
-                                            <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                        <div class="pl-3 pr-3"> 
+                                            <div class="choose credit">
+                                                <img src="{% static 'assets/img/pay.svg' %}" alt="" style="height: 70px;">
+                                                <img src="{% static 'assets/img/check.svg' %}" class="check" alt="">
+                                            </div>
+                                            <p class="choose-text text-center mt-3">Solicitar crédito</p>
                                         </div>
-                                        <p class="choose-text text-center mt-3">Solicitar crédito</p>
                                     </div>
-                                </div>
+                                {% else %}
+                                    <div class="express-form">
+                                        <div class="form-row">
+                                            <div class="col">
+                                                <label for="payment-type-1">Tipo de Pago principal</label>
+                                                <select class="form-control" id="payment-type-1" name="payment_type">
+                                                    <option value='' selected disabled>Selecciona un medio de pago</option>
+                                                    <option value="CO">Pago en efectivo</option>
+                                                    <option value="TA">Pago con tarjeta</option>
+                                                    <option value="CR">Solicitar crédito</option>
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <label for="payment-value-1">Valor pago principal</label>
+                                                <input type="number" class="form-control" id="payment-value-1" name="payment_value" placeholder="Solo números. Sin puntuación">
+                                            </div>
+                                        </div>
+                                        <div class="form-row my-4">
+                                            <div class="col">
+                                                <label for="payment-type-1">Tipo de Pago secundario (opcional)</label>
+                                                <select class="form-control" id="payment-type-2" name="payment_type2">
+                                                    <option value='' selected disabled>Primero selecciona el pago principal</option>
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <label for="payment-value-2">Valor pago secundario</label>
+                                                <input type="number" class="form-control" id="payment-value-2" value="0" name="payment_value2" placeholder="Solo números. Sin puntuación">
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
                             </div>
                             <div class="col-12 col-lg-3 offset-lg-1">
                                 <div class="content-summary">
-                                    <div class="header-summary"> <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio</div>
+                                    <div class="header-summary"> 
+                                        <img src="{% static 'assets/img/car.svg' %}" width="25" class="mr-2" alt="">Resumen del servicio
+                                        <div class="licences-resume">
+                                            <span class="resume-T1">
+                                            </span>
+                                            <span class="resume-T2">
+                                            </span>
+                                        </div>
+                                    </div>
                                     <div class="without-adding">No se han añadido elementos al carrito de compras </div>
                                     <ul class="list-summary d-none">
                                         <li class="d-flex flex-row cart-crc" data-value="0">
@@ -1582,6 +1660,10 @@
 {% block extra_js %}
    <script src="{% static 'js/stepper.js' %}"></script>
    <script>
+        if ('{{ request.user.user_type }}' == 'EXU'){
+            payment_type = 'EXU'
+        }
+
        $('.add-cart').on('click', function(){
             company = $(this).data('company')
             id = $(this).data('id')
@@ -1784,6 +1866,47 @@
                 $('.element--paper-data').removeClass('d-none')
             }
         })
-   
+        
+        $('#payment-type-1').on('click', function(){
+            switch($(this).val()) {
+                case 'CO':
+                    $('#payment-type-2').empty()
+                    $('#payment-type-2').append(
+                        `
+                            <option value="TA">Pago con tarjeta</option>
+                            <option value="CR">Solicitar crédito</option>
+                        `
+                    )
+                    $('#payment-type-2').prepend(
+                        '<option value="" selected disabled>Selecciona el pago secundario (si aplica)</option>'
+                    )
+                    break;
+                case 'TA':
+                    $('#payment-type-2').empty()
+                    $('#payment-type-2').append(
+                        `
+                            <option value="CO">Pago en efectivo</option>
+                        `
+                    )
+                    $('#payment-type-2').prepend(
+                        '<option value="" selected disabled>Selecciona el pago secundario (si aplica)</option>'
+                    )
+                    break;
+                case 'CR':
+                    $('#payment-type-2').empty()
+                    $('#payment-type-2').append(
+                        `
+                            <option value="CO">Pago en efectivo</option>
+                        `
+                    )
+                    $('#payment-type-2').prepend(
+                        '<option value="" selected disabled>Selecciona el pago secundario (si aplica)</option>'
+                    )
+                    break;
+                default:
+                    console.log('default')
+                }
+        })
+
    </script>
 {% endblock %}

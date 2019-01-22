@@ -77,56 +77,37 @@ jQuery(document).ready(function() {
     	// navigation steps / progress steps
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
-
-		if (car){
-			if (!('car' in licences)){
-				next_step = false;			
-				swal({
-					title: 'Atención',
-					text: 'Debes seleccionar la licencia para carro que vas a tramitar',
-					type: 'error',
-					showCancelButton: false,
-					confirmButtonText: 'Ok'
-				})
-			}
+		switch(tramits['licence_1']['tramit']) {
+			case 'FL':
+				$('.resume-T1').text(`Primera licencia - ${tramits['licence_1']['licence']}`)
+				break;
+			case 'SL':
+				$('.resume-T1').text(`Primera licencia - ${tramits['licence_1']['licence']}`)
+				break;
+			case 'RN':
+				$('.resume-T1').text(`Primera licencia - ${tramits['licence_1']['licence']}`)
+				break;
+			case 'RC':
+				$('.resume-T1').text(`Primera licencia - ${tramits['licence_1']['licence']}`)
+				break;
+			default:
+				console.log('Default')
 		}
-		if (bike){
-			if (!('bike' in licences)){
-				next_step = false;			
-				swal({
-					title: 'Atención',
-					text: 'Debes seleccionar la licencia para moto que vas a tramitar',
-					type: 'error',
-					showCancelButton: false,
-					confirmButtonText: 'Ok'
-				})
-			}
-		}
-		if (!(bike) && !(car)){
-			next_step = false;			
-			swal({
-				title: 'Atención',
-				text: 'Debes seleccionar el tipo de licencia que vas a tramitar',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-			})
-		}
-		if (tramits['licence_1'] == "" && tramits['licence_2'] == ""){
-			next_step = false;
-			swal({
-				title: 'Atención',
-				text: 'Para continuar debes seleccionar el trámite que deseas realizar',
-				type: 'error',
-				showCancelButton: false,
-				confirmButtonText: 'Ok'
-			}).then((result) => {
-				if (result.value) {
-					$('html, body, #licence-request-form').animate({
-						scrollTop: $('#birthdate-select').offset().top
-					}, 1000);
-				}
-			})
+		switch(tramits['licence_2']['tramit']) {
+			case 'FL':
+				$('.resume-T2').text(`Primera licencia - ${tramits['licence_2']['licence']}`)
+				break;
+			case 'SL':
+				$('.resume-T2').text(`Primera licencia - ${tramits['licence_2']['licence']}`)
+				break;
+			case 'RN':
+				$('.resume-T2').text(`Primera licencia - ${tramits['licence_2']['licence']}`)
+				break;
+			case 'RC':
+				$('.resume-T2').text(`Primera licencia - ${tramits['licence_2']['licence']}`)
+				break;
+			default:
+				console.log('Default')
 		}
 		var licence = ""
     	if( next_step ) {

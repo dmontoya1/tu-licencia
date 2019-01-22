@@ -424,7 +424,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .content-result {
 	background-color: #fff;
 	padding: .5rem;
-	min-height: 210px;
+	height: 300px;
 	text-align: left;
 }
 	
@@ -965,4 +965,26 @@ button.btn.btn-next-step, button.btn.btn-next-step:focus, button.btn.btn-next-st
 
 ul.recat-info li {
     list-style-type: none;
+}
+
+span.resume-T1 {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    font-weight: 400;
+}
+
+span.resume-T2 {
+    display: block;
+    text-align: center;
+    font-size: 0.9em;
+    font-weight: 400;
+}
+
+.express-form input {
+	height: 45px;
+}
+
+.express-form select {
+	border: 2px solid #ced4da;
 }
