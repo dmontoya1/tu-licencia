@@ -93,6 +93,26 @@ function loadCRCSectorSelect(cityId){
     });     
 }
 
+function loadCRCSectorSelect1(cityId){
+    $.ajax({
+        type: "GET",
+        url:"/api/manager/sector/"+cityId+"/",
+        success:function(data)
+        {   
+            $('select.sector-crc-1').empty()
+            $(data).each(function(i, v){
+                $('select.sector-crc-1').append(
+                    `<option value="${v.id}">${v.name}</option>`
+                )
+            })
+            $('select.sector-crc-1').prepend(
+                `<option value="" selected disabled>Seleccione un sector</option>`+
+                `<option value="0"> Ver todos</option>`
+            )
+        },
+    });     
+}
+
 function loadCEASectorSelect(cityId){
     $.ajax({
         type: "GET",
@@ -111,7 +131,26 @@ function loadCEASectorSelect(cityId){
             )
         },
     });
-        
+}
+
+function loadCEASectorSelect1(cityId){
+    $.ajax({
+        type: "GET",
+        url:"/api/manager/sector/"+cityId+"/",
+        success:function(data)
+        {   
+            $('select.sector-cea-1').empty()
+            $(data).each(function(i, v){
+                $('select.sector-cea-1').append(
+                    `<option value="${v.id}">${v.name}</option>`
+                )
+            })
+            $('select.sector-cea-1').prepend(
+                `<option value="" selected disabled>Seleccione un sector</option>`+
+                `<option value="0"> Ver todos</option>`
+            )
+        },
+    });
 }
 
 function loadTransitSectorSelect(cityId){
@@ -127,6 +166,26 @@ function loadTransitSectorSelect(cityId){
                 )
             })
             $('select.sector-transit').prepend(
+                `<option value="" selected disabled>Seleccione un sector</option>`+
+                `<option value="0"> Ver todos</option>`
+            )
+        },
+    });
+}
+
+function loadTransitSectorSelect1(cityId){
+    $.ajax({
+        type: "GET",
+        url:"/api/manager/sector/"+cityId+"/",
+        success:function(data)
+        {   
+            $('select.sector-transit-1').empty()
+            $(data).each(function(i, v){
+                $('select.sector-transit-1').append(
+                    `<option value="${v.id}">${v.name}</option>`
+                )
+            })
+            $('select.sector-transit-1').prepend(
                 `<option value="" selected disabled>Seleccione un sector</option>`+
                 `<option value="0"> Ver todos</option>`
             )
@@ -352,20 +411,7 @@ function clearTramit(tramit){
     }
 }
 
-$('select.cities-crc').on('change', function(){
-    selected = $(this)
-    loadCRCSectorSelect(selected.val())
-})
 
-$('select.cities-cea').on('change', function(){
-    selected = $(this)
-    loadCEASectorSelect(selected.val())
-})
-
-$('select.cities-transit').on('change', function(){
-    selected = $(this)
-    loadTransitSectorSelect(selected.val())
-})
 
 function loadVehicleSelect(licences){
     vehicle_params: {
@@ -1881,6 +1927,38 @@ $('.back-crc').on('click', function() {
     });
 })
 
+
+$('select.cities-crc').on('change', function(){
+    selected = $(this)
+    loadCRCSectorSelect(selected.val())
+})
+
+$('select.cities-crc-1').on('change', function(){
+    selected = $(this)
+    loadCRCSectorSelect1(selected.val())
+})
+
+$('select.cities-cea').on('change', function(){
+    selected = $(this)
+    loadCEASectorSelect(selected.val())
+})
+
+$('select.cities-cea-1').on('change', function(){
+    selected = $(this)
+    loadCEASectorSelect1(selected.val())
+})
+
+$('select.cities-transit').on('change', function(){
+    selected = $(this)
+    loadTransitSectorSelect(selected.val())
+})
+
+$('select.cities-transit-1').on('change', function(){
+    selected = $(this)
+    loadTransitSectorSelect1(selected.val())
+})
+
+
 var params_crc = {}
 $('.sector-crc').on('change', function(e){
     params_crc['sector'] = $(this).val()
@@ -1894,10 +1972,10 @@ $('.rating-crc').on('change', function(){
     }
 })
 
-$('.sector-crc').on('change', function(e){
+$('.sector-crc-1').on('change', function(e){
     params_crc['sector'] = $(this).val()
 })
-$('.rating-crc').on('change', function(){
+$('.rating-crc-1').on('change', function(){
     if ($(this).val() === '0'){
         delete params_crc['rating']
     }
@@ -1911,6 +1989,7 @@ $('button.filter-crc').on('click', function(e){
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
+    params_crc['name']= $('.name-crc').val()
     params_crc['state']= $('#states').val()
     params_crc['city']= $('.cities-crc').val()
     params_crc['age']= age
@@ -1923,6 +2002,7 @@ $('button.filter-crc-1').on('click', function(e){
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
+    params_crc['name']= $('.name-crc-1').val()
     params_crc['state']= $('#states').val()
     params_crc['city']= $('.cities-crc-1').val()
     params_crc['age']= age
@@ -1948,8 +2028,22 @@ $('.rating-cea').on('change', function(){
         params_cea['rating'] = $(this).val()
     }
 })
-
 $('.sector-cea').on('change', function(e){
+    params_cea['sector'] = $(this).val()
+})
+$('.vehicle-cea-1').on('change', function(e){
+    params_cea['vehicles__vehicle__line'] = $(this).val()
+})
+$('.rating-cea-1').on('change', function(){
+    if ($(this).val() === '0'){
+        delete params_cea['rating']
+    }
+    else{
+        params_cea['rating'] = $(this).val()
+    }
+})
+
+$('.sector-cea-1').on('change', function(e){
     params_cea['sector'] = $(this).val()
 })
 
@@ -1958,6 +2052,7 @@ $('button.filter-cea').on('click', function(e){
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
+    params_cea['name']= $('.name-cea').val()
     params_cea['state'] = $('#states').val()
     params_cea['city'] = $('.cities-cea').val()
     params_cea['age']= age
@@ -1972,8 +2067,9 @@ $('button.filter-cea-1').on('click', function(e){
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
+    params_cea['name']= $('.name-cea-1').val()
     params_cea['state']= $('#states').val()
-    params_cea['city']= $('.cea-city').val()
+    params_cea['city']= $('.cities-cea-1').val()
     params_cea['age']= age
     params_cea['gender']= gender
     params_cea['licences']= licence
@@ -1992,9 +2088,28 @@ $('.rating-transit').on('change', function(){
 $('.sector-transit').on('change', function(e){
     params_transit['sector'] = $(this).val()
 })
+
+$('.rating-transit-1').on('change', function(){
+    if ($(this).val() === '0'){
+        delete params_transit['rating']
+    }
+    else{
+        params_transit['rating'] = $(this).val()
+    }
+})
+$('.sector-transit-1').on('change', function(e){
+    params_transit['sector'] = $(this).val()
+})
 $('button.filter-transit').on('click', function(e){
+    params_transit['name']= $('.name-transit').val()
     params_transit['state'] = $('#states').val(),
-    params_transit['city'] = $('.transit-city').val(),
+    params_transit['city'] = $('.cities-transit').val(),
+    transit_filter(params_transit)
+})
+$('button.filter-transit-1').on('click', function(e){
+    params_transit['name']= $('.name-transit-1').val()
+    params_transit['state'] = $('#states').val(),
+    params_transit['city'] = $('.cities-transit-1').val(),
     transit_filter(params_transit)
 })
 
