@@ -37,14 +37,16 @@
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <span class="title">
-                        CRC
+                        Exámenes médicos
+                        {% if crc_rating is not True %}
                             {% if object.request_status == 'ICRC' or  object.request_status == 'ICEA' or object.request_status == 'FNS' %}
                                 <span class="rated-service">
-                                    <button class="rated-service rate-transit" data-toggle="modal" data-target="#ratedService" data-company="{{object.crc}}">
+                                    <button class="rated-service rate-company" data-company="crc" data-id="{{object.crc.pk}}" data-name="{{object.crc}}">
                                         Calificar servicio
                                     </button>
                                 </span>
                             {% endif %}
+                        {% endif %}
                         
                     </span>
                     <span class="description">
@@ -53,21 +55,27 @@
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <span class="title">
-                        CEA
-                        {% if object.request_status == 'ICEA' or object.request_status == 'FNS' %}
-                            <span class="rated-service">
-                                <button class="rated-service rate-transit" data-toggle="modal" data-target="#ratedService" data-whatever="@mdo">Calificar servicio</button>
-                            </span>
+                        Curso de conducción
+                        {% if cea_rating is not True %} 
+                            {% if object.request_status == 'ICEA' or object.request_status == 'FNS' %}
+                                <span class="rated-service">
+                                    <button class="rated-service rate-company" data-company="cea" data-id="{{object.cea.pk}}" data-name="{{object.cea}}">
+                                        Calificar servicio
+                                    </button>
+                                </span>
+                            {% endif %}
                         {% endif %}
                     </span>
                     <span class="description">{{object.cea}}</span>
                 </div>
                 <div class="col-sm-6 col-md-4">
                     <span class="title">
-                        Organismo de tránsito
-                        {% if object.request_status == 'FNS' %}
+                        Expedición licencia
+                        {% if transit_rating is not True and object.request_status == 'FNS' %}
                             <span class="rated-service">
-                                <button class="rated-service rate-transit" data-toggle="modal" data-target="#ratedService" data-whatever="@mdo">Calificar servicio</button>
+                                <button class="rated-service rate-company" data-company="transit" data-id="{{object.transit.pk}}" data-name="{{object.transit}}"">
+                                    Calificar servicio
+                                </button>
                             </span>
                         {% endif %}
                     </span>
@@ -122,24 +130,32 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <div class="rate">
-                                    <input type="radio" id="star5" name="rate" value="5" />
-                                    <label for="star5" title="text5">5 stars</label>
-                                    <input type="radio" id="star4" name="rate" value="4" />
-                                    <label for="star4" title="text4">4 stars</label>
-                                    <input type="radio" id="star3" name="rate" value="3" />
-                                    <label for="star3" title="text3">3 stars</label>
-                                    <input type="radio" id="star2" name="rate" value="2" />
-                                    <label for="star2" title="text2">2 stars</label>
-                                    <input type="radio" id="star1" name="rate" value="1" />
-                                    <label for="star1" title="text1">1 star</label>
+                            <form id="rating-service">
+                                {% csrf_token %}
+                                <input type="hidden" name="user" id="user-id" value="{{request.user.pk}}">
+                                <input type="hidden" name="" id="company-name" value="">
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Observaciones:</label>
+                                    <textarea class="form-control" id="message-text" name="detail"></textarea>
                                 </div>
+                                <div class="form-group rate">
+                                    <span class="rating-title">Calificación</span>
+                                    <input type="radio" id="star5" name="stars" value="5" />
+                                    <label for="star5" title="5 Estrellas">5 estrellas</label>
+                                    <input type="radio" id="star4" name="stars" value="4" />
+                                    <label for="star4" title="4 Estrellas">4 estrellas</label>
+                                    <input type="radio" id="star3" name="stars" value="3" />
+                                    <label for="star3" title="3 Estrellas">3 estrellas</label>
+                                    <input type="radio" id="star2" name="stars" value="2" />
+                                    <label for="star2" title="2 Estrellas">2 estrellas</label>
+                                    <input type="radio" id="star1" name="stars" value="1" />
+                                    <label for="star1" title="1 estrella">1 estrella</label>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary btn-rate">Calificar</button>
                             </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Send message</button>
                         </div>
                     </div>
                 </div>
@@ -201,6 +217,52 @@
                 }
             })
         })
+
+        $('.rate-company').on('click', function(){
+            id = $(this).data('id')
+            company = $(this).data('company')
+            name = $(this).data('name')
+            $('#company-name').attr('name', company)
+            $('#company-name').attr('value', id)
+            $('#ratedService').modal('show')
+        })
+
+        $('#rating-service').on('submit', function(event){
+            event.preventDefault();
+            data = $( this ).serialize()
+            axios.defaults.headers.common['Api-Key'] = '36f24428d8a940bcdbe996a01a98e10bfc7f2231';
+            axios.post(`/api/companies/rating/${company}/${id}`, data)
+            .then(function (response) {
+                console.log(response);
+                swal({
+                    title: 'Exitoso',
+                    text: "Tu calificación se ha enviado correctamente.",
+                    type: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#162d40',
+                    confirmButtonText: 'Aceptar',
+                    reverseButtons: true
+                }).then(response => {
+                    location.reload()
+                })
+            })
+            .catch(function (error) {
+                console.log(error.response);
+                if (error.response.status === 400){
+                    swal({
+                        title: 'Error',
+                        text: "Debes ingresar el valor de la calificación",
+                        type: 'error',
+                        showCancelButton: false,
+                        confirmButtonColor: '#162d40',
+                        confirmButtonText: 'Aceptar',
+                        reverseButtons: true
+                    })
+                }
+            });
+            
+        })
+
 
     </script>
 {% endblock %}

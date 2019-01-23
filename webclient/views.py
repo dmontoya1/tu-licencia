@@ -11,7 +11,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.views.generic.base import TemplateView, View
 from django.views.generic.detail import DetailView
 
-from companies.models import TuLicencia, TransitDepartment
+from companies.models import TuLicencia, TransitDepartment, CeaRating, CrcRating, TransitRating
 from manager.models import Police, State, City
 from request.models import Request
 from users.models import UserToken
@@ -75,6 +75,28 @@ class RequestDetail(LoginRequiredMixin, DetailView):
     template_name='webclient/request_detail.html'
     login_url = '/login'
     redirect_field_name = 'redirect_to'
+
+    def get_context_data(self, **kwargs):
+        context = super(RequestDetail, self).get_context_data(**kwargs)
+        request_obj = Request.objects.get(pk=self.kwargs['pk'])
+        user = request_obj.user
+        cea_rt = False
+        crc_rt = False
+        transit_rt = False
+        cea_rating = CeaRating.objects.filter(cea=request_obj.cea, user=user)
+        crc_rating = CrcRating.objects.filter(crc=request_obj.crc, user=user)
+        transit_rating = TransitRating.objects.filter(transit=request_obj.transit, user=user)
+        if cea_rating.count() > 0:
+            cea_rt = True
+        if crc_rating.count() > 0:
+            crc_rt = True
+        if transit_rating.count() > 0:
+            transit_rt = True
+        context['cea_rating'] = cea_rt
+        context['crc_rating'] = crc_rt
+        context['transit_rating'] = transit_rt
+        print (context)
+        return context
 
 
 class ProfileDetail(LoginRequiredMixin, DetailView):

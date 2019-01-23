@@ -18,4 +18,7 @@ urlpatterns = [
     path('crc/<int:pk>', views.CRCDetail.as_view(), name='crc-detail'),
     path('cea/<int:pk>', views.CEADetail.as_view(), name='cea-detail'),
     path('transit/<int:pk>', views.TransitDetail.as_view(), name='transit-detail'),
+    path('rating/cea/<int:pk>', views.CeaRatingCreate.as_view(), name='cea-rating'),
+    path('rating/crc/<int:pk>', views.CrcRatingCreate.as_view(), name='crc-rating'),
+    path('rating/transit/<int:pk>', views.TransitRatingCreate.as_view(), name='transit-rating'),
 ]

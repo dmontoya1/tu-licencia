@@ -1014,19 +1014,19 @@
                                             <div class="col-12 col-md-3">
                                                 <div class="form-group text-center tex-left-m mb-0">
                                                     <label for="" class="label-small label-date">DD</label>
-                                                    <input class="form-control form-control-lg" type="number" id="day-1" min="1" max="31" required placeholder="DD">
+                                                    <input class="form-control form-control-lg" readonly type="number" id="day-1" min="1" max="31" required placeholder="DD">
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-3">
                                                 <div class="form-group text-center tex-left-m mb-0">
                                                     <label for="" class="label-small label-date">MM</label>
-                                                    <input class="form-control form-control-lg" type="number" id="month-1" min="1" max="12" required placeholder="MM">
+                                                    <input class="form-control form-control-lg" readonly type="number" id="month-1" min="1" max="12" required placeholder="MM">
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-4">
                                                 <div class="form-group text-center tex-left-m mb-0">
                                                     <label for="" class="label-small label-date">AAAA</label> 
-                                                    <input class="form-control form-control-lg" type="number" id="year-1" min="1900" max="2003" required placeholder="AAAA">
+                                                    <input class="form-control form-control-lg" readonly type="number" id="year-1" min="1900" max="2003" required placeholder="AAAA">
                                                 </div>
                                             </div>
                                         </div>
@@ -1229,7 +1229,7 @@
                                 {% else %}
                                     <div class="express-form">
                                         <div class="form-row">
-                                            <div class="col">
+                                            <div class="form-group col-md-6 mb-4">
                                                 <label for="payment-type-1">Tipo de Pago principal</label>
                                                 <select class="form-control" id="payment-type-1" name="payment_type">
                                                     <option value='' selected disabled>Selecciona un medio de pago</option>
@@ -1238,22 +1238,28 @@
                                                     <option value="CR">Solicitar crédito</option>
                                                 </select>
                                             </div>
-                                            <div class="col">
+                                            <div class="form-group col-md-6 mb-4">
                                                 <label for="payment-value-1">Valor pago principal</label>
                                                 <input type="number" class="form-control" id="payment-value-1" name="payment_value" placeholder="Solo números. Sin puntuación">
                                             </div>
                                         </div>
-                                        <div class="form-row my-4">
-                                            <div class="col">
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6 mb-4">
                                                 <label for="payment-type-1">Tipo de Pago secundario (opcional)</label>
                                                 <select class="form-control" id="payment-type-2" name="payment_type2">
                                                     <option value='' selected disabled>Primero selecciona el pago principal</option>
                                                 </select>
                                             </div>
-                                            <div class="col">
+                                            <div class="form-group col-md-6 mb-4">
                                                 <label for="payment-value-2">Valor pago secundario</label>
                                                 <input type="number" class="form-control" id="payment-value-2" value="0" name="payment_value2" placeholder="Solo números. Sin puntuación">
                                             </div>
+                                        </div>
+                                        <div class="form-check mb-4">
+                                            <input class="form-check-input" type="checkbox" value="" name="payment-pending" id="pay-pending">
+                                            <label class="form-check-label" for="pay-pending">
+                                                Pendiente por finalizar?
+                                            </label>
                                         </div>
                                     </div>
                                 {% endif %}
@@ -1690,7 +1696,6 @@
                                         <p class="mb-0 text-small crc-cart-price">$<span class="crc-cart-price-1">${price}</span></p>
                                     </div>
                                 </div>
-                                <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
                             `
                         )
                         $('li.cart-crc').data('value', id)
@@ -1719,14 +1724,9 @@
                             reverseButtons: true
                         }).then((result) => {
                             if (result.value) {
-                                console.log($('.total-price').first().text())
                                 total = parseInt($('.total-price').first().text())
-                                console.log(total)
-                                console.log($('.crc-cart-price-1').first().text())
                                 old_value = parseInt($('.crc-cart-price-1').first().text())
-                                console.log(old_value)
                                 final_price = total-old_value
-                                console.log(final_price)
                                 addCrc(final_price);
                             }
                         })
@@ -1747,7 +1747,6 @@
                                     <p class="mb-0 text-small cea-cart-price">$<span class="cea-cart-price-1">${price}</span></p>
                                 </div>
                             </div>
-                            <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
                             `
                         )
                         $('li.cart-cea').data('value', id)
@@ -1799,7 +1798,6 @@
                                         <p class="mb-0 text-small transit-cart-price">$<span class="transit-cart-price-1">${price}</span></p>
                                     </div>
                                 </div>
-                                <a href="#" class="align-self-center"><i class="material-icons">edit</i></a>
                             `
                         )
                         $('li.cart-transit').data('value', id)

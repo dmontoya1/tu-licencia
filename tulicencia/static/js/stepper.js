@@ -450,6 +450,39 @@ function loadVehicleSelect(licences){
     })
 }
 
+function clearCart(){
+    cea = ""
+    crc = ""
+    transit = ""
+    cea_price = ""
+    crc_price = ""
+    transit_price = ""
+    $('.content-summary').empty()
+    $('.content-summary').append(
+        `
+            <div class="header-summary"> 
+                <img src="/static/assets/img/car.svg" width="25" class="mr-2" alt="">Resumen del servicio
+                <div class="licences-resume">
+                    <span class="resume-T1">
+                    </span>
+                    <span class="resume-T2">
+                    </span>
+                </div>
+            </div>
+            <div class="without-adding">No se han añadido elementos al carrito de compras </div>
+            <ul class="list-summary d-none">
+                <li class="d-flex flex-row cart-crc" data-value="0">
+                </li>
+                <li class="d-flex flex-row cart-cea" data-value="0">
+                </li>
+                <li class="d-flex flex-row cart-transit" data-value="0">
+                </li>
+            </ul>
+            <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
+        `
+    )
+}
+
 var gender = ""
 var birth_date = ""
 var age = ""
@@ -1680,6 +1713,9 @@ $('.back-payment').on('click', function(){
 
 
 function addTramit(licence){
+    if (cea != "" || crc != "" || transit != ""){
+        clearCart()
+    }
     if (tramit_type1 != '' && tramit_type2 == ''){
         if (tramits['licence_1'] == ''){
             tramits['licence_1'] = {'tramit': tramit_type1, 'licence':licence}

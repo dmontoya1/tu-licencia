@@ -198,8 +198,8 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .btn-brand {
-    background-color: #162b3c;
-    color: #fff;
+    background-color: #e7e7e7;
+    color: #42505e;
     font-weight: 700;
     width: 300px;
     padding: 10px 15px;
@@ -987,4 +987,9 @@ span.resume-T2 {
 
 .express-form select {
 	border: 2px solid #ced4da;
+}
+
+label.form-check-label {
+    padding-top: 15px;
+    padding-left: 10px;
 }

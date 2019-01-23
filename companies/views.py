@@ -5,13 +5,15 @@ from django.shortcuts import render
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny
 
 from core.views import sendEmail
 from manager.models import City
 
 from .serializers import (CeaSerializer, CrcSerializer, TransitSerializer, CeaDetailSerializer, 
-                          CrcDetailSerializer, TransitDetailSerializer)
-from .models import Crc, Cea, TransitDepartment
+                          CrcDetailSerializer, TransitDetailSerializer, CeaRatingSerializer, CrcRatingSerializer,
+                          TransitRatingSerializer)
+from .models import Crc, Cea, TransitDepartment, CeaRating, CrcRating, TransitRating
 from .utils import params_to_filter
 
 
@@ -394,3 +396,27 @@ class TransitDetail(generics.RetrieveAPIView):
 
     serializer_class = TransitSerializer
     queryset = TransitDepartment.objects.all()
+
+
+class CeaRatingCreate(generics.CreateAPIView):
+    """
+    """
+
+    serializer_class = CeaRatingSerializer
+    queryset = CeaRating.objects.all()
+
+
+class CrcRatingCreate(generics.CreateAPIView):
+    """
+    """
+
+    serializer_class = CrcRatingSerializer
+    queryset = CrcRating.objects.all()
+
+
+class TransitRatingCreate(generics.CreateAPIView):
+    """
+    """
+
+    serializer_class = TransitRatingSerializer
+    queryset = TransitRating.objects.all()

@@ -5,6 +5,7 @@
 
 {% block extra_css %}
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.min.css' %}"/>
 {% endblock %}
 
 {% block nav %}
@@ -60,11 +61,11 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="dates" class="float-left">Fecha inicio</label>
-                                <input type="date" class="input-sm form-control start-date" name="start" required/>
+                                <input type="text" class="input-sm form-control start-date" name="start" required autocomplete="off"/>
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="dates" class="float-left">Fecha de fin</label>
-                                <input type="date" class="input-sm form-control end-date" name="end" required/>
+                                <input type="text" class="input-sm form-control end-date" name="end" required autocomplete="off"/>
                             </div>
                         </div>
                         
@@ -128,7 +129,16 @@
 
 {% block extra_js %}
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-ui.min.js' %}"></script>
     <script>
+
+        $( ".start-date" ).datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+
+        $( ".end-date" ).datepicker({
+            dateFormat: "yy-mm-dd"
+        });
 
         $('#states').on('change', function(){
             if ($(this).val() != 0){

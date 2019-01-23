@@ -217,3 +217,30 @@ class TransitDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = TransitDepartment
         fields = ('id', 'name', 'nit')
+
+
+class CeaRatingSerializer(serializers.ModelSerializer):
+    """
+    """
+
+    class Meta:
+        model = CeaRating
+        fields = ('user', 'cea', 'detail', 'stars', )
+
+
+class CrcRatingSerializer(serializers.ModelSerializer):
+    """
+    """
+
+    class Meta:
+        model = CrcRating
+        fields = ('user', 'crc', 'detail', 'stars', )
+
+
+class TransitRatingSerializer(serializers.ModelSerializer):
+    """
+    """
+
+    class Meta:
+        model = TransitRating
+        fields = ('user', 'transit', 'detail', 'stars', )
