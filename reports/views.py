@@ -63,7 +63,7 @@ class ReportView(TemplateView):
                 'cea__name',
                 'crc__name',
                 'transit__name',
-                'related_tramits',
+                'related_tramits__tramit_type',
                 'request_date',
             )
 
@@ -113,7 +113,7 @@ class ReportView(TemplateView):
                 'cea__name',
                 'crc__name',
                 'transit__name',
-                'related_tramits',
+                'related_tramits__tramit_type',
                 'request_date',
                 'credit_status'
             )
@@ -166,7 +166,7 @@ class ReportView(TemplateView):
                 'cea__name',
                 'crc__name',
                 'transit__name',
-                'related_tramits',
+                'related_tramits__tramit_type',
                 'request_date',
                 'credit_status'
             )
@@ -206,7 +206,7 @@ class ReportView(TemplateView):
                 'user__last_name',
                 'user__document_id',
                 'booking',
-                'related_tramits',
+                'related_tramits__tramit_type',
                 'request_date',
                 'payment_type',
                 'payment_date'
@@ -224,7 +224,6 @@ class ReportView(TemplateView):
                 'Tipo de pago',
                 'Fecha del pago'
             ]
-
 
         elif report == 'crc':
             start_date = request['start']
@@ -246,7 +245,7 @@ class ReportView(TemplateView):
                 'user__last_name',
                 'user__document_id',
                 'booking',
-                'related_tramits',
+                'related_tramits__tramit_type',
                 'request_date',
                 'payment_type',
                 'payment_date'

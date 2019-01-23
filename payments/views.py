@@ -51,7 +51,7 @@ class Checkout(TemplateView):
             p_split_merchant_receiver = '24075'
             p_split_primary_receiver = '24075'
             p_split_primary_receiver_fee = 0
-            host = 'http://tulicencia.apptitud.com.co'
+            host = 'http://distulo.serveo.net'
         else:
             p_test_request = False
             p_cust_id_cliente='24075'
@@ -153,7 +153,7 @@ class Checkout(TemplateView):
         request_obj.save()
         p_url_response = '{}/payments/confirmation/'.format(host)
         p_url_confirmation = '{}/payments/confirmation/'.format(host)
-        p_confirm_method = 'GET'
+        p_confirm_method = 'POST'
         p_signature = '{}^{}^{}^{}^{}'.format(p_cust_id_cliente, p_key, p_id_invoice, p_amount, p_currency_code)
         p_signature = hashlib.md5(p_signature.encode('utf-8')).hexdigest()
         p_split_receivers.append({'id': cea.epayco_code, 'fee': str(cea_price_final)})
@@ -217,6 +217,8 @@ class Checkout(TemplateView):
             p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
         
         if self.method == "POST":
+            print ('POSTTTTTTT')
+            print (self.POST)
             x_cust_id_cliente = self.POST['x_cust_id_cliente']
             x_id_invoice = self.POST['x_id_invoice']
             x_currency_code = self.POST['x_currency_code']
@@ -280,6 +282,7 @@ class Checkout(TemplateView):
                 return HttpResponse(status=500)
         
         elif self.method == "GET":
+            print (self.GET)
             x_cust_id_cliente = self.GET['x_cust_id_cliente']
             x_id_invoice = self.GET['x_id_invoice']
             x_description = self.GET['x_description']
