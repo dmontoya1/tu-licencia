@@ -366,3 +366,8 @@ button.rated-service {
         width: 100%;
     }
 }
+
+span.rating-title {
+    display: block;
+    font-weight: 500;
+}

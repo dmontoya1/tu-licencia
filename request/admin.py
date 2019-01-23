@@ -104,7 +104,7 @@ class RequestAdmin(admin.ModelAdmin):
 
     model = Request
     search_fields = ('cea__name', 'crc__name', 'transit__name', 'user__document_id', 'user__first_name',
-    'user__last_name', 'request_status', 'payment_type', 'request_date', 'cea_status', 'crc_status', 'id_invoice', 'id_epayco_invoice')
+    'user__last_name', 'request_status', 'payment_type', 'request_date', 'cea_status', 'crc_status', 'id_invoice', 'id_epayco_invoice', 'booking')
     list_filter = ('cea', 'crc', 'transit', 'request_status', 'payment_type', 'docs_status', )
     list_filter_companies = [RequestStatusFilter,]
 

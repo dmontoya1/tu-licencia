@@ -458,7 +458,7 @@ class CeaRating(models.Model):
         verbose_name="Cea",
         on_delete=models.CASCADE,
         related_name="cea_ratings"
-        )
+    )
     detail = models.TextField(null=True, default="N/A")
     stars = models.IntegerField()
 
