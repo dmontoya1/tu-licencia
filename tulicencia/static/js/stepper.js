@@ -564,7 +564,7 @@ function crc_filter(params){
                 $('.crc-list').append(
                     `
                     <div class="col-12 col-xl-6">
-                        <button type="button" class="company-detail-crc" data-id="${v.id}" data-company="crc" style="background-color: #fff;">
+                        <button type="button" class="company-detail-crc" data-id="${v.id}" data-company="crc" style="background-color: #fff; border: 1px solid #ddd;">
                             <div class="d-flex flex-row content-result rounded mb-2">
                                 <div class="thumbnail mr-2 mb-4">
                                     <div class="img" style="background-image: url(${logo});background-size: contain;"></div>
@@ -682,7 +682,7 @@ function cea_filter(params){
                     `
 
                     <div class="col-12 col-xl-6">
-                        <button type="button" class="company-detail-cea" data-id="${v.id}" data-company="cea" style="background-color: #fff;">
+                        <button type="button" class="company-detail-cea" data-id="${v.id}" data-company="cea" style="background-color: #fff; border: 1px solid #ddd;">
                             <div class="d-flex flex-row content-result rounded mb-2">
                                 <div class="thumbnail mr-2 mb-4">
                                     <div class="img" style="background-image: url(${logo});background-size: contain;"></div>
@@ -826,7 +826,7 @@ function transit_filter(params){
                 $('.transit-list').append(
                     `
                     <div class="col-12 col-xl-6">
-                        <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" style="background-color: #fff;">
+                        <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" style="background-color: #fff; border: 1px solid #ddd;">
                             <div class="d-flex flex-row content-result rounded mb-2">
                                 <div class="thumbnail mr-2 mb-4">
                                     <div class="img" style="background-image: url(${logo});background-size: contain;"></div>
