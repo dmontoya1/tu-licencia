@@ -16,6 +16,9 @@ toastr.options = {
     "hideMethod": "fadeOut"
 }
 
+
+
+
 function loadStatesSelect(){
     $.ajax({
         type: "GET",
