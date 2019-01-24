@@ -57,13 +57,13 @@ def update_address_crc(sender, **kwargs):
 
     data = json.loads(my_json)
     try:
-        obj = response['results'][0]['geometry']['location']
+        obj = data['results'][0]['geometry']['location']
     except (KeyError, IndexError):
         print ('Ha ocurrido un error al obtener latitud y longitud')
         # messages.add_message(request, messages.WARNING, ('Ha ocurrido un error al obtener la latitud y la longitud'))
         # raise APIException(detail=("Ha ocurrido un error. Por favor, vuelve a intentarlo"))
 
-    if response['status'] == 'OK':
+    if data['status'] == 'OK':
         if instance.lat == None or instance.lon == None:
             instance.lat = obj['lat']
             instance.lon = obj['lng']
@@ -82,13 +82,13 @@ def update_address_transit(sender, **kwargs):
 
     data = json.loads(my_json)
     try:
-        obj = response['results'][0]['geometry']['location']
+        obj = data['results'][0]['geometry']['location']
     except (KeyError, IndexError):
         print ('Ha ocurrido un error al obtener latitud y longitud')
         # messages.add_message(request, messages.WARNING, ('Ha ocurrido un error al obtener la latitud y la longitud'))
         # raise APIException(detail=("Ha ocurrido un error. Por favor, vuelve a intentarlo"))
 
-    if response['status'] == 'OK':
+    if data['status'] == 'OK':
         if instance.lat == None or instance.lon == None:
             instance.lat = obj['lat']
             instance.lon = obj['lng']
