@@ -19,51 +19,51 @@ from .models import Cea, Crc, TransitDepartment, CeaRating, CrcRating, TransitRa
 
 @receiver(post_save, sender=Cea)
 def update_address_cea(sender, **kwargs):
-    if kwargs.get('created') is True:
-        instance = kwargs.get('instance')
-        address = instance.address.replace(" ", "+")
-        url = "https://maps.googleapis.com/maps/api/geocode/json?address={},+{}&key={}".format(
-            address, instance.city.name, settings.GOOGLE_MAPS_API_KEY
-        )
-        print (url)
-        result = requests.get(url)
-        response = json.loads(result.content)
-        try:
-            obj = response['results'][0]['geometry']['location']
-        except (KeyError, IndexError):
-            print ('Ha ocurrido un error al obtener latitud y longitud')
-            # messages.add_message(request, messages.WARNING, ('Ha ocurrido un error al obtener la latitud y la longitud'))
-            # raise APIException(detail=("Ha ocurrido un error. Por favor, vuelve a intentarlo"))
+    # if kwargs.get('created') is True:
+    instance = kwargs.get('instance')
+    address = instance.address.replace(" ", "+")
+    url = "https://maps.googleapis.com/maps/api/geocode/json?address={},+{}&key={}".format(
+        address, instance.city.name, settings.GOOGLE_MAPS_API_KEY
+    )
+    print (url)
+    result = requests.get(url)
+    response = json.loads(result.content)
+    try:
+        obj = response['results'][0]['geometry']['location']
+    except (KeyError, IndexError):
+        print ('Ha ocurrido un error al obtener latitud y longitud')
+        # messages.add_message(request, messages.WARNING, ('Ha ocurrido un error al obtener la latitud y la longitud'))
+        # raise APIException(detail=("Ha ocurrido un error. Por favor, vuelve a intentarlo"))
 
-        if response['status'] == 'OK':
-            print (obj)
-            instance.lat = obj['lat']
-            instance.lon = obj['lng']
-            instance.save()
+    if response['status'] == 'OK':
+        print (obj)
+        instance.lat = obj['lat']
+        instance.lon = obj['lng']
+        instance.save()
 
 @receiver(post_save, sender=Crc)
 def update_address_crc(sender, **kwargs):
-    if kwargs.get('created') is True:
-        instance = kwargs.get('instance')
-        address = instance.address.replace(" ", "+")
-        address = address.replace("#", "+")
-        url = "https://maps.googleapis.com/maps/api/geocode/json?address={},+{}&key={}".format(
-            address, instance.city.name, settings.GOOGLE_MAPS_API_KEY
-        )
-        print (url)
-        result = requests.get(url)
-        response = json.loads(result.content)
-        try:
-            obj = response['results'][0]['geometry']['location']
-        except (KeyError, IndexError):
-            print ('Ha ocurrido un error al obtener latitud y longitud')
-            # messages.add_message(request, messages.WARNING, ('Ha ocurrido un error al obtener la latitud y la longitud'))
-            # raise APIException(detail=("Ha ocurrido un error. Por favor, vuelve a intentarlo"))
+    # if kwargs.get('created') is True:
+    instance = kwargs.get('instance')
+    address = instance.address.replace(" ", "+")
+    address = address.replace("#", "+")
+    url = "https://maps.googleapis.com/maps/api/geocode/json?address={},+{}&key={}".format(
+        address, instance.city.name, settings.GOOGLE_MAPS_API_KEY
+    )
+    print (url)
+    result = requests.get(url)
+    response = json.loads(result.content)
+    try:
+        obj = response['results'][0]['geometry']['location']
+    except (KeyError, IndexError):
+        print ('Ha ocurrido un error al obtener latitud y longitud')
+        # messages.add_message(request, messages.WARNING, ('Ha ocurrido un error al obtener la latitud y la longitud'))
+        # raise APIException(detail=("Ha ocurrido un error. Por favor, vuelve a intentarlo"))
 
-        if response['status'] == 'OK':
-            instance.lat = obj['lat']
-            instance.lon = obj['lng']
-            instance.save()
+    if response['status'] == 'OK':
+        instance.lat = obj['lat']
+        instance.lon = obj['lng']
+        instance.save()
 
 @receiver(post_save, sender=TransitDepartment)
 def update_address_transit(sender, **kwargs):
