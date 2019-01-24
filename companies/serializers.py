@@ -69,7 +69,7 @@ class CrcSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Crc
-        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'final_price', 'rating', 'schedule', 'count_rating')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'final_price', 'rating', 'schedule', 'count_rating', 'lat', 'lon')
 
 
 class CeaVehicleSerializer(serializers.ModelSerializer):
@@ -174,7 +174,7 @@ class CeaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Cea
-        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'licences', 'vehicles', 'rating', 'schedule', 'final_price', 'count_rating', 'courses_schedule')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'licences', 'vehicles', 'rating', 'schedule', 'final_price', 'count_rating', 'courses_schedule', 'lat', 'lon')
 
 
 class TransitSerializer(serializers.ModelSerializer):
@@ -195,7 +195,7 @@ class TransitSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TransitDepartment
-        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'final_price', 'rating', 'schedule', 'count_rating')
+        fields = ('id', 'name', 'nit', 'state', 'city', 'sector', 'address', 'phone', 'cellphone', 'logo', 'final_price', 'rating', 'schedule', 'count_rating', 'lat', 'lon')
 
 
 class CeaDetailSerializer(serializers.ModelSerializer):

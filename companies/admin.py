@@ -68,8 +68,8 @@ class CeaAdmin(SoftDeletionModelAdminMixin):
     extra_list_display = ('nit', 'name', 'manager', 'cellphone')
     inlines = [CeaLicenceAdmin, CeaVehicleAdmin, CeaRatingAdmin, RequestAdmin]
 
-    manager_readonly_fields = ('manager', 'rating', 'collection', 'get_pin_sicov', 'get_recaudo' )
-    readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo')
+    manager_readonly_fields = ('manager', 'rating', 'collection', 'get_pin_sicov', 'get_recaudo', 'lat', 'lon' )
+    readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo', 'lat', 'lon')
     search_fields = ('name', 'nit', 'manager__document_id', 'rating',)
     list_filter = ('city', 'state', )
 
@@ -86,7 +86,7 @@ class CeaAdmin(SoftDeletionModelAdminMixin):
             'fields': ('name', 'nit', 'manager', 'phone', 'cellphone', 'email', 'logo', 'rating', 'schedule', 'courses_schedule')
         }),
         ('Datos de ubicación', {
-            'fields': ('state', 'city', 'sector', 'address'),
+            'fields': ('state', 'city', 'sector', 'address', 'lat', 'lon'),
         }),
         ('Precios', {
             'fields': ('epayco_code', 'collection', 'get_pin_sicov', 'get_recaudo'),
@@ -129,8 +129,8 @@ class CrcAdmin(SoftDeletionModelAdminMixin):
     extra_list_display = ('nit', 'name', 'manager', 'cellphone')
     inlines = [CrcRatingAdmin, RequestAdmin]
 
-    manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo', 'rating')
-    readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo')
+    manager_readonly_fields = ('manager', 'collection', 'get_pin_sicov', 'get_recaudo', 'rating', 'lat', 'lon')
+    readonly_fields = ('rating', 'get_pin_sicov', 'get_recaudo', 'lat', 'lon')
     search_fields = ('name', 'nit', 'manager__document_id', 'rating',)
     list_filter = ('state', 'city', )
 
@@ -139,7 +139,7 @@ class CrcAdmin(SoftDeletionModelAdminMixin):
             'fields': ('name', 'nit', 'manager', 'phone', 'cellphone', 'email', 'logo', 'schedule', 'rating')
         }),
         ('Datos de ubicación', {
-            'fields': ('state', 'city', 'sector', 'address'),
+            'fields': ('state', 'city', 'sector', 'address', 'lat', 'lon'),
         }),
         ('Precios', {
             'fields': ('epayco_code', 'price', 'price_double', 'collection', 'get_pin_sicov', 'get_recaudo'),
@@ -195,7 +195,7 @@ class TransitDepartmentAdmin(SoftDeletionModelAdminMixin):
     model = TransitDepartment
     extra_list_display = ('nit', 'name', 'cellphone')
     inlines = [TransitRatingAdmin]
-    readonly_fields = ('get_runt', 'get_printing', 'get_other_values', 'rating')
+    readonly_fields = ('get_runt', 'get_printing', 'get_other_values', 'rating', 'lat', 'lon')
 
     class Media:
         js = (

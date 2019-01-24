@@ -1437,17 +1437,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <!-- <div id="map"></div> -->
                                 <div class="row map">
                                     <div class="col-12">
                                         <div style="width: 100%">
-                                            <iframe 
-                                                src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d15903.15217075221!2d-75.72533726779959!3d4.8064181639462245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e0!4m3!3m2!1d4.8156126!2d-75.7219981!4m3!3m2!1d4.8138567!2d-75.69442099999999!5e0!3m2!1ses-419!2sco!4v1545779183981" 
-                                                width="100%" 
-                                                height="450" 
-                                                frameborder="0" 
-                                                style="border:0" 
-                                                allowfullscreen>
-                                            </iframe>
+                                            <div id="map" ></div>
                                         </div>
                                         <br />
                                     </div>
@@ -1643,14 +1637,7 @@
                             <div class="row map">
                                 <div class="col-12">
                                     <div style="width: 100%">
-                                        <iframe 
-                                            src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d15903.15217075221!2d-75.72533726779959!3d4.8064181639462245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e0!4m3!3m2!1d4.8156126!2d-75.7219981!4m3!3m2!1d4.8138567!2d-75.69442099999999!5e0!3m2!1ses-419!2sco!4v1545779183981" 
-                                            width="100%" 
-                                            height="450" 
-                                            frameborder="0" 
-                                            style="border:0" 
-                                            allowfullscreen>
-                                        </iframe>
+                                        <div id="map2"></div>
                                     </div>
                                     <br />
                                 </div>
@@ -1666,11 +1653,32 @@
 {% block extra_js %}
    <script src="{% static 'js/stepper.js' %}"></script>
    <script>
+       var user_lat = 4.8142121
+       var user_lon = -75.6948168
+        $(document).ready(function() {
+            function getLocation() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else { 
+                    alert("Geolocation is not supported by this browser.");
+                }
+            }
+            
+            function showPosition(position) {
+                user_lat = position.coords.latitude
+                user_lon = position.coords.longitude
+                console.log(user_lat)
+                console.log(user_lon)
+            }
+            getLocation()
+        });
         if ('{{ request.user.user_type }}' == 'EXU'){
             payment_type = 'EXU'
         }
 
-       $('.add-cart').on('click', function(){
+        
+
+        $('.add-cart').on('click', function(){
             company = $(this).data('company')
             id = $(this).data('id')
             name = $(this).data('name')
@@ -1907,4 +1915,10 @@
         })
 
    </script>
+   <script>
+    
+  </script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxfRnYMH3fsYAFrVskRLYZJhuqed_yfkU">
+  </script>
 {% endblock %}

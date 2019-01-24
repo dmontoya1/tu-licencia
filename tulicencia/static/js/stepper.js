@@ -16,6 +16,49 @@ toastr.options = {
     "hideMethod": "fadeOut"
 }
 
+function initMap(lat1, lon1) {
+    console.log('Init Map')
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 20,
+        center: {lat: user_lat, lng: user_lon}
+    });
+    directionsDisplay.setMap(map);
+
+    calculateAndDisplayRoute(directionsService, directionsDisplay, lat1, lon1);
+}
+
+function initMap2(lat1, lon1) {
+    console.log('Init Map')
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    var map = new google.maps.Map(document.getElementById('map2'), {
+        zoom: 20,
+        center: {lat: user_lat, lng: user_lon}
+    });
+    directionsDisplay.setMap(map);
+
+    calculateAndDisplayRoute(directionsService, directionsDisplay, lat1, lon1);
+}
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lon) {
+    var start = `${user_lat}, ${user_lon}`;
+    var end = `${lat}, ${lon}`;
+    directionsService.route({
+        origin: start,
+        destination: end,
+        travelMode: 'DRIVING'
+    }, function(response, status) {
+        if (status === 'OK') {
+        directionsDisplay.setDirections(response);
+        } else {
+            window.alert('Directions request failed due to ' + status);
+        }
+    });
+}
+
+
 function loadStatesSelect(){
     $.ajax({
         type: "GET",
@@ -599,6 +642,7 @@ function crc_filter(params){
                     $('.add-cart').data('price', data.final_price);
                     $('.add-cart').data('company', company);
 
+                    initMap(data.lat, data.lon)
                     $('.DetailModal').modal('show')
 
                 })
@@ -743,6 +787,7 @@ function cea_filter(params){
                             `
                         )
                     })
+                    initMap2(data.lat, data.lon)
                     $('.DetailModal1').modal('show')
 
                 })
@@ -853,6 +898,7 @@ function transit_filter(params){
                     $('.add-cart').data('price', data.final_price);
                     $('.add-cart').data('company', company);
 
+                    initMap(data.lat, data.lon)
                     $('.DetailModal').modal('show')
 
                 })

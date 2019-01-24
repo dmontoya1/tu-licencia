@@ -179,3 +179,6 @@ RAVEN_CONFIG = {
     # release based on the git info.
     # 'release': raven.fetch_git_sha(os.path.abspath(os.pardir)),
 }
+
+# Google Maps Config
+GOOGLE_MAPS_API_KEY = 'AIzaSyDxfRnYMH3fsYAFrVskRLYZJhuqed_yfkU'

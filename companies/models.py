@@ -98,6 +98,18 @@ class Cea(SoftDeletionModelMixin):
         'Codigo ePayco',
         max_length=10,
     )
+    lat = models.DecimalField(
+        "Latitud", 
+        max_digits=9, 
+        decimal_places=6, 
+        null=True, blank=True
+    )
+    lon = models.DecimalField(
+        "Longitud", 
+        max_digits=9, 
+        decimal_places=6,
+        null=True, blank=True
+    )
 
     def __str__(self):
         return self.name
@@ -207,6 +219,18 @@ class Crc(SoftDeletionModelMixin):
         'Codigo ePayco',
         max_length=10,
     )
+    lat = models.DecimalField(
+        "Latitud", 
+        max_digits=9, 
+        decimal_places=6, 
+        null=True, blank=True
+    )
+    lon = models.DecimalField(
+        "Longitud", 
+        max_digits=9, 
+        decimal_places=6,
+        null=True, blank=True
+    )
     
     def get_pin_sicov(self):
         return '$ %s' % (self.collection.pin_sicov)
@@ -294,6 +318,18 @@ class TransitDepartment(SoftDeletionModelMixin):
         verbose_name='Precios organismo de transito',
         blank=True, null=True,
         on_delete=models.SET_NULL
+    )
+    lat = models.DecimalField(
+        "Latitud", 
+        max_digits=9, 
+        decimal_places=6, 
+        null=True, blank=True
+    )
+    lon = models.DecimalField(
+        "Longitud", 
+        max_digits=9, 
+        decimal_places=6,
+        null=True, blank=True
     )
 
     def get_runt(self):
@@ -459,7 +495,12 @@ class CeaRating(models.Model):
         on_delete=models.CASCADE,
         related_name="cea_ratings"
     )
-    detail = models.TextField(null=True, default="N/A")
+    detail = models.TextField(
+        "Detalle",
+        null=True,
+        blank=True,
+        default="N/A"
+    )
     stars = models.IntegerField()
 
     def __str__(self):
@@ -483,7 +524,12 @@ class CrcRating(models.Model):
         on_delete=models.CASCADE,
         related_name="crc_ratings"
         )
-    detail = models.TextField(null=True, default="N/A")
+    detail = models.TextField(
+        "Detalle",
+        null=True,
+        blank=True,
+        default="N/A"
+    )
     stars = models.IntegerField()
 
     def __str__(self):
@@ -507,7 +553,12 @@ class TransitRating(models.Model):
         on_delete=models.CASCADE,
         related_name="transit_ratings"
         )
-    detail = models.TextField(null=True, default="N/A")
+    detail = models.TextField(
+        "Detalle",
+        null=True,
+        blank=True,
+        default="N/A"
+    )
     stars = models.IntegerField()
 
     def __str__(self):
