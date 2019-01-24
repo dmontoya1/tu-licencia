@@ -1403,8 +1403,6 @@ $('.element--second-licence input').on('click', function(ev){
                         $('.option-RC').removeClass('option--selected')
                         clearTramit('RC')
                     }
-                    $('.toggleC2').removeClass('d-none')
-                    $('.toggleC3').removeClass('d-none')
                     tramit_type1 = $(this).val()
                     $('.option-' + tramit_type1).addClass('option--selected');
                     setTimeout(function(){
@@ -1422,8 +1420,6 @@ $('.element--second-licence input').on('click', function(ev){
                         $('.option-RC').removeClass('option--selected')
                         clearTramit('RC')
                     }
-                    $('.toggleC2').removeClass('d-none')
-                    $('.toggleC3').removeClass('d-none')
                     tramit_type2 = $(this).val()
                     $('.option-' + tramit_type2).addClass('option--selected');
                     
