@@ -154,7 +154,7 @@ class ResetPasswordView(TemplateView):
                         messages.ERROR, 
                         "Lo sentimos el enlace al que intenta acceder ha dejado de funcionar"
                 )
-                return HttpResponseRedirect(reverse('web_client:forget_password'))
+                return HttpResponseRedirect(reverse('webclient:forget_password'))
 
             context = self.get_context_data(user.user)
             return self.render_to_response(context)
