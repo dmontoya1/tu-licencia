@@ -73,8 +73,6 @@
                             <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3">
                                 <h3 class="title text-center mt-5">Seleccionar ubicación</h3>
                                 <p class="text text-center pb-5 mb-0">Indícanos en qué departamento vas a solicitar la licencia de conducción</p>
-                                <div id="map"></div>
-                                <button type="button" class="map-btn">map</button>
                                 <div class="form-group pt-5">
                                     <label for="states">Departamento</label>
                                     <div class="select-box">
@@ -1439,7 +1437,15 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div id="map1"></div>
+                                <!-- <div id="map"></div> -->
+                                <div class="row map">
+                                    <div class="col-12">
+                                        <div style="width: 100%">
+                                            <div id="map" ></div>
+                                        </div>
+                                        <br />
+                                    </div>
+                                </div>
                             </div>    
                         </div>
                     </div>                        
@@ -1631,14 +1637,7 @@
                             <div class="row map">
                                 <div class="col-12">
                                     <div style="width: 100%">
-                                        <iframe 
-                                            src="https://www.google.com/maps/embed?pb=!1m24!1m12!1m3!1d15903.15217075221!2d-75.72533726779959!3d4.8064181639462245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m9!3e0!4m3!3m2!1d4.8156126!2d-75.7219981!4m3!3m2!1d4.8138567!2d-75.69442099999999!5e0!3m2!1ses-419!2sco!4v1545779183981" 
-                                            width="100%" 
-                                            height="450" 
-                                            frameborder="0" 
-                                            style="border:0" 
-                                            allowfullscreen>
-                                        </iframe>
+                                        <div id="map2"></div>
                                     </div>
                                     <br />
                                 </div>
@@ -1677,38 +1676,7 @@
             payment_type = 'EXU'
         }
 
-        function initMap(lat1, lon1) {
-            var directionsService = new google.maps.DirectionsService;
-            var directionsDisplay = new google.maps.DirectionsRenderer;
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 15,
-                center: {lat: user_lat, lng: user_lon}
-            });
-            directionsDisplay.setMap(map);
-
-            calculateAndDisplayRoute(directionsService, directionsDisplay, lat1, lon1);
-        }
-
-        function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lon) {
-            console.log(lat)
-            console.log(lon)
-            var start = `${user_lat}, ${user_lon}`;
-            var end = `${lat}, ${lon}`;
-            directionsService.route({
-                origin: start,
-                destination: end,
-                travelMode: 'DRIVING'
-            }, function(response, status) {
-                if (status === 'OK') {
-                directionsDisplay.setDirections(response);
-                } else {
-                    window.alert('Directions request failed due to ' + status);
-                }
-            });
-        }
-        $('.map-btn').on('click', function(){
-            initMap(4.793499, -75.745805)
-        })
+        
 
         $('.add-cart').on('click', function(){
             company = $(this).data('company')
