@@ -17,7 +17,6 @@ toastr.options = {
 }
 
 function initMap(lat1, lon1) {
-    console.log('Init Map')
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -30,7 +29,6 @@ function initMap(lat1, lon1) {
 }
 
 function initMap2(lat1, lon1) {
-    console.log('Init Map')
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var map = new google.maps.Map(document.getElementById('map2'), {
