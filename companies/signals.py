@@ -27,7 +27,8 @@ def update_address_cea(sender, **kwargs):
     )
     print (url)
     result = requests.get(url)
-    print (result)
+    print (result.content)
+    print (type(result.content))
     response = json.loads(result.content)
     try:
         obj = response['results'][0]['geometry']['location']
@@ -54,7 +55,8 @@ def update_address_crc(sender, **kwargs):
     )
     print (url)
     result = requests.get(url)
-    print (result)
+    print (result.content)
+    print (type(result.content))
     response = json.loads(result.content)
     try:
         obj = response['results'][0]['geometry']['location']
