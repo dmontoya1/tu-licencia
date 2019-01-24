@@ -51,7 +51,7 @@ class Checkout(TemplateView):
             p_split_merchant_receiver = '24075'
             p_split_primary_receiver = '24075'
             p_split_primary_receiver_fee = 0
-            host = 'http://distulo.serveo.net/'
+            host = 'http://distulo.serveo.net'
         else:
             p_test_request = False
             p_cust_id_cliente='24075'
@@ -282,21 +282,23 @@ class Checkout(TemplateView):
                 return HttpResponse(status=500)
         
         elif self.method == "GET":
-            print (self.GET)
-            x_cust_id_cliente = self.GET['x_cust_id_cliente']
-            x_id_invoice = self.GET['x_id_invoice']
-            x_description = self.GET['x_description']
-            x_currency_code = self.GET['x_currency_code']
-            x_franchise = self.GET['x_franchise']
-            x_transaction_date = self.GET['x_transaction_date']
-            x_amount  = self.GET['x_amount']
-            x_transaction_id = self.GET['x_transaction_id']
-            x_ref_payco = self.GET['x_ref_payco']
-            x_signature = self.GET['x_signature']
-            x_response = self.GET['x_response']
-            x_cod_response = self.GET['x_cod_response']
+            print (self)
+            # print (self.GET.get)
+            print (self.GET.get('x_cust_id_cliente'))
+            x_cust_id_cliente = self.GET.get('x_cust_id_cliente')
+            x_id_invoice = self.GET.get('x_id_invoice')
+            x_description = self.GET.get('x_description')
+            x_currency_code = self.GET.get('x_currency_code')
+            x_franchise = self.GET.get('x_franchise')
+            x_transaction_date = self.GET.get('x_transaction_date')
+            x_amount  = self.GET.get('x_amount')
+            x_transaction_id = self.GET.get('x_transaction_id')
+            x_ref_payco = self.GET.get('x_ref_payco')
+            x_signature = self.GET.get('x_signature')
+            x_response = self.GET.get('x_response')
+            x_cod_response = self.GET.get('x_cod_response')
 
-            request_obj = Request.objects.get(id_invoice=x_id_invoice)
+            request_obj = Request.objects.filter(id_invoice=x_id_invoice).first()
 
             return render(
                 self,
