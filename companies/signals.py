@@ -52,11 +52,10 @@ def update_address_crc(sender, **kwargs):
     url = "https://maps.googleapis.com/maps/api/geocode/json?address={},+{}&key={}".format(
         address, instance.city.name, settings.GOOGLE_MAPS_API_KEY
     )
-    print (url)
     result = requests.get(url)
-    print (result.content)
-    print (type(result.content))
-    response = json.loads(result.content)
+    my_json = result.content.decode('utf8').replace("'", '"')
+
+    data = json.loads(my_json)
     try:
         obj = response['results'][0]['geometry']['location']
     except (KeyError, IndexError):
@@ -78,9 +77,10 @@ def update_address_transit(sender, **kwargs):
     url = "https://maps.googleapis.com/maps/api/geocode/json?address={},+{}&key={}".format(
         address, instance.city.name, settings.GOOGLE_MAPS_API_KEY
     )
-    print (url)
     result = requests.get(url)
-    response = json.loads(result.content)
+    my_json = result.content.decode('utf8').replace("'", '"')
+
+    data = json.loads(my_json)
     try:
         obj = response['results'][0]['geometry']['location']
     except (KeyError, IndexError):
