@@ -53,7 +53,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lon
         if (status === 'OK') {
         directionsDisplay.setDirections(response);
         } else {
-            window.alert('Directions request failed due to ' + status);
+            console.log('Directions request failed due to ' + status)
         }
     });
 }
