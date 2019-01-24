@@ -25,6 +25,7 @@ class RequestCreate(APIView):
     def post(self, request):
         try:
             user_data = request.data['user']
+            print (user_data)
             cea = Cea.objects.get(pk=request.data['cea'])
             try:
                 crc = Crc.objects.get(pk=request.data['crc'])
@@ -35,7 +36,6 @@ class RequestCreate(APIView):
             cea_price = request.data['cea_price']
             transit_price = request.data['transit_price']
             tramits = request.data['tramits']
-
             city = City.objects.get(pk=user_data['city'])
             state = State.objects.get(pk=user_data['state'])
             # state = city.state
