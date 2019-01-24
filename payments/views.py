@@ -51,7 +51,7 @@ class Checkout(TemplateView):
             p_split_merchant_receiver = '24075'
             p_split_primary_receiver = '24075'
             p_split_primary_receiver_fee = 0
-            host = 'http://distulo.serveo.net'
+            host = 'http://rigor.serveo.net'
         else:
             p_test_request = False
             p_cust_id_cliente='24075'
@@ -249,7 +249,7 @@ class Checkout(TemplateView):
                     request_obj.id_epayco_invoice = x_ref_payco
                     request_obj.save()
                     ctx = {
-                        'request':request
+                        'request':request_obj
                     }
                     sendEmail(ctx, request_obj.user.email, 'Instrucciones TuLicencia', 'webclient/baucher.html')
                     return HttpResponse(status=200)
