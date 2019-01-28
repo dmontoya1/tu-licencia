@@ -82,13 +82,13 @@ jQuery(document).ready(function() {
 				$('.resume-T1').text(`Primera licencia - ${tramits['licence_1']['licence']}`)
 				break;
 			case 'SL':
-				$('.resume-T1').text(`Primera licencia - ${tramits['licence_1']['licence']}`)
+				$('.resume-T1').text(`Segunda licencia - ${tramits['licence_1']['licence']}`)
 				break;
 			case 'RN':
-				$('.resume-T1').text(`Primera licencia - ${tramits['licence_1']['licence']}`)
+				$('.resume-T1').text(`Renovar licencia - ${tramits['licence_1']['licence']}`)
 				break;
 			case 'RC':
-				$('.resume-T1').text(`Primera licencia - ${tramits['licence_1']['licence']}`)
+				$('.resume-T1').text(`Recategorizar licencia - ${tramits['licence_1']['licence']}`)
 				break;
 			default:
 				console.log('Default')
@@ -98,13 +98,13 @@ jQuery(document).ready(function() {
 				$('.resume-T2').text(`Primera licencia - ${tramits['licence_2']['licence']}`)
 				break;
 			case 'SL':
-				$('.resume-T2').text(`Primera licencia - ${tramits['licence_2']['licence']}`)
+				$('.resume-T2').text(`Segunda licencia - ${tramits['licence_2']['licence']}`)
 				break;
 			case 'RN':
-				$('.resume-T2').text(`Primera licencia - ${tramits['licence_2']['licence']}`)
+				$('.resume-T2').text(`Renovar licencia - ${tramits['licence_2']['licence']}`)
 				break;
 			case 'RC':
-				$('.resume-T2').text(`Primera licencia - ${tramits['licence_2']['licence']}`)
+				$('.resume-T2').text(`Recategorizar licencia - ${tramits['licence_2']['licence']}`)
 				break;
 			default:
 				console.log('Default')
