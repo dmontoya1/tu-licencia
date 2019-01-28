@@ -317,43 +317,38 @@
                         $('.transit-list').append(
                             `
                             <div class="col-12 col-xl-6">
-                                <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" data-toggle="modal" data-target=".transitDetailModal-${v.id}">
+                                <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" style="background-color: #fff; border: 1px solid #ddd;">
                                     <div class="d-flex flex-row content-result rounded mb-2">
                                         <div class="thumbnail mr-2 mb-4">
-                                            
-                                            <img src="${logo}" width="90" height="90" alt="Logo Company">
-                                            <div class="qualification">
-                                                <span class="subtitle d-block">Calificación</span>
-                                                <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
-                                            </div>
-                                        </div>
-                                        <div class="result-body">
-                                            <h4 class="text-small-1"><span>${v.name}</span></h4>
-                                            <div class="d-flex flex-row">
-                                                <div class="price  pr-2">
-                                                    <span class="subtitle d-block">Precio</span>
-                                                    <p class="weigh-5">$${v.final_price}</p>
+                                            <div class="img" style="background-image: url(${logo});background-size: contain;"></div>
+                                                <div class="qualification">
+                                                    <span class="subtitle d-block">Calificación</span>
+                                                    <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
                                                 </div>
-                                                <div class="schedule pl-2 pr-2">
+                                            </div>
+                                            <div class="result-body">
+                                                <h4 class="text-small"><span>${v.name}</span></h4>
+                                                <div class="d-flex flex-row">
+                                                    <div class="price  pr-2">
+                                                        <span class="subtitle d-block">Valor expedición</span>
+                                                        <p class="weigh-5">$${v.final_price}</p>
+                                                    </div>
+                                                    <div class="schedule pl-2 pr-2">
                                                     <span class="subtitle d-block pb-3">Horarios</span>
                                                     <div class="d-flex flex-row d-normal">
                                                         <div class="pr-2">
-                                                            <span class="subtitle d-block">Luneas a viernes:</span>
-                                                            <p class="text mb-1">${v.schedule}</p>
-                                                        </div>
-                                                        
-                                                    </div>
-                                                    <div class="d-flex flex-row d-normal">
-                                                        <div class="pr-2">
-                                                            <span class="subtitle d-block">Dirección:</span>
-                                                            <p class="text mb-1">${v.address}</p>
-                                                        </div>
+                                                        <span class="subtitle d-block">Luneas a viernes:</span>
+                                                        <p class="text mb-1">${v.schedule}
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </button>
+                                        <span class="subtitle d-block">Dirección:</span>
+                                        <p class="p-text">${v.address}</p>
+                                        </div>
+                                    </button>
+                                </div>
                             </div>
                             `
                         )
@@ -467,38 +462,38 @@
                         $('.transit-list').append(
                             `
                             <div class="col-12 col-xl-6">
-                                <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" data-toggle="modal" data-target=".transitDetailModal-${v.id}">
+                                <button type="button" class="company-detail" data-id="${v.id}" data-company="transit" style="background-color: #fff; border: 1px solid #ddd;">
                                     <div class="d-flex flex-row content-result rounded mb-2">
                                         <div class="thumbnail mr-2 mb-4">
-                                            
-                                            <img src="${logo}" width="120" height="120" alt="Logo Company">
-                                            <div class="qualification">
-                                                <span class="subtitle d-block">Calificación</span>
-                                                <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
+                                            <div class="img" style="background-image: url(${logo});background-size: contain;"></div>
+                                                <div class="qualification">
+                                                    <span class="subtitle d-block">Calificación</span>
+                                                    <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="result-body">
-                                            <h4 class=""><span>${v.name}</span></h4>
-                                            <div class="d-flex flex-row">
-                                                <div class="schedule pl-2 pr-2">
+                                            <div class="result-body">
+                                                <h4 class="text-small"><span>${v.name}</span></h4>
+                                                <div class="d-flex flex-row">
+                                                    <div class="price  pr-2">
+                                                        <span class="subtitle d-block">Valor expedición</span>
+                                                        <p class="weigh-5">$${v.final_price}</p>
+                                                    </div>
+                                                    <div class="schedule pl-2 pr-2">
                                                     <span class="subtitle d-block pb-3">Horarios</span>
                                                     <div class="d-flex flex-row d-normal">
                                                         <div class="pr-2">
-                                                            <span class="subtitle d-block">Luneas a viernes:</span>
-                                                            <p class="text mb-1">${v.schedule}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex flex-row d-normal">
-                                                        <div class="pr-2">
-                                                            <span class="subtitle d-block">Dirección:</span>
-                                                            <p class="text mb-1">${v.address}</p>
-                                                        </div>
+                                                        <span class="subtitle d-block">Luneas a viernes:</span>
+                                                        <p class="text mb-1">${v.schedule}
+                                                        </p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </button>
+                                        <span class="subtitle d-block">Dirección:</span>
+                                        <p class="p-text">${v.address}</p>
+                                        </div>
+                                    </button>
+                                </div>
                             </div>
                             `
                         )
