@@ -1505,14 +1505,12 @@ $('.male').on('click', function(e){
 
 $('#bike-licence').on('click', function(ev){
     bike = !bike;
-    console.log('Bike '+bike)
     if(tramit_type1 == 'SL' && actual_tramit == 'SL'){
         if ($('#car-licence').hasClass('choose--selected')){
             $('#car-licence').removeClass('choose--selected')
             car = false
         }
         if (!(bike)){
-            console.log('IF SL')
             $('#bike-licence').removeClass('choose--selected')
             if ('bike' in licences){
                 delete licences['bike']
@@ -1523,7 +1521,6 @@ $('#bike-licence').on('click', function(ev){
             
         }
         else{
-            console.log('ELSE SL')
             $('#bike-licence').addClass('choose--selected')
             $('.licences-bikes').removeClass('d-none')
             $('.title-bike').removeClass('d-none')
@@ -1537,9 +1534,7 @@ $('#bike-licence').on('click', function(ev){
         }
     }
     else {
-        console.log('Bike '+bike)
         if (!(bike)){
-            console.log('IF')
             $('#bike-licence').removeClass('choose--selected')
             if ('bike' in licences){
                 delete licences['bike']
@@ -1550,7 +1545,6 @@ $('#bike-licence').on('click', function(ev){
             
         }
         else{
-            console.log('ELSE')
             $('#bike-licence').addClass('choose--selected')
             $('.title-bike').removeClass('d-none')
             $('.toggleA1').removeClass('d-none')
@@ -2406,7 +2400,6 @@ $('#licence-request-form').on('submit', function(e){
                 })
             })
             .catch(function (error) {
-                console.log("Error")
                 console.log(error);
             })
         }

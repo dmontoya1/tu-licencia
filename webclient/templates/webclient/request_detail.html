@@ -205,7 +205,6 @@
                     axios.post('/api/request/cancel-request/', params)
                     .then(function(response){
                         data = response.data
-                        console.log(data)
                         swal(
                             'Exitoso!',
                             'Tu solicitud se ha realizado con éxito.',
@@ -233,7 +232,6 @@
             axios.defaults.headers.common['Api-Key'] = 'ef4f13859f90cc367a18021378b93c6e1e7b50fd';
             axios.post(`/api/companies/rating/${company}/${id}`, data)
             .then(function (response) {
-                console.log(response);
                 swal({
                     title: 'Exitoso',
                     text: "Tu calificación se ha enviado correctamente.",
@@ -247,7 +245,6 @@
                 })
             })
             .catch(function (error) {
-                console.log(error.response);
                 if (error.response.status === 400){
                     swal({
                         title: 'Error',

@@ -38,7 +38,6 @@
                         })
                     })
                     .catch(function (error) {
-                        console.log(error.response)
                         swal({
                             title: 'No Verificado!',
                             text: 'No se ha podido verificar. Intenta nuevamente',
