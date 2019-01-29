@@ -956,7 +956,7 @@ button.btn.btn-next-step, button.btn.btn-next-step:focus, button.btn.btn-next-st
 
 .price.pr-2 p {
 	font-size: 1.2em;
-	font-weight: 600,
+	font-weight: 500;
 }
 
 .vehicle-list p.card-text {
