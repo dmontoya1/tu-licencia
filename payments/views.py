@@ -23,7 +23,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import TemplateView, View, ListView
 
-from core.views import sendEmail
+from core.views import sendEmail, sendBaucherEmail
 from companies.models import Cea, Crc, TransitDepartment
 from licences.models import Licence
 from manager.models import State, City
@@ -51,13 +51,13 @@ class Checkout(TemplateView):
             p_split_merchant_receiver = '24075'
             p_split_primary_receiver = '24075'
             p_split_primary_receiver_fee = 0
-            host = 'http://rigor.serveo.net'
+            host = 'http://distulo.serveo.net'
         else:
             p_test_request = False
-            p_cust_id_cliente='24075'
+            p_cust_id_cliente='24557'
             p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
-            p_split_merchant_receiver = '24075'
-            p_split_primary_receiver = '24075'
+            p_split_merchant_receiver = '24557'
+            p_split_primary_receiver = '24557'
             p_split_primary_receiver_fee = 0
             host = 'http://3.16.156.133'
 
@@ -108,11 +108,8 @@ class Checkout(TemplateView):
             
             total_price = float(crc_price) + float(cea_price) + float(transit_price)
             p_split_primary_receiver_fee = (float(crc_price) * 0.2) + (float(cea_price) * 0.2) + float(transit_price)
-            print (p_split_primary_receiver_fee)
             crc_price_final = float(crc_price) - (float(float(crc_price) * 0.2))
-            print (crc_price_final)
             cea_price_final = float(cea_price) - (float(float(cea_price) * 0.2))
-            print (cea_price_final)
 
             request_obj = Request(
                 user=user,
@@ -151,7 +148,7 @@ class Checkout(TemplateView):
         p_id_invoice = 'SO_{}_{}_{}'.format(request_obj.user.pk, request_obj.pk, int(time.mktime(datetime.now().timetuple())))
         request_obj.id_invoice = p_id_invoice
         request_obj.save()
-        p_url_response = '{}/payments/confirmation/'.format(host)
+        p_url_response = '{}/payments/pay-response/'.format(host)
         p_url_confirmation = '{}/payments/confirmation/'.format(host)
         p_confirm_method = 'POST'
         p_signature = '{}^{}^{}^{}^{}'.format(p_cust_id_cliente, p_key, p_id_invoice, p_amount, p_currency_code)
@@ -208,7 +205,6 @@ class Checkout(TemplateView):
 
     @csrf_exempt
     def confirmation(self):
-        print (self.method)
         if settings.DEBUG:
             p_cust_id_cliente='24075'
             p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
@@ -217,25 +213,20 @@ class Checkout(TemplateView):
             p_key='ed2f55246c2728e27fd7ba67ee4c22e9a7984fc6'
         
         if self.method == "POST":
-            print ('POSTTTTTTT')
-            print (self.POST)
-            x_cust_id_cliente = self.POST['x_cust_id_cliente']
-            x_id_invoice = self.POST['x_id_invoice']
-            x_currency_code = self.POST['x_currency_code']
-            x_franchise = self.POST['x_franchise']
-            x_transaction_date = self.POST['x_transaction_date']
-            x_amount  = self.POST['x_amount']
-            x_transaction_id = self.POST['x_transaction_id']
-            x_ref_payco = self.POST['x_ref_payco']
-            x_signature = self.POST['x_signature']
-            x_response = self.POST['x_response']
-            x_cod_response = self.POST['x_cod_response']
+            x_cust_id_cliente = self.POST.get('x_cust_id_cliente')
+            x_id_invoice = self.POST.get('x_id_invoice')
+            x_currency_code = self.POST.get('x_currency_code')
+            x_franchise = self.POST.get('x_franchise')
+            x_transaction_date = self.POST.get('x_transaction_date')
+            x_amount  = self.POST.get('x_amount')
+            x_transaction_id = self.POST.get('x_transaction_id')
+            x_ref_payco = self.POST.get('x_ref_payco')
+            x_signature = self.POST.get('x_signature')
+            x_response = self.POST.get('x_response')
+            x_cod_response = self.POST.get('x_cod_response')
 
             signature = '{}^{}^{}^{}^{}^{}'.format(p_cust_id_cliente, p_key, x_ref_payco, x_transaction_id, x_amount,x_currency_code)
             signature = hashlib.sha256(signature.encode('utf-8')).hexdigest()
-
-            print (x_signature)
-            print (signature)
 
             if signature == x_signature:
                 print ("Signs iguales")
@@ -284,6 +275,7 @@ class Checkout(TemplateView):
         elif self.method == "GET":
             print (self)
             # print (self.GET.get)
+            print (self.GET)
             print (self.GET.get('x_cust_id_cliente'))
             x_cust_id_cliente = self.GET.get('x_cust_id_cliente')
             x_id_invoice = self.GET.get('x_id_invoice')
@@ -315,3 +307,50 @@ class Checkout(TemplateView):
         else:
             return HttpResponseNotAllowed("Método no permitido")
 
+
+class EpaycoResponse(TemplateView):
+    """
+    """
+
+
+    @csrf_exempt
+    def response_pay(self):
+        print (self)
+        print (self.POST)
+        print (self.POST['x_cust_id_cliente'])
+        x_cust_id_cliente = self.POST['x_cust_id_cliente']
+        x_id_invoice = self.POST['x_id_invoice']
+        x_description = self.POST['x_description']
+        x_currency_code = self.POST['x_currency_code']
+        x_franchise = self.POST['x_franchise']
+        x_transaction_date = self.POST['x_transaction_date']
+        x_amount  = self.POST['x_amount']
+        x_transaction_id = self.POST['x_transaction_id']
+        x_ref_payco = self.POST['x_ref_payco']
+        x_signature = self.POST['x_signature']
+        x_response = self.POST['x_response']
+        x_cod_response = self.POST['x_cod_response']
+        x_cod_respuesta = self.POST['x_cod_respuesta']
+        x_response_reason_text = self.POST['x_response_reason_text']
+        x_id_factura = self.POST['x_id_factura']
+        request_obj = Request.objects.filter(id_invoice=x_id_invoice).first()
+
+        return render(
+            self,
+            'payments/payment-resumen.html',
+            {
+                'fullname':request_obj.user.get_full_name(), 
+                'x_description':x_description,
+                'x_currency_code':x_currency_code,
+                'x_amount':x_amount,
+                'x_franchise':x_franchise,
+                'x_transaction_date': x_transaction_date,
+                'x_id_invoice': x_id_invoice,
+                'x_cod_respuesta': x_cod_respuesta,
+                'x_response_reason_text': x_response_reason_text,
+                'x_id_factura': x_id_factura,
+                'x_ref_payco': x_ref_payco,
+            }
+            
+        )
+        

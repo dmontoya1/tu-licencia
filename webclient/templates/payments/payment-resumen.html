@@ -6,8 +6,9 @@
 
 
 {% block content %}
+<div class="col-12 form-box">
     <main class="row">
-        <div class="container">
+        <div class="container m-t-50">
             <div class="content_payU">
                 <h3>Resultados de tu Pago</h3>
                 <table class="table table-hover">
@@ -21,58 +22,73 @@
                         <tr>
                             <th scope="row">Estado</th>
                             <td>
-                                {% if transactionState == "4"%}
+                                {% if x_cod_respuesta == "1"%}
                                     Aprobada
                                 {% endif %}
-                                {% if transactionState == "6"%}
+                                {% if x_cod_respuesta == "6"%}
                                     Declinada
                                 {% endif %}
-                                {% if transactionState == "104"%}
+                                {% if x_cod_respuesta == "104"%}
                                     Error
                                 {% endif %}
-                                {% if transactionState == "5"%}
+                                {% if x_cod_respuesta == "5"%}
                                     Expirada
                                 {% endif %}
-                                {% if transactionState == "7"%}
+                                {% if x_cod_respuesta == "7"%}
                                     Pendiente
                                 {% endif %}
                                 </td>
                         </tr>
                         <tr>
-                            <th scope="row">Referencia</th>
-                            <td>{{  referenceCode }}</td>
+                            <th scope="row">Referencia de Pago</th>
+                            <td>{{x_id_factura}}</td>
                         </tr>
                         <tr>
-                            <th scope="row">Referencia payU</th>
-                            <td>{{reference_pol}}</td>
+                            <th scope="row">Referencia ePayco</th>
+                            <td>{{x_ref_payco}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Valor Pagado</th>
-                            <td>{{currency}} ${{  value|floatformat|intcomma }}</td>
+                            <td>{{x_currency_code}} ${{  x_amount|floatformat|intcomma }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Método de pago</th>
                             <td>
-                                {% if polPaymentMethodType == '2' %}
-                                    Tarjeta de crédito
+                                {% if x_franchise == 'AM' %}
+                                    American Express
                                 {% endif %}
-                                {% if polPaymentMethodType ==  '4' %}
-                                    pse-Transferencias bancarias
+                                {% if x_franchise ==  'BA' %}
+                                    Baloto
                                 {% endif %}
-                                {% if polPaymentMethodType == '5' %}
-                                    Débito ACH
+                                {% if x_franchise == 'CR' %}
+                                    Credencial
                                 {% endif %}
-                                {% if polPaymentMethodType == '6' %}
-                                    Tarjetas débito
+                                {% if x_franchise == 'DC' %}
+                                    Diners Club
                                 {% endif %}
-                                {% if polPaymentMethodType == '7' %}
-                                    Pago en efectivo
+                                {% if x_franchise == 'EF' %}
+                                    Efecty
                                 {% endif %}
-                                {% if polPaymentMethodType == '8' %}
-                                    Pago Referenciado
+                                {% if x_franchise == 'GA' %}
+                                    GA
                                 {% endif %}
-                                {% if polPaymentMethodType == '10' %}
-                                    Pago en bancos
+                                {% if x_franchise == 'PR' %}
+                                    Punto Red
+                                {% endif %}
+                                {% if x_franchise == 'RS' %}
+                                    Red Servi
+                                {% endif %}
+                                {% if x_franchise == 'MC' %}
+                                    Mastercard
+                                {% endif %}
+                                {% if x_franchise == 'PSE' %}
+                                    PSE
+                                {% endif %}
+                                {% if x_franchise == 'SP' %}
+                                    SafetyPay
+                                {% endif %}
+                                {% if x_franchise == 'VS' %}
+                                    Visa
                                 {% endif %}
                             </td>
                         </tr>
@@ -80,11 +96,12 @@
                         
                     </tbody>
                 </table>
-                <a class="btn btn-add" href="{% url 'webclient:stepper' %}">Ir al Calendario</a>
+                    <a class="btn-brand btn-second btn-small ml-1 mr-1 mt-4" href="{% url 'webclient:stepper' %}">Ir al inicio</a>
                 </form>
                 
             </div>
         </div>
     </main>
+</div>
 
 {% endblock %}

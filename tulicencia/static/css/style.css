@@ -1005,3 +1005,8 @@ div#map2 {
     height: 450px;
     display: block;
 }
+
+.content_payU {
+    background: #fff;
+    padding: 50px;
+}
