@@ -9,5 +9,6 @@ app_name = 'payments'
 urlpatterns = [
     path('checkout/', views.Checkout.as_view(), name='checkout'),
     path('confirmation/', views.Checkout.confirmation, name='checkout-confirmation'),
+    path('pay-response/', views.EpaycoResponse.response_pay, name='checkout-response'),
 
 ]

@@ -53,7 +53,7 @@ class PasswordResetView(APIView):
 	def get_object(self):
 		document_id = self.request.data.get('document_id')
 		try:
-			user = get_user_model().objects.filter(document_id=document_id, user_type=get_user_model().CLIENTE).first()
+			user = get_user_model().objects.get(document_id=document_id)
 		except get_user_model().DoesNotExist:
 			raise  Http404("El usuario con este documento no existe en la base de datos")
 		if user:
