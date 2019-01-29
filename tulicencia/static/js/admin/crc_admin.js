@@ -36,7 +36,6 @@
                 })
             })
             .catch(function (error) {
-                console.log(error.response)
                 swal({
                     title: 'Atención!',
                     text: 'Ha ocurrido un error, intenta nuevamente mas tarde',
@@ -64,7 +63,6 @@
                 })
             })
             .catch(function (error) {
-                console.log(error.response)
                 swal({
                     title: 'Atención!',
                     text: 'Ha ocurrido un error, intenta nuevamente mas tarde',
@@ -121,7 +119,6 @@
                         }
                     })
                     .catch(function (error) {
-                        console.log(error.response)
                         swal({
                             title: 'Atención!',
                             text: 'Ha ocurrido un error, intenta nuevamente mas tarde',

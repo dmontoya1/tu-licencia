@@ -76,7 +76,6 @@
         function validateForm(){
 
             var input = $('.validate-input .input100');
-            console.log(input)
 
             var check = true;
 
@@ -150,7 +149,6 @@
                     'message': $('#message').val()
                 }
                 axios.defaults.headers.common['X-CSRFToken'] = '{{csrf_token}}';
-                console.log(data)
                 axios.post('/api/manager/contact-form/', {
                     'full_name': $('#full_name').val(),
                     'email': $('#email').val(),
@@ -170,7 +168,6 @@
                         })
                 })
                 .catch(function(error){
-                    console.log("Error")
                     console.log(error)
                 })
             }

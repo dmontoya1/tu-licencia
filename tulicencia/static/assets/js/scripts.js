@@ -179,7 +179,6 @@ jQuery(document).ready(function() {
     			scroll_to_class( $('.f1'), 20 );
 			});
 			if (tramit_type1 === 'RN' && (tramit_type2 === 'RN' || tramit_type2 == '')){
-				console.log('Entró al IF desde crc')
 				$('.f1 .btn-step-4').trigger('click')
 			}
     	}
@@ -193,7 +192,6 @@ jQuery(document).ready(function() {
 				state: $('#states').val(),
 			}
 			transit_filter(params)
-			console.log('va a cambiar estado')
     		parent_fieldset.fadeOut(400, function() {
     			// change icons
     			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
@@ -211,7 +209,6 @@ jQuery(document).ready(function() {
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
 		var progress_line = $(this).parents('.f1').find('.f1-progress-line');
 		if (tramit_type1 === 'RN' && (tramit_type2 === 'RN' || tramit_type2 == '')){
-			console.log('Entró al IF en click de cea')
 			setTimeout(function(){
 				next_step_fn();
 				current_active_step.removeClass('active').addClass('activated').next().addClass('active');

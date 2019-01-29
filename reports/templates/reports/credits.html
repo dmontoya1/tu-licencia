@@ -197,7 +197,6 @@
             ev.preventDefault()
             var table = $('#table_id')
             if ($('.table').hasClass('full')){
-                console.log("Has classsss")
                 table.DataTable().destroy()
                 $('.table').removeClass('full')
             }
@@ -211,7 +210,6 @@
             axios.defaults.headers.common['X-CSRFToken'] = '{{csrf_token}}';
             axios.post('/reports/credits/', params)
             .then(function(response){
-                console.log(response)
                 data = response.data
                 $('.tbody').empty()
                 $.each(data, function( k, v ) {
