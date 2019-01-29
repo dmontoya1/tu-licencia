@@ -1651,8 +1651,9 @@
 
 {% endblock %}
 {% block extra_js %}
-   <script src="{% static 'js/stepper.js' %}"></script>
-   <script>
+    <script src="{% static 'js/jquery.priceformat.min.js' %}"></script>
+    <script src="{% static 'js/stepper.js' %}"></script>
+    <script>
        var user_lat = 4.8142121
        var user_lon = -75.6948168
         $(document).ready(function() {
@@ -1674,7 +1675,6 @@
             payment_type = 'EXU'
         }
 
-        
 
         $('.add-cart').on('click', function(){
             company = $(this).data('company')
@@ -1707,6 +1707,16 @@
                         $('li.cart-crc').data('value', id)
                         new_total = parseInt(end_price) + parseInt(price)
                         $('.total-price').text(`${new_total}`)
+                        $('.total-price').priceFormat({
+                            centsLimit: 0,
+                            prefix: '',
+                            thousandsSeparator: '.',
+                        });
+                        $('.crc-cart-price-1').priceFormat({
+                            centsLimit: 0,
+                            prefix: '',
+                            thousandsSeparator: '.',
+                        });
                         toastr["success"](`Se ha añadido ${name} al carrito de compras`)
                         setTimeout(function(){
                             $('.modal').modal('hide')
@@ -1714,7 +1724,8 @@
                     }
                     if ($('li.cart-crc').data('value') == '0')
                     {
-                        total = parseInt($('.total-price').first().text())
+                        total = parseInt($('.total-price').unmask())
+                        console.log(total)
                         addCrc(total);
                     }
                     else{
@@ -1730,10 +1741,15 @@
                             reverseButtons: true
                         }).then((result) => {
                             if (result.value) {
-                                total = parseInt($('.total-price').first().text())
+                                total = parseInt($('.total-price').unmask())
                                 old_value = parseInt($('.crc-cart-price-1').first().text())
                                 final_price = total-old_value
                                 addCrc(final_price);
+                                $('.total-price').priceFormat({
+                                    centsLimit: 0,
+                                    prefix: '',
+                                    thousandsSeparator: '.',
+                                });
                             }
                         })
                     }
@@ -1758,6 +1774,16 @@
                         $('li.cart-cea').data('value', id)
                         new_total = parseInt(end_price) + parseInt(price)
                         $('.total-price').text(`${new_total}`)
+                        $('.total-price').priceFormat({
+                            centsLimit: 0,
+                            prefix: '',
+                            thousandsSeparator: '.',
+                        });
+                        $('.cea-cart-price-1').priceFormat({
+                            centsLimit: 0,
+                            prefix: '',
+                            thousandsSeparator: '.',
+                        });
                         toastr["success"](`Se ha añadido ${name} al carrito de compras`)
                         setTimeout(function(){ 
                             $('.modal').modal('hide')
@@ -1765,7 +1791,7 @@
                     }
                     if ($('li.cart-cea').data('value') == '0')
                     {
-                        total = parseInt($('.total-price').first().text())
+                        total = parseInt($('.total-price').unmask())
                         addCea(total);
                     }
                     else{
@@ -1781,7 +1807,7 @@
                             reverseButtons: true
                         }).then((result) => {
                             if (result.value) {
-                                total = parseInt($('.total-price').first().text())
+                                total = parseInt($('.total-price').unmask())
                                 old_value = parseInt($('.cea-cart-price-1').first().text())
                                 final_price = total-old_value
                                 addCea(final_price);
@@ -1809,6 +1835,16 @@
                         $('li.cart-transit').data('value', id)
                         new_total = parseInt(end_price) + parseInt(price)
                         $('.total-price').text(`${new_total}`)
+                        $('.total-price').priceFormat({
+                            centsLimit: 0,
+                            prefix: '',
+                            thousandsSeparator: '.',
+                        });
+                        $('.transit-cart-price-1').priceFormat({
+                            centsLimit: 0,
+                            prefix: '',
+                            thousandsSeparator: '.',
+                        });
                         toastr["success"](`Se ha añadido ${name} al carrito de compras`)
                         setTimeout(function(){ 
                             $('.modal').modal('hide')
@@ -1816,7 +1852,7 @@
                     }
                     if ($('li.cart-transit').data('value') == '0')
                     {
-                        total = parseInt($('.total-price').first().text())
+                        total = parseInt($('.total-price').unmask())
                         addTransit(total);
                     }
                     else{
@@ -1832,7 +1868,7 @@
                             reverseButtons: true
                         }).then((result) => {
                             if (result.value) {
-                                total = parseInt($('.total-price').first().text())
+                                total = parseInt($('.total-price').unmask())
                                 old_value = parseInt($('.cea-cart-price-1').first().text())
                                 final_price = total-old_value
                                 addTransit(final_price);
@@ -1912,11 +1948,8 @@
                 }
         })
 
-   </script>
-   <script>
-    
-  </script>
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxfRnYMH3fsYAFrVskRLYZJhuqed_yfkU">
-  </script>
+    </script>
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxfRnYMH3fsYAFrVskRLYZJhuqed_yfkU">
+    </script>
 {% endblock %}
