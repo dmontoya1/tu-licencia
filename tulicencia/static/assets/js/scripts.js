@@ -164,7 +164,9 @@ jQuery(document).ready(function() {
 				age: age,
 				gender: gender,
 				licences: licence,
-				licences__licence__category__in: licence
+				licences__licence__category__in: licence,
+				tramit_1: tramit_type1,
+				tramit_2: tramit_type2,
 			}
 			loadVehicleSelect(licence)
 			cea_filter(params_cea)
