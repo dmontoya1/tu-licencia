@@ -2187,6 +2187,8 @@ $('button.filter-cea').on('click', function(e){
     params_cea['gender']= gender
     params_cea['licences']= licence
     params_cea['licences__licence__category__in'] = licence
+    params_cea['tramit_1'] = tramit_type1
+    params_cea['tramit_2'] = tramit_type2
     cea_filter(params_cea)
 })
 
@@ -2203,6 +2205,8 @@ $('button.filter-cea-1').on('click', function(e){
     params_cea['age']= age
     params_cea['gender']= gender
     params_cea['licences']= licence
+    params_cea['tramit_1'] = tramit_type1
+    params_cea['tramit_2'] = tramit_type2
     cea_filter(params_cea)
 })
 

@@ -98,6 +98,8 @@ class CeaList(generics.ListAPIView):
         get_list.pop('age')
         get_list.pop('gender')
         get_list.pop('licences')
+        get_list.pop('tramit_1')
+        get_list.pop('tramit_2')
         try:
             city = get_list['city']
             get_list.pop('city')

@@ -110,6 +110,8 @@ class CeaSerializer(serializers.ModelSerializer):
         age = request.GET.get('age')
         gender = request.GET.get('gender')
         licences = request.GET.get('licences')
+        tramit_1 = request.GET.get('tramit_1')
+        tramit_2 = request.GET.get('tramit_2')
         licences = licences.split(',')
         final_price = 0
         if obj.collection:
@@ -133,7 +135,10 @@ class CeaSerializer(serializers.ModelSerializer):
             )
             cealicence = CeaLicence.objects.filter(cea=obj, licence=licence).first()
             if cealicence:
-                course_price = cealicence.price
+                if tramit_1 == 'RC':
+                    course_price = cealicence.price_recat
+                else:
+                    course_price = cealicence.price
             else:
                 course_price = 0
             
@@ -154,11 +159,17 @@ class CeaSerializer(serializers.ModelSerializer):
             cealicence1 = CeaLicence.objects.filter(cea=obj, licence=licence_1).first()
             cealicence2 = CeaLicence.objects.filter(cea=obj, licence=licence_2).first()
             if cealicence1:
-                course_price1 = cealicence1.price
+                if tramit_1 == 'RC':
+                    course_price1 = cealicence1.price_recat
+                else:
+                    course_price1 = cealicence1.price
             else:
                 course_price1 = 0
             if cealicence2:
-                course_price2 = cealicence2.price
+                if tramit_1 == 'RC':
+                    course_price2 = cealicence2.price_recat
+                else:
+                    course_price2 = cealicence2.price
             else:
                 course_price2 = 0
 
