@@ -134,10 +134,13 @@ class CeaSerializer(serializers.ModelSerializer):
                 age_range=a_range,
             )
             cealicence = CeaLicence.objects.filter(cea=obj, licence=licence).first()
+            print (cealicence)
             if cealicence:
                 if tramit_1 == 'RC':
+                    print ('RECAT')
                     course_price = cealicence.price_recat
                 else:
+                    print ("NO RECAT")
                     course_price = cealicence.price
             else:
                 course_price = 0
