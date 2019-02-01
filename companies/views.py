@@ -94,7 +94,6 @@ class CeaList(generics.ListAPIView):
     serializer_class = CeaSerializer
     
     def get_queryset(self):
-        print (self.request.GET)
         get_list = self.request.GET.copy()
         get_list.pop('age')
         get_list.pop('gender')
