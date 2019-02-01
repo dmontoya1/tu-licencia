@@ -283,7 +283,7 @@ function clearLicences(){
     tramit_type1 = ""
     tramit_type2 = ""
     paper = ""
-    payment_type = ""
+    // payment_type = ""
     aditional_tramit = false
     actual_tramit = ''
     confirm_t1 = false
@@ -2292,6 +2292,7 @@ $('.credit').on('click', function(e){
 $('#licence-request-form').on('submit', function(e){
     e.preventDefault();
     submit = true
+    console.log(payment_type)
     payment_value =  parseInt($('.total-price').last().text())
     payment_type2 = ''
     payment_value2 = 0
