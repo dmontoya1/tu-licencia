@@ -2293,7 +2293,7 @@ $('#licence-request-form').on('submit', function(e){
     e.preventDefault();
     submit = true
     console.log(payment_type)
-    payment_value =  parseInt($('.total-price').last().text())
+    payment_value =  parseInt($('.total-price').last().unmask())
     payment_type2 = ''
     payment_value2 = 0
     if(payment_type == ""){
