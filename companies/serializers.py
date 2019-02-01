@@ -145,7 +145,10 @@ class CeaSerializer(serializers.ModelSerializer):
             else:
                 course_price = 0
             
-            final_price = course_price + collection.pin_sicov + collection.recaudo + ansv.price
+            if tramit_1 == 'RN':
+                final_price = 0
+            else:
+                final_price = course_price + collection.pin_sicov + collection.recaudo + ansv.price
         else:
             licence_1 = Licence.objects.get(category=licences[0])
             licence_2 = Licence.objects.get(category=licences[1])
@@ -176,8 +179,15 @@ class CeaSerializer(serializers.ModelSerializer):
             else:
                 course_price2 = 0
 
-            price1 = course_price1 + collection.pin_sicov + collection.recaudo + ansv1.price
-            price2 = course_price2 + collection.pin_sicov + collection.recaudo + ansv2.price
+            if tramit_1 == 'RN':
+                price1 = 0
+            else:
+                price1 = course_price1 + collection.pin_sicov + collection.recaudo + ansv1.price
+
+            if tramit_2 == 'RN':
+                price2 = 0 
+            else:
+                price2 = course_price2 + collection.pin_sicov + collection.recaudo + ansv2.price
 
             final_price = price1 + price2
         
