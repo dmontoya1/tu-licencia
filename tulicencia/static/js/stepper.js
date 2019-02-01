@@ -755,6 +755,8 @@ function cea_filter(params){
                       age: age,
                       gender: gender,
                       licences:licence,
+                      tramit_1:tramit_type1,
+                      tramit_2: tramit_type2,
                     }
                 })
                 .then(function (response) {
