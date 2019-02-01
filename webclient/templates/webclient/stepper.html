@@ -1670,10 +1670,11 @@
                 user_lon = position.coords.longitude
             }
             getLocation()
+            
+            if ('{{ request.user.user_type }}' == 'EXU'){
+                payment_type = 'EXU'
+            }
         });
-        if ('{{ request.user.user_type }}' == 'EXU'){
-            payment_type = 'EXU'
-        }
 
 
         $('.add-cart').on('click', function(){
