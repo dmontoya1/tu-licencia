@@ -6,7 +6,7 @@ from manager.serializers import StateSerializer, CitySerializer, SectorSerialize
 from licences.models import AnsvRanges, AgeRange, Licence
 from licences.serializers import LicenceSerializer
 from vehicles.serializers import VehicleSerializer
-from .models import Crc, Cea, TransitDepartment, CeaLicence, CeaVehicle, CeaRating, CrcRating, TransitRating
+from .models import Crc, Cea, TransitDepartment, CeaLicence, CeaVehicle, CeaRating, CrcRating, TransitRating, TransitPrices
 
 
 class CrcSerializer(serializers.ModelSerializer):
@@ -210,9 +210,75 @@ class TransitSerializer(serializers.ModelSerializer):
     sector = SectorSerializer(many=False, read_only=True)
     final_price = serializers.SerializerMethodField()
 
-    def get_final_price(self, obj):
-        return obj.prices.runt + obj.prices.printing + obj.prices.other
 
+    def get_final_price(self, obj):
+        request = self.context.get("request")
+        licences_r = request.GET.get('licences')
+        tramit_1 = request.GET.get('tramit_1')
+        tramit_2 = request.GET.get('tramit_2')
+        licences_r = licences_r.split(',')
+        final_price = 0
+        
+        if len(licences_r) == 2:
+            licence = Licence.objects.get(category=licences_r[0])
+            if tramit_1 == 'FL' or tramit_1 == 'SL':
+                transit_price = TransitPrices.objects.get(
+                    transit=obj,
+                    tramit='IN',
+                    licences=licence
+                )
+            else:
+                transit_price = TransitPrices.objects.get(
+                    transit=obj,
+                    tramit=tramit_1,
+                    licences=licence
+                )
+            final_price = transit_price.runt_price + transit_price.simple_print_price + transit_price.other_price
+        else:
+            licence_1 = Licence.objects.get(category=licences_r[0])
+            licence_2 = Licence.objects.get(category=licences_r[1])
+            if tramit_1 == 'FL':
+                transit_price1 = TransitPrices.objects.filter(
+                    transit=obj,
+                    tramit='IN',
+                    licences=licence_1
+                ).first()
+                transit_price2 = TransitPrices.objects.filter(
+                    transit=obj,
+                    tramit='IN',
+                    licences=licence_2
+                ).first()
+            else:
+                if tramit_1 == 'SL':
+                    transit_price1 = TransitPrices.objects.filter(
+                        transit=obj,
+                        tramit='IN',
+                        licences=licence_1
+                    ).first()
+                else:
+                    transit_price1 = TransitPrices.objects.filter(
+                        transit=obj,
+                        tramit=tramit_2,
+                        licences=licence_2
+                    ).first()
+                if tramit_2 == 'SL':
+                    transit_price2 = TransitPrices.objects.filter(
+                        transit=obj,
+                        tramit='IN',
+                        licences=licence_2
+                    ).first()
+                else:
+                    transit_price2 = TransitPrices.objects.filter(
+                        transit=obj,
+                        tramit=tramit_2,
+                        licences=licence_2
+                    ).first()
+            
+            price1 = transit_price1.runt_price + transit_price1.double_print_price + transit_price1.other_price
+            price2 = transit_price2.runt_price + transit_price2.double_print_price + transit_price2.other_price
+            final_price = price1 + price2
+        
+        return final_price
 
     def get_count_rating(self, obj):
         return TransitRating.objects.filter(transit=obj).count()
