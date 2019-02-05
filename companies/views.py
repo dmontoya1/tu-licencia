@@ -202,6 +202,9 @@ class TransitList(generics.ListAPIView):
 
     def get_queryset(self):
         get_list = self.request.GET.copy()
+        get_list.pop('licences')
+        get_list.pop('tramit_1')
+        get_list.pop('tramit_2')
         try:
             city = get_list['city']
             get_list.pop('city')

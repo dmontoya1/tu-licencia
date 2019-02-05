@@ -354,6 +354,58 @@ class TransitDepartment(SoftDeletionModelMixin):
         verbose_name_plural = "Departamentos de Tránsito"
 
 
+class TransitPrices(models.Model):
+    """
+    """
+
+    INITIAL = 'IN'
+    RECAT = 'RE'
+    RENEW = 'RN'
+
+    TRAMIT = (
+        (INITIAL, 'Licencia inicial'),
+        (RECAT, 'Recategorización'),
+        (RENEW, 'Renovación')
+    )
+
+    transit = models.ForeignKey(
+        TransitDepartment,
+        verbose_name='Departamento de tránsito',
+        on_delete=models.CASCADE,
+        related_name='prices_transit'
+    )
+    tramit = models.CharField(
+        'Trámite',
+        max_length=2,
+        choices=TRAMIT
+    )
+    licences = models.ManyToManyField(
+        Licence,
+        verbose_name='Licencias',
+    )
+    runt_price = models.IntegerField(
+        'Precio del RUNT',
+    )
+    simple_print_price = models.IntegerField(
+        'Precio de impresión sencillo'
+    )
+    double_print_price = models.IntegerField(
+        'Precio de impresión doble'
+    )
+    other_price = models.IntegerField(
+        'Otros precios'
+    )
+
+
+    def __str__(self):
+        return "Precio del departamento de tránsito"
+
+
+    class Meta:
+        verbose_name = 'Precio del departamento de tránsito'
+        verbose_name_plural = 'Precios del departamento de tránsito'
+
+
 class TuLicencia(SoftDeletionModelMixin):
     """Administrador de los puntos de TuLicencia
     """

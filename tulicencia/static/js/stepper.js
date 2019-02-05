@@ -574,11 +574,11 @@ function crc_filter(params){
         if (data.length > 0){
             $('.crc-list').empty()
             $.each(data, function(i, v){
-                if(data.logo == null){
-                    logo = "../static/images/logo1.png"
+                if(v.logo == null){
+                    logo = "/static/images/logo1.png"
                 }
                 else{
-                    logo = data.logo
+                    logo = v.logo
                 }
                 $('.crc-list').append(
                     `
@@ -761,6 +761,7 @@ function cea_filter(params){
                 })
                 .then(function (response) {
                     data = response.data
+                    console.log(data)
                     if(data.logo == null){
                         logo = "/static/images/logo1.png"
                     }
@@ -891,7 +892,13 @@ function transit_filter(params){
                 id = $(this).data('id')
                 company = $(this).data('company')
                 url = `api/companies/${company}/${id}`
-                axios.get(url)
+                axios.get(url, {
+                    params: {
+                        licences:licence,
+                        tramit_1:tramit_type1,
+                        tramit_2: tramit_type2,
+                    }
+                })
                 .then(function (response) {
                     data = response.data
                     if(data.logo == null){
@@ -900,7 +907,6 @@ function transit_filter(params){
                     else{
                         logo = data.logo
                     }
-
                     $('.company-logo').attr('src', logo)
                     $('.company-name').text(data.name)
                     $('.company-address').text(data.address)
@@ -2240,16 +2246,28 @@ $('button.filter-transit').on('click', function(e){
     if ($('.name-transit').val() != ''){
         params_transit['name']= $('.name-transit').val()
     }
+    $.each(licences, function(i, v){
+        licence += (`${v},`)
+    })
     params_transit['state'] = $('#states').val(),
     params_transit['city'] = $('.cities-transit').val(),
+    params_transit['tramit_1'] = tramit_type1,
+    params_transit['tramit_2'] = tramit_type2,
+    params_transit['licences'] = licence,
     transit_filter(params_transit)
 })
 $('button.filter-transit-1').on('click', function(e){
     if ($('.name-transit-1').val() != ''){
         params_transit['name']= $('.name-transit-1').val()
     }
+    $.each(licences, function(i, v){
+        licence += (`${v},`)
+    })
     params_transit['state'] = $('#states').val(),
-    params_transit['city'] = $('.cities-transit-1').val(),
+    params_transit['city'] = $('.cities-transit').val(),
+    params_transit['tramit_1'] = tramit_type1,
+    params_transit['tramit_2'] = tramit_type2,
+    params_transit['licences'] = licence,
     transit_filter(params_transit)
 })
 

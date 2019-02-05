@@ -190,8 +190,14 @@ jQuery(document).ready(function() {
 	// next step 4
     $('.f1 .btn-step-4').on('click', function() {
 		function next_step_fn(){
+			$.each(licences, function(i, v){
+				licence += (`${v},`)
+			})
 			var params = {
 				state: $('#states').val(),
+				tramit_1: tramit_type1,
+				tramit_2: tramit_type2,
+				licences: licence,
 			}
 			transit_filter(params)
     		parent_fieldset.fadeOut(400, function() {
