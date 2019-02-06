@@ -418,7 +418,7 @@ class TransitPrices(models.Model):
     """
 
     INITIAL = 'IN'
-    RECAT = 'RE'
+    RECAT = 'RC'
     RENEW = 'RN'
 
     TRAMIT = (

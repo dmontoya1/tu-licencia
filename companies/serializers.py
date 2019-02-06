@@ -258,8 +258,8 @@ class TransitSerializer(serializers.ModelSerializer):
                 else:
                     transit_price1 = TransitPrices.objects.filter(
                         transit=obj,
-                        tramit=tramit_2,
-                        licences=licence_2
+                        tramit=tramit_1,
+                        licences=licence_1
                     ).first()
                 if tramit_2 == 'SL':
                     transit_price2 = TransitPrices.objects.filter(
