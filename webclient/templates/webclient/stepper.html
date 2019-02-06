@@ -221,11 +221,11 @@
                                             <input id="toggle2" type="checkbox" name="recat" value="RC">
                                             <label for="toggle2">Subir la categoría de mi actual licencia</label>
                                         </li>
-                                        <li class="option option-DU">
+                                        <!-- <li class="option option-DU">
                                             <a style="color: #162d3f" href="#" id="toggle4" name="dupl" value="DU" target="_blank">
                                                 <label for="toggle4">Solicitar duplicado de mi actual licencia</label>
                                             </a>
-                                        </li>
+                                        </li> -->
                                     </ul>
                                 </div>
                             </div>
@@ -930,7 +930,7 @@
                                     </div>                  
                                     <div class="form-group col-12 col-md-12 col-lg-6">
                                         <label for="">Nº de identificación*</label>
-                                        <input type="number" class="form-control form-control-lg" name="document_id" id="doc_id" placeholder="Número de documento" required {%if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.document_id}}{%endif%}">
+                                        <input type="number" class="form-control form-control-lg" max="9999999999" name="document_id" id="doc_id" placeholder="Número de documento" required {%if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.document_id}}{%endif%}">
                                     </div>
                                 </div>
                                 <div class="form-row align-items-end">
@@ -959,7 +959,7 @@
                                     </div>
                                     <div class="form-group col-12 col-md-12 col-lg-6">
                                         <label for="">Télefono celular*</label>
-                                        <input type="number" class="form-control form-control-lg" name="cellphone" id="cellphone" placeholder="Número de celular" required {% if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.cellphone|default:''}}{%endif%}">
+                                        <input type="number" class="form-control form-control-lg" maxlength="9999999999" name="cellphone" id="cellphone" placeholder="Número de celular" required {% if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.cellphone|default:''}}{%endif%}">
                                     </div>
                                 </div>
                             </div>
@@ -999,7 +999,7 @@
                                     <div class="col-12 col-lg-6">
                                         <div class="form-group">
                                             <label for="">Teléfono fijo</label>
-                                            <input type="number" class="form-control form-control-lg" id="phone_number" name="phone_number" placeholder="Numero teléfono fijo" {% if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.phone_number|default:''}}{%endif%}">
+                                            <input type="number" class="form-control form-control-lg" maxlength="9999999" id="phone_number" name="phone_number" placeholder="Numero teléfono fijo" {% if request.user.is_authenticated and not request.user.user_type == 'EXU' %}value="{{request.user.phone_number|default:''}}{%endif%}">
                                         </div>
                                         <div class="form-group">
                                             <label for="">Correo electrónico*</label>
@@ -1298,26 +1298,10 @@
                                                         <div class="col-8 item">
                                                             <span class="item-title">
                                                                 Horario <br>
-                                                                Lunes a Viernes <br>
                                                             </span>
                                                             <span class="item-detail company-schedule">
                                                                 08:00 AM - 12:00 PM <br>
                                                                 02:00 PM - 06:00 PM
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-lg-6">
-                                                    <div class="row">
-                                                        <div class="col-3 img-location">
-                                                            <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
-                                                        </div>
-                                                        <div class="col-8 item">
-                                                            <span class="item-title">
-                                                                Teléfono <br>
-                                                            </span>
-                                                            <span class="company-phone">
-                                                                telefono
                                                             </span>
                                                         </div>
                                                     </div>
@@ -1445,26 +1429,10 @@
                                                 <div class="col-8 item">
                                                     <span class="item-title">
                                                         Horario de Atención<br>
-                                                        Lunes a Viernes <br>
                                                     </span>
                                                     <span class="item-detail company-schedule-atention">
                                                         08:00 AM - 12:00 PM <br>
                                                         02:00 PM - 06:00 PM
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="row">
-                                                <div class="col-3 img-location">
-                                                    <img src="{% static 'icons/telefono/res/mipmap-mdpi/telefono.png' %}" width="30" height="30">
-                                                </div>
-                                                <div class="col-8 item">
-                                                    <span class="item-title">
-                                                        Teléfono <br>
-                                                    </span>
-                                                    <span class="company-phone">
-                                                        telefono
                                                     </span>
                                                 </div>
                                             </div>
@@ -1477,7 +1445,6 @@
                                                 <div class="col-8 item">
                                                     <span class="item-title">
                                                         Horario de clases<br>
-                                                        Lunes a Viernes <br>
                                                     </span>
                                                     <span class="item-detail company-schedule-classes">
                                                         08:00 AM - 12:00 PM <br>
