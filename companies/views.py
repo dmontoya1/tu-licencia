@@ -1,5 +1,6 @@
 
 from django.conf import settings
+from django.db.models import Q
 from django.shortcuts import render
 
 from rest_framework import generics, status
@@ -8,6 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 
 from core.views import sendEmail
+from licences.models import Licence
 from manager.models import City
 
 from .serializers import (CeaSerializer, CrcSerializer, TransitSerializer, CeaDetailSerializer, 
@@ -97,6 +99,7 @@ class CeaList(generics.ListAPIView):
         get_list = self.request.GET.copy()
         get_list.pop('age')
         get_list.pop('gender')
+        licences = get_list['licences']
         get_list.pop('licences')
         get_list.pop('tramit_1')
         get_list.pop('tramit_2')
@@ -120,8 +123,24 @@ class CeaList(generics.ListAPIView):
             get_list.pop('price')
         except:
             price = None
-        params = params_to_filter(get_list.items())
-        query = Cea.objects.filter(**params).distinct()
+        state = get_list['state']
+        get_list.pop('state')
+        licences = licences.split(',')
+        if len(licences) == 2:
+            print (licences[0])
+            licence_1 = Licence.objects.get(category=licences[0])
+            query = Cea.objects.filter(Q(state=state), Q(licences__licence__category__contains=licences[0])).distinct()
+        else:
+            print ('else')
+            print (licences[0])
+            print (licences[1])
+            licence_1 = Licence.objects.get(category=licences[0])
+            licence_2 = Licence.objects.get(category=licences[1])
+            print (licence_1)
+            print (licence_2)
+            query = Cea.objects.filter(Q(state=state), Q(licences__licence__category__contains=licences[0]) | Q(licences__licence__category__contains=licences[1])).distinct()
+        
+        print (query)
         try:
             if city != "0":
                 query = query.filter(city__pk=city)

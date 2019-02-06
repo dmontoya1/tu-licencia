@@ -600,10 +600,9 @@ function crc_filter(params){
                                                 <p class="weigh-5">$${v.final_price}</p>
                                             </div>
                                             <div class="schedule pl-2 pr-2">
-                                            <span class="subtitle d-block pb-3">Horarios de atención</span>
+                                            <span class="subtitle d-block pb-1">Horarios de atención</span>
                                             <div class="d-flex flex-row d-normal">
                                                 <div class="pr-2">
-                                                <span class="subtitle d-block">Luneas a viernes:</span>
                                                 <p class="text mb-1">${v.schedule}
                                                 </p>
                                             </div>
@@ -718,10 +717,9 @@ function cea_filter(params){
                                                 <p class="weigh-5">$${v.final_price}</p>
                                             </div>
                                             <div class="schedule pl-2 pr-2">
-                                            <span class="subtitle d-block pb-3">Horarios de atención</span>
+                                            <span class="subtitle d-block pb-1">Horarios de atención</span>
                                             <div class="d-flex flex-row d-normal">
                                                 <div class="pr-2">
-                                                    <span class="subtitle d-block">Lunes a viernes:</span>
                                                     <p class="text mb-1">${v.schedule}
                                                     </p>
                                                 </div>
@@ -865,10 +863,9 @@ function transit_filter(params){
                                                 <p class="weigh-5">$${v.final_price}</p>
                                             </div>
                                             <div class="schedule pl-2 pr-2">
-                                            <span class="subtitle d-block pb-3">Horarios</span>
+                                            <span class="subtitle d-block pb-1">Horarios</span>
                                             <div class="d-flex flex-row d-normal">
                                                 <div class="pr-2">
-                                                <span class="subtitle d-block">Luneas a viernes:</span>
                                                 <p class="text mb-1">${v.schedule}
                                                 </p>
                                             </div>
@@ -1748,7 +1745,7 @@ $('.continue-personal-data').on('click', function(){
     $('#month-1').val() === null || $('#month-1').val() === '' ||
     $('#year-1').val() === null || $('#year-1').val() === '' ||
     $('#cellphone').val() === null || $('#cellphone').val() === ''){
-        toastr["error"]("Debes llenar todos los campos")
+        toastr["error"]("Uno o más campos están mal diligenciados")
     }
     else{
         $('.element--personal-data').addClass('d-none')
