@@ -128,9 +128,10 @@ class CeaList(generics.ListAPIView):
         get_list.pop('state')
         licences = licences.split(',')
         if len(licences) == 2:
-            query = Cea.objects.filter(Q(state=state), Q(licences__licence__category__contains=licences[0]), city__deleted_at=None).distinct()
+            query = Cea.objects.filter(Q(state=state), Q(licences__licence__category__contains=licences[0])).distinct()
         else:
-            query = Cea.objects.filter(Q(state=state), Q(licences__licence__category__contains=licences[0]) | Q(licences__licence__category__contains=licences[1]), Q(city__deleted_at=None)).distinct()
+            query = Cea.objects.filter(Q(state=state), Q(licences__licence__category__contains=licences[0])).distinct()
+            query = query.filter(Q(licences__licence__category__contains=licences[1])).distinct()
         
         query = query.filter(city__deleted_at=None)
         try:
