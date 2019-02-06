@@ -756,8 +756,8 @@
             <fieldset>
                 <section>
                     <div class="element element--seventeen animated fadeInRight">
-                            <h2 class="company-title text-center pt-2 mb-0">Instituto de tránsito o SIM</h2>
-                        <p class="text text-center pt-4 pb-3 mb-0"> Como tercer y último paso selecciona el Instituto de tránsito o SIM de tu ciudad donde deseas reclamar tu licencia conducción (deberás ir personalmente).</p>
+                            <h2 class="company-title text-center pt-2 mb-0">Expedición y entrega</h2>
+                        <p class="text text-center pt-4 pb-3 mb-0"> Como último paso selecciona el organismo de transporte (SIM, secretaría o instituto de tránsito) que quieras expida y te entregue tu  licencia de conducción.</p>
                         <div class="filter-web">
                             <span class="title-brand d-block pb-2">Filtrar por:</span>
                             <div class="form-row">
@@ -1602,6 +1602,14 @@
             }
         });
 
+        $('form').on('focus', 'input[type=number]', function (e) {
+            $(this).on('mousewheel.disableScroll', function (e) {
+                e.preventDefault()
+            })
+        })
+        $('form').on('blur', 'input[type=number]', function (e) {
+            $(this).off('mousewheel.disableScroll')
+        })
 
         $('.add-cart').on('click', function(){
             company = $(this).data('company')

@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import json
+import requests
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -121,6 +124,25 @@ class Cea(SoftDeletionModelMixin):
         return '$ %s' % (self.collection.recaudo)
 
     
+    def save(self, *args, **kwargs):
+        address = self.address.replace(" ", "+")
+        address = address.replace("#", "+")
+        url = "https://maps.googleapis.com/maps/api/geocode/json?address={},+{}&key={}".format(
+            address, self.city.name, settings.GOOGLE_MAPS_API_KEY
+        )
+        result = requests.get(url)
+        my_json = result.content.decode('utf8').replace("'", '"')
+
+        data = json.loads(my_json)
+        try:
+            obj = data['results'][0]['geometry']['location']
+        except (KeyError, IndexError):
+            print ('Ha ocurrido un error al obtener latitud y longitud')
+        if data['status'] == 'OK':
+            self.lat = obj['lat']
+            self.lon = obj['lng']
+        super(Cea, self).save(*args, **kwargs)
+    
     get_pin_sicov.short_description = "Pin Sicov"
     get_recaudo.short_description = "Recaudo banco"
 
@@ -240,6 +262,25 @@ class Crc(SoftDeletionModelMixin):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        address = self.address.replace(" ", "+")
+        address = address.replace("#", "+")
+        url = "https://maps.googleapis.com/maps/api/geocode/json?address={},+{}&key={}".format(
+            address, self.city.name, settings.GOOGLE_MAPS_API_KEY
+        )
+        result = requests.get(url)
+        my_json = result.content.decode('utf8').replace("'", '"')
+
+        data = json.loads(my_json)
+        try:
+            obj = data['results'][0]['geometry']['location']
+        except (KeyError, IndexError):
+            print ('Ha ocurrido un error al obtener latitud y longitud')
+        if data['status'] == 'OK':
+            self.lat = obj['lat']
+            self.lon = obj['lng']
+        super(Crc, self).save(*args, **kwargs)
     
     get_pin_sicov.short_description = "Pin Sicov"
     get_recaudo.short_description = "Recaudo banco"
@@ -341,6 +382,24 @@ class TransitDepartment(SoftDeletionModelMixin):
     def get_other_values(self):
         return '$ %s' % (self.prices.other)
 
+    def save(self, *args, **kwargs):
+        address = self.address.replace(" ", "+")
+        address = address.replace("#", "+")
+        url = "https://maps.googleapis.com/maps/api/geocode/json?address={},+{}&key={}".format(
+            address, self.city.name, settings.GOOGLE_MAPS_API_KEY
+        )
+        result = requests.get(url)
+        my_json = result.content.decode('utf8').replace("'", '"')
+
+        data = json.loads(my_json)
+        try:
+            obj = data['results'][0]['geometry']['location']
+        except (KeyError, IndexError):
+            print ('Ha ocurrido un error al obtener latitud y longitud')
+        if data['status'] == 'OK':
+            self.lat = obj['lat']
+            self.lon = obj['lng']
+        super(TransitDepartment, self).save(*args, **kwargs)
 
     get_runt.short_description = "RUNT"
     get_printing.short_description = "Impresion"
