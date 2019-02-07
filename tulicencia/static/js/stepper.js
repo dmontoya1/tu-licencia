@@ -597,7 +597,7 @@ function crc_filter(params){
                                         <div class="d-flex flex-row">
                                             <div class="price  pr-2">
                                                 <span class="subtitle d-block">Valor examen</span>
-                                                <p class="weigh-5">$${v.final_price}</p>
+                                                <p class="weigh-5 crc-price">${v.final_price}</p>
                                             </div>
                                             <div class="schedule pl-2 pr-2">
                                             <span class="subtitle d-block pb-1">Horarios de atención</span>
@@ -618,6 +618,11 @@ function crc_filter(params){
                     `
                 )
             })
+            $('.crc-price').priceFormat({
+                centsLimit: 0,
+                prefix: '$',
+                thousandsSeparator: '.',
+            });
             $('.company-detail-crc').on('click', function(){
                 var licence = ""
                 $.each(licences, function(i, v){
@@ -659,6 +664,11 @@ function crc_filter(params){
                     $('.add-cart').data('company', company);
 
                     initMap(data.lat, data.lon)
+                    $('.company-price').priceFormat({
+                        centsLimit: 0,
+                        prefix: '$',
+                        thousandsSeparator: '.',
+                    });
                     $('.DetailModal').modal('show')
 
                 })
@@ -668,6 +678,7 @@ function crc_filter(params){
             })
         
         }
+
         else {
             $('.crc-list').empty()
             $('.crc-list').append(
@@ -714,7 +725,7 @@ function cea_filter(params){
                                         <div class="d-flex flex-row">
                                             <div class="price  pr-2">
                                                 <span class="subtitle d-block">Valor curso de conducción</span>
-                                                <p class="weigh-5">$${v.final_price}</p>
+                                                <p class="weigh-5 cea-price">${v.final_price}</p>
                                             </div>
                                             <div class="schedule pl-2 pr-2">
                                             <span class="subtitle d-block pb-1">Horarios de atención</span>
@@ -740,6 +751,11 @@ function cea_filter(params){
                     `
                 )
             })
+            $('.cea-price').priceFormat({
+                centsLimit: 0,
+                prefix: '$',
+                thousandsSeparator: '.',
+            });
             $('.company-detail-cea').on('click', function(){
                 var licence = ""
                 $.each(licences, function(i, v){
@@ -805,6 +821,11 @@ function cea_filter(params){
                         )
                     })
                     initMap2(data.lat, data.lon)
+                    $('.company-price').priceFormat({
+                        centsLimit: 0,
+                        prefix: '$',
+                        thousandsSeparator: '.',
+                    });
                     $('.DetailModal1').modal('show')
 
                 })
@@ -859,7 +880,7 @@ function transit_filter(params){
                                         <div class="d-flex flex-row">
                                             <div class="price  pr-2">
                                                 <span class="subtitle d-block">Valor expedición</span>
-                                                <p class="weigh-5">$${v.final_price}</p>
+                                                <p class="weigh-5 transit-price">${v.final_price}</p>
                                             </div>
                                             <div class="schedule pl-2 pr-2">
                                             <span class="subtitle d-block pb-1">Horarios</span>
@@ -880,6 +901,11 @@ function transit_filter(params){
                     `
                 )
             })
+            $('.transit-price').priceFormat({
+                centsLimit: 0,
+                prefix: '$',
+                thousandsSeparator: '.',
+            });
             $('.company-detail').on('click', function(){
                 var licence = ""
                 $.each(licences, function(i, v){
@@ -920,6 +946,11 @@ function transit_filter(params){
                     $('.add-cart').data('company', company);
 
                     initMap(data.lat, data.lon)
+                    $('.company-price').priceFormat({
+                        centsLimit: 0,
+                        prefix: '$',
+                        thousandsSeparator: '.',
+                    });
                     $('.DetailModal').modal('show')
 
                 })
