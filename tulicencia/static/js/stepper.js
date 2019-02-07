@@ -2034,6 +2034,7 @@ $('.back-runt').on('click', function(){
 })
 
 $('.continue-runt').on('click', function(){
+    $('.element--runt').addClass('d-none')
     $('.btn-step-2').trigger('click')
 })
 
