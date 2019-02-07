@@ -219,6 +219,8 @@ class TransitSerializer(serializers.ModelSerializer):
         licences_r = licences_r.split(',')
         final_price = 0
         
+        print (licences_r)
+        print (len(licences_r))
         if len(licences_r) == 2:
             licence = Licence.objects.get(category=licences_r[0])
             if tramit_1 == 'FL' or tramit_1 == 'SL':

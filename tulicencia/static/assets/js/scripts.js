@@ -190,6 +190,7 @@ jQuery(document).ready(function() {
 	// next step 4
     $('.f1 .btn-step-4').on('click', function() {
 		function next_step_fn(){
+			var licence = ""
 			$.each(licences, function(i, v){
 				licence += (`${v},`)
 			})
@@ -284,18 +285,51 @@ jQuery(document).ready(function() {
     $('.f1 .btn-previous').on('click', function() {
     	// navigation steps / progress steps
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+		var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+		
+		if ($(this).hasClass('back-transit')){
+			if (tramit_type1 === 'RN' && (tramit_type2 === 'RN' || tramit_type2 == '')){
+				$(this).parents('fieldset').fadeOut(400, function() {
+					// change icons
+					current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
+					current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
+					// progress bar
+					bar_progress(progress_line, 'left');
+					bar_progress(progress_line, 'left');
+					// show previous step
+					$(this).prev().fadeIn();
+					$(this).prev().fadeIn();
+					// scroll window to beginning of the form
+					scroll_to_class( $('.f1'), 20 );
+				});
+			}
+			else {
+				$(this).parents('fieldset').fadeOut(400, function() {
+					// change icons
+					current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
+					// progress bar
+					bar_progress(progress_line, 'left');
+					// show previous step
+					$(this).prev().fadeIn();
+					// scroll window to beginning of the form
+					scroll_to_class( $('.f1'), 20 );
+				});
+			}
+		}
+		else {
+			$(this).parents('fieldset').fadeOut(400, function() {
+				// change icons
+				current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
+				// progress bar
+				bar_progress(progress_line, 'left');
+				// show previous step
+				$(this).prev().fadeIn();
+				// scroll window to beginning of the form
+				scroll_to_class( $('.f1'), 20 );
+			});
+
+		}
     	
-    	$(this).parents('fieldset').fadeOut(400, function() {
-    		// change icons
-    		current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
-    		// progress bar
-    		bar_progress(progress_line, 'left');
-    		// show previous step
-    		$(this).prev().fadeIn();
-    		// scroll window to beginning of the form
-			scroll_to_class( $('.f1'), 20 );
-    	});
     });
     
     // submit

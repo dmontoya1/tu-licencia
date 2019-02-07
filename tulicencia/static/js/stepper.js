@@ -2243,6 +2243,7 @@ $('button.filter-transit').on('click', function(e){
     if ($('.name-transit').val() != ''){
         params_transit['name']= $('.name-transit').val()
     }
+    var licence = ""
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
@@ -2257,6 +2258,7 @@ $('button.filter-transit-1').on('click', function(e){
     if ($('.name-transit-1').val() != ''){
         params_transit['name']= $('.name-transit-1').val()
     }
+    var licence = ""
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
