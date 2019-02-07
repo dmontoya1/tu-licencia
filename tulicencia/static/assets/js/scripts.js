@@ -200,7 +200,6 @@ jQuery(document).ready(function() {
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
 		if (tramit_type1 === 'RN' && (tramit_type2 === 'RN' || tramit_type2 == '')){
-			console.log('RN')
 			next_step = true
 		}
 		else if (cea == ""){

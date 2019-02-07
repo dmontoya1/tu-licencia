@@ -759,7 +759,6 @@ function cea_filter(params){
                 })
                 .then(function (response) {
                     data = response.data
-                    console.log(data)
                     if(data.logo == null){
                         logo = "/static/images/logo1.png"
                     }
@@ -2312,7 +2311,6 @@ $('.credit').on('click', function(e){
 $('#licence-request-form').on('submit', function(e){
     e.preventDefault();
     submit = true
-    console.log(payment_type)
     payment_value =  parseInt($('.total-price').last().unmask())
     payment_type2 = ''
     payment_value2 = 0
