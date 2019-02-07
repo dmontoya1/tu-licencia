@@ -139,7 +139,6 @@ jQuery(document).ready(function() {
     $('.f1 .btn-step-3').on('click', function() {
     	var parent_fieldset = $(this).parents('fieldset');
 		var next_step = true;
-		var cea_trigger = false;
     	// navigation steps / progress steps
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
     	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
@@ -181,7 +180,13 @@ jQuery(document).ready(function() {
     			scroll_to_class( $('.f1'), 20 );
 			});
 			if (tramit_type1 === 'RN' && (tramit_type2 === 'RN' || tramit_type2 == '')){
-				$('.f1 .btn-step-4').trigger('click')
+				$('.element--cea').addClass('d-none')
+				setTimeout(function(){
+					$('.btn-step-4').trigger('click')
+				}, 500);
+			}
+			else {
+				$('.element--cea').removeClass('d-none')
 			}
     	}
     	
@@ -189,42 +194,13 @@ jQuery(document).ready(function() {
 	
 	// next step 4
     $('.f1 .btn-step-4').on('click', function() {
-		function next_step_fn(){
-			$.each(licences, function(i, v){
-				licence += (`${v},`)
-			})
-			var params = {
-				state: $('#states').val(),
-				tramit_1: tramit_type1,
-				tramit_2: tramit_type2,
-				licences: licence,
-			}
-			transit_filter(params)
-    		parent_fieldset.fadeOut(400, function() {
-    			// change icons
-    			current_active_step.removeClass('active').addClass('activated').next().addClass('active');
-    			// progress bar
-    			bar_progress(progress_line, 'right');
-    			// show next step
-	    		$(this).next().fadeIn();
-	    		// scroll window to beginning of the form
-    			scroll_to_class( $('.f1'), 20 );
-			});
-		}
-    	var parent_fieldset = $(this).parents('fieldset');
+		var parent_fieldset = $(this).parents('fieldset');
 		var next_step = true;
     	// navigation steps / progress steps
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-		var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
 		if (tramit_type1 === 'RN' && (tramit_type2 === 'RN' || tramit_type2 == '')){
-			setTimeout(function(){
-				next_step_fn();
-				current_active_step.removeClass('active').addClass('activated').next().addClass('active');
-				// progress bar
-				bar_progress(progress_line, 'right');
-				// show next step
-				$(this).next().fadeIn();
-			}, 700);
+			next_step = true
 		}
 		else if (cea == ""){
 			next_step = false;
@@ -236,10 +212,29 @@ jQuery(document).ready(function() {
 				confirmButtonText: 'Ok'
 			});
 		}
-    	if( next_step ) {
-			next_step_fn();
-    	}
-    	
+		if (next_step) {
+			var licence = ""
+			$.each(licences, function(i, v){
+				licence += (`${v},`)
+			})
+			var params = {
+				state: $('#states').val(),
+				tramit_1: tramit_type1,
+				tramit_2: tramit_type2,
+				licences: licence,
+			}
+			transit_filter(params)
+			parent_fieldset.fadeOut(400, function() {
+				// change icons
+				current_active_step.removeClass('active').addClass('activated').next().addClass('active');
+				// progress bar
+				bar_progress(progress_line, 'right');
+				// show next step
+				$(this).next().fadeIn();
+				// scroll window to beginning of the form
+				scroll_to_class( $('.f1'), 20 );
+			});
+		}
 	});
 
 	// next step 5
@@ -257,12 +252,6 @@ jQuery(document).ready(function() {
 				type: 'error',
 				showCancelButton: false,
 				confirmButtonText: 'Ok'
-			}).then((result) => {
-				if (result.value) {
-					$('html, body, #licence-request-form').animate({
-						scrollTop: $('#birthdate-select').offset().top
-					}, 1000);
-				}
 			})
 		}
     	if( next_step ) {
@@ -282,20 +271,54 @@ jQuery(document).ready(function() {
     
     // previous step
     $('.f1 .btn-previous').on('click', function() {
+
     	// navigation steps / progress steps
     	var current_active_step = $(this).parents('.f1').find('.f1-step.active');
-    	var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+		var progress_line = $(this).parents('.f1').find('.f1-progress-line');
+		
+		if ($(this).hasClass('back-transit')){
+			if (tramit_type1 === 'RN' && (tramit_type2 === 'RN' || tramit_type2 == '')){
+				$('.element--cea').addClass('d-none')
+				$(this).parents('fieldset').fadeOut(400, function() {
+					// change icons
+					current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
+					// progress bar
+					bar_progress(progress_line, 'left');
+					// show previous step
+					$(this).prev().fadeIn();
+				});
+				setTimeout(function(){
+					$('.back-cea').trigger('click')
+				}, 500);
+			}
+			else {
+				$('.element--cea').removeClass('d-none')
+				$(this).parents('fieldset').fadeOut(400, function() {
+					// change icons
+					current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
+					// progress bar
+					bar_progress(progress_line, 'left');
+					// show previous step
+					$(this).prev().fadeIn();
+					// scroll window to beginning of the form
+					scroll_to_class( $('.f1'), 20 );
+				});
+			}
+		}
+		else {
+			$(this).parents('fieldset').fadeOut(400, function() {
+				// change icons
+				current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
+				// progress bar
+				bar_progress(progress_line, 'left');
+				// show previous step
+				$(this).prev().fadeIn();
+				// scroll window to beginning of the form
+				scroll_to_class( $('.f1'), 20 );
+			});
+
+		}
     	
-    	$(this).parents('fieldset').fadeOut(400, function() {
-    		// change icons
-    		current_active_step.removeClass('active').prev().removeClass('activated').addClass('active');
-    		// progress bar
-    		bar_progress(progress_line, 'left');
-    		// show previous step
-    		$(this).prev().fadeIn();
-    		// scroll window to beginning of the form
-			scroll_to_class( $('.f1'), 20 );
-    	});
     });
     
     // submit

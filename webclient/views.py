@@ -95,7 +95,6 @@ class RequestDetail(LoginRequiredMixin, DetailView):
         context['cea_rating'] = cea_rt
         context['crc_rating'] = crc_rt
         context['transit_rating'] = transit_rt
-        print (context)
         return context
 
 

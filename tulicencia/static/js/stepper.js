@@ -759,7 +759,6 @@ function cea_filter(params){
                 })
                 .then(function (response) {
                     data = response.data
-                    console.log(data)
                     if(data.logo == null){
                         logo = "/static/images/logo1.png"
                     }
@@ -2034,6 +2033,7 @@ $('.back-runt').on('click', function(){
 })
 
 $('.continue-runt').on('click', function(){
+    $('.element--runt').addClass('d-none')
     $('.btn-step-2').trigger('click')
 })
 
@@ -2243,6 +2243,7 @@ $('button.filter-transit').on('click', function(e){
     if ($('.name-transit').val() != ''){
         params_transit['name']= $('.name-transit').val()
     }
+    var licence = ""
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
@@ -2257,6 +2258,7 @@ $('button.filter-transit-1').on('click', function(e){
     if ($('.name-transit-1').val() != ''){
         params_transit['name']= $('.name-transit-1').val()
     }
+    var licence = ""
     $.each(licences, function(i, v){
         licence += (`${v},`)
     })
@@ -2309,7 +2311,6 @@ $('.credit').on('click', function(e){
 $('#licence-request-form').on('submit', function(e){
     e.preventDefault();
     submit = true
-    console.log(payment_type)
     payment_value =  parseInt($('.total-price').last().unmask())
     payment_type2 = ''
     payment_value2 = 0

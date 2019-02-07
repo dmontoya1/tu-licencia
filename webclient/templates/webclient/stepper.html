@@ -460,7 +460,7 @@
             <fieldset>
                 
                 <section>
-                    <div class="element element--seventeen animated fadeInRight">
+                    <div class="element element--crc animated fadeInRight">
                         <h2 class="company-title text-center pt-2 mb-0">Exámen médico</h2>
                         <p class="text text-center pt-4 pb-3 mb-0"> Como primer paso selecciona el Centro de reconocimiento de conductores (CRC) donde vas a realizar tu examen médico, requisito necesario y obligatorio para adquirir la licencia de conducción.</p>
                         <div class="filter-web">
@@ -608,7 +608,7 @@
             <!-- Selección CEA -->
             <fieldset>
                 <section>
-                    <div class="element element--seventeen animated fadeInRight">
+                    <div class="element element--cea animated fadeInRight">
                         <h2 class="company-title text-center pt-2 mb-0">Centro de Enseñanza Automovilístico</h2>
                         <p class="text text-center pt-4 pb-3 mb-0"> Como segundo paso selecciona el Centro Enseñanza automovilístico (CEA) donde te inscribirás en un curso de conducción, requisito necesario y obligatorio para adquirir la licencia de conducción
 
@@ -739,7 +739,7 @@
                                     <p class="mb-0 pl-3 pr-3 pb-2 text-right"><strong>Total: $<span class="total-price">0</span></strong></p>
                                 </div>
                                 <p class="text-center pt-3">
-                                    <button type="button" class="btn-block btn-brand back-crc btn-previous">
+                                    <button type="button" class="btn-block btn-brand back-cea btn-previous">
                                         <i class="material-icons">keyboard_backspace</i>Volver
                                     </button>
                                     <button type="button" class="btn btn-next-step btn-step-4">
@@ -755,7 +755,7 @@
             <!-- Selección Tránsito -->
             <fieldset>
                 <section>
-                    <div class="element element--seventeen animated fadeInRight">
+                    <div class="element element--transit animated fadeInRight">
                             <h2 class="company-title text-center pt-2 mb-0">Expedición y entrega</h2>
                         <p class="text text-center pt-4 pb-3 mb-0"> Como último paso selecciona el organismo de transporte (SIM, secretaría o instituto de tránsito) que quieras expida y te entregue tu  licencia de conducción.</p>
                         <div class="filter-web">
@@ -1574,6 +1574,7 @@
                 e.preventDefault()
             })
         })
+        
         $('form').on('blur', 'input[type=number]', function (e) {
             $(this).off('mousewheel.disableScroll')
         })
