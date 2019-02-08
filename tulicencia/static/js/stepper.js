@@ -1194,7 +1194,6 @@ $('.element--second-licence input').on('click', function(ev){
             case 'SL':
                 actual_tramit = 'SL'
                 if (!confirm_t1){
-                    console.log('No hay confirmado')
                     tramit_type1 = $(this).val()
                     if($('.option-RN').hasClass('option--selected')){
                         $('.option-RN').removeClass('option--selected')
@@ -1334,7 +1333,7 @@ $('.element--second-licence input').on('click', function(ev){
                         $('.option-SL').removeClass('option--selected')
                         clearTramit('SL')
                     }
-                    if (jQuery.inArray( confirm_l1, licences_car ) > 0){
+                    if (jQuery.inArray( confirm_l1, licences_car ) >= 0){
                         swal({
                             title: 'Atención',
                             type: 'error',
@@ -1409,7 +1408,7 @@ $('.element--second-licence input').on('click', function(ev){
                     tramit_type2 = $(this).val()
                     $('.option-' + tramit_type2).addClass('option--selected');
                     
-                    if (jQuery.inArray( confirm_l1, licences_bike ) > 0){
+                    if (jQuery.inArray( confirm_l1, licences_bike ) >= 0){
                         $('.content-bike').addClass('d-none')
                         $('.licences-bikes').addClass('d-none')
                     }
@@ -1417,7 +1416,7 @@ $('.element--second-licence input').on('click', function(ev){
                         $('.content-bike').removeClass('d-none')
                         $('.licences-bikes').removeClass('d-none')
                     }
-                    if (jQuery.inArray( confirm_l1, licences_car ) > 0){
+                    if (jQuery.inArray( confirm_l1, licences_car ) >= 0){
                         $('.content-car').addClass('d-none')
                         $('.licences-cars').addClass('d-none')
                     }
