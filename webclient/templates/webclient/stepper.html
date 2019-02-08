@@ -1012,6 +1012,7 @@
                                         <div class="form-group">
                                             <label for="">Ciudad de residencia*</label>
                                             <select class="form-control form-control-lg city-select" id="city-user" name='city'>
+                                                <option value="" selected disabled>Selecciona una ciudad</option>
                                             </select>
                                         </div>
                                     </div>
@@ -1785,6 +1786,7 @@
 
         $('.continue-auth-data').on('click', function(){
             var next = true
+            console.log($('#city-user').val())
             {% if request.user.is_anonymous %}
                 if(!($('.checkbox-terms').is(":checked"))){
                     next = false
@@ -1793,7 +1795,7 @@
             {% endif%}
             if($('#address').val() === '' || 
                 $('#email').val() === '' ||
-                $('#city-user').val() === ''){
+                $('#city-user').val() == '' || $('#city-user').val() == null){
                 next = false
                 toastr["error"]("Debes llenar todos los campos")
             }
