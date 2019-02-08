@@ -42,6 +42,7 @@ django-debug-toolbar = "*"
 feedparser = "*"
 xlwt = "*"
 raven = "*"
+django-easy-pdf = "==0.2.0.dev1"
 
 [dev-packages]
 pylint = "<2.0.0"

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from easy_pdf.views import PDFTemplateView
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -10,6 +11,8 @@ from django.shortcuts import render, redirect, get_object_or_404, reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.views.generic.base import TemplateView, View
 from django.views.generic.detail import DetailView
+
+from django_xhtml2pdf.utils import generate_pdf
 
 from companies.models import TuLicencia, TransitDepartment, CeaRating, CrcRating, TransitRating
 from manager.models import Police, State, City
@@ -23,19 +26,48 @@ class Stepper(TemplateView):
     template_name = 'webclient/stepper.html'
 
 
-class BaucherView(TemplateView):
-    """Clase para ver el template del Boucher
-    """
+class BaucherView(PDFTemplateView):
 
     template_name = 'webclient/baucher.html'
 
     def get_context_data(self, **kwargs):
-        context = super(BaucherView, self).get_context_data(**kwargs)
         request = Request.objects.get(pk=self.kwargs['pk'])
         tulicencia = TuLicencia.objects.filter(city=request.user.city).first()
-        context['request'] = request
-        context['tulicencia'] = tulicencia
-        return context
+        return super(BaucherView, self).get_context_data(
+            pagesize='Letter',
+            title='Baucher TuLicencia',
+            request=request,
+            tulicencia=tulicencia,
+            **kwargs
+        )
+
+
+# class BaucherView(View):
+#     """Clase para ver el template del Boucher
+#     """
+
+#     # template_name = 'webclient/baucher.html'
+
+#     # def get(self, request, *args, **kwargs):
+#         request = Request.objects.get(pk=self.kwargs['pk'])
+#         tulicencia = TuLicencia.objects.filter(city=request.user.city).first()
+#     #     context = {
+#     #         'request': request,
+#     #         'tulicencia': tulicencia,
+#     #     }
+#     #     report_template_name = 'webclient/baucher.html'
+#     #     response = HttpResponse(content_type='application/pdf')
+#     #     response['Content-Disposition'] = 'attachment; filename="factura.pdf"'
+#     #     result = generate_pdf(report_template_name, file_object=response, context=context)
+#     #     return response
+
+#     # def get_context_data(self, **kwargs):
+#     #     context = super(BaucherView, self).get_context_data(**kwargs)
+#     #     request = Request.objects.get(pk=self.kwargs['pk'])
+#     #     tulicencia = TuLicencia.objects.filter(city=request.user.city).first()
+#     #     context['request'] = request
+#     #     context['tulicencia'] = tulicencia
+#     #     return context
 
 
 class ContactForm(TemplateView):
@@ -62,7 +94,10 @@ class Profile(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(Profile, self).get_context_data(**kwargs)
-        requests = Request.objects.filter(user=self.request.user).order_by('request_date')
+        if self.request.user.user_type == 'EXU':
+            requests = Request.objects.filter(user_request=self.request.user).order_by('request_date')
+        else:
+            requests = Request.objects.filter(user=self.request.user).order_by('request_date')
         context['requests'] = requests
         return context
 

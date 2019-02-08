@@ -14,7 +14,7 @@
 
     <!-- <div class="col-12 form-box"> -->
 
-        <form role="form" action="/payments/checkout/" method="post" class="f1" id="licence-request-form">
+        <form role="form" autocomplete="off" action="/payments/checkout/" method="post" class="f1" id="licence-request-form">
             {% csrf_token %}
 
             <input type="hidden" name="birth_date" class="birthday-input" value="">

@@ -25,7 +25,6 @@ class RequestCreate(APIView):
     def post(self, request):
         try:
             user_data = request.data['user']
-            print (user_data)
             cea = Cea.objects.get(pk=request.data['cea'])
             try:
                 crc = Crc.objects.get(pk=request.data['crc'])
@@ -76,8 +75,17 @@ class RequestCreate(APIView):
             
             total_price = int(crc_price) + int(cea_price) + int(transit_price)
 
+            try:
+                if request.user.user_type == User.EXPRESS_USER:
+                    user_request = request.user
+                else:
+                    user_request = None
+            except:
+                user_request = None
+
             request_obj = Request(
                 user=user,
+                user_request=user_request,
                 cea=cea,
                 crc=crc,
                 transit=transit,

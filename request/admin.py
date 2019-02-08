@@ -108,7 +108,7 @@ class RequestAdmin(admin.ModelAdmin):
     list_filter = ('cea', 'crc', 'transit', 'request_status', 'payment_type', 'docs_status', )
     list_filter_companies = [RequestStatusFilter,]
 
-    readonly_fields = ('booking', 'user', 'request_date', 'id_invoice', 'payment_date', 'payment_status', 'id_epayco_invoice')
+    readonly_fields = ('booking', 'user', 'user_request', 'request_date', 'id_invoice', 'payment_date', 'payment_status', 'id_epayco_invoice')
 
     class Media:
         js = (
@@ -144,7 +144,7 @@ class RequestAdmin(admin.ModelAdmin):
     fieldsets = (
         (None,
          {'fields':
-          ('user', 'request_status', 'paper', 'docs_status', 'credit_status', 'credit_request_code', 'booking', 'request_date', 'state')}),
+          ('user', 'user_request', 'request_status', 'paper', 'docs_status', 'credit_status', 'credit_request_code', 'booking', 'request_date', 'state')}),
         (('CRC'), {'fields': ('crc', 'crc_status',)}),
         (('CEA'), {'fields': ('cea', 'cea_status', )}),
         (('Transito'), {'fields': ('transit',)}),
@@ -162,7 +162,7 @@ class RequestAdmin(admin.ModelAdmin):
     )
     exp_fieldsets = (
         (None, {
-            'fields': ('user', 'request_status', 'payment_type', 'credit_status', 'credit_request_code', 'booking', 'request_date',)
+            'fields': ('user', 'user_request', 'request_status', 'payment_type', 'credit_status', 'credit_request_code', 'booking', 'request_date',)
         }),
     )
 

@@ -28,6 +28,7 @@ THIRD_PARTY_APPS = [
     'rest_framework.authtoken',
     'debug_toolbar',
     'raven.contrib.django.raven_compat',
+    'easy_pdf',
 ]
 
 PROJECT_APPS = [
