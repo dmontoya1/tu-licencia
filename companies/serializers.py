@@ -1,6 +1,8 @@
 
 from rest_framework import serializers
 
+from django.db.models import Q
+
 from manager.models import CompaniesAdminPrices
 from manager.serializers import StateSerializer, CitySerializer, SectorSerializer
 from licences.models import AnsvRanges, AgeRange, Licence
@@ -99,11 +101,26 @@ class CeaSerializer(serializers.ModelSerializer):
     """
 
     licences = CeaLicenceSerializer(many=True, read_only=True)
-    vehicles = CeaVehicleSerializer(many=True, read_only=True)
+    vehicles = serializers.SerializerMethodField()
     city = CitySerializer(many=False, read_only=True)
     sector = SectorSerializer(many=False, read_only=True)
     final_price = serializers.SerializerMethodField()
     count_rating = serializers.SerializerMethodField()
+
+
+    def get_vehicles(self, obj):
+        request = self.context.get("request")
+        licences = request.GET.get('licences')
+        licences = licences.split(',')
+        if len(licences) == 2:
+            qs = CeaVehicle.objects.filter(Q(cea=obj), Q(vehicle__licences__category__contains=licences[0]))
+        else:
+            qs1 = CeaVehicle.objects.filter(Q(cea=obj), Q(vehicle__licences__category__contains=licences[0]))
+            qs2 = CeaVehicle.objects.filter(Q(cea=obj), Q(vehicle__licences__category__contains=licences[1]))
+            qs = qs1 | qs2
+
+        serializer = CeaVehicleSerializer(instance=qs, many=True)
+        return serializer.data
 
     def get_final_price(self, obj):
         request = self.context.get("request")

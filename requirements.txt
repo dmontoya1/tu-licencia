@@ -1,11 +1,17 @@
 -i https://pypi.org/simple
 astroid==2.0.4
 cachetools==2.1.0
+cairocffi==1.0.0
+cairosvg==2.3.0
 certifi==2018.8.24
+cffi==1.11.5
 chardet==3.0.4
 coreapi==2.3.3
 coreschema==0.0.4
+cssselect2==0.2.1
+defusedxml==0.5.0
 django-debug-toolbar==1.11
+django-easy-pdf==0.2.0.dev1
 django-xhtml2pdf==0.0.4
 django==2.1.1
 djangorestframework==3.8.2
@@ -27,20 +33,23 @@ pipenv==2018.11.26
 psycopg2-binary==2.7.5
 pyasn1-modules==0.2.2
 pyasn1==0.4.4
+pycparser==2.19
 pylint==2.1.1
 pypdf2==1.26.0
+pyphen==0.9.5
 pytz==2018.5
-raven==6.9.0
-reportlab==3.5.12
+raven==6.10.0
+reportlab==3.5.13
 requests==2.19.1
 rsa==3.4.2
 six==1.11.0
 sqlparse==0.2.4
-typed-ast==1.1.0 ; python_version < '3.7' and implementation_name == 'cpython'
+tinycss2==0.6.1
 uritemplate==3.0.0
 urllib3==1.23
-virtualenv-clone==0.4.0
-virtualenv==16.1.0
+virtualenv-clone==0.5.1
+virtualenv==16.3.0
+weasyprint==44
 webencodings==0.5.1
 wrapt==1.10.11
 xhtml2pdf==0.2.3

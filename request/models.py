@@ -102,6 +102,13 @@ class Request(models.Model):
         blank=True,
         null=True
     )
+    user_request = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name='Usuario que realizó la solicitud',
+        on_delete=models.SET_NULL,
+        related_name='related_exp_requests',
+        blank=True, null=True
+    )
     total_price = models.IntegerField(
         "Precio total",
         default=0,
