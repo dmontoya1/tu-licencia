@@ -264,10 +264,16 @@ class TransitSerializer(serializers.ModelSerializer):
                         tramit='IN',
                         licences=licence_2
                     ).first()
-                else:
+                elif tramit_2 == 'RC':
                     transit_price2 = TransitPrices.objects.filter(
                         transit=obj,
                         tramit=tramit_2,
+                        licences=licence_2
+                    ).first()
+                else:
+                    transit_price2 = TransitPrices.objects.filter(
+                        transit=obj,
+                        tramit='RN',
                         licences=licence_2
                     ).first()
             
