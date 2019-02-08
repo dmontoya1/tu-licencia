@@ -276,6 +276,7 @@ function clearLicences(){
     $('.content-bike').removeClass('d-none')
     $('.si-runt').removeClass('d-none')
     $('.no-runt').removeClass('d-none')
+    clearCart()
     licences = {}
     bike = false
     car = false
