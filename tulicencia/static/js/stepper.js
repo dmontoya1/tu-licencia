@@ -1093,12 +1093,10 @@ $('.continue-birth-date').click(() => {
                 })
             }
             else if (age < 18 && age >= 16){
-                $(".toggleC1").addClass('disabled');
-                $("input#toggleC1").attr('disabled', true);
-                $(".toggleC2").addClass('disabled');
-                $("input#toggleC2").attr('disabled', true);
-                $("toggleC3").addClass('disabled');
-                $("input#toggleC3").attr('disabled', true);
+                $(".toggleC1").hide();
+                $(".toggleC2").hide();
+                $(".toggleC3").hide();
+                $('li.option-RC').hide()
                 swal({
                     title: 'Atención',
                     text: 'Los menores de 18 años podrán adquirir únicamente licencias de servicio particular ( A1, A2 y B1), estarán restringidas las de servicio público (C1, C2 y C3).',
@@ -1254,7 +1252,7 @@ $('.element--second-licence input').on('click', function(ev){
                         confirmButtonText: 'Aceptar'
                     }).then((result) => {
                         if (result.value) {
-                            if (jQuery.inArray( confirm_l1, licences_bike ) > 0){
+                            if (jQuery.inArray( confirm_l1, licences_bike ) >= 0){
                                 $('.content-bike').addClass('d-none')
                                 $('.licences-bikes').addClass('d-none')
                             }
@@ -1262,7 +1260,7 @@ $('.element--second-licence input').on('click', function(ev){
                                 $('.content-bike').removeClass('d-none')
                                 $('.licences-bikes').removeClass('d-none')
                             }
-                            if (jQuery.inArray( confirm_l1, licences_car ) > 0){
+                            if (jQuery.inArray( confirm_l1, licences_car ) >= 0){
                                 $('.content-car').addClass('d-none')
                                 $('.licences-cars').addClass('d-none')
                             }
