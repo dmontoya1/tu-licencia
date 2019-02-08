@@ -1093,12 +1093,12 @@ $('.continue-birth-date').click(() => {
                 })
             }
             else if (age < 18 && age >= 16){
-                console.log('Menor de 16')
-                $(".toggleC1").hide();
-                $(".toggleC2").hide();
-                $(".toggleC3").hide();
-                $('.option-RC').hide();
-                $('li.option-RC').hide();
+                $(".toggleC1").addClass('disabled');
+                $("input#toggleC1").attr('disabled', true);
+                $(".toggleC2").addClass('disabled');
+                $("input#toggleC2").attr('disabled', true);
+                $("toggleC3").addClass('disabled');
+                $("input#toggleC3").attr('disabled', true);
                 swal({
                     title: 'Atención',
                     text: 'Los menores de 18 años podrán adquirir únicamente licencias de servicio particular ( A1, A2 y B1), estarán restringidas las de servicio público (C1, C2 y C3).',
@@ -1123,75 +1123,6 @@ $('.continue-birth-date').click(() => {
             }
         }   
     }
-})
-
-function get_age(){
-    birth_date = `${$('#month-1').val()}-${$('#day-1').val()}-${$('#year-1').val()}`
-    dob = new Date(birth_date);
-    var today = new Date();
-    age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-    console.log(age)
-    if (isNaN(age)){
-        swal({
-            title: 'Error',
-            text: 'Debes introducir una fecha de nacimiento válida',
-            type: 'error',
-            showCancelButton: false,
-            confirmButtonText: 'Aceptar'
-        })
-    }
-    else if (age == 18){
-        swal({
-            title: 'Atención',
-            text: 'Tienes 18 años. Para sacar tu licencia es necesario tu documento original. No se aceptan contraseñas',
-            type: 'info',
-            showCancelButton: false,
-            confirmButtonText: 'Aceptar'
-        }).then(function(){
-            $('.btn-step-1').trigger('click')
-        })
-    }
-    else if (age < 18 && age >= 16){
-        console.log('Menor de 16')
-        $(".toggleC1").hide();
-        $(".toggleC2").hide();
-        $(".toggleC3").hide();
-        $('.option-RC').hide();
-        $('li.option-RC').hide();
-        swal({
-            title: 'Atención',
-            text: 'Los menores de 18 años podrán adquirir únicamente licencias de servicio particular ( A1, A2 y B1), estarán restringidas las de servicio público (C1, C2 y C3).',
-            type: 'info',
-            showCancelButton: false,
-            confirmButtonText: 'Aceptar'
-        }).then(function(){
-            $('.btn-step-1').trigger('click')
-        })
-    }
-    else if (age < 16) {
-        swal({
-            title: 'Atención',
-            text: 'La edad mínima permitida para adquirir la licencia de conducción colombiana son 16 años, no podrás continuar con el proceso hasta que no cumplas este requisito',
-            type: 'info',
-            showCancelButton: false,
-            confirmButtonText: 'Aceptar'
-        })
-    }
-    else{
-        $('.btn-step-1').trigger('click')
-    }
-}
-
-$('#day-1').on('change', function(e){
-    get_age()
-})
-
-$('#month-1').on('change', function(e){
-    get_age()
-})
-
-$('#year-1').on('change', function(e){
-    get_age()
 })
 
 $('.back-tramit-type').on('click', function(){
