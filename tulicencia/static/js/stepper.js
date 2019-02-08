@@ -1093,12 +1093,12 @@ $('.continue-birth-date').click(() => {
                 })
             }
             else if (age < 18 && age >= 16){
-                $(".toggleC1").addClass('disabled');
-                $("input#toggleC1").attr('disabled', true);
-                $(".toggleC2").addClass('disabled');
-                $("input#toggleC2").attr('disabled', true);
-                $("toggleC3").addClass('disabled');
-                $("input#toggleC3").attr('disabled', true);
+                console.log('Menor de 16')
+                $(".toggleC1").hide();
+                $(".toggleC2").hide();
+                $(".toggleC3").hide();
+                $('.option-RC').hide();
+                $('li.option-RC').hide();
                 swal({
                     title: 'Atención',
                     text: 'Los menores de 18 años podrán adquirir únicamente licencias de servicio particular ( A1, A2 y B1), estarán restringidas las de servicio público (C1, C2 y C3).',
@@ -1126,17 +1126,11 @@ $('.continue-birth-date').click(() => {
 })
 
 function get_age(){
-    swal({
-        title: 'Atención',
-        text: 'Si cambias tu fecha de nacimiento, los precios mostrados de los servicios pueden cambiar',
-        type: 'warning',
-        showCancelButton: false,
-        confirmButtonText: 'Ok'
-    })
     birth_date = `${$('#month-1').val()}-${$('#day-1').val()}-${$('#year-1').val()}`
     dob = new Date(birth_date);
     var today = new Date();
     age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+    console.log(age)
     if (isNaN(age)){
         swal({
             title: 'Error',
@@ -1158,12 +1152,12 @@ function get_age(){
         })
     }
     else if (age < 18 && age >= 16){
-        $(".toggleC1").addClass('disabled');
-        $("input#toggleC1").attr('disabled', true);
-        $(".toggleC2").addClass('disabled');
-        $("input#toggleC2").attr('disabled', true);
-        $("toggleC3").addClass('disabled');
-        $("input#toggleC3").attr('disabled', true);
+        console.log('Menor de 16')
+        $(".toggleC1").hide();
+        $(".toggleC2").hide();
+        $(".toggleC3").hide();
+        $('.option-RC').hide();
+        $('li.option-RC').hide();
         swal({
             title: 'Atención',
             text: 'Los menores de 18 años podrán adquirir únicamente licencias de servicio particular ( A1, A2 y B1), estarán restringidas las de servicio público (C1, C2 y C3).',
