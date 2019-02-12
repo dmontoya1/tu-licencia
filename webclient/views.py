@@ -19,6 +19,7 @@ from manager.models import Police, State, City
 from request.models import Request
 from users.models import UserToken
 
+
 class Stepper(TemplateView):
     """Vista para el stepper
     """
@@ -79,11 +80,12 @@ class RequestDetail(LoginRequiredMixin, DetailView):
     """
 
     model = Request
-    template_name='webclient/request_detail.html'
+    template_name = 'webclient/request_detail.html'
     login_url = '/login'
     redirect_field_name = 'redirect_to'
 
     def get_context_data(self, **kwargs):
+        print(self.request.user)
         context = super(RequestDetail, self).get_context_data(**kwargs)
         request_obj = Request.objects.get(pk=self.kwargs['pk'])
         user = request_obj.user
@@ -102,6 +104,8 @@ class RequestDetail(LoginRequiredMixin, DetailView):
         context['cea_rating'] = cea_rt
         context['crc_rating'] = crc_rt
         context['transit_rating'] = transit_rt
+        if self.request.user.user_type == 'EXU':
+            context['express_user'] = self.request.user
         return context
 
 

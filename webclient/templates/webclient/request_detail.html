@@ -38,7 +38,7 @@
                 <div class="col-sm-6 col-md-4">
                     <span class="title">
                         Exámenes médicos
-                        {% if not request.user.user_type == 'EXU' %}
+                        {% if not express_user %}
                             {% if crc_rating is not True %}
                                 {% if object.request_status == 'ICRC' or  object.request_status == 'ICEA' or object.request_status == 'FNS' %}
                                 <span class="rated-service">
@@ -58,7 +58,7 @@
                 <div class="col-sm-6 col-md-4">
                     <span class="title">
                         Curso de conducción
-                        {% if not request.user.user_type == 'EXU' %}
+                        {% if not express_user %}
                             {% if cea_rating is not True %} 
                                 {% if object.request_status == 'ICEA' or object.request_status == 'FNS' %}
                                     <span class="rated-service">
@@ -75,7 +75,7 @@
                 <div class="col-sm-6 col-md-4">
                     <span class="title">
                         Expedición licencia
-                        {% if not request.user.user_type == 'EXU' %}
+                        {% if not express_user %}
                             {% if transit_rating is not True and object.request_status == 'FNS' %}
                                 <span class="rated-service">
                                     <button class="rated-service rate-company" data-company="transit" data-id="{{object.transit.pk}}" data-name="{{object.transit}}"">
@@ -91,8 +91,7 @@
                     <span class="title">Tipo de pago</span>
                     <span class="description">{{object.get_payment_type_display}}</span>
                 </div>
-                {% if request.user.user_type == 'EXU' %}
-                {% else %}
+                {% if not express_user %}
                     {% if object.payment_type == 'CR' %}
                         <div class="col-sm-6 col-md-4">
                             <span class="title">Estado del crédito</span>
@@ -106,7 +105,7 @@
                     {% else %}
                         <div class="col-sm-6 col-md-4">
                             <span class="title">Referencia de pago TuLicencia</span>
-                            <span class="description">{{object.id_invoice|default:''}}</span>
+                            <span class="description">{{object.id_invoice|default:'Sin Referencia'}}</span>
                         </div>
                         <div class="col-sm-6 col-md-4">
                             <span class="title">Estado pago</span>
