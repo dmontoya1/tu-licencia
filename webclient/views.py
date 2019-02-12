@@ -42,34 +42,6 @@ class BaucherView(PDFTemplateView):
         )
 
 
-# class BaucherView(View):
-#     """Clase para ver el template del Boucher
-#     """
-
-#     # template_name = 'webclient/baucher.html'
-
-#     # def get(self, request, *args, **kwargs):
-#         request = Request.objects.get(pk=self.kwargs['pk'])
-#         tulicencia = TuLicencia.objects.filter(city=request.user.city).first()
-#     #     context = {
-#     #         'request': request,
-#     #         'tulicencia': tulicencia,
-#     #     }
-#     #     report_template_name = 'webclient/baucher.html'
-#     #     response = HttpResponse(content_type='application/pdf')
-#     #     response['Content-Disposition'] = 'attachment; filename="factura.pdf"'
-#     #     result = generate_pdf(report_template_name, file_object=response, context=context)
-#     #     return response
-
-#     # def get_context_data(self, **kwargs):
-#     #     context = super(BaucherView, self).get_context_data(**kwargs)
-#     #     request = Request.objects.get(pk=self.kwargs['pk'])
-#     #     tulicencia = TuLicencia.objects.filter(city=request.user.city).first()
-#     #     context['request'] = request
-#     #     context['tulicencia'] = tulicencia
-#     #     return context
-
-
 class ContactForm(TemplateView):
     """Vista para el stepper
     """
