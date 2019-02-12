@@ -276,6 +276,13 @@ function clearLicences(){
     $('.content-bike').removeClass('d-none')
     $('.si-runt').removeClass('d-none')
     $('.no-runt').removeClass('d-none')
+    $('li.option-SL').removeClass('d-none')
+    $('li.option-RN').removeClass('d-none')
+    if (age >= 18){
+        $('li.option-RC').removeClass('d-none')
+    }
+    $('.no-more-tramit').removeClass('choose--selected')
+    $('.new-tramit').removeClass('choose--selected')
     clearCart()
     licences = {}
     bike = false
@@ -1172,6 +1179,7 @@ $('.back-vehicle-type').on('click', function(){
         $('.element--tramit-type').removeClass('d-none')
     }
     else{
+        $('.option-'+tramit_type2).removeClass('option--selected')
         $('.element--second-licence').removeClass('d-none')
     }
 })
@@ -1285,7 +1293,8 @@ $('.element--second-licence input').on('click', function(ev){
                 $('.toggleC1').removeClass('d-none')
                 $('.toggleC2').removeClass('d-none')
                 $('.toggleC3').removeClass('d-none')
-                if (!(confirm_t1)){
+                
+                if (!confirm_t1){
                     if($('.option-SL').hasClass('option--selected')){
                         $('.option-SL').removeClass('option--selected')
                         clearTramit('SL')
@@ -1316,6 +1325,12 @@ $('.element--second-licence input').on('click', function(ev){
                     }).then((result) => {
                         if (result.value) {
                             car = true
+                            actual_tramit = 'RC'
+                            $('.licences-cars').removeClass('d-none')
+                            $('.title-car').removeClass('d-none')
+                            $('.toggleC1').removeClass('d-none')
+                            $('.toggleC2').removeClass('d-none')
+                            $('.toggleC3').removeClass('d-none')
                             $('.element--second-licence').addClass('d-none');
                             $('.element--licence-type').removeClass('d-none');
                         } else {
@@ -1466,7 +1481,7 @@ $('#bike-licence').on('click', function(ev){
             $('#car-licence').removeClass('choose--selected')
             car = false
         }
-        if (!(bike)){
+        if (!bike){
             $('#bike-licence').removeClass('choose--selected')
             if ('bike' in licences){
                 delete licences['bike']
@@ -1490,7 +1505,7 @@ $('#bike-licence').on('click', function(ev){
         }
     }
     else {
-        if (!(bike)){
+        if (!bike){
             $('#bike-licence').removeClass('choose--selected')
             if ('bike' in licences){
                 delete licences['bike']
@@ -1502,6 +1517,7 @@ $('#bike-licence').on('click', function(ev){
         }
         else{
             $('#bike-licence').addClass('choose--selected')
+            $('.licences-bikes').removeClass('d-none')
             $('.title-bike').removeClass('d-none')
             $('.toggleA1').removeClass('d-none')
             $('.toggleA2').removeClass('d-none')
@@ -1533,7 +1549,7 @@ $('#car-licence').on('click', function(ev){
         }
         else{
             $('#car-licence').addClass('choose--selected')
-            $('.licences-car').removeClass('d-none')
+            $('.licences-cars').removeClass('d-none')
             $('.title-car').removeClass('d-none')
             $('.toggleB1').removeClass('d-none')
             $('.toggleC1').removeClass('d-none')
@@ -1543,7 +1559,7 @@ $('#car-licence').on('click', function(ev){
         }
     }
     else {
-        if (!(car)){
+        if (!car){
             $('#car-licence').removeClass('choose--selected')
             if ('car' in licences){
                 delete licences['car']
@@ -1557,6 +1573,7 @@ $('#car-licence').on('click', function(ev){
         }
         else{
             $('#car-licence').addClass('choose--selected')
+            $('.licences-cars').removeClass('d-none')
             $('.title-car').removeClass('d-none')
             $('.toggleB1').removeClass('d-none')
             $('.toggleC1').removeClass('d-none')
@@ -1568,7 +1585,6 @@ $('#car-licence').on('click', function(ev){
     }
     
 })
-
 
 $('.continue-vehicle-type').on('click', function(){
     if (bike === false && car === false){
@@ -1621,9 +1637,17 @@ $('.back-licence-type').on('click', function(){
         $('.check-C1').removeClass('check-pass--selected')
         $('.check-C2').removeClass('check-pass--selected')
         $('.check-C3').removeClass('check-pass--selected')
+        $('#car-licence').removeClass('choose--selected')
+        $('#bike-licence').removeClass('choose--selected')
+        $('.licences-cars').addClass('d-none')
+        $('.licences-bikes').addClass('d-none')
+        bike = false
+        car = false
+        $('.no-more-tramit').removeClass('choose--selected')
+        $('.new-tramit').removeClass('choose--selected')
     }
     else if (!confirm_t2){
-        if (jQuery.inArray( confirm_l1, licences_bike ) > 0){
+        if (jQuery.inArray( confirm_l1, licences_bike ) >= 0){
             $('.content-bike').addClass('d-none')
             $('.licences-bikes').addClass('d-none')
             deleteTramit('B1')
@@ -1647,8 +1671,7 @@ $('.back-licence-type').on('click', function(){
             $('.content-bike').removeClass('d-none')
             $('.licences-bikes').removeClass('d-none')
         }
-        jQuery.inArray( confirm_l1, licences_bike )
-        if (jQuery.inArray( confirm_l1, licences_car) > 0){
+        if (jQuery.inArray( confirm_l1, licences_car) >= 0){
             $('.content-car').addClass('d-none')
             $('.licences-cars').addClass('d-none')
             deleteTramit('A1')
@@ -1665,7 +1688,45 @@ $('.back-licence-type').on('click', function(){
             $('.licences-cars').removeClass('d-none')
         }
     }
-
+    else {
+        confirm_t2 = false
+        if (jQuery.inArray( confirm_l2, licences_car ) >= 0){
+            $('.content-car').removeClass('d-none')
+            $('.licences-cars').removeClass('d-none')
+            $('.content-bike').addClass('d-none')
+            $('.licences-bikes').addClass('d-none')
+            deleteTramit('B1')
+            deleteTramit('C1')
+            deleteTramit('C2')
+            deleteTramit('C3')
+            $('#toggleB1')[0].checked = false;
+            $('#toggleB1').removeAttr('selected')
+            $('#toggleC1')[0].checked = false;
+            $('#toggleC1').removeAttr('selected')
+            $('#toggleC2')[0].checked = false;
+            $('#toggleC2').removeAttr('selected')
+            $('#toggleC3')[0].checked = false;
+            $('#toggleC3').removeAttr('selected')
+            $('.check-B1').removeClass('check-pass--selected')
+            $('.check-C1').removeClass('check-pass--selected')
+            $('.check-C2').removeClass('check-pass--selected')
+            $('.check-C3').removeClass('check-pass--selected')
+        }
+        if (jQuery.inArray( confirm_l2, licences_bike) >= 0){
+            $('.content-car').addClass('d-none')
+            $('.licences-cars').addClass('d-none')
+            deleteTramit('A1')
+            deleteTramit('A2')
+            $('#toggleA1')[0].checked = false;
+            $('#toggleA1').removeAttr('selected')
+            $('#toggleA2')[0].checked = false;
+            $('#toggleA2').removeAttr('selected')
+            $('.check-A1').removeClass('check-pass--selected')
+            $('.check-A2').removeClass('check-pass--selected')
+            $('.content-bike').removeClass('d-none')
+            $('.licences-bikes').removeClass('d-none')
+        }
+    }
     if (actual_tramit == 'RC'){
         $('.element--licence-type').addClass('d-none')
         $('.element--second-licence').removeClass('d-none')
@@ -1740,6 +1801,13 @@ $('.no-more-tramit').on('click', function(){
 $('.back-aditional-tramit').on('click', function(){
     confirm_t1 = false
     confirm_l1 = ''
+    $('li.option-SL').removeClass('d-none')
+    $('li.option-RN').removeClass('d-none')
+    if (age >= 18){
+        $('li.option-RC').removeClass('d-none')
+    }
+    $('.no-more-tramit').removeClass('choose--selected')
+    $('.new-tramit').removeClass('choose--selected')
     $('.element--aditional-tramit').addClass('d-none')
     $('.element--licence-type').removeClass('d-none')
 })

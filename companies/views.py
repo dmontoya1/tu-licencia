@@ -53,7 +53,7 @@ class CrcList(generics.ListAPIView):
 
         params = params_to_filter(get_list.items())
         query = Crc.objects.filter(**params).distinct()
-        query = query.filter(city__deleted_at=None)
+        query = query.filter(city__deleted_at=None, deleted_at=None)
         try:
             if city != "0":
                 query = query.filter(city__pk=city)
@@ -133,7 +133,7 @@ class CeaList(generics.ListAPIView):
             query = Cea.objects.filter(Q(state=state), Q(licences__licence__category__contains=licences[0])).distinct()
             query = query.filter(Q(licences__licence__category__contains=licences[1])).distinct()
         
-        query = query.filter(city__deleted_at=None)
+        query = query.filter(city__deleted_at=None, deleted_at=None)
         try:
             if city != "0":
                 query = query.filter(city__pk=city)
@@ -239,7 +239,7 @@ class TransitList(generics.ListAPIView):
             price = None
         params = params_to_filter(get_list.items())
         query = TransitDepartment.objects.filter(**params).distinct()
-        query = query.filter(city__deleted_at=None)
+        query = query.filter(city__deleted_at=None, deleted_at=None)
         try:
             if city != "0":
                 query = query.filter(city__pk=city)
