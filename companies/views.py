@@ -132,7 +132,7 @@ class CeaList(generics.ListAPIView):
         else:
             query = Cea.objects.filter(Q(state=state), Q(licences__licence__category__contains=licences[0])).distinct()
             query = query.filter(Q(licences__licence__category__contains=licences[1])).distinct()
-        
+
         query = query.filter(city__deleted_at=None, deleted_at=None)
         try:
             if city != "0":

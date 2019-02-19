@@ -37,7 +37,6 @@ class State(SoftDeletionModelMixin):
         self.deleted_at = None
         self.save()
 
-
     class Meta:
         verbose_name = "Departamento"
 
@@ -55,7 +54,6 @@ class City(SoftDeletionModelMixin):
     def __str__(self):
         return "%s" % (self.name)
 
-    
     def soft_delete(self):
         """Ejecuta un borrado lógico desde la instancia
         """
@@ -76,7 +74,6 @@ class City(SoftDeletionModelMixin):
             sector.deleted_at = None
             sector.save()
 
-
     class Meta:
         verbose_name = "Ciudad"
         verbose_name_plural = "Ciudades"
@@ -87,13 +84,16 @@ class Sector(SoftDeletionModelMixin):
     Clase para los sectores
     """
 
-    city = models.ForeignKey(City, on_delete=models.CASCADE, related_name='related_sectors',
-                              verbose_name="Ciudad")
+    city = models.ForeignKey(
+        City,
+        on_delete=models.CASCADE,
+        related_name='related_sectors',
+        verbose_name="Ciudad"
+    )
     name = models.CharField("Nombre Sector", max_length=255)
 
     def __str__(self):
         return "%s" % (self.name)
-
 
     class Meta:
         verbose_name = "Sector"
@@ -158,11 +158,9 @@ class CompaniesAdminPrices(models.Model):
         default=CRC
     )
 
-
     def __str__(self):
         return "Recaudo de %s para %s" % (self.supplier, self.company)
     
-
     class Meta:
         verbose_name = "Adminsitración Recaudo"
         verbose_name_plural = "Administración Recaudos"
@@ -187,11 +185,9 @@ class TransitDepartmentPrices(models.Model):
         max_length=255,
     )
 
-
     def __str__(self):
         return "%s" % (self.name)
     
-
     class Meta:
         verbose_name = "Adminsitración Recaudo Organismo de transito"
         verbose_name_plural = "Administración Recaudos Organismos de transito"
@@ -238,10 +234,8 @@ class ContactForm(models.Model):
         "Mensaje",
     )
 
-
     def __str__(self):
         return "Formulario de contacto de %s" % (self.full_name)
-
 
     class Meta:
         verbose_name = "Formulario de contacto"
