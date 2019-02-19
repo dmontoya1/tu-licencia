@@ -1123,6 +1123,15 @@ $('.continue-birth-date').click(() => {
                     confirmButtonText: 'Aceptar'
                 })
             }
+            else if (age >= 90) {
+                swal({
+                    title: 'Atención',
+                    text: 'La edad máxima permitida para realizar trámites de licencia de conducción colombiana son 90 años, no podrás continuar con el proceso hasta que no cumplas este requisito',
+                    type: 'info',
+                    showCancelButton: false,
+                    confirmButtonText: 'Aceptar'
+                })
+            }
             else{
                 $('.btn-step-1').trigger('click')
             }
