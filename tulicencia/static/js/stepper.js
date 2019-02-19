@@ -2438,6 +2438,7 @@ $('#licence-request-form').on('submit', function(e){
         }
     }
     if (submit){
+        console.log(payment_type)
         if (payment_type == "CR" || payment_type == 'EXU'){
             var lic = []
             $.each(licences, function(i, v){
