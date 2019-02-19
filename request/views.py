@@ -25,11 +25,12 @@ class RequestCreate(APIView):
     def post(self, request):
         try:
             user_data = request.data['user']
-            cea = Cea.objects.get(pk=request.data['cea'])
+            crc = Crc.objects.get(pk=request.data['crc'])
             try:
-                crc = Crc.objects.get(pk=request.data['crc'])
+                print ('Try CEA')
+                cea = Cea.objects.get(pk=request.data['cea'])
             except:
-                crc = None
+                cea = None
             transit = TransitDepartment.objects.get(pk=request.data['transit'])
             crc_price = request.data['crc_price']
             cea_price = request.data['cea_price']
@@ -72,7 +73,11 @@ class RequestCreate(APIView):
                 runt = True
             else:
                 runt = False
-            
+
+            print('CEA PRICE')
+            print (cea_price)
+            if cea_price == '' or cea_price is None or cea_price == ' ':
+                cea_price = 0
             total_price = int(crc_price) + int(cea_price) + int(transit_price)
 
             try:
@@ -89,10 +94,10 @@ class RequestCreate(APIView):
                 cea=cea,
                 crc=crc,
                 transit=transit,
-                payment_type = request.data['payment_type'],
-                payment_value = request.data['payment_value'],
-                payment_type2 = request.data['payment_type2'],
-                payment_value2 = request.data['payment_value2'],
+                payment_type=request.data['payment_type'],
+                payment_value=request.data['payment_value'],
+                payment_type2=request.data['payment_type2'],
+                payment_value2=request.data['payment_value2'],
                 has_runt=runt,
                 total_price=total_price,
                 credit_status=Request.PENDIENTE_APROBACION,
@@ -100,7 +105,7 @@ class RequestCreate(APIView):
                 paper=request.data['paper']
             )
             request_obj.save()
-            
+
             licence1 = tramits['licence_1']
             licence2 = tramits['licence_2']
 

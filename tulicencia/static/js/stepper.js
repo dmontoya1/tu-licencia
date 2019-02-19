@@ -2445,7 +2445,6 @@ $('#licence-request-form').on('submit', function(e){
                 lic.push(v)
             })
             if (payment_type == 'EXU'){
-                payment_type = $('#payment-type-1').val()
                 payment_value = parseInt($('#payment-value-1').val())
                 if ($('#payment-type-2').val() != ''){
                     payment_type2 = $('#payment-type-2').val()
@@ -2472,7 +2471,7 @@ $('#licence-request-form').on('submit', function(e){
                 "cea": cea,
                 "crc": crc,
                 "transit": transit,
-                'payment_type': payment_type,
+                'payment_type': $('#payment-type-1').val(),
                 'payment_value': payment_value,
                 'payment_type2': payment_type2,
                 'payment_value2': payment_value2,

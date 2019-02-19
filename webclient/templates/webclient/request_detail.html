@@ -1,6 +1,6 @@
 {% extends 'webclient/profile_base.html' %}
 
-{% load static %}
+{% load static humanize %}
 {% load custom_range %}
 
 
@@ -87,11 +87,29 @@
                     </span>
                     <span class="description">{{object.transit}}</span>
                 </div>
-                <div class="col-sm-6 col-md-4">
-                    <span class="title">Tipo de pago</span>
-                    <span class="description">{{object.get_payment_type_display}}</span>
-                </div>
-                {% if not express_user %}
+                
+                {% if express_user %}
+                    <div class="col-sm-6 col-md-4">
+                        <span class="title">Tipo de Pago 1</span>
+                        <span class="description">{{object.get_payment_type_display|default:'Sin Pago'}}</span>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <span class="title">Valor Pago 1</span>
+                        <span class="description">{{object.payment_value|intcomma}}</span>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <span class="title">Tipo pde pago 2</span>
+                        <span class="description">{{object.get_payment_type2_display|default:'Sin tipo de pago'}}</span>
+                    </div>
+                    <div class="col-sm-6 col-md-4">
+                        <span class="title">Precio pago 2</span>
+                        <span class="description">{{object.payment_value2|intcomma}}</span>
+                    </div>
+                {% else %}
+                    <div class="col-sm-6 col-md-4">
+                        <span class="title">Tipo de pago</span>
+                        <span class="description">{{object.get_payment_type_display}}</span>
+                    </div>
                     {% if object.payment_type == 'CR' %}
                         <div class="col-sm-6 col-md-4">
                             <span class="title">Estado del crédito</span>
@@ -125,6 +143,7 @@
                             <button id="cancel-request" class="btn-cancel">Solicitar Cancelación del servicio</button>
                         </div>
                     {% endif %}
+
                 {% endif %}
             </div>
 
