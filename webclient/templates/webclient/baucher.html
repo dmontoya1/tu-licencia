@@ -20,14 +20,17 @@
 {%endblock%}
 
 {% block extra_style %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
     <style>
+
         body {
             font-family: 'Roboto', sans-serif;
             font-size: 16px;
             font-weight: 300;
             color: #333;
             line-height: 20px;
-            text-align: left;   
+            text-align: left;
         }
 
         .container {
@@ -37,6 +40,7 @@
             padding: 30px;
             border-radius: 15px;
         }
+
 
         .tiquet-number {
             font-weight: 500
