@@ -4,12 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/webclient/templates/webclient/baucher.html" line="26" mnemonic="7" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6b1f02f-6994-49ed-b36c-8866ae16d1ec" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/tulicencia/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/tulicencia/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tulicencia/templates/webclient/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/tulicencia/templates/webclient/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webclient/templates/webclient/baucher.html" beforeDir="false" afterPath="$PROJECT_DIR$/webclient/templates/webclient/baucher.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webclient/templates/webclient/stepper.html" beforeDir="false" afterPath="$PROJECT_DIR$/webclient/templates/webclient/stepper.html" afterDir="false" />
-    </list>
+    <list default="true" id="d6b1f02f-6994-49ed-b36c-8866ae16d1ec" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,12 +201,12 @@
       <option name="presentableId" value="Default" />
       <updated>1551726694609</updated>
       <workItem from="1551726699929" duration="2804000" />
-      <workItem from="1551737304127" duration="963000" />
+      <workItem from="1551737304127" duration="1563000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3767000" />
+    <option name="totallyTimeSpent" value="4367000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1920" height="1006" extended-state="6" />
