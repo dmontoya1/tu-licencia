@@ -2,7 +2,7 @@ from .base import *
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['http://3.16.156.133/', '3.16.156.133', 'solicitud.tulicencia.co', 'www.solicitud.tulencia.co']
+ALLOWED_HOSTS = ['www.solicitud.tulicencia.co', 'solicitud.tulicencia.co']
 
 DATABASES = {
     'default': {
