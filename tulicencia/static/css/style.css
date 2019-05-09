@@ -175,7 +175,7 @@ input[type="number"]::-webkit-inner-spin-button {
 	background-color: #d3d6d9;
 	padding: 15px;
 	color: rgba(0,0,0,.5);
-	font-size: 8rem;
+	font-size: .8rem;
 }
 	.alert-check a{
 		color: #162b3c;
@@ -424,6 +424,20 @@ input[type="number"]::-webkit-inner-spin-button {
 		color: #162b3c; 
 	}
 
+.content-result-cea {
+	background-color: #fff;
+	padding: .5rem;
+	text-align: left;
+}
+	.content-result-cea .thumbnail .img{
+		width: 110px;
+		height: 110px;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		margin: 0 auto;
+	}
+
 .content-result {
 	background-color: #fff;
 	padding: .5rem;
@@ -475,7 +489,16 @@ button.company-detail-1 {
 		max-width: 1200px;
 	}
 }
-
+@media (max-width: 575px){
+	#address_cea {
+		text-align: center;
+	}
+}
+@media (min-width: 576px){
+	#address_cea {
+		text-align: left;
+	}
+}
 .color-light{
 	color: rgba(0,0,0,0.4) !important;
 }
@@ -656,7 +679,13 @@ h2.company-title {
 	color: rgba(0,0,0,.7);
 	font-weight: 500;
 }
-.result-body .text-small{
+
+.p-text{
+	font-size: .7rem;
+	color: rgba(0,0,0,.7);
+	font-weight: 500;
+}
+result-body .text-small{
 	color: rgba(0,0,0,.4);
 }
 	.result-body .text-small span{
