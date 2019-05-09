@@ -727,6 +727,16 @@ result-body .text-small{
 	color: rgba(0,0,0,.4);
 }
 
+.hide-modal-detail-bot{
+    color: #fecd23;
+    font-size: .8em;
+    font-weight: 700;
+    background-color: #162d3f !important;
+    opacity: 1;
+    border-radius: 25px;
+    padding: 6px 13px !important;
+}
+
 .schedule .text{
 	font-size: .75rem;
 	color: rgba(0,0,0,.7);
