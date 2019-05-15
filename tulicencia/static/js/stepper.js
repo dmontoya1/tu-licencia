@@ -726,45 +726,59 @@ function cea_filter(params){
                 }
                 $('.cea-list').append(
                     `
-
-                    <div class="col-12 col-xl-6">
-                        <button type="button" class="company-detail-cea" data-id="${v.id}" data-company="cea" style="background-color: #fff; border: 1px solid #ddd;">
-                            <div class="d-flex flex-row content-result rounded mb-2">
-                                <div class="thumbnail mr-2 mb-4">
-                                    <div class="img" style="background-image: url(${logo});background-size: contain;"></div>
-                                        <div class="qualification">
-                                            <span class="subtitle d-block">Calificación</span>
-                                            <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>                            
+                    <button type="button" class="company-detail-cea col-12 col-xl-6 pt-3 pb-3" data-id="${v.id}" data-company="cea" style="background-color: #fff; border: 1px solid #ddd;">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-12 col-sm-3">
+                                        <div class="row ">
+                                            <div class="col-xs-12 col-sm-12 content-result-cea">
+                                                <div class="thumbnail rounded mb-1">
+                                                    <div class="img" style="background-image: url(${logo}); background-size: contain;"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 d-sm-none">
+                                                <center>
+                                                    <h6>${v.name}</h6>
+                                                    <p class="subtitle" style="margin-bottom: 0rem;">Valor curso de conducción</p>
+                                                    <h>$ ${v.final_price}</h>
+                                                </center>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col qualification">
+                                                <span class="subtitle">Calificación</span>
+                                                <p class="text"><span class="weigh-5">${v.rating} </span><i class="material-icons">grade</i> (${v.count_rating})</p>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="result-body">
-                                        <h4 class="text-small"><span>${v.name}</span></h4>
-                                        <div class="d-flex flex-row">
-                                            <div class="price  pr-2">
-                                                <span class="subtitle d-block">Valor curso de conducción</span>
-                                                <p class="weigh-5 cea-price">${v.final_price}</p>
+                                    <div class="col-12 col-sm-9">
+                                        <div class="row">
+                                            <div class="col-12 pb-2 d-none d-sm-block">
+                                                <h5><span>${v.name}</span></h5>
+                                                <p class="subtitle" style="margin-bottom: 0rem;">Valor curso de conducción</p>
+                                                <p class="p-text">$ ${v.final_price}</p>
                                             </div>
-                                            <div class="schedule pl-2 pr-2">
-                                            <span class="subtitle d-block pb-1">Horarios de atención</span>
-                                            <div class="d-flex flex-row d-normal">
-                                                <div class="pr-2">
-                                                    <p class="text mb-1">${v.schedule}
-                                                    </p>
-                                                </div>
-                                                <div class="saturday">
-                                                    <span class="subtitle d-block">horarios de cursos:</span>
-                                                    <p class="text mb-0">${v.courses_schedule}</p>
-                                                </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6">
+                                                <p class="subtitle" style="margin-bottom: 0rem;">Horarios de atención</p>
+                                                <p class="p-text">${v.schedule}</p>
                                             </div>
-                                     </div>
+                                            <div class="col-12 col-sm-6">
+                                                <p class="subtitle" style="margin-bottom: 0rem;">Horarios de cursos &nbsp;&nbsp;&nbsp;</p>
+                                                <p class="p-text">${v.courses_schedule}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <span class="subtitle d-block">Dirección:</span>
-                                    <p class="p-text">${v.address}</p>
                                 </div>
-                            </button>
-                        </div>
-                    </div>
-
+                                <div class="row">
+                                    <div class="col" id="address_cea">
+                                        <span class="subtitle">Dirección:</span>
+                                        <p class="p-text">${v.address}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
                     `
                 )
             })
@@ -823,11 +837,9 @@ function cea_filter(params){
                         }
                         $('.vehicle-list').append(
                             `
-                            <div class=" col-12 col-md-6 col-lg-2 vehicle-detail">
+                            <div class=" col-6 col-sm-4 col-lg-2 vehicle-detail">
                                 <div class="card">
-                                    <div class="card-img">
-                                        <img class="card-img-top" src="${logo_vehicle}" alt="Card image cap">
-                                    </div>
+                                    <img class="card-img-top" src="${logo_vehicle}" alt="Card image cap">
                                     <div class="card-body card-body-detail">
                                         <p class="card-text">${v.vehicle.brand.name} ${v.vehicle.line}</p>
                                     </div>
@@ -2447,7 +2459,6 @@ $('#licence-request-form').on('submit', function(e){
         }
     }
     if (submit){
-        console.log(payment_type)
         if (payment_type == "CR" || payment_type == 'EXU'){
             var lic = []
             $.each(licences, function(i, v){
@@ -2480,7 +2491,7 @@ $('#licence-request-form').on('submit', function(e){
                 "cea": cea,
                 "crc": crc,
                 "transit": transit,
-                'payment_type': $('#payment-type-1').val(),
+                'payment_type': payment_type,
                 'payment_value': payment_value,
                 'payment_type2': payment_type2,
                 'payment_value2': payment_value2,
