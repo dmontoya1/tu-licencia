@@ -2450,7 +2450,6 @@ $('#licence-request-form').on('submit', function(e){
         }
     }
     if (submit){
-        console.log("tipo de pago :D", payment_type)
         if (payment_type == "CR" || payment_type == 'EXU'){
             var lic = []
             $.each(licences, function(i, v){
@@ -2512,7 +2511,6 @@ $('#licence-request-form').on('submit', function(e){
             }
             var csrftoken = getCookie('csrftoken');
             axios.defaults.headers.common['X-CSRFToken'] = csrftoken;
-            console.log("form_data", form_data)
             axios.post('/api/request/', form_data)
             .then(function (response) {
                 data = response.data;
