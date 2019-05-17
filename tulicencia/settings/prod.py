@@ -10,8 +10,8 @@ DATABASES = {
         'NAME': 'tulicencia',
         'USER': 'tulicencia',
         'PASSWORD': 'tulicencia-pass',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': 'tulicencia.cgzekfotfrd1.us-east-2.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 
