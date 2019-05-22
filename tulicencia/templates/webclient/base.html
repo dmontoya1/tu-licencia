@@ -36,7 +36,7 @@
         <![endif] -->
 
         <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="{% static 'assets/ico/favicon.png' %}">
+        <link rel="shortcut icon" href="{% static 'icons/tl.ico' %}">
         <script src='https://www.google.com/recaptcha/api.js'></script>
         {% block extra_css %}
         {% endblock %}
@@ -53,7 +53,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 </ul>
@@ -86,7 +86,7 @@
             <div class="container-fluid">
                 <!-- <div class="row justify-content-center"> -->
                     {% block content %}
-                        
+
                     {% endblock %}
                 <!-- </div> -->
             </div>
@@ -103,7 +103,7 @@
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="{% static 'assets/js/jquery.backstretch.min.js' %}"></script>
         <script src="{% static 'assets/js/scripts.js' %}"></script>
-        
+
         <script>
             axios.defaults.headers.common['Api-Key'] = '98697b3f36dfaefb7f7f70e32be3dbde418c078b';
         </script>
