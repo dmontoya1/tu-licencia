@@ -19,7 +19,7 @@
         }
         var csrftoken = getCookie('csrftoken');
         axios.defaults.headers.common['X-CSRFToken'] = csrftoken
-        axios.defaults.headers.common['Api-Key'] = 'ef4f13859f90cc367a18021378b93c6e1e7b50fd'
+        axios.defaults.headers.common['Api-Key'] = '98697b3f36dfaefb7f7f70e32be3dbde418c078b'
 
         function disableCompany(nit){
             params = {}
