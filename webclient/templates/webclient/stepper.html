@@ -1663,7 +1663,7 @@
                         }).then((result) => {
                             if (result.value) {
                                 total = parseInt($('.total-price').unmask())
-                                old_value = parseInt($('.crc-cart-price-1').first().text())
+                                old_value = parseInt($('.crc-cart-price-1').first().unmask())
                                 final_price = total-old_value
                                 addCrc(final_price);
                                 $('.total-price').priceFormat({
@@ -1729,7 +1729,7 @@
                         }).then((result) => {
                             if (result.value) {
                                 total = parseInt($('.total-price').unmask())
-                                old_value = parseInt($('.cea-cart-price-1').first().text())
+                                old_value = parseInt($('.cea-cart-price-1').first().unmask())
                                 final_price = total-old_value
                                 addCea(final_price);
                             }
@@ -1790,7 +1790,7 @@
                         }).then((result) => {
                             if (result.value) {
                                 total = parseInt($('.total-price').unmask())
-                                old_value = parseInt($('.cea-cart-price-1').first().text())
+                                old_value = parseInt($('.transit-cart-price-1').first().unmask())
                                 final_price = total-old_value
                                 addTransit(final_price);
                             }
