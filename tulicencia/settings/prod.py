@@ -35,12 +35,12 @@ AWS_S3_OBJECT_PARAMETERS = {
 # s3 static settings
 STATIC_LOCATION = 'static'
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
-STATICFILES_STORAGE = "settings.storage_backends.StaticStorage"
+STATICFILES_STORAGE = "tulicencia.settings.storage_backends.StaticStorage"
 
 # S3 media settings
 PUBLIC_MEDIA_LOCATION = 'media'
 MEDIA_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, PUBLIC_MEDIA_LOCATION)
-DEFAULT_FILE_STORAGE = 'settings.storage_backends.MediaStorage'
+DEFAULT_FILE_STORAGE = 'tulicencia.settings.storage_backends.MediaStorage'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
