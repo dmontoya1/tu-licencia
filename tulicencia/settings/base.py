@@ -29,6 +29,7 @@ THIRD_PARTY_APPS = [
     'debug_toolbar',
     'raven.contrib.django.raven_compat',
     'easy_pdf',
+    'storages'
 ]
 
 PROJECT_APPS = [
@@ -131,12 +132,12 @@ REST_FRAMEWORK = {
     )
 }
 
-#Jet-Configs
+# Jet-Configs
 JET_THEMES = [
     {
-        'theme': 'default', # theme folder name
-        'color': '#47bac1', # color of the theme's button in user menu
-        'title': 'Default' # theme title
+        'theme': 'default',  # theme folder name
+        'color': '#47bac1',  # color of the theme's button in user menu
+        'title': 'Default'  # theme title
     },
     {
         'theme': 'green',
@@ -165,7 +166,7 @@ JET_THEMES = [
     },
 ]
 
-#email configuration
+# email configuration
 EMAIL_HOST = 'smtp.sendgrid.net'
 EMAIL_USER = 'TuLicencia.co <no-reply@tulicencia.co>'
 EMAIL_HOST_USER = 'apptitud'
