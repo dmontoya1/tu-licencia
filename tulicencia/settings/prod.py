@@ -9,8 +9,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'tulicencia',
         'USER': 'tulicencia',
-        'PASSWORD': 'tulicencia-pass',
-        'HOST': 'tulicencia.cgzekfotfrd1.us-east-2.rds.amazonaws.com',
+        'PASSWORD': '&CbzVNaCcVz*!Bft6yxf',
+        'HOST': 'tulicencia.cwbqx3olxwaw.us-east-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }
@@ -26,4 +26,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = '/var/www/tulicencia/media/'
 FILE_UPLOAD_PERMISSIONS = 0o644
 
-EMAIL_ADMIN = 'tulicencia.apptitud@gmail.com'
+EMAIL_ADMIN = 'gerencia@tulicencia.co'
