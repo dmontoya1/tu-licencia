@@ -270,8 +270,8 @@ class Request(models.Model):
                 self.request_status = self.EN_CEA
                 self.add_new_status(self.get_request_status_display())
         except Exception as e:
-            print ("Exception")
-            print (e)
+            print("Exception")
+            print(e)
 
         super(Request, self).save(*args, **kwargs)
         try:

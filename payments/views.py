@@ -137,8 +137,8 @@ class Checkout(TemplateView):
                 )
                 tramit2.save()
         except Exception as e:
-            print ("Exception")
-            print (e)
+            print("Exception")
+            print(e)
 
         p_currency_code = 'COP'
         p_amount = int(total_price)
@@ -156,7 +156,7 @@ class Checkout(TemplateView):
         p_split_receivers.append({'id': cea.epayco_code, 'fee': str(cea_price_final)})
         # p_split_receivers.append({'id': crc.epayco_code, 'fee': str(crc_price_final)})
 
-        print (p_split_receivers)
+        print(p_split_receivers)
 
         for r in p_split_receivers:
             p_signature_receivers += r['id'] + '^' + r['fee']
@@ -229,7 +229,7 @@ class Checkout(TemplateView):
             signature = hashlib.sha256(signature.encode('utf-8')).hexdigest()
 
             if signature == x_signature:
-                print ("Signs iguales")
+                print("Signs iguales")
                 request_obj = Request.objects.get(id_invoice=x_id_invoice)
 
                 #Aceptada
@@ -269,14 +269,14 @@ class Checkout(TemplateView):
                 else:
                     return HttpResponse(status=500)
             else:
-                print ("Sign diferentes")
+                print("Sign diferentes")
                 return HttpResponse(status=500)
         
         elif self.method == "GET":
-            print (self)
-            # print (self.GET.get)
-            print (self.GET)
-            print (self.GET.get('x_cust_id_cliente'))
+            print(self)
+            # print(self.GET.get)
+            print(self.GET)
+            print(self.GET.get('x_cust_id_cliente'))
             x_cust_id_cliente = self.GET.get('x_cust_id_cliente')
             x_id_invoice = self.GET.get('x_id_invoice')
             x_description = self.GET.get('x_description')
@@ -315,9 +315,9 @@ class EpaycoResponse(TemplateView):
 
     @csrf_exempt
     def response_pay(self):
-        print (self)
-        print (self.POST)
-        print (self.POST['x_cust_id_cliente'])
+        print(self)
+        print(self.POST)
+        print(self.POST['x_cust_id_cliente'])
         x_cust_id_cliente = self.POST['x_cust_id_cliente']
         x_id_invoice = self.POST['x_id_invoice']
         x_description = self.POST['x_description']

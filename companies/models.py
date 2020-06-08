@@ -137,7 +137,7 @@ class Cea(SoftDeletionModelMixin):
         try:
             obj = data['results'][0]['geometry']['location']
         except (KeyError, IndexError):
-            print ('Ha ocurrido un error al obtener latitud y longitud')
+            print('Ha ocurrido un error al obtener latitud y longitud')
         if data['status'] == 'OK':
             self.lat = obj['lat']
             self.lon = obj['lng']
@@ -276,7 +276,7 @@ class Crc(SoftDeletionModelMixin):
         try:
             obj = data['results'][0]['geometry']['location']
         except (KeyError, IndexError):
-            print ('Ha ocurrido un error al obtener latitud y longitud')
+            print('Ha ocurrido un error al obtener latitud y longitud')
         if data['status'] == 'OK':
             self.lat = obj['lat']
             self.lon = obj['lng']
@@ -395,7 +395,7 @@ class TransitDepartment(SoftDeletionModelMixin):
         try:
             obj = data['results'][0]['geometry']['location']
         except (KeyError, IndexError):
-            print ('Ha ocurrido un error al obtener latitud y longitud')
+            print('Ha ocurrido un error al obtener latitud y longitud')
         if data['status'] == 'OK':
             self.lat = obj['lat']
             self.lon = obj['lng']

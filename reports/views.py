@@ -325,7 +325,7 @@ class PurchaseApi(APIView):
             return Response(serializer.data)
 
         except Exception as e:
-            print (e)
+            print(e)
             return Response({"error": "Error"}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -376,7 +376,7 @@ class CreditsApi(APIView):
             return Response(serializer.data)
 
         except Exception as e:
-            print (e)
+            print(e)
             return Response({"error": "Error"}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -946,7 +946,7 @@ class ServicesByCompanyApi(APIView):
             return JsonResponse(query, safe=False)
 
         except Exception as e:
-            print (e)
+            print(e)
             return Response({"error": "Error"}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -979,7 +979,7 @@ class CeaServicesApi(APIView):
             return Response(serializer.data)
 
         except Exception as e:
-            print (e)
+            print(e)
             return Response({"error": "Error"}, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -1012,5 +1012,5 @@ class CrcServicesApi(APIView):
             return Response(serializer.data)
 
         except Exception as e:
-            print (e)
+            print(e)
             return Response({"error": "Error"}, status=status.HTTP_400_BAD_REQUEST)

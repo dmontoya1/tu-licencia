@@ -9,7 +9,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'tulicencia',
         'USER': 'tulicencia',
-        'PASSWORD': '&CbzVNaCcVz*!Bft6yxf',
+        'PASSWORD': 'rGzzhGgZOsGY8DZP0fJcwXhBXiSCUq83QKcxK8UlFyhsUljuxjThLzgx0cRyc5OP',
         'HOST': 'tulicencia.cwbqx3olxwaw.us-east-1.rds.amazonaws.com',
         'PORT': '5432',
     }
@@ -23,8 +23,8 @@ EMAIL_ADMIN = 'gerencia@tulicencia.co'
 
 # aws settings
 AWS_LOCATION = 'static'
-AWS_ACCESS_KEY_ID = 'AKIATUFK4SRUQNRWJPON'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID = 'AKIATUFK4SRUZ2SB75PW'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'tulicencia'
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_DEFAULT_ACL = None

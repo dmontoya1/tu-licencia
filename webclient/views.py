@@ -170,7 +170,7 @@ class ResetPasswordView(TemplateView):
             return self.render_to_response(context)
 
         except MultiValueDictKeyError as e:
-            print (e)
+            print(e)
             return HttpResponseRedirect(reverse('webclient:login'))
 
         context = self.get_context_data()

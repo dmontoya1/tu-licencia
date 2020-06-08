@@ -48,8 +48,8 @@ class UserCustomSerializer(serializers.ModelSerializer):
 			customer.email = validated_data['email']
 			customer.save()
 		except Exception as e:
-			print ("Exception")
-			print (e)
+			print("Exception")
+			print(e)
 		instance.save()
 		return instance
 

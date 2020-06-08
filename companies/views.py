@@ -86,7 +86,7 @@ class CrcList(generics.ListAPIView):
                 elif price == "2":
                     query = query.order_by('-price')
         except Exception as e:
-            print (e)
+            print(e)
         return query
 
 
@@ -166,7 +166,7 @@ class CeaList(generics.ListAPIView):
                 elif price == "2":
                     query = query.order_by('-final_price')
         except Exception as e:
-            print (e)
+            print(e)
         return query
 
 
@@ -272,7 +272,7 @@ class TransitList(generics.ListAPIView):
                 elif price == "2":
                     query = query.order_by('-price')
         except Exception as e:
-            print (e)
+            print(e)
         return query
 
 
@@ -297,7 +297,7 @@ class DisableCrcRequest(APIView):
             status_e = status.HTTP_201_CREATED
 
         except Exception as e:
-            print (e)
+            print(e)
             message = 'Ha ocurrido un error inesperado'
             response = {'error': message}
             status_e = status.HTTP_400_BAD_REQUEST
@@ -326,7 +326,7 @@ class DisableCeaRequest(APIView):
             status_e = status.HTTP_201_CREATED
 
         except Exception as e:
-            print (e)
+            print(e)
             message = 'Ha ocurrido un error inesperado'
             response = {'error': message}
             status_e = status.HTTP_400_BAD_REQUEST
@@ -355,7 +355,7 @@ class EnableCrcRequest(APIView):
             status_e = status.HTTP_201_CREATED
 
         except Exception as e:
-            print (e)
+            print(e)
             message = 'Ha ocurrido un error inesperado'
             response = {'error': message}
             status_e = status.HTTP_400_BAD_REQUEST
@@ -384,7 +384,7 @@ class EnableCeaRequest(APIView):
             status_e = status.HTTP_201_CREATED
 
         except Exception as e:
-            print (e)
+            print(e)
             message = 'Ha ocurrido un error inesperado'
             response = {'error': message}
             status_e = status.HTTP_400_BAD_REQUEST

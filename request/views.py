@@ -27,7 +27,7 @@ class RequestCreate(APIView):
             user_data = request.data['user']
             crc = Crc.objects.get(pk=request.data['crc'])
             try:
-                print ('Try CEA')
+                print('Try CEA')
                 cea = Cea.objects.get(pk=request.data['cea'])
             except:
                 cea = None
@@ -43,7 +43,7 @@ class RequestCreate(APIView):
                 user = User.objects.get(username=user_data['document_id'])
                 token, created = Token.objects.get_or_create(user=user)
             except User.DoesNotExist:
-                print (user_data)
+                print(user_data)
                 birth_date = datetime.strptime(user_data['birth_date'], '%m/%d/%Y')
                 user = get_user_model()
                 user = user()
@@ -52,7 +52,7 @@ class RequestCreate(APIView):
                 try:
                     user.set_password(user_data['password'])
                 except:
-                    print ('Not password supply')
+                    print('Not password supply')
                 user.first_name = user_data['first_name']
                 user.last_name = user_data['last_name']
                 user.cellphone = user_data['cellphone']
@@ -75,7 +75,7 @@ class RequestCreate(APIView):
                 runt = False
 
             print('CEA PRICE')
-            print (cea_price)
+            print(cea_price)
             if cea_price == '' or cea_price is None or cea_price == ' ':
                 cea_price = 0
             total_price = int(crc_price) + int(cea_price) + int(transit_price)
@@ -138,7 +138,7 @@ class RequestCreate(APIView):
             response = {'detail': message, 'request': request_obj.pk, 'booking': request_obj.booking}
             status_e = status.HTTP_201_CREATED
         except Exception as e:
-            print (e)
+            print(e)
             message = 'Ha ocurrido un error inesperado'
             response = {'error': message}
             status_e = status.HTTP_400_BAD_REQUEST
@@ -164,7 +164,7 @@ class ValidRequestDocument(APIView):
                     response = {'error': 'Los documentos no coinciden'}
                     status_e = status.HTTP_400_BAD_REQUEST
         except Exception as e:
-            print (e)
+            print(e)
             message = 'Ha ocurrido un error inesperado'
             response = {'error': message}
             status_e = status.HTTP_400_BAD_REQUEST

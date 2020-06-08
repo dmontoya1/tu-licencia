@@ -37,9 +37,9 @@ class Render:
         html = template.render(params)
         file_name = "instrucciones.pdf"
         file_path = os.path.join(os.path.abspath(os.path.dirname("__file__")), "tulicencia", file_name)
-        print (file_path)
+        print(file_path)
         with open(file_path, 'wb') as pdf:
-            print (pdf)
+            print(pdf)
             pisa.pisaDocument(BytesIO(html.encode("UTF-8")), pdf)
-            print ("Salio del pisa")
+            print("Salio del pisa")
         return [file_name, file_path]

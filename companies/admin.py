@@ -112,7 +112,7 @@ class CeaAdmin(SoftDeletionModelAdminMixin):
             try:
                 return query.filter(manager=request.user)
             except Exception as e:
-                print (e)
+                print(e)
         else:
             return query.all()
 
@@ -174,7 +174,7 @@ class CrcAdmin(SoftDeletionModelAdminMixin):
             try:
                 return query.filter(manager=request.user)
             except Exception as e:
-                print (e)
+                print(e)
         else:
             return query.all()
 
@@ -237,7 +237,7 @@ class TuLicenciaAdmin(SoftDeletionModelAdminMixin):
             try:
                 return query.filter(express_user=request.user)
             except Exception as e:
-                print (e)
+                print(e)
         else:
             return query.all()
 
